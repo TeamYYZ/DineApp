@@ -14,34 +14,29 @@ CodePath Final project
 - can’t decide where to go? Vote for it
 
 ## Required (core) user stories
-User can sign in using social media account / or create new Dine account
+- User can sign in using social media account / or create new Dine account
 
-User can browse nearby dine requests by map view or list view(categorised by restaurant name/ distance)
+- User can browse nearby dine requests by map view or list view(categorised by restaurant name/ distance)
 
-User can choose to join a request, and send out the arrival time and meet-up location
+- User can choose to join a request, and send out the arrival time and meet-up location, the direction to the chosen restuarant is also shown
 
-User can create a request(time and restaurant) and post it
+- User can create a request(time and restaurant) and post it
 
-User can create party group(restaurant, location, scheduled time will be visible to all group members), group members would get
-notifications from group owner in case there’s any changes
+- User can create party group(restaurant, location, scheduled time will be visible to all group members), group members would get notifications from group owner in case there’s any changes. Groups can either be public or private, so that owner has control over who gets to see the request.
 
-Group owner can see group members’ location if the user allows it
+- Group owner can see group members’ location if the user allows it
 
-Group owner can start a voting on restaurant candidates, group members can vote
+- Group owner can start a voting on restaurant candidates, group members can vote
 
-As a user, I have a friend list  and can add friends by searching their accounts 
+- In user profile, there's a friend list and can add friends by searching their username
 
-As a user, I have a block list, such that every dining request I initiated will not be visible to him/her, and I will receive a notification if he/she enters the dining group that I am currently in.
+- In user profile, there's a block list, such that every dining request I initiated will not be visible to him/her, and I will receive a notification if he/she enters the dining group that I am currently in.
 
-As a user, I can create a private dining group and send invitation to selected friends and the dining request is invisible to any others.  
-
-The app can tell user the direction to the chosen restuarant
-
-The user can know how much money each needs to pay and tips as well
 
 ## Optional (nice to have) user stories
-Chat room for party group
+- Chat room for party group
+- Private messaging system
+- User credibility system(if a user accept a request and never shows up, the credibility will decrease)
+- The user can know how much money each needs to pay and tips as well
 
-User credibility system(if a user accept a request and never shows up, the credibility will decrease)
 
-Private message system
