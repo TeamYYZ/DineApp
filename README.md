@@ -5,14 +5,15 @@ CodePath Final project
 - You Wu
 - Yi Huang
 - Senyang Zhuang
-- 
+
 # User Stories
 
-## Short description of your app
-Get a lunch buddy in minutes with the “Dine” app
-Planning a meal? See your friends’ location and know when will everyone show up
-can’t decide where to go? Vote for it
-## Required (core) user stories for your app in a bulleted list
+## Short description of our app
+- Get a lunch buddy in minutes with the “Dine” app
+- Planning a meal? See your friends’ location and know when will everyone show up
+- can’t decide where to go? Vote for it
+
+## Required (core) user stories
 User can sign in using social media account / or create new Dine account
 
 User can browse nearby dine requests by map view or list view(categorised by restaurant name/ distance)
@@ -38,7 +39,7 @@ The app can tell user the direction to the chosen restuarant
 
 The user can know how much money each needs to pay and tips as well
 
-## Optional (nice to have) user stories listed separately
+## Optional (nice to have) user stories
 Chat room for party group
 
 User credibility system(if a user accept a request and never shows up, the credibility will decrease)
