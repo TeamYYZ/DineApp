@@ -40,3 +40,6 @@ CodePath Final project
 - The user can know how much money each needs to pay and tips as well
 
 
+## Wireframe
+
+![Alt text](/dine.png?raw=true "Wireframe")
