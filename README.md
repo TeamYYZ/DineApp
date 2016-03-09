@@ -1,7 +1,7 @@
-# Group-Project
+# Dine App
 CodePath Final project
 
-# Members
+# YYZ group Members
 - You Wu
 - Yi Huang
 - Senyang Zhuang
