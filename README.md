@@ -43,3 +43,14 @@ CodePath Final project
 ## Wireframe
 
 ![Alt text](/dine.png?raw=true "Wireframe")
+
+
+## Data Schema
+| Table name | Column name ||||||||
+| ---------- | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| User |	UID	username(screen name) |	first name |	last name	| password |	email |	dob	| gender	| profile description |
+| Activity |	AID	| request poster username	| request time |	request restaurant|	description	| group_id |		
+| Group |	group_id |owner(UID) | group members (UID array) |				
+| GroupMember |	UID	| current location |	arrival time |			
+| FriendList | UID | friends array |							
+| Invitation | IID | sender |	receiver | description | restaurant name | time |			
