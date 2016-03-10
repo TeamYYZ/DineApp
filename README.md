@@ -26,15 +26,13 @@ CodePath Final project
 
 - Group owner can see group members’ location if the user allows it
 
-- Group owner can start a voting on restaurant candidates, group members can vote
-
 - In user profile, there's a friend list and can add friends by searching their username
-
-- In user profile, there's a block list, such that every dining request I initiated will not be visible to him/her, and I will receive a notification if he/she enters the dining group that I am currently in.
 
 
 ## Optional (nice to have) user stories
 - Chat room for party group
+- In user profile, there's a block list, such that every dining request I initiated will not be visible to him/her, and I will receive a notification if he/she enters the dining group that I am currently in.
+- Group owner can start a voting on restaurant candidates, group members can vote
 - Private messaging system
 - User credibility system(if a user accept a request and never shows up, the credibility will decrease)
 - The user can know how much money each needs to pay and tips as well
