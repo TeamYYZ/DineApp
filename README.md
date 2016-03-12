@@ -45,10 +45,10 @@ CodePath Final project
 
 ## Data Schema
 | Table name | Column name ||||||||
-| ---------- | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-| User |	UID	username(screen name) |	first name |	last name	| password |	email |	dob	| gender	| profile description |
-| Activity |	AID	| request poster username	| request time |	request restaurant|	description	| group_id |		
-| Group |	GID |owner(UID) | group members (UID array) |				
-| GroupMember |	UID	| current location |	arrival time |			
-| FriendList | UID | friends array |							
-| Invitation | IID | sender |	receiver | description | restaurant name | time |			
+| ---------- | ----------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| User |	UID	username(screen name) |	first name |	last name	| password |	email |	dob	| gender	| profile description | friends array |
+| Activity |	AID	| request poster username	| request time |	yelp business id |	description	| GID |		
+| Group |	GID |owner(UID) | group members (UID array) |	chatroom table | members table		
+| GroupMember |	UID	| current location |
+| Invitation | IID | sender |	receivers(UID) | AID |			
+| GroupChat | UID | time | message |
