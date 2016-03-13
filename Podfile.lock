@@ -1,13 +1,21 @@
 PODS:
   - Bolts/Tasks (1.6.0)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
+  - SWRevealViewController (2.3.0)
 
 DEPENDENCIES:
+  - ChameleonFramework/Swift
   - Parse
+  - SWRevealViewController
 
 SPEC CHECKSUMS:
   Bolts: f52a250053bb517ca874523c3913776359ab3def
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
 COCOAPODS: 0.39.0

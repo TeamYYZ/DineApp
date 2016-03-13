@@ -85,9 +85,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Dine/Bolts.framework"
+  install_framework "Pods-Dine/ChameleonFramework.framework"
   install_framework "Pods-Dine/Parse.framework"
+  install_framework "Pods-Dine/SWRevealViewController.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Dine/Bolts.framework"
+  install_framework "Pods-Dine/ChameleonFramework.framework"
   install_framework "Pods-Dine/Parse.framework"
+  install_framework "Pods-Dine/SWRevealViewController.framework"
 fi

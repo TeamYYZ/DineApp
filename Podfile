@@ -5,5 +5,7 @@ use_frameworks!
 
 target 'Dine' do
 	pod 'Parse'
+    pod 'SWRevealViewController'
+    pod 'ChameleonFramework/Swift'
 end
 
