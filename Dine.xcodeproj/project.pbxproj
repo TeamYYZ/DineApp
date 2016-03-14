@@ -21,6 +21,7 @@
 		C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09331C960EFB00345357 /* MapAnnotation.swift */; };
 		C6EE09361C96272900345357 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09351C96272900345357 /* CheckButton.swift */; };
 		C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09391C96328C00345357 /* InvitationViewController.swift */; };
+		C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093B1C96355500345357 /* FriendsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C6EE09331C960EFB00345357 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		C6EE09351C96272900345357 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		C6EE09391C96328C00345357 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
+		C6EE093B1C96355500345357 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C6EE09291C94B87700345357 /* SignupViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
+				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
+				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* SignupViewController.swift in Sources */,
 				C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,

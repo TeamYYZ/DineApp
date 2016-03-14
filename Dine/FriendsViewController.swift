@@ -1,5 +1,5 @@
 //
-//  InvitationViewController.swift
+//  FriendsViewController.swift
 //  Dine
 //
 //  Created by you wu on 3/13/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InvitationViewController: UITableViewController {
+class FriendsViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
     override func viewDidLoad() {
@@ -16,7 +16,6 @@ class InvitationViewController: UITableViewController {
 
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +37,7 @@ class InvitationViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("invitationCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath)
 
         // Configure the cell...
 
