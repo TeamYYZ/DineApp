@@ -22,6 +22,13 @@
 		C6EE09361C96272900345357 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09351C96272900345357 /* CheckButton.swift */; };
 		C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09391C96328C00345357 /* InvitationViewController.swift */; };
 		C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093B1C96355500345357 /* FriendsViewController.swift */; };
+		C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */; };
+		C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */; };
+		C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */; };
+		C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09431C9742C200345357 /* UserProfileViewController.swift */; };
+		C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */; };
+		C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09471C975F1200345357 /* ActivityProfileCell.swift */; };
+		C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09491C975F7F00345357 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +51,13 @@
 		C6EE09351C96272900345357 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		C6EE09391C96328C00345357 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		C6EE093B1C96355500345357 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMenuViewController.swift; sourceTree = "<group>"; };
+		C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMenuHeaderView.swift; sourceTree = "<group>"; };
+		C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarMenuHeaderView.xib; sourceTree = "<group>"; };
+		C6EE09431C9742C200345357 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityProfileViewController.swift; sourceTree = "<group>"; };
+		C6EE09471C975F1200345357 /* ActivityProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityProfileCell.swift; sourceTree = "<group>"; };
+		C6EE09491C975F7F00345357 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,11 +127,15 @@
 		C6EE09241C9070ED00345357 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C6EE09431C9742C200345357 /* UserProfileViewController.swift */,
+				C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */,
 				C6EE092B1C96038700345357 /* MapViewController.swift */,
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C6EE09291C94B87700345357 /* SignupViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
 				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
+				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
+				C6EE09491C975F7F00345357 /* ChatViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -129,6 +147,9 @@
 				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
 				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
 				C6EE09351C96272900345357 /* CheckButton.swift */,
+				C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */,
+				C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */,
+				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -202,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */,
 				C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */,
 				C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */,
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,
@@ -264,14 +286,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */,
+				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
+				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
+				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* SignupViewController.swift in Sources */,
 				C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */,
+				C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,
 				C6EE092C1C96038700345357 /* MapViewController.swift in Sources */,
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
+				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

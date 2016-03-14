@@ -15,6 +15,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var arrivalTimeLabel: UILabel!
+    @IBOutlet weak var exitActivityButton: UIButton!
 
     var location = CLLocation(latitude: 30.601433, longitude: -96.314464)
     var locationManager : CLLocationManager!
@@ -27,6 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
+        exitActivityButton.addTarget(self, action: Selector("userExitedActivity:"), forControlEvents: .TouchUpInside)
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         
@@ -37,13 +39,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func userJoinedActivity() {
+        //update map, only show selected point and direction
+        //always show pin view
         toolBar.hidden = false
         arrivalTimeLabel.hidden = false
     }
     
     func userExitedActivity() {
+        //update map, show all requests in the area
+        loadMap()
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
+    }
+    
+    func userExitedActivity(sender: UIButton!) {
+        userExitedActivity()
+    }
+    
+    @IBAction func onExitActivity(sender: UIStoryboardSegue) {
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,7 +91,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             view!.canShowCallout = true
             view!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             let button = CheckButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
             view!.leftCalloutAccessoryView = button
 
             let mapDetailView = MapDetailView()
@@ -87,12 +100,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         return nil
     }
-
+    
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == annotationView.rightCalloutAccessoryView {
-            print("Show more info")
-        }else {
-            print("Join this activity")
+            self.performSegueWithIdentifier("toActivityProfileSegue", sender: self)
         }
     }
     
@@ -107,6 +118,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     */
     
     func loadMap() {
+        mapView.removeAnnotations(mapView.annotations)
         let info = MapAnnotation()
         mapView.addAnnotation(info)
     }

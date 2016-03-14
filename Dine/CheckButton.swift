@@ -9,9 +9,9 @@
 import UIKit
 
 class CheckButton: UIButton {
-    var button : UIButton = UIButton(type: UIButtonType.Custom)
+
     let checked = UIImage(named: "Checked")
-    let checkedFilled = UIImage(named: "CheckedFilled")
+    let cancel = UIImage(named: "Cancel")
     var isChecked = false
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,31 +24,26 @@ class CheckButton: UIButton {
         setupButton()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        button.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2)
-    }
     
     func setupButton() {
-        button.setImage(checked, forState: .Normal)
-        button.setImage(checkedFilled, forState: .Selected)
-        button.setImage(checkedFilled, forState: .Highlighted)
-        button.adjustsImageWhenHighlighted = false
+        self.setImage(checked, forState: .Normal)
+        self.adjustsImageWhenHighlighted = false
         
-        button.frame = CGRectMake(0, 0, 30, 30)
-        button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(button)
+        self.frame = CGRectMake(0, 0, 30, 30)
+        self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
 
     }
     
     func buttonClicked (sender : UIButton!) {
         isChecked = !isChecked
         if isChecked {
-            sender.setImage(checkedFilled, forState: .Normal)
+            sender.setImage(cancel, forState: .Normal)
+            sender.setImage(cancel, forState: .Highlighted)
             NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
 
         }else {
             sender.setImage(checked, forState: .Normal)
+            sender.setImage(checked, forState: .Highlighted)
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
         }
         
