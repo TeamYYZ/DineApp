@@ -30,6 +30,7 @@
 		C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09471C975F1200345357 /* ActivityProfileCell.swift */; };
 		C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09491C975F7F00345357 /* ChatViewController.swift */; };
 		C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */; };
+		C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		C6EE09471C975F1200345357 /* ActivityProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityProfileCell.swift; sourceTree = "<group>"; };
 		C6EE09491C975F7F00345357 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantPickerViewController.swift; sourceTree = "<group>"; };
+		C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */,
 				C6EE092B1C96038700345357 /* MapViewController.swift */,
 				C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */,
+				C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */,
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C6EE09291C94B87700345357 /* SignupViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */,
+				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,

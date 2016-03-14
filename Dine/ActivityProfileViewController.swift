@@ -17,7 +17,7 @@ class ActivityProfileViewController: UITableViewController {
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
         
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
-        profileView = UIImageView(image: UIImage(named: "UserGroup"))
+        profileView = UIImageView(image: UIImage(named: "map"))
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
         profileView.clipsToBounds = true
         profileView.contentMode = .ScaleAspectFill
