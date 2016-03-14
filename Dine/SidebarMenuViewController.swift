@@ -46,7 +46,7 @@ class SidebarMenuViewController: UITableViewController {
         self.performSegueWithIdentifier("toUserProfileSegue", sender: self)
     }
 
-    @IBAction func onExitProfileView(sender: UIStoryboardSegue) {
+    @IBAction func unwindToSidebar(sender: UIStoryboardSegue) {
         
     }
     /*

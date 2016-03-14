@@ -56,7 +56,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         userExitedActivity()
     }
     
-    @IBAction func onExitActivity(sender: UIStoryboardSegue) {
+    @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         
     }
     

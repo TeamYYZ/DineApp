@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
         self.performSegueWithIdentifier("loginSegue", sender: sender)
     }
     
-    @IBAction func onCancelSignup(sender: UIStoryboardSegue) {
+    @IBAction func unwindToLogin(sender: UIStoryboardSegue) {
         
     }
     /*
