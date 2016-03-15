@@ -11,10 +11,10 @@ import UIKit
 import ChameleonFramework
 
 extension UIView {
-    func setBottomBorder() {
+    func setBottomBorder(color color: UIColor) {
         let BottomBorder = CALayer()
         BottomBorder.frame = CGRectMake(0.0, self.frame.size.height - 1, self.frame.size.width, 1.0)
-        BottomBorder.backgroundColor = UIColor.flatWhiteColorDark().CGColor
+        BottomBorder.backgroundColor = color.CGColor
         self.layer.addSublayer(BottomBorder)
     }
     

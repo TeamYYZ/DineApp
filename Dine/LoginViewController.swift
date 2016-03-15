@@ -38,11 +38,11 @@ class LoginViewController: UIViewController {
 
         appTitleLabel.textColor = ColorTheme.sharedInstance.loginTextColor
         createNewAccountLabel.tintColor = ColorTheme.sharedInstance.loginTextColor
-        seperatorViewLeft.setBottomBorder()
-        seperatorViewRight.setBottomBorder()
-        orLabel.textColor = ColorTheme.sharedInstance.loginTextColor
-        usernameField.setBottomBorder()
-        passwordField.setBottomBorder()
+        seperatorViewLeft.backgroundColor = ColorTheme.sharedInstance.loginOptianLabelColor
+        seperatorViewRight.backgroundColor = ColorTheme.sharedInstance.loginOptianLabelColor
+        orLabel.textColor = ColorTheme.sharedInstance.loginOptianLabelColor
+        usernameField.setBottomBorder(color: ColorTheme.sharedInstance.loginTextColor)
+        passwordField.setBottomBorder(color: ColorTheme.sharedInstance.loginTextColor)
         passwordField.tintColor = ColorTheme.sharedInstance.loginTextColor
         usernameField.tintColor = ColorTheme.sharedInstance.loginTextColor
         usernameField.textColor = ColorTheme.sharedInstance.loginTextColor

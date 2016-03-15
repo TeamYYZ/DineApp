@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A9F20DA4F0AE323B838DB4D6 /* Pods_Dine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420E646DC877272EF89BFF60 /* Pods_Dine.framework */; };
 		C17424861C9789D400125377 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17424851C9789D400125377 /* ColorTheme.swift */; };
+		C17AABDD1C97E6B900CC83CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDC1C97E6B900CC83CF /* User.swift */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
 		C6EE09181C906F6200345357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09161C906F6200345357 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		1339928E4EE71C5793830748 /* Pods-Dine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.debug.xcconfig"; sourceTree = "<group>"; };
 		420E646DC877272EF89BFF60 /* Pods_Dine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C17424851C9789D400125377 /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		C17AABDC1C97E6B900CC83CF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
 		C6EE090F1C906F6200345357 /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +179,7 @@
 		C6EE09261C90710400345357 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C17AABDC1C97E6B900CC83CF /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
 				C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */,
+				C17AABDD1C97E6B900CC83CF /* User.swift in Sources */,
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* SignupViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,
