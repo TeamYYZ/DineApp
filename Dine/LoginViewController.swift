@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var seperatorViewRight: UIView!
     
+    @IBOutlet weak var fbIcon: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         gradientLayer.frame = self.view.bounds
@@ -50,6 +52,9 @@ class LoginViewController: UIViewController {
         
         signInButton.applyPlainShadow()
         signUpButton.applyPlainShadow()
+        fbIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
+        fbIcon.tintColor = ColorTheme.sharedInstance.loginTextColor
+
         
         // Do any additional setup after loading the view.
     }

@@ -61,23 +61,6 @@
                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1zF-TH-1UV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJO-3s-q83">
-                                <rect key="frame" x="45" y="350" width="230" height="40"/>
-                                <color key="backgroundColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Tbd-0l-vz0"/>
-                                    <constraint firstAttribute="width" constant="230" id="dTA-F4-fi4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="SIGN UP">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dY-mv-pLZ"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Onr-1s-g3w" userLabel="seperator">
                                 <rect key="frame" x="37" y="313" width="106" height="2"/>
                                 <constraints>
@@ -97,7 +80,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7a-T4-zyH">
-                                <rect key="frame" x="40" y="398" width="240" height="44"/>
+                                <rect key="frame" x="40" y="383" width="240" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgY-bd-giA">
                                         <rect key="frame" x="66" y="8" width="143" height="28"/>
@@ -128,11 +111,26 @@
                                     <constraint firstItem="fgY-bd-giA" firstAttribute="leading" secondItem="5CD-DH-5Nz" secondAttribute="trailing" constant="21" id="ycg-iZ-wry"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJO-3s-q83">
+                                <rect key="frame" x="45" y="335" width="230" height="40"/>
+                                <color key="backgroundColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Tbd-0l-vz0"/>
+                                    <constraint firstAttribute="width" constant="230" id="dTA-F4-fi4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="SIGN UP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.1725741029" green="0.21834245320000001" blue="0.44677489999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="i7a-T4-zyH" firstAttribute="top" secondItem="fJO-3s-q83" secondAttribute="bottom" constant="8" id="3HF-le-t5h"/>
                             <constraint firstItem="J4r-6C-y9G" firstAttribute="top" secondItem="1JI-7J-dkx" secondAttribute="bottom" constant="35" id="4vq-G6-9ut"/>
+                            <constraint firstItem="7RT-Zn-IZK" firstAttribute="centerY" secondItem="Onr-1s-g3w" secondAttribute="centerY" id="DR0-V9-J33"/>
                             <constraint firstItem="7RT-Zn-IZK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Onr-1s-g3w" secondAttribute="trailing" constant="8" id="Dp5-QD-aMd"/>
                             <constraint firstItem="7RT-Zn-IZK" firstAttribute="leading" secondItem="Onr-1s-g3w" secondAttribute="trailing" constant="8" id="ESn-dE-sTy"/>
                             <constraint firstItem="cCL-SQ-pQq" firstAttribute="leading" secondItem="7RT-Zn-IZK" secondAttribute="trailing" constant="8" id="Gah-7h-Gpg"/>
@@ -140,9 +138,10 @@
                             <constraint firstItem="J4r-6C-y9G" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JP8-da-geU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cCL-SQ-pQq" secondAttribute="trailing" constant="25" id="PDL-MI-iRs"/>
                             <constraint firstItem="cCL-SQ-pQq" firstAttribute="top" secondItem="J4r-6C-y9G" secondAttribute="bottom" constant="20" id="RDi-cS-OW8"/>
+                            <constraint firstItem="cCL-SQ-pQq" firstAttribute="centerY" secondItem="Onr-1s-g3w" secondAttribute="centerY" id="V9d-XT-Xiy"/>
                             <constraint firstItem="7RT-Zn-IZK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YNg-Ol-OCd"/>
                             <constraint firstItem="i7a-T4-zyH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cfY-DU-ziu"/>
-                            <constraint firstItem="fJO-3s-q83" firstAttribute="top" secondItem="7RT-Zn-IZK" secondAttribute="bottom" constant="29" id="dGo-Po-EgC"/>
+                            <constraint firstItem="fJO-3s-q83" firstAttribute="top" secondItem="7RT-Zn-IZK" secondAttribute="bottom" constant="14" id="dGo-Po-EgC"/>
                             <constraint firstItem="Onr-1s-g3w" firstAttribute="top" secondItem="J4r-6C-y9G" secondAttribute="bottom" constant="20" id="dWn-nO-xXO"/>
                             <constraint firstItem="Onr-1s-g3w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="25" id="dnJ-l0-Rpe"/>
                             <constraint firstItem="gNd-gL-jOa" firstAttribute="top" secondItem="zXZ-09-OtG" secondAttribute="bottom" constant="40" id="eRp-RM-koh"/>
@@ -159,11 +158,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="dWn-nO-xXO"/>
                                 <exclude reference="dnJ-l0-Rpe"/>
                                 <exclude reference="im2-3F-zRP"/>
                                 <exclude reference="Dp5-QD-aMd"/>
                                 <exclude reference="Gah-7h-Gpg"/>
                                 <exclude reference="PDL-MI-iRs"/>
+                                <exclude reference="RDi-cS-OW8"/>
                             </mask>
                         </variation>
                     </view>
@@ -171,6 +172,7 @@
                     <connections>
                         <outlet property="appTitleLabel" destination="zXZ-09-OtG" id="sRJ-6I-lme"/>
                         <outlet property="createNewAccountLabel" destination="fgY-bd-giA" id="8eE-Qg-3Ho"/>
+                        <outlet property="fbIcon" destination="5CD-DH-5Nz" id="Qd3-Gp-gCj"/>
                         <outlet property="orLabel" destination="7RT-Zn-IZK" id="x7W-Pu-wdW"/>
                         <outlet property="passwordField" destination="1JI-7J-dkx" id="PiG-5d-IdL"/>
                         <outlet property="seperatorViewLeft" destination="Onr-1s-g3w" id="FCc-3u-80M"/>
