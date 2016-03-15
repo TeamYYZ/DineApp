@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Parse
 
 class User {
-    var userID: String?
+    var objectID: String?
+    var username: String?
     var firstName: String?
     var lastName: String?
     var password: String?
@@ -21,12 +23,18 @@ class User {
     var friendList: [String]?   // save user's objectID
     
     static var currentUser: User?
-    // for persistently store the current User object
+    // for persistently store the current User object, generate a User object after restarting in Appdelegate
     
-    init () {
-    
-    
-    
+    init (pfUser: PFUser) {
+        self.objectID = pfUser.objectId
+        self.username = pfUser.username
+        self.password = pfUser.password
+        if let lastName = pfUser["lastName"] as? String {
+            self.lastName = lastName
+        }
+        if let firstName = pfUser["firstName"] as? String {
+            self.firstName = firstName
+        }
     }
 
 }
