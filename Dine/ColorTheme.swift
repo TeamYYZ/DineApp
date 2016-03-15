@@ -16,12 +16,14 @@ class ColorTheme {
     var loginGradientSecondColor: UIColor
     var loginTextColor: UIColor
     var loginOptianLabelColor: UIColor
+    var loginTextShadowColor: UIColor
     
     init() {
         loginGradientFisrtColor = UIColor.flatWatermelonColor()
         loginGradientSecondColor = UIColor.flatRedColorDark()
         loginTextColor = ContrastColorOf(loginGradientFisrtColor, returnFlat: true)
         loginOptianLabelColor = UIColor.flatWhiteColorDark()
+        loginTextShadowColor = UIColor.flatBlueColorDark()
         
     }
 

@@ -13,13 +13,13 @@ class LoginViewController: UIViewController {
     
     
     @IBOutlet weak var appTitleLabel: UILabel!
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var usernameField: YYZTextField!
+    @IBOutlet weak var passwordField: YYZTextField!
     @IBOutlet weak var createNewAccountLabel: UIButton!
-    @IBOutlet weak var signInButton: UIButton!
-    
+    @IBOutlet weak var signInButton: YYZButton!
+    @IBOutlet weak var signUpButton: YYZButton!
+
     @IBOutlet weak var orLabel: UILabel!
-    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var seperatorViewLeft: UIView!
     
     @IBOutlet weak var seperatorViewRight: UIView!
@@ -41,17 +41,7 @@ class LoginViewController: UIViewController {
         seperatorViewLeft.backgroundColor = ColorTheme.sharedInstance.loginOptianLabelColor
         seperatorViewRight.backgroundColor = ColorTheme.sharedInstance.loginOptianLabelColor
         orLabel.textColor = ColorTheme.sharedInstance.loginOptianLabelColor
-        usernameField.setBottomBorder(color: ColorTheme.sharedInstance.loginTextColor)
-        passwordField.setBottomBorder(color: ColorTheme.sharedInstance.loginTextColor)
-        passwordField.tintColor = ColorTheme.sharedInstance.loginTextColor
-        usernameField.tintColor = ColorTheme.sharedInstance.loginTextColor
-        usernameField.textColor = ColorTheme.sharedInstance.loginTextColor
-        usernameField.attributedPlaceholder = NSAttributedString(string: "Email address", attributes: [NSForegroundColorAttributeName : ColorTheme.sharedInstance.loginTextColor])
-        passwordField.textColor = ColorTheme.sharedInstance.loginTextColor
-        passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName : ColorTheme.sharedInstance.loginTextColor])
         
-        signInButton.applyPlainShadow()
-        signUpButton.applyPlainShadow()
         fbIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
         fbIcon.tintColor = ColorTheme.sharedInstance.loginTextColor
 

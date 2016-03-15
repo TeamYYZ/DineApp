@@ -20,8 +20,15 @@ extension UIView {
     
     func applyPlainShadow() {
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowOffset = CGSize(width: 1.3, height: 1.3)
         layer.shadowOpacity = 0.4
         layer.shadowRadius = 1
+    }
+    
+    func applySharpShadow(color: UIColor) {
+        layer.shadowColor = color.CGColor
+        layer.shadowOffset = CGSize(width: 1.3, height: 1.3)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 0.2
     }
 }

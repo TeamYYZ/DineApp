@@ -18,6 +18,9 @@ class User {
     var email: String?
     var profileDescription: String?
     var avatarImage: UIImage?
+    var friendList: [String]?   // save user's objectID
+    
+    static var currentUser: User?
     
     init () {
     
