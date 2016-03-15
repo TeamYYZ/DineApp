@@ -21,6 +21,7 @@ class User {
     var friendList: [String]?   // save user's objectID
     
     static var currentUser: User?
+    // for persistently store the current User object
     
     init () {
     

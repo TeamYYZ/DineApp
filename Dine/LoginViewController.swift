@@ -55,6 +55,12 @@ class LoginViewController: UIViewController {
     }
     @IBAction func onLogin(sender: AnyObject) {
         self.performSegueWithIdentifier("loginSegue", sender: sender)
+        // need to validate input first
+        ParseAPI.signIn(usernameField.text!, password: passwordField.text!, successCallback: { () -> () in
+            print("Login Successfully")
+            }) { (error: NSError?) -> () in
+            print(error?.localizedDescription)
+        }
     }
     
     @IBAction func unwindToLogin(sender: UIStoryboardSegue) {
