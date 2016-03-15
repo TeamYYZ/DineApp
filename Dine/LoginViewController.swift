@@ -16,6 +16,13 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var createNewAccountLabel: UIButton!
+    @IBOutlet weak var signInButton: UIButton!
+    
+    @IBOutlet weak var orLabel: UILabel!
+    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var seperatorViewLeft: UIView!
+    
+    @IBOutlet weak var seperatorViewRight: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,24 +33,23 @@ class LoginViewController: UIViewController {
         gradientLayer.colors = [color1, color2]
         gradientLayer.locations = [0.0, 1.0]
         self.view.layer.addSublayer(gradientLayer)
-        
-        
+
         appTitleLabel.textColor = ColorTheme.sharedInstance.loginTextColor
         createNewAccountLabel.tintColor = ColorTheme.sharedInstance.loginTextColor
-        
-        let usernameBottomBorder = CALayer()
-        usernameBottomBorder.frame = CGRectMake(0.0, usernameField.frame.size.height - 1, usernameField.frame.size.width, 1.0)
-        usernameBottomBorder.backgroundColor = UIColor.flatWhiteColorDark().CGColor
-        usernameField.layer.addSublayer(usernameBottomBorder)
-        let passwordBottomBorder = CALayer()
-        passwordBottomBorder.frame = CGRectMake(0.0, usernameField.frame.size.height - 1, usernameField.frame.size.width, 1.0)
-        passwordBottomBorder.backgroundColor = UIColor.flatWhiteColorDark().CGColor
-        usernameField.layer.addSublayer(usernameBottomBorder)
-        passwordField.layer.addSublayer(passwordBottomBorder)
-        
+        seperatorViewLeft.setBottomBorder()
+        seperatorViewRight.setBottomBorder()
+        orLabel.textColor = ColorTheme.sharedInstance.loginTextColor
+        usernameField.setBottomBorder()
+        passwordField.setBottomBorder()
+        passwordField.tintColor = ColorTheme.sharedInstance.loginTextColor
+        usernameField.tintColor = ColorTheme.sharedInstance.loginTextColor
         usernameField.textColor = ColorTheme.sharedInstance.loginTextColor
+        usernameField.attributedPlaceholder = NSAttributedString(string: "Email address", attributes: [NSForegroundColorAttributeName : ColorTheme.sharedInstance.loginTextColor])
         passwordField.textColor = ColorTheme.sharedInstance.loginTextColor
+        passwordField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName : ColorTheme.sharedInstance.loginTextColor])
         
+        signInButton.applyPlainShadow()
+        signUpButton.applyPlainShadow()
         
         // Do any additional setup after loading the view.
     }

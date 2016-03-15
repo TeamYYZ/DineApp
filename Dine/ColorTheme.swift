@@ -18,7 +18,7 @@ class ColorTheme {
     
     init() {
         loginGradientFisrtColor = UIColor.flatWatermelonColor()
-        loginGradientSecondColor = UIColor.flatWatermelonColorDark()
+        loginGradientSecondColor = UIColor.flatRedColorDark()
         loginTextColor = ContrastColorOf(loginGradientFisrtColor, returnFlat: true)
         
     }
