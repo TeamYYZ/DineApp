@@ -54,12 +54,19 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func onLogin(sender: AnyObject) {
-        self.performSegueWithIdentifier("loginSegue", sender: sender)
         // need to validate input first
         ParseAPI.signIn(usernameField.text!, password: passwordField.text!, successCallback: { () -> () in
             print("Login Successfully")
+            self.performSegueWithIdentifier("loginSegue", sender: sender)
+
             }) { (error: NSError?) -> () in
             print(error?.localizedDescription)
+                let alertController = UIAlertController(title: "Please try again...", message: error?.localizedDescription, preferredStyle: .Alert)
+                let tryAgainAlert = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    self.passwordField.text = ""
+                })
+                alertController.addAction(tryAgainAlert)
+                self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     

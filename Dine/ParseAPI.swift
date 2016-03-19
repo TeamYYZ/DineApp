@@ -18,7 +18,7 @@ class ParseAPI {
         user.password = password
         user["firstName"] = firstName
         user["lastName"] = lastName
-        user.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+        user.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
                 successCallback()
             } else {
@@ -31,7 +31,8 @@ class ParseAPI {
     
     class func signIn(username: String, password: String, successCallback: ()->(), failureCallback: (NSError?)->()) {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user: PFUser?, error: NSError?) -> Void in
-            if user != nil {
+            if let user = user {
+                User.currentUser = User(pfUser: user)
                 successCallback()
                 
             } else {

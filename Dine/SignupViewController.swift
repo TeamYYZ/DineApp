@@ -15,6 +15,13 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var descriptionLabel2: UILabel!
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var firstNameField: YYZTextField!
+    
+    @IBOutlet weak var lastNameField: YYZTextField!
+    
+    @IBOutlet weak var emailField: YYZTextField!
+    
+    @IBOutlet weak var passwordField: YYZTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +47,11 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func onSignup(sender: AnyObject) {
-        self.performSegueWithIdentifier("signupSegue", sender: sender)
+        ParseAPI.signUp(emailField.text!, password: passwordField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, successCallback: { () -> () in
+                self.performSegueWithIdentifier("signupSegue", sender: sender)
+            }) { (error: NSError?) -> () in
+                print("Sign Up faliure")
+        }
     }
 
     /*
