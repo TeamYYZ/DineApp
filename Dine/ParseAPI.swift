@@ -12,12 +12,11 @@ import Parse
 class ParseAPI {
     static var sharedInstance = ParseAPI()
     
-    class func signUp(username: String, password: String, firstName: String, lastName: String, successCallback: ()->(), failureCallback: (NSError?)->()) {
+    class func signUp(username: String, password: String, screenName: String, successCallback: ()->(), failureCallback: (NSError?)->()) {
         let user = PFUser()
         user.username = username
         user.password = password
-        user["firstName"] = firstName
-        user["lastName"] = lastName
+        user["screenName"] = screenName
         user.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
                 successCallback()

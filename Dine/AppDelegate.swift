@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ChameleonFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,17 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-                // Initialize Parse
-                // Set applicationId and server based on the values in the Heroku settings.
-                // clientKey is not used on Parse open source unless explicitly configured
-                Parse.initializeWithConfiguration(
-                    ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
-                        configuration.applicationId = "DineApp"
-                        configuration.clientKey = "thisIsYYZsMasterKey"
-                        configuration.server = "https://still-plains-53736.herokuapp.com/parse"
-                    })
-                )
-                
+        // Initialize Parse
+        // Set applicationId and server based on the values in the Heroku settings.
+        // clientKey is not used on Parse open source unless explicitly configured
+        Parse.initializeWithConfiguration(
+            ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
+                configuration.applicationId = "DineApp"
+                configuration.clientKey = "thisIsYYZsMasterKey"
+                configuration.server = "https://still-plains-53736.herokuapp.com/parse"
+            })
+        )
+        
+        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
+        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
+        
+        
         return true
     }
 

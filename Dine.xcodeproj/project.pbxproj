@@ -13,13 +13,16 @@
 		C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDF1C984A7500CC83CF /* ParseAPI.swift */; };
 		C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE31C984EA100CC83CF /* YYZTextField.swift */; };
 		C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE51C9851E200CC83CF /* YYZButton.swift */; };
+		C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */; };
+		C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */; };
+		C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
 		C6EE09181C906F6200345357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09161C906F6200345357 /* Main.storyboard */; };
 		C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09191C906F6200345357 /* Assets.xcassets */; };
 		C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE091B1C906F6200345357 /* LaunchScreen.storyboard */; };
 		C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09271C94B81500345357 /* LoginViewController.swift */; };
-		C6EE092A1C94B87700345357 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09291C94B87700345357 /* SignupViewController.swift */; };
+		C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09291C94B87700345357 /* EmailSignupViewController.swift */; };
 		C6EE092C1C96038700345357 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE092B1C96038700345357 /* MapViewController.swift */; };
 		C6EE092E1C96043B00345357 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6EE092D1C96043B00345357 /* MapKit.framework */; };
 		C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE092F1C960ECA00345357 /* MapDetailView.swift */; };
@@ -47,6 +50,9 @@
 		C17AABDF1C984A7500CC83CF /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
 		C17AABE31C984EA100CC83CF /* YYZTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZTextField.swift; sourceTree = "<group>"; };
 		C17AABE51C9851E200CC83CF /* YYZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZButton.swift; sourceTree = "<group>"; };
+		C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
+		C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
+		C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
 		C6EE090F1C906F6200345357 /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +62,7 @@
 		C6EE091C1C906F6200345357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6EE091E1C906F6200345357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6EE09271C94B81500345357 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C6EE09291C94B87700345357 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		C6EE09291C94B87700345357 /* EmailSignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailSignupViewController.swift; sourceTree = "<group>"; };
 		C6EE092B1C96038700345357 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C6EE092D1C96043B00345357 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C6EE092F1C960ECA00345357 /* MapDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
@@ -124,6 +130,17 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		C1D04F621C9E3161003EB3C9 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */,
+				C6EE09291C94B87700345357 /* EmailSignupViewController.swift */,
+				C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */,
+				C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */,
+			);
+			name = SignUp;
+			sourceTree = "<group>";
+		};
 		C6EE09061C906F6200345357 = {
 			isa = PBXGroup;
 			children = (
@@ -162,13 +179,13 @@
 		C6EE09241C9070ED00345357 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C1D04F621C9E3161003EB3C9 /* SignUp */,
 				C6EE09431C9742C200345357 /* UserProfileViewController.swift */,
 				C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */,
 				C6EE092B1C96038700345357 /* MapViewController.swift */,
 				C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */,
 				C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */,
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
-				C6EE09291C94B87700345357 /* SignupViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
 				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
 				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
@@ -333,12 +350,14 @@
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
+				C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */,
 				C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */,
 				C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */,
+				C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */,
 				C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */,
 				C17AABDD1C97E6B900CC83CF /* User.swift in Sources */,
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
-				C6EE092A1C94B87700345357 /* SignupViewController.swift in Sources */,
+				C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,
 				C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */,
 				C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */,
@@ -347,6 +366,7 @@
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
+				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
 			);

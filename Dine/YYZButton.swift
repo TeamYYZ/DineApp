@@ -20,7 +20,7 @@ class YYZButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.applyPlainShadow()
-        print(self.titleLabel?.text)
+        self.setTitleColor(ColorTheme.sharedInstance.YYZButtonDisableTextColor, forState: UIControlState.Disabled)
         self.titleLabel?.applySharpShadow(ColorTheme.sharedInstance.loginTextShadowColor)
 
     }

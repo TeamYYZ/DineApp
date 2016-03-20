@@ -17,13 +17,21 @@ class ColorTheme {
     var loginTextColor: UIColor
     var loginOptianLabelColor: UIColor
     var loginTextShadowColor: UIColor
+    var YYZButtonDisableTextColor: UIColor
+    var YYZButtonDisableBackgroundColor: UIColor
+
+    var navigationBarBackgroundColor: UIColor
     
     init() {
+        navigationBarBackgroundColor = UIColor.flatMintColor()
         loginGradientFisrtColor = UIColor.flatWatermelonColor()
         loginGradientSecondColor = UIColor.flatRedColorDark()
         loginTextColor = ContrastColorOf(loginGradientFisrtColor, returnFlat: true)
         loginOptianLabelColor = UIColor.flatWhiteColorDark()
         loginTextShadowColor = UIColor.flatBlueColorDark()
+        
+        YYZButtonDisableTextColor = UIColor.flatGrayColor()
+        YYZButtonDisableBackgroundColor = UIColor.flatGrayColorDark()
         
     }
 
