@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import SWRevealViewController
 
+
+
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
@@ -17,12 +19,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var exitActivityButton: UIButton!
 
-    var location = CLLocation(latitude: 30.601433, longitude: -96.314464)
-    var locationManager : CLLocationManager!
+    var location: CLLocation!
+    var locationManager = CLLocationManager()
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        let status = CLLocationManager.authorizationStatus()
+        
+        if status == .AuthorizedWhenInUse {
+            mapView.showsUserLocation = true
+            locationManager.startUpdatingLocation()
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userJoinedActivity", name: "userJoinedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userExitedActivity", name: "userExitedNotification", object: nil)
         
@@ -31,25 +44,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         exitActivityButton.addTarget(self, action: Selector("userExitedActivity:"), forControlEvents: .TouchUpInside)
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
-        
-        mapView.delegate = self
-
-        goToLocation(location)
         loadMap()
+
     }
+    
+    
+
 
     func userJoinedActivity() {
         //update map, only show selected point and direction
         //always show pin view
+
         toolBar.hidden = false
         arrivalTimeLabel.hidden = false
+        self.viewDidLoad()
     }
     
     func userExitedActivity() {
         //update map, show all requests in the area
-        loadMap()
+
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
+        self.viewDidLoad()
     }
     
     func userExitedActivity(sender: UIButton!) {
@@ -72,10 +88,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            let span = MKCoordinateSpanMake(0.1, 0.1)
-            let region = MKCoordinateRegionMake(location.coordinate, span)
-            mapView.setRegion(region, animated: false)
+        if location == nil || locations.last!.distanceFromLocation(location) > CLLocationDistance(1.0){
+            location = locations.last
+            User.currentUser?.current_location = location
+            goToLocation(location)
         }
     }
 
@@ -103,6 +119,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == annotationView.rightCalloutAccessoryView {
+            
             self.performSegueWithIdentifier("toActivityProfileSegue", sender: self)
         }
     }
@@ -124,14 +141,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func goToLocation(location: CLLocation) {
-        let span = MKCoordinateSpanMake(0.1, 0.1)
-        let region = MKCoordinateRegionMake(location.coordinate, span)
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
-        locationManager.requestWhenInUseAuthorization()
-
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+//        locationManager.distanceFilter = 200
+        print(User.currentUser?.current_location)
         mapView.setRegion(region, animated: false)
     }
 

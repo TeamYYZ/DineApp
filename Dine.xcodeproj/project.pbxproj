@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848AC1CA0EF2700E40A8B /* Activity.swift */; };
+		3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848AE1CA0F21F00E40A8B /* Group.swift */; };
+		3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848B01CA0F8F200E40A8B /* Invitation.swift */; };
+		3BD848B31CA0F9FC00E40A8B /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848B21CA0F9FC00E40A8B /* Chat.swift */; };
 		A9F20DA4F0AE323B838DB4D6 /* Pods_Dine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420E646DC877272EF89BFF60 /* Pods_Dine.framework */; };
 		C17424861C9789D400125377 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17424851C9789D400125377 /* ColorTheme.swift */; };
 		C17AABDD1C97E6B900CC83CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDC1C97E6B900CC83CF /* User.swift */; };
@@ -44,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		1339928E4EE71C5793830748 /* Pods-Dine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.debug.xcconfig"; sourceTree = "<group>"; };
+		3BD848AC1CA0EF2700E40A8B /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		3BD848AE1CA0F21F00E40A8B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		3BD848B01CA0F8F200E40A8B /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
+		3BD848B21CA0F9FC00E40A8B /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		420E646DC877272EF89BFF60 /* Pods_Dine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C17424851C9789D400125377 /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		C17AABDC1C97E6B900CC83CF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -214,6 +222,10 @@
 			isa = PBXGroup;
 			children = (
 				C17AABDC1C97E6B900CC83CF /* User.swift */,
+				3BD848AC1CA0EF2700E40A8B /* Activity.swift */,
+				3BD848AE1CA0F21F00E40A8B /* Group.swift */,
+				3BD848B01CA0F8F200E40A8B /* Invitation.swift */,
+				3BD848B21CA0F9FC00E40A8B /* Chat.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -347,13 +359,16 @@
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
+				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
+				3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */,
 				C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */,
 				C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */,
 				C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */,
 				C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */,
+				3BD848B31CA0F9FC00E40A8B /* Chat.swift in Sources */,
 				C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */,
 				C17AABDD1C97E6B900CC83CF /* User.swift in Sources */,
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
@@ -367,6 +382,7 @@
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
+				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
 			);
