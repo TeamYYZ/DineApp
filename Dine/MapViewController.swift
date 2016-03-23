@@ -147,10 +147,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
         let annotation = sender as! MapAnnotation
-        let activityProfileViewController = segue.destinationViewController as! ActivityProfileViewController
         activityProfileViewController.activity = annotation.activity
-        
+        }
                 
     }
     
