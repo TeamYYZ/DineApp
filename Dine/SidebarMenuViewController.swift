@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class SidebarMenuViewController: UITableViewController {
     @IBOutlet weak var spaceItem: UIBarButtonItem!
@@ -22,6 +23,11 @@ class SidebarMenuViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func onLogOut(sender: AnyObject) {
+        PFUser.logOut()
+        NSNotificationCenter.defaultCenter().postNotificationName("userDidLogoutNotification", object: nil)
+    }
+    
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 0) {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))

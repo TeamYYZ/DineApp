@@ -176,9 +176,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     // lock my region
     func goToLocation(currlocation: CLLocation?) {
-        if let myLocation = locationManager.location {
+        if let myLocation
+            = locationManager.location {
             let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
             let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//            let span = MKCoordinateSpanMake(0.1, 0.1)
+//            let region = MKCoordinateRegionMake(myLocation.coordinate, span)
+            //mapView.setRegion(region, animated: false)
 //            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
 //            locationManager.distanceFilter = 200
             //print(User.currentUser?.current_location)
