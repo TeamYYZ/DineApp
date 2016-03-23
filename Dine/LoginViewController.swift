@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gradientLayer.frame = self.containerView.bounds
+        gradientLayer.frame = self.view.bounds
         gradientLayer.zPosition = -1
         let color1 = ColorTheme.sharedInstance.loginGradientFisrtColor.CGColor as CGColorRef
         let color2 = ColorTheme.sharedInstance.loginGradientSecondColor.CGColor as CGColorRef

@@ -20,7 +20,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var exitActivityButton: UIButton!
 
-    var location = CLLocation(latitude: 0, longitude: 0)
+    var location: CLLocation?
     var locationManager = CLLocationManager()
     var activities = [Activity]()
     
@@ -38,7 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         if status == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
-                       
+            print("WhenInUse")
             goToLocation(location)
             
             locationManager.startUpdatingLocation()
@@ -100,12 +100,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if locations.last!.distanceFromLocation(location) > CLLocationDistance(1.0){
-            location = locations.last!
-            User.currentUser?.current_location = location
-            goToLocation(location)
-        }
+        goToLocation(nil)
+
+//        print(locations.last!)
+//        if locations.last!.distanceFromLocation(location!) > CLLocationDistance(1.0){
+//            location = locations.last!
+//            User.currentUser?.current_location = location
+//            goToLocation(location!)
+//        }
     }
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -171,18 +173,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
+    
+    // lock my region
+    func goToLocation(currlocation: CLLocation?) {
+        if let myLocation = locationManager.location {
+            let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+//            locationManager.distanceFilter = 200
+            //print(User.currentUser?.current_location)
+            mapView.setRegion(region, animated: false)
+        }
 
-    
-    
-    
-    
-    func goToLocation(location: CLLocation) {
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-//        locationManager.distanceFilter = 200
-        //print(User.currentUser?.current_location)
-        mapView.setRegion(region, animated: false)
     }
     
     
