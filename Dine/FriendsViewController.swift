@@ -11,11 +11,16 @@ import UIKit
 class FriendsViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
+    var checked: [Bool]!
+    @IBOutlet weak var inviteButton: UIBarButtonItem!
+    var friends:[String] = ["Sam", "Anna", "Beth"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        inviteButton.enabled = false
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
+        checked = [Bool](count: friends.count, repeatedValue: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,20 +30,42 @@ class FriendsViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        checked[indexPath.row] = !checked[indexPath.row]
+        var enableInviteButton = false
+        for checkbox in checked {
+            if checkbox {
+                enableInviteButton = true
+                break
+            }
+        }
+        if enableInviteButton {
+            inviteButton.enabled = true
+        }else {
+            inviteButton.enabled = false
+        }
+        
+        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return friends.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath)
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
+        if checked[indexPath.row] {
+            cell.accessoryType = .Checkmark
+            cell.inviteLabel.text = "Invited"
+            cell.inviteLabel.textColor = UIColor.flatGrayColor()
+        } else {
+            cell.accessoryType = .None
+            cell.inviteLabel.text = "Invite"
+            cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
+        }
         // Configure the cell...
 
         return cell

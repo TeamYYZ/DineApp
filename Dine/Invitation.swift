@@ -7,19 +7,18 @@
 //
 
 import UIKit
+import Parse
 
 class Invitation: NSObject {
     
-    var IID: String?
     var sender_id: String?
     var receivers_id: [String]?
     var AID: String?
     
-    init(dictionary: NSDictionary){
-        self.IID = dictionary["IID"] as? String
-        self.sender_id = dictionary["sender"] as?  String
-        self.receivers_id = dictionary["receivers_id"] as? [String]
-        self.AID = dictionary["AID"] as? String
+    init(object: PFObject){
+        self.sender_id = object["sender"] as?  String
+        self.receivers_id = object["receivers_id"] as? [String]
+        self.AID = object["AID"] as? String
     
     }
     

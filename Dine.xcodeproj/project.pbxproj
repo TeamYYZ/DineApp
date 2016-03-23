@@ -21,6 +21,7 @@
 		C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */; };
 		C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
+		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
 		C6EE09181C906F6200345357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09161C906F6200345357 /* Main.storyboard */; };
 		C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09191C906F6200345357 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
+		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
 		C6EE090F1C906F6200345357 /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6EE09121C906F6200345357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
 				C17AABE31C984EA100CC83CF /* YYZTextField.swift */,
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
+				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
+				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
 				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
