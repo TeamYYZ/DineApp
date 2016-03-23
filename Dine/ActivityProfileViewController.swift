@@ -8,14 +8,17 @@
 
 import UIKit
 
+
+
 class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
+    var activity: Activity!
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
         
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
@@ -37,7 +40,10 @@ class ActivityProfileViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell")!
+        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell")! as! ActivityProfileCell
+            cell.checkButton.activity = self.activity
+            cell.checkButton.setButton()
+            
         return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath)
@@ -72,7 +78,16 @@ class ActivityProfileViewController: UITableViewController {
             imgRect.size.height = kHeaderHeight+yPos
             profileView.frame = imgRect
         }
+        
     }
+    
+//    func createSomeMembers(){
+//        let 
+//    
+//    
+//    }
+    
+    
     /*
     // MARK: - Navigation
 

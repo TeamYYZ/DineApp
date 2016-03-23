@@ -15,6 +15,7 @@ class MapAnnotation: NSObject, MKAnnotation {
     var restaurantName: String?
     var members: String?
     var time: String?
+    var activity: Activity?
     
     override init() {
         title = " "
@@ -22,5 +23,22 @@ class MapAnnotation: NSObject, MKAnnotation {
         restaurantName = "Whataburger"
         members = "Sam, Ian, Jessica, Louie"
         time = "12:30"
+    }
+    
+     init(dictionary: NSDictionary) {
+        self.title = dictionary["title"] as? String
+        self.coordinate = (dictionary["coordinate"] as? CLLocationCoordinate2D)!
+        self.restaurantName = dictionary["restaurantName"] as? String
+        self.members = dictionary["members"] as? String
+        self.time = dictionary["time"] as? String
+    }
+    
+    init(activity: Activity) {
+        self.activity = activity
+        self.title = " "
+        self.coordinate = activity.location
+        self.restaurantName = activity.restaurant
+        self.members = activity.request_poster_username
+        self.time = activity.request_time
     }
 }

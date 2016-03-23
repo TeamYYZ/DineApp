@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityProfileCell: UITableViewCell {
     @IBOutlet weak var chatButton: UIButton!
+    
+    @IBOutlet weak var checkButton: CheckButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

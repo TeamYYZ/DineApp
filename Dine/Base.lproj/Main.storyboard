@@ -466,8 +466,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="UserGroup" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-IZ-cAg">
-                                                    <rect key="frame" x="20" y="13" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserGroup" translatesAutoresizingMaskIntoConstraints="NO" id="LHG-IZ-cAg">
+                                                    <rect key="frame" x="20" y="12" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="kKX-d1-Hwx"/>
                                                         <constraint firstAttribute="height" constant="20" id="yBv-sd-tc9"/>
@@ -826,7 +826,7 @@
                                                 <constraint firstAttribute="height" constant="30" id="edi-Fk-Q3V"/>
                                             </constraints>
                                             <connections>
-                                                <segue destination="1bo-h6-Hq2" kind="unwind" unwindAction="unwindToMapView:" id="Z6B-TJ-aKu"/>
+                                                <segue destination="1bo-h6-Hq2" kind="unwind" unwindAction="unwindToMapView:" id="5bj-cD-rSx"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAX-Pt-hTm">
@@ -857,6 +857,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="chatButton" destination="tAX-Pt-hTm" id="AX9-wG-nuf"/>
+                                    <outlet property="checkButton" destination="qPS-oV-yKP" id="exk-qz-EEx"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc">

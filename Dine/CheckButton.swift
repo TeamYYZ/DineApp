@@ -12,7 +12,8 @@ class CheckButton: UIButton {
 
     let checked = UIImage(named: "Checked")
     let cancel = UIImage(named: "Cancel")
-    var isChecked = false
+//    var isChecked = false
+    var activity: Activity?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,24 +27,43 @@ class CheckButton: UIButton {
 
     
     func setupButton() {
-        self.setImage(checked, forState: .Normal)
-        self.adjustsImageWhenHighlighted = false
+
+        //Wait until 
         
-        self.frame = CGRectMake(0, 0, 30, 30)
-        self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
 
     }
     
+    func setButton(){
+
+        if Activity.current_activity == nil {
+            self.setImage(checked, forState: .Normal)
+            self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
+        }else if Activity.current_activity!.AID == self.activity!.AID{
+            self.setImage(cancel, forState: .Normal)
+            self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
+        }else{
+            
+            self.setImage(nil, forState: .Normal)
+        }
+        self.adjustsImageWhenHighlighted = false
+        
+        self.frame = CGRectMake(0, 0, 30, 30)
+    
+    }
+    
     func buttonClicked (sender : UIButton!) {
-        isChecked = !isChecked
-        if isChecked {
-            sender.setImage(cancel, forState: .Normal)
-            sender.setImage(cancel, forState: .Highlighted)
+        if Activity.current_activity == nil {
+            self.setImage(cancel, forState: .Normal)
+            self.setImage(cancel, forState: .Highlighted)
+            Activity.current_activity = self.activity
+            Group.current_group = Activity.current_activity?.group
             NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
 
         }else {
-            sender.setImage(checked, forState: .Normal)
-            sender.setImage(checked, forState: .Highlighted)
+            self.setImage(checked, forState: .Normal)
+            self.setImage(checked, forState: .Highlighted)
+            Activity.current_activity = nil
+            Group.current_group = nil
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
         }
         

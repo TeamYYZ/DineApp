@@ -40,5 +40,18 @@ class User {
         
         
     }
+    
+    init(UID: String, username: String, firstName: String, lastName: String, password: String, dateOfBirth: NSDate, gender: Bool, email: String, profileDescription: String, avatarImage: UIImage, friendList: [String], current_location: CLLocation){
+        self.UID = UID
+        self.firstName = firstName
+        self.lastName = lastName
+        self.password = password
+        self.dateOfBirth = dateOfBirth
+        self.gender = gender
+        self.profileDescription = profileDescription
+        self.avatarImage = avatarImage
+        self.friendList = friendList
+        self.current_location = current_location
+    }
 
 }

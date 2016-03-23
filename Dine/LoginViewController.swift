@@ -81,14 +81,14 @@ class LoginViewController: UIViewController {
         let userInfo = notif.userInfo
         let keyBoardSize: CGSize = (userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size)!
         var visibleRect: CGRect = self.containerView.frame
-        print(visibleRect)
+        //print(visibleRect)
         visibleRect.size.height -= keyBoardSize.height
-        print(visibleRect)
+        //print(visibleRect)
         var lastElementOrigin: CGPoint = signInButton.frame.origin
         let lastElementHeight: CGFloat = signInButton.frame.size.height
-        print(lastElementOrigin)
+        //print(lastElementOrigin)
         lastElementOrigin.y += lastElementHeight
-        print(lastElementOrigin)
+        //print(lastElementOrigin)
 
         
         if (!CGRectContainsPoint(visibleRect, lastElementOrigin)){
@@ -103,7 +103,7 @@ class LoginViewController: UIViewController {
     }
     
     func keyboardWillHide(notif: NSNotification) {
-        print("didHide")
+        //print("didHide")
         let scrollPoint: CGPoint = CGPointMake(0.0, 0.0)
         scrollView.setContentOffset(scrollPoint, animated: true)
 
@@ -118,7 +118,7 @@ class LoginViewController: UIViewController {
     @IBAction func onLogin(sender: AnyObject) {
         // need to validate input first
         ParseAPI.signIn(usernameField.text!, password: passwordField.text!, successCallback: { () -> () in
-            print("Login Successfully")
+            //print("Login Successfully")
             self.performSegueWithIdentifier("loginSegue", sender: sender)
 
             }) { (error: NSError?) -> () in
