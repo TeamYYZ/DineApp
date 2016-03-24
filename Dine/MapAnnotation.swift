@@ -15,6 +15,7 @@ class MapAnnotation: NSObject, MKAnnotation {
     var restaurantName: String?
     var members: String?
     var time: String?
+    var requestTime: NSDate?
     var activity: Activity?
     
     override init() {
@@ -35,10 +36,10 @@ class MapAnnotation: NSObject, MKAnnotation {
     
     init(activity: Activity) {
         self.activity = activity
-        self.title = " "
+        self.title = activity.title
         self.coordinate = activity.location!
         self.restaurantName = activity.restaurant
-        self.members = activity.requestPosterUsername
-        self.time = activity.requestTime
+        self.members = activity.ownerId
+        self.requestTime = activity.requestTime
     }
 }

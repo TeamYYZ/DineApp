@@ -86,7 +86,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
-
+        let vc = sender.sourceViewController as! FriendsViewController
+        let activity = vc.activityInProgress
+        
     }
     
  
@@ -113,6 +115,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
         
         if let annotation = annotation as? MapAnnotation {
 

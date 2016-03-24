@@ -10,6 +10,8 @@ import UIKit
 
 class FriendsViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    weak var activityInProgress: Activity?
+    var kk: Int = 5
 
     var checked: [Bool]!
     @IBOutlet weak var inviteButton: UIBarButtonItem!

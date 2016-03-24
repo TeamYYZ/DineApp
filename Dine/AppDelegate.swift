@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -55,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func userDidLogout() {
-        let vc = storyboard.instantiateInitialViewController()
+        let vc = signSB.instantiateInitialViewController()
         window?.rootViewController = vc
     }
 
