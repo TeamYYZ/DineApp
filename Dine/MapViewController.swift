@@ -86,8 +86,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
-        let vc = sender.sourceViewController as! FriendsViewController
+        if let vc = sender.sourceViewController as? FriendsViewController {
         let activity = vc.activityInProgress
+        }
         
     }
     
@@ -160,8 +161,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         activityProfileViewController.activity = annotation.activity
         }
         
-        if let restaurantPickerViewController = segue.destinationViewController as? RestaurantPickerViewController {
-            restaurantPickerViewController.location = location
+        if let navVC = segue.destinationViewController as? UINavigationController {
+            if let restaurantPickerViewController = navVC.topViewController as? RestaurantPickerViewController {
+                restaurantPickerViewController.location = locationManager.location?.coordinate
+            }
         }
                 
     }

@@ -7,14 +7,20 @@
 //
 
 import UIKit
+import MBProgressHUD
 
-class RestaurantPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class RestaurantPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate{
+    @IBOutlet weak var nextButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var activityInProgress: Activity?
-
+    var checked = false
+    
     var businesses: [Business]!
+    var selectedBusiness: Business?
     var searchTerm = String("Restaurants")
-    var location: CLLocation!
+    var location: CLLocationCoordinate2D!
     
     var isMoreDataLoading = false
     
@@ -25,22 +31,37 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
+        searchBar.delegate = self
         //feed in tableview yelp data
         // Example of Yelp search with more search options specified
-        Business.searchWithTerm("Restaurants", sort: YelpSortMode.Distance.rawValue, radius: 0, categories:[], deals: false, offset: 0) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
-        }
-        
+        updateSearch()
+
         activityInProgress = Activity()
         
     }
+    
+    func updateSearch() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        Business.searchWithTerm(searchTerm, location: location, sort: YelpSortMode.Distance.rawValue, radius: 0, categories:[], deals: false, offset: 0) { (businesses: [Business]!, error: NSError!) -> Void in
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.searchTerm = searchBar.text!
+        updateSearch()
+        searchBar.resignFirstResponder()
+        
+    }
+    
     // MARK: - Table view data source
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,8 +76,31 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as! RestaurantCell
         cell.business = businesses[indexPath.row]
-        
+        cell.checkButton.tag = indexPath.row
+        cell.checkButton.addTarget(self, action: "buttonChecked:", forControlEvents: .TouchUpInside)
+
         return cell
+    }
+
+    func buttonChecked(sender: UIButton){
+        //get selected business
+        if let cell = sender.superview?.superview as? RestaurantCell {
+            if cell.isChecked {
+                selectedBusiness = businesses[sender.tag]
+        
+                //change bar button item
+                nextButton.title = "Next"
+                
+                //delete other rows
+                
+            }else {
+                //change bar button item
+                nextButton.title = "Skip"
+                
+                //reload tableview
+            }
+        }
+        
     }
 
 
@@ -111,6 +155,11 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
             let vc = segue.destinationViewController as! RestaurantDetailViewController
             vc.activityInProgress = self.activityInProgress
             
+        }
+        if segue.identifier == "nextSegue" {
+            if selectedBusiness != nil {
+            activityInProgress?.setupRestaurant(selectedBusiness!)
+            }
         }
     }
 

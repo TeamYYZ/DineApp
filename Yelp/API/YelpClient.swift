@@ -51,15 +51,15 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         self.requestSerializer.saveAccessToken(token)
     }
     
-    func searchWithTerm(term: String, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
-        return searchWithTerm(term, sort: nil, radius: 0, categories: nil, deals: nil, offset: nil, completion: completion)
+    func searchWithTerm(term: String, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        return searchWithTerm(term, location: location, sort: nil, radius: 0, categories: nil, deals: nil, offset: nil, completion: completion)
     }
     
-    func searchWithTerm(term: String, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+    func searchWithTerm(term: String, location: CLLocationCoordinate2D, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
 
         // Default the location to College Station
-        var parameters: [String : AnyObject] = ["term": term, "ll": "30.601433, -96.314464"]
+        var parameters: [String : AnyObject] = ["term": term, "ll": String(location.latitude)+","+String(location.longitude)]
 
         if sort != nil {
             parameters["sort"] = sort

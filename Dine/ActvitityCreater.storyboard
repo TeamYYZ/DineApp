@@ -18,16 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QTH-H4-jH0">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="41" width="320" height="527"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Where do you wanna go?" id="gNY-Vi-43N">
-                                    <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="60" id="NUc-ui-TsY" customClass="RestaurantCell" customModule="Dine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="136" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="92" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUc-ui-TsY" id="j1C-xr-9JH">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="59.5"/>
@@ -73,11 +68,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Where do you wanna go?" translatesAutoresizingMaskIntoConstraints="NO" id="gNY-Vi-43N">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="gNY-Vi-43N" firstAttribute="leading" secondItem="Yvt-RB-SAe" secondAttribute="leading" id="3ds-5o-HlK"/>
                             <constraint firstItem="QTH-H4-jH0" firstAttribute="leading" secondItem="Yvt-RB-SAe" secondAttribute="leading" id="3x1-Fs-1mq"/>
-                            <constraint firstItem="QTH-H4-jH0" firstAttribute="top" secondItem="Yvt-RB-SAe" secondAttribute="top" id="XgM-Pf-Wdd"/>
+                            <constraint firstAttribute="trailing" secondItem="gNY-Vi-43N" secondAttribute="trailing" id="LZN-Or-Sw3"/>
+                            <constraint firstItem="QTH-H4-jH0" firstAttribute="top" secondItem="Yvt-RB-SAe" secondAttribute="top" constant="41" id="XgM-Pf-Wdd"/>
+                            <constraint firstItem="gNY-Vi-43N" firstAttribute="top" secondItem="UA3-6N-UVF" secondAttribute="bottom" id="bjd-Hs-Hkd"/>
                             <constraint firstItem="Qsk-bU-vGA" firstAttribute="top" secondItem="QTH-H4-jH0" secondAttribute="bottom" id="p1K-ZT-6vq"/>
                             <constraint firstAttribute="trailing" secondItem="QTH-H4-jH0" secondAttribute="trailing" id="zY3-0I-4s1"/>
                         </constraints>
@@ -90,12 +92,14 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Skip" id="m5W-QR-7fx">
                             <connections>
-                                <segue destination="oMj-Zn-FVu" kind="push" id="FMX-eV-pTK"/>
+                                <segue destination="oMj-Zn-FVu" kind="push" identifier="nextSegue" id="FMX-eV-pTK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="nextButton" destination="m5W-QR-7fx" id="JFg-22-WGF"/>
+                        <outlet property="searchBar" destination="gNY-Vi-43N" id="hTd-nQ-RTV"/>
                         <outlet property="tableView" destination="QTH-H4-jH0" id="zf2-7H-71e"/>
                     </connections>
                 </viewController>

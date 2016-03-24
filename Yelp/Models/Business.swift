@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class Business: NSObject {
+    let businessID: String?
     let name: String?
     let address: String?
     let imageURL: NSURL?
@@ -20,6 +21,7 @@ class Business: NSObject {
     let coordinate: CLLocationCoordinate2D?
     
     init(dictionary: NSDictionary) {
+        businessID = dictionary["id"] as? String
         name = dictionary["name"] as? String
         
         let imageURLString = dictionary["image_url"] as? String
@@ -90,11 +92,11 @@ class Business: NSObject {
         return businesses
     }
     
-    class func searchWithTerm(term: String, completion: ([Business]!, NSError!) -> Void) {
-        YelpClient.sharedInstance.searchWithTerm(term, completion: completion)
+    class func searchWithTerm(term: String, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) {
+        YelpClient.sharedInstance.searchWithTerm(term, location: location, completion: completion)
     }
     
-    class func searchWithTerm(term: String, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> Void {
-        YelpClient.sharedInstance.searchWithTerm(term, sort: sort, radius: radius, categories: categories, deals: deals, offset: offset, completion: completion)
+    class func searchWithTerm(term: String, location: CLLocationCoordinate2D, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> Void {
+        YelpClient.sharedInstance.searchWithTerm(term, location: location, sort: sort, radius: radius, categories: categories, deals: deals, offset: offset, completion: completion)
     }
 }

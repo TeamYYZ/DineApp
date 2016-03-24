@@ -18,7 +18,7 @@ class Activity: NSObject {
     var requestTime: NSDate?
     var yelpBusinessId: String?
     var overview: String?
-//    var yelpBusiness: YelpBusiness?
+    var yelpBusiness: Business?
     var group: Group?
     var groupMessages: [Message]?
     var location: CLLocationCoordinate2D?
@@ -32,12 +32,14 @@ class Activity: NSObject {
         self.ownerId = PFUser.currentUser()?.objectId
     }
     
-    func setupRestaurant(yelpBusinessId: String, restaurant: String /*, yelpBusiness: YelpBusiness*/) {
-        self.yelpBusinessId = yelpBusinessId
-        self.restaurant = restaurant
-//        self.yelpBusinessId = yelpBusiness
+    func setupRestaurant(yelpBusiness: Business) {
         
-    
+        self.yelpBusiness = yelpBusiness
+        self.restaurant = yelpBusiness.name
+        self.yelpBusinessId = yelpBusiness.businessID
+        //location is the same as yelp business coordinate
+        self.location = yelpBusiness.coordinate
+        print("set up restaurant: " + self.restaurant!)
     }
     
     func setupGroup(userList: [String]) {
