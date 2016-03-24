@@ -59,10 +59,11 @@ class FriendsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0
+        if section == 0 {
             return requests.count
-        else
+        }else {
             return friends.count
+        }
     }
 
     

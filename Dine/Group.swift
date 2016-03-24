@@ -26,11 +26,7 @@ class Group: NSObject {
             groupMembers.append(GroupMember(userId: user, joined: false))
         }
     }
-    
-    init(group_members: [String], chat_id: String){
-        self.group_members = group_members
-        self.chat_id = chat_id
-    }
+
     
     func addMember(userId: String, joined: Bool) {
         groupMembers.append(GroupMember(userId: userId, joined: joined))
