@@ -36,9 +36,9 @@ class MapAnnotation: NSObject, MKAnnotation {
     init(activity: Activity) {
         self.activity = activity
         self.title = " "
-        self.coordinate = activity.location
+        self.coordinate = activity.location!
         self.restaurantName = activity.restaurant
-        self.members = activity.request_poster_username
-        self.time = activity.request_time
+        self.members = activity.requestPosterUsername
+        self.time = activity.requestTime
     }
 }

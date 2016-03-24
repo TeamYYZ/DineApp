@@ -28,6 +28,24 @@ class ParseAPI {
     
     }
     
+    class func createActivity(requestTime: NSDate, yelpBusinessId: String, overview: String, location: CLLocationCoordinate2D, restaurant: String, groupMemberList: [String]?, successHandler: (Bool, PFObject?) -> (), failureHandler: ()->()) {
+        let PFActivity = PFObject(className: "Activity")
+        
+        PFActivity["requestTime"] = requestTime
+        PFActivity["yelpBusinessId"] = yelpBusinessId
+        PFActivity["overview"] = overview
+        PFActivity["location"] = [location.latitude, location.longitude] 
+        PFActivity["restaurant"] = restaurant
+        
+        PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            if success {
+                successHandler(success, PFActivity)
+            } else {
+                failureHandler()
+            }
+        }
+    }
+    
     class func signIn(username: String, password: String, successCallback: ()->(), failureCallback: (NSError?)->()) {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user: PFUser?, error: NSError?) -> Void in
             if let user = user {

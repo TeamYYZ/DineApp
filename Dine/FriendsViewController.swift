@@ -29,7 +29,7 @@ class FriendsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         checked[indexPath.row] = !checked[indexPath.row]

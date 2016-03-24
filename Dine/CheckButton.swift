@@ -38,7 +38,7 @@ class CheckButton: UIButton {
         if Activity.current_activity == nil {
             self.setImage(checked, forState: .Normal)
             self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
-        }else if Activity.current_activity!.AID == self.activity!.AID{
+        }else if Activity.current_activity!.activityId == self.activity!.activityId{
             self.setImage(cancel, forState: .Normal)
             self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
         }else{

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController {
     let gradientLayer = CAGradientLayer()
@@ -54,6 +55,17 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        ParseAPI.createActivity(NSDate(), yelpBusinessId: "test", overview: "test", location: CLLocationCoordinate2D(), restaurant: "test", successHandler: {(success: Bool, PFActivity: PFObject?) -> () in
+//                print("success")
+//            
+//            
+//            }, failureHandler: {()->() in
+//                print("success")
+//        
+//        
+//        
+//        
+//        })
         gradientLayer.frame = self.view.bounds
         gradientLayer.zPosition = -1
         let color1 = ColorTheme.sharedInstance.loginGradientFisrtColor.CGColor as CGColorRef

@@ -10,11 +10,14 @@ import UIKit
 
 class RestaurantPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var tableView: UITableView!
+//    let activityInProgress: Activity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+//        activityInProgress = Activity()
+        
     }
 
     override func didReceiveMemoryWarning() {
