@@ -21,7 +21,7 @@ class Group: NSObject {
         self.chat_id = object["chatroom_id"] as? String
     }
     
-    init(owner_uid: String, group_members: [String], chat_id: String){
+    init(group_members: [String], chat_id: String){
         self.group_members = group_members
         self.chat_id = chat_id
 

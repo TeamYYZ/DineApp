@@ -13,6 +13,9 @@ class FriendsViewController: UITableViewController {
 
     var checked: [Bool]!
     @IBOutlet weak var inviteButton: UIBarButtonItem!
+    
+    var requests:[String] = ["July", "S", "Beth"]
+
     var friends:[String] = ["Sam", "Anna", "Beth"]
     
     override func viewDidLoad() {
@@ -49,9 +52,15 @@ class FriendsViewController: UITableViewController {
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return friends.count
+        if section == 0
+            return requests.count
+        else
+            return friends.count
     }
 
     

@@ -31,10 +31,10 @@ class User {
         self.UID = pfUser.objectId
         self.username = pfUser.username
         self.password = pfUser.password
-        if let lastName = pfUser["lastName"] as? String {
+        if let lastName = pfUser["last_name"] as? String {
             self.lastName = lastName
         }
-        if let firstName = pfUser["firstName"] as? String {
+        if let firstName = pfUser["first_name"] as? String {
             self.firstName = firstName
         }
         
