@@ -31,6 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if self.activities.capacity == 0{
             createSomeActivities()
         }
+        print(PFUser.currentUser()?.username)
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

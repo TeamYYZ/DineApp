@@ -8,8 +8,11 @@
 
 import UIKit
 import Parse
+import ParseFacebookUtilsV4
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController{
     let gradientLayer = CAGradientLayer()
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -82,7 +85,7 @@ class LoginViewController: UIViewController {
         
         fbIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
         fbIcon.tintColor = ColorTheme.sharedInstance.loginTextColor
-
+        createNewAccountLabel.addTarget(self, action: "LoginWithFacebook", forControlEvents: .TouchDown)
             
         
         // Do any additional setup after loading the view.
@@ -111,6 +114,28 @@ class LoginViewController: UIViewController {
         
         print("self.view.frame after keyboard shown\(self.view.frame)")
         print("didShow")
+    
+    }
+    
+    func LoginWithFacebook() {
+        print("Trying to login with FB")
+        var permissions = ["public_profile"]
+        PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions) {
+            (user: PFUser?, error: NSError?) -> Void in
+            if let user = user {
+                if user.isNew {
+                    print("User signed up and logged in through Facebook!")
+                    print(user)
+                    self.performSegueWithIdentifier("signupSegue", sender: self)
+                } else {
+                    print("User logged in through Facebook!")
+                    self.performSegueWithIdentifier("loginSegue", sender: self)
+                }
+            } else {
+                print("Uh oh. The user cancelled the Facebook login.")
+            }
+        }
+
     
     }
     

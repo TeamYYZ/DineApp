@@ -16,11 +16,16 @@ class SignUpNameViewController: SignUpViewController {
     @IBOutlet weak var nextButton: YYZButton!
     
     @IBAction func submitOnTap(sender: AnyObject) {
+        if PFUser.currentUser() == nil{
         ParseAPI.signUp(SignUpViewController.emailaddr!, password: SignUpViewController.password!, screenName: yourNameField.text!, successCallback: { () -> () in
                 self.performSegueWithIdentifier("signUpSuccessSegue", sender: sender)
             
             }) { (error: NSError?) -> () in
                 print("Sign Up faliure")
+            }
+        }else{
+            PFUser.currentUser()?.username = yourNameField.text!
+            self.performSegueWithIdentifier("signUpSuccessSegue", sender: sender)
         }
     }
     
