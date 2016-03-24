@@ -25,6 +25,7 @@ class EmailSignupViewController: SignUpViewController {
         if emailField.isValidEmail() {
             emailField.rightViewMode = .Always
             self.performSegueWithIdentifier("signUpFinishEmailSegue", sender: nil)
+            
         } else {
             print("invalidEmail")
         }
@@ -45,6 +46,8 @@ class EmailSignupViewController: SignUpViewController {
         emailField.fieldType = .Email
         emailField.textChangedCB = validatedValue
         
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +59,13 @@ class EmailSignupViewController: SignUpViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "signUpFinishEmailSegue" {
-            SignUpViewController.emailaddr = emailField.text
+            if PFUser.currentUser() == nil{
+                SignUpViewController.emailaddr = emailField.text
+            }else{
+                PFUser.currentUser()?.email = emailField.text
+                
+                
+            }
         }
         
     }

@@ -86,12 +86,20 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Dine/Bolts.framework"
   install_framework "Pods-Dine/ChameleonFramework.framework"
+  install_framework "Pods-Dine/FBSDKCoreKit.framework"
+  install_framework "Pods-Dine/FBSDKLoginKit.framework"
   install_framework "Pods-Dine/Parse.framework"
+  install_framework "Pods-Dine/ParseFacebookUtilsV4.framework"
+  install_framework "Pods-Dine/ParseUI.framework"
   install_framework "Pods-Dine/SWRevealViewController.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Dine/Bolts.framework"
   install_framework "Pods-Dine/ChameleonFramework.framework"
+  install_framework "Pods-Dine/FBSDKCoreKit.framework"
+  install_framework "Pods-Dine/FBSDKLoginKit.framework"
   install_framework "Pods-Dine/Parse.framework"
+  install_framework "Pods-Dine/ParseFacebookUtilsV4.framework"
+  install_framework "Pods-Dine/ParseUI.framework"
   install_framework "Pods-Dine/SWRevealViewController.framework"
 fi

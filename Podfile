@@ -5,7 +5,11 @@ use_frameworks!
 
 target 'Dine' do
 	pod 'Parse'
+    pod 'ParseUI'
     pod 'SWRevealViewController'
     pod 'ChameleonFramework/Swift'
+    pod 'ParseFacebookUtilsV4'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
 end
 

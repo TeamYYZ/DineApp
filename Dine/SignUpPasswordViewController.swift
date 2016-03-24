@@ -42,7 +42,11 @@ class SignUpPasswordViewController: SignUpViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "signUpFinishPasswordSegue" {
-            SignUpViewController.password = passwordField.text
+            if PFUser.currentUser() == nil{
+                SignUpViewController.password = passwordField.text
+            }else{
+                PFUser.currentUser()?.password = passwordField.text
+            }
         }
         
     }
