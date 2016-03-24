@@ -26,7 +26,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="60" id="NUc-ui-TsY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="restaurantCell" rowHeight="60" id="NUc-ui-TsY" customClass="RestaurantCell" customModule="Dine" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="136" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUc-ui-TsY" id="j1C-xr-9JH">
@@ -65,6 +65,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkButton" destination="dAZ-Az-oyb" id="Xuk-K9-Kdt"/>
+                                            <outlet property="genreLabel" destination="TVe-sh-uck" id="yCr-VJ-CRj"/>
+                                            <outlet property="nameLabel" destination="Wqd-ob-C67" id="ROZ-4g-4WF"/>
                                             <segue destination="IZt-4q-zw5" kind="push" identifier="restaurantDetailSegue" id="BAP-yM-aTa"/>
                                         </connections>
                                     </tableViewCell>
@@ -284,6 +287,6 @@
         <image name="map" width="677" height="1106"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aMa-Sq-ML3"/>
+        <segue reference="FMX-eV-pTK"/>
     </inferredMetricsTieBreakers>
 </document>

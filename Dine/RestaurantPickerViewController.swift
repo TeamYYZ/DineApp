@@ -12,10 +12,26 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var tableView: UITableView!
     var activityInProgress: Activity?
 
+    var businesses: [Business]!
+    var searchTerm = String("Restaurants")
+    var location: CLLocation!
+    
+    var isMoreDataLoading = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
+        //feed in tableview yelp data
+        // Example of Yelp search with more search options specified
+        Business.searchWithTerm("Restaurants", sort: YelpSortMode.Distance.rawValue, radius: 0, categories:[], deals: false, offset: 0) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+        
         activityInProgress = Activity()
         
     }
@@ -27,24 +43,22 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: - Table view data source
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        if businesses != nil {
+            return businesses.count
+        }else {
+            return 0
+        }
     }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as! RestaurantCell
+        cell.business = businesses[indexPath.row]
+        
         return cell
     }
+
 
 
     /*

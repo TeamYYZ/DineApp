@@ -159,6 +159,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let annotation = sender as! MapAnnotation
         activityProfileViewController.activity = annotation.activity
         }
+        
+        if let restaurantPickerViewController = segue.destinationViewController as? RestaurantPickerViewController {
+            restaurantPickerViewController.location = location
+        }
                 
     }
     
