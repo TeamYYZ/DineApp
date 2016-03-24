@@ -19,6 +19,7 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     
     var businesses: [Business]!
     var selectedBusiness: Business?
+    var detailBusiness: Business?
     var searchTerm = String("Restaurants")
     var location: CLLocationCoordinate2D!
     
@@ -80,6 +81,14 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         cell.checkButton.addTarget(self, action: "buttonChecked:", forControlEvents: .TouchUpInside)
 
         return cell
+    }
+
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        detailBusiness = businesses[indexPath.row]
+        Business.getDetailWithId((detailBusiness?.businessID)!, completion: { (business: Business!, error: NSError!) -> Void in
+            self.performSegueWithIdentifier("toRestaurantDetailSegue", sender: business)
+        })
+        return indexPath
     }
 
     func buttonChecked(sender: UIButton){
@@ -150,15 +159,23 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     }
     */
     
+    @IBAction func unwindToRestaurantPicker(segue: UIStoryboardSegue) {
+        
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "restaurantDetailSegue" {
+        if segue.identifier == "toRestaurantDetailSegue" {
+            print("here prepare for segue")
             let vc = segue.destinationViewController as! RestaurantDetailViewController
+
             vc.activityInProgress = self.activityInProgress
+            vc.business = sender as! Business
             
         }
         if segue.identifier == "nextSegue" {
             if selectedBusiness != nil {
             activityInProgress?.setupRestaurant(selectedBusiness!)
+                
             }
         }
     }

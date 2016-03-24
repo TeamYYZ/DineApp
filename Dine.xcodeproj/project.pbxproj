@@ -32,6 +32,8 @@
 		C63113541CA4578400C66952 /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113531CA4578400C66952 /* YelpClient.swift */; };
 		C63113561CA4579200C66952 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113551CA4579200C66952 /* Business.swift */; };
 		C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113571CA457AF00C66952 /* RestaurantCell.swift */; };
+		C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */; };
+		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BE41CA3B93A00115AF2 /* RequestCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
@@ -87,6 +89,8 @@
 		C63113531CA4578400C66952 /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YelpClient.swift; path = Yelp/API/YelpClient.swift; sourceTree = SOURCE_ROOT; };
 		C63113551CA4579200C66952 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Business.swift; path = Yelp/Models/Business.swift; sourceTree = SOURCE_ROOT; };
 		C63113571CA457AF00C66952 /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
+		C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantProfileCell.swift; sourceTree = "<group>"; };
+		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		C6913BE41CA3B93A00115AF2 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
 				C6913BE41CA3B93A00115AF2 /* RequestCell.swift */,
 				C63113571CA457AF00C66952 /* RestaurantCell.swift */,
+				C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */,
+				C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -417,6 +423,7 @@
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
 				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
+				C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */,
 				C63113561CA4579200C66952 /* Business.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
@@ -435,6 +442,7 @@
 				C63113541CA4578400C66952 /* YelpClient.swift in Sources */,
 				C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */,
 				C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */,
+				C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,
 				C6EE092C1C96038700345357 /* MapViewController.swift in Sources */,
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,

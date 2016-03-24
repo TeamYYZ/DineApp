@@ -55,6 +55,20 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         return searchWithTerm(term, location: location, sort: nil, radius: 0, categories: nil, deals: nil, offset: nil, completion: completion)
     }
     
+    func getBusinessWithId(id: String, completion: (business: Business!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        let parameters: [String : AnyObject] = ["actionlinks": false]
+        return self.GET("business/"+id, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            let dictionary = response as? NSDictionary
+            if dictionary != nil {
+                completion(business: Business(dictionary: dictionary!), nil)
+            }
+            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
+                completion(business: nil, error)
+        })!
+
+    }
+    
+    
     func searchWithTerm(term: String, location: CLLocationCoordinate2D, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
 
@@ -79,7 +93,6 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         if offset != nil {
             parameters["offset"] = offset!
         }
-        print(parameters)
         
         return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let dictionaries = response["businesses"] as? [NSDictionary]

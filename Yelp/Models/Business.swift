@@ -18,6 +18,7 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: NSURL?
     let reviewCount: NSNumber?
+    let reviews: [NSDictionary]?
     let coordinate: CLLocationCoordinate2D?
     
     init(dictionary: NSDictionary) {
@@ -81,6 +82,8 @@ class Business: NSObject {
         }
         
         reviewCount = dictionary["review_count"] as? NSNumber
+        reviews = dictionary["reviews"] as? [NSDictionary]
+
     }
     
     class func businesses(array array: [NSDictionary]) -> [Business] {
@@ -90,6 +93,10 @@ class Business: NSObject {
             businesses.append(business)
         }
         return businesses
+    }
+    
+    class func getDetailWithId(id: String, completion: (Business!, NSError!) -> Void) {
+        YelpClient.sharedInstance.getBusinessWithId(id, completion: completion)
     }
     
     class func searchWithTerm(term: String, location: CLLocationCoordinate2D, completion: ([Business]!, NSError!) -> Void) {
