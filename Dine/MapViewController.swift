@@ -115,6 +115,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
         
         if let annotation = annotation as? MapAnnotation {
 
