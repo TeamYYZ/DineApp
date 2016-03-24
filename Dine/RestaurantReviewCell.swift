@@ -19,7 +19,6 @@ class RestaurantReviewCell: UITableViewCell {
         didSet {
             nameLabel.text = review["user"]!["name"] as? String
             let profileURL = review["user"]!["image_url"] as? String
-            print(profileURL)
             profileView.setImageWithURL(NSURL(string: profileURL!)! )
             ratingView.setImageWithURL(NSURL(string: review["rating_image_url"] as! String)!)
             excerptLabel.text = review["excerpt"] as? String

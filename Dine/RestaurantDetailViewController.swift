@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class RestaurantDetailViewController: UITableViewController {
+    
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
     weak var activityInProgress: Activity?
@@ -26,7 +27,9 @@ class RestaurantDetailViewController: UITableViewController {
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
         profileView.clipsToBounds = true
         profileView.contentMode = .ScaleAspectFill
+
         tableHeaderView.addSubview(profileView)
+
         tableView.tableHeaderView = tableHeaderView
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -62,8 +65,8 @@ class RestaurantDetailViewController: UITableViewController {
         return cell
         }
         else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath)
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath) as! MapCell
+            cell.business = business
             // Configure the cell...
             
             return cell
@@ -88,6 +91,7 @@ class RestaurantDetailViewController: UITableViewController {
         }
     }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -165,7 +165,6 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toRestaurantDetailSegue" {
-            print("here prepare for segue")
             let vc = segue.destinationViewController as! RestaurantDetailViewController
 
             vc.activityInProgress = self.activityInProgress

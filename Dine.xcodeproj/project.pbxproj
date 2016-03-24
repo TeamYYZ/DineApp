@@ -34,6 +34,7 @@
 		C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113571CA457AF00C66952 /* RestaurantCell.swift */; };
 		C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */; };
 		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
+		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BE41CA3B93A00115AF2 /* RequestCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
@@ -91,6 +92,7 @@
 		C63113571CA457AF00C66952 /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantProfileCell.swift; sourceTree = "<group>"; };
 		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
+		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		C6913BE41CA3B93A00115AF2 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +183,28 @@
 			name = SignUp;
 			sourceTree = "<group>";
 		};
+		C631135D1CA4A55A00C66952 /* Restaurant */ = {
+			isa = PBXGroup;
+			children = (
+				C6913BE41CA3B93A00115AF2 /* RequestCell.swift */,
+				C63113571CA457AF00C66952 /* RestaurantCell.swift */,
+				C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */,
+				C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */,
+				C631135F1CA4A59700C66952 /* MapCell.swift */,
+			);
+			name = Restaurant;
+			sourceTree = "<group>";
+		};
+		C631135E1CA4A56D00C66952 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				C6EE092F1C960ECA00345357 /* MapDetailView.swift */,
+				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
+				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
 		C6EE09061C906F6200345357 = {
 			isa = PBXGroup;
 			children = (
@@ -245,20 +269,15 @@
 		C6EE09251C9070F700345357 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C6EE092F1C960ECA00345357 /* MapDetailView.swift */,
-				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
-				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
 				C6EE09351C96272900345357 /* CheckButton.swift */,
+				C631135E1CA4A56D00C66952 /* Map */,
+				C631135D1CA4A55A00C66952 /* Restaurant */,
 				C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */,
 				C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */,
 				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
 				C17AABE31C984EA100CC83CF /* YYZTextField.swift */,
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
 				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
-				C6913BE41CA3B93A00115AF2 /* RequestCell.swift */,
-				C63113571CA457AF00C66952 /* RestaurantCell.swift */,
-				C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */,
-				C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -449,6 +468,7 @@
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
+				C63113601CA4A59700C66952 /* MapCell.swift in Sources */,
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,

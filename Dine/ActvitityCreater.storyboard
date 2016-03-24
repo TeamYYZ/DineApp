@@ -185,14 +185,14 @@
                                     <outlet property="ratingView" destination="fYq-cw-ndc" id="B0J-eK-46T"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapCell" rowHeight="142" id="Hya-87-zje">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mapCell" rowHeight="142" id="Hya-87-zje" customClass="MapCell" customModule="Dine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="192" width="320" height="142"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hya-87-zje" id="ceA-Ov-2G3">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="141.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zG7-9E-d5f">
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zG7-9E-d5f">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="141.5" id="cAG-nz-eT6"/>
@@ -206,6 +206,9 @@
                                         <constraint firstItem="zG7-9E-d5f" firstAttribute="leading" secondItem="ceA-Ov-2G3" secondAttribute="leading" id="mio-UW-rMk"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="mapView" destination="zG7-9E-d5f" id="BcZ-Z4-M9a"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="84" id="QYI-Vm-rad" customClass="RestaurantReviewCell" customModule="Dine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="334" width="320" height="84"/>
@@ -299,7 +302,25 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UITableViewController-jCr-o5-zRm" id="oMj-Zn-FVu" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NXb-fj-UKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1763.5" y="2528"/>
+            <point key="canvasLocation" x="1458.5" y="2641"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9uk-wO-sC3">
+            <objects>
+                <viewController id="nZA-S9-Fse" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oUY-Ww-H9t"/>
+                        <viewControllerLayoutGuide type="bottom" id="GHc-S8-Dad"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d6W-6f-0Vv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I23-u2-fdo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2023" y="2736"/>
         </scene>
     </scenes>
     <resources>
