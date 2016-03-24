@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class User {
-    var UID: String?
+    var userId: String?
     var username: String?
     var firstName: String?
     var lastName: String?
@@ -27,8 +27,13 @@ class User {
 
     // for persistently store the current User object, generate a User object after restarting in Appdelegate
     
+    init (userId: String) {
+    
+    
+    }
+    
     init (pfUser: PFUser) {
-        self.UID = pfUser.objectId
+        self.userId = pfUser.objectId
         self.username = pfUser.username
         self.password = pfUser.password
         if let lastName = pfUser["lastName"] as? String {
@@ -42,7 +47,7 @@ class User {
     }
     
     init(UID: String, username: String, firstName: String, lastName: String, password: String, dateOfBirth: NSDate, gender: Bool, email: String, profileDescription: String, avatarImage: UIImage, friendList: [String], current_location: CLLocation){
-        self.UID = UID
+        self.userId = UID
         self.firstName = firstName
         self.lastName = lastName
         self.password = password

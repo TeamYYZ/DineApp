@@ -11,21 +11,42 @@ import Parse
 
 class Group: NSObject {
     
-    var group_members: [String]?
-    var chat_id: String?
+    var groupMembers = [GroupMember]()
     
-    static var current_group: Group?
-    
-    init(object: PFObject){
-        self.group_members = object["group_members"] as? [String]
-        self.chat_id = object["chatroom_id"] as? String
+    init(membersDictArray: [NSMutableDictionary]) {
+        for dict in membersDictArray {
+            let member = GroupMember(userId: dict["userId"] as! String, joined: dict["joined"] as! Bool)
+            groupMembers.append(member)
+        }
+        
     }
     
-    init(owner_uid: String, group_members: [String], chat_id: String){
-        self.group_members = group_members
-        self.chat_id = chat_id
+    init(userList: [String]) {
+        for user in userList {
+            groupMembers.append(GroupMember(userId: user, joined: false))
+        }
+    }
+    
+    func addMember(userId: String, joined: Bool) {
+        groupMembers.append(GroupMember(userId: userId, joined: joined))
+    }
 
+    func getUserList() -> [GroupMember]?{
+        return groupMembers
     }
     
+    func getUserListDictArray() -> [NSMutableDictionary]? {
+        var dictArray = [NSMutableDictionary]()
+        for member in groupMembers {
+            let dict = NSMutableDictionary()
+            dict["userId"] = member.userId
+            dict["joined"] = member.joined
+            dictArray.append(dict)
+            
+        }
+        return dictArray
+        
+    
+    }
     
 }

@@ -10,13 +10,13 @@ import UIKit
 
 class RestaurantPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     @IBOutlet weak var tableView: UITableView!
-//    let activityInProgress: Activity?
+    var activityInProgress: Activity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-//        activityInProgress = Activity()
+        activityInProgress = Activity()
         
     }
 
@@ -91,5 +91,13 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "restaurantDetailSegue" {
+            let vc = segue.destinationViewController as! RestaurantDetailViewController
+            vc.activityInProgress = self.activityInProgress
+            
+        }
+    }
 
 }

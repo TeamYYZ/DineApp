@@ -12,6 +12,7 @@ import MapKit
 class RestaurantDetailViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
+    weak var activityInProgress: Activity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,14 +118,13 @@ class RestaurantDetailViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "finishRestaurantPickSegue" {
+            let vc = segue.destinationViewController as! FriendsViewController
+            vc.activityInProgress = self.activityInProgress
+            
+            
+        }
     }
-    */
 
 }

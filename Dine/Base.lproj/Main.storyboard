@@ -973,7 +973,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="IZt-4q-zw5" kind="push" id="BAP-yM-aTa"/>
+                                            <segue destination="IZt-4q-zw5" kind="push" identifier="restaurantDetailSegue" id="BAP-yM-aTa"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1052,7 +1052,7 @@
                                             </constraints>
                                             <state key="normal" image="Checked"/>
                                             <connections>
-                                                <segue destination="jCr-o5-zRm" kind="push" id="aMa-Sq-ML3"/>
+                                                <segue destination="jCr-o5-zRm" kind="push" identifier="finishRestaurantPickSegue" id="aMa-Sq-ML3"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="open hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mt-M4-f2E">
@@ -1534,6 +1534,6 @@
         <segue reference="vXx-W9-cQW"/>
         <segue reference="dVu-E8-6ev"/>
         <segue reference="kT1-sP-8m0"/>
-        <segue reference="4ba-OQ-4or"/>
+        <segue reference="FMX-eV-pTK"/>
     </inferredMetricsTieBreakers>
 </document>

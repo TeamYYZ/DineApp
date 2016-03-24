@@ -14,13 +14,14 @@ class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
     var activity: Activity!
+    var activityInCreating: Activity!
 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
-        
+        activityInCreating = Activity()
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         profileView = UIImageView(image: UIImage(named: "map"))
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
@@ -88,14 +89,6 @@ class ActivityProfileViewController: UITableViewController {
 //    }
     
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

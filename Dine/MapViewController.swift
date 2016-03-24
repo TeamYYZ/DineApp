@@ -85,7 +85,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
-
+        let vc = sender.sourceViewController as! FriendsViewController
+        let activity = vc.activityInProgress
+        
     }
     
  
