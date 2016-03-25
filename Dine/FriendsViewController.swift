@@ -64,6 +64,7 @@ class FriendsViewController: UITableViewController {
         var enableInviteButton = false
         for checkbox in checked {
             if checkbox {
+                
                 enableInviteButton = true
                 break
             }
