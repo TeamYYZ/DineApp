@@ -37,8 +37,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         if status == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
-
-            print("WhenInUse")
             goToLocation(location)
             
             locationManager.startUpdatingLocation()
@@ -92,7 +90,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             activity?.saveToBackend({ () -> () in
                 print("save successfully")
                 Activity.current_activity = activity
-                self.updateMap()
+                self.userJoinedActivity()
                 }, failureHandler: { () -> () in
                 print("something wrong...")
             })
