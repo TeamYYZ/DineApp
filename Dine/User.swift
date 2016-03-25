@@ -46,6 +46,8 @@ class User {
         
     }
     
+
+    
     init(UID: String, username: String, firstName: String, lastName: String, password: String, dateOfBirth: NSDate, gender: Bool, email: String, profileDescription: String, avatarImage: UIImage, friendList: [String], current_location: CLLocation){
         self.userId = UID
         self.firstName = firstName
@@ -58,5 +60,7 @@ class User {
         self.friendList = friendList
         self.current_location = current_location
     }
+    
+    
 
 }

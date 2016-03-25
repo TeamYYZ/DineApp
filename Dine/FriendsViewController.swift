@@ -11,21 +11,45 @@ import UIKit
 class FriendsViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     weak var activityInProgress: Activity?
-    var kk: Int = 5
+//    var kk: Int = 5
 
     var checked: [Bool]!
     @IBOutlet weak var inviteButton: UIBarButtonItem!
     
     var requests:[String] = ["July", "S", "Beth"]
 
-    var friends:[String] = ["Sam", "Anna", "Beth"]
+    //var friendsIdList = User.currentUser?.friendList
+    var friendsIdList = ["jp2qy0tBEL", "SAFznh6L8J"]
+    var friendsUserList = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         inviteButton.enabled = false
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
-        checked = [Bool](count: friends.count, repeatedValue: false)
+        checked = [Bool](count: friendsIdList.count, repeatedValue: false)
+        tableView.dataSource = self
+        tableView.delegate = self
+        for friendId in friendsIdList{
+            var query = PFUser.query()
+            query!.getObjectInBackgroundWithId(friendId) {
+                (friend: PFObject?, error: NSError?) -> Void in
+                if error == nil && friend != nil {
+                    let friendAsPFUser = friend as! PFUser
+                    let friendAsUser = User.init(pfUser: friendAsPFUser)
+                    self.friendsUserList.append(friendAsUser)
+                    print("YES")
+                    self.tableView.reloadData()
+                    
+                } else {
+                    print("Fail to get the friendList")
+                    print(error)
+                }
+            }
+            
+        }
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,20 +79,24 @@ class FriendsViewController: UITableViewController {
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        //return 2
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return requests.count
-        }else {
-            return friends.count
-        }
+//        if section == 0 {
+//            return requests.count
+//        }else {
+//            return friendsIdList.count
+//        }
+        return friendsUserList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+       
         let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
+        
         if checked[indexPath.row] {
             cell.accessoryType = .Checkmark
             cell.inviteLabel.text = "Invited"
@@ -78,10 +106,18 @@ class FriendsViewController: UITableViewController {
             cell.inviteLabel.text = "Invite"
             cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
         }
-        // Configure the cell...
-
+        print(indexPath.row)
+        let friend = self.friendsUserList[indexPath.row]
+        if let userName = friend.username{
+            cell.userNameLabel.text! = userName
+        }
+        if let avatarImage = friend.avatarImage{
+            cell.avatarImage.image = avatarImage
+        }
         return cell
     }
+    
+
     
 
     /*

@@ -28,9 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.activities.capacity == 0{
-            createSomeActivities()
-        }
+
         print(PFUser.currentUser()?.username)
         mapView.delegate = self
         locationManager.delegate = self
@@ -54,6 +52,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         loadMap()
+        createSomeFriends()
 
     }
     
@@ -199,37 +198,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     }
     
+    // This function is created for debug.
     
-    //This function is just designed for debug,lol
-    func createSomeActivities(){
-
-//        let loc1 = CLLocationCoordinate2D(latitude: 30.6014, longitude: -96.3144)
-//        let group1 = Group(GID: "g1", owner_uid: "1", group_members: ["John","Sammy"], chat_id: "c1")
-//
-//        let act1 = Activity(AID: "1", request_poster_username: "Sammy", request_time: "11:30", yelp_business_id: "yelp_id", overview: "Example1", group: group1, location: loc1, restaurant: "Yaku")
-//        self.activities.append(act1)
-//
-//
-//        let loc2 = CLLocationCoordinate2D(latitude: 30.6014, longitude: -96.3154)
-//        let group2 = Group(GID: "g2", owner_uid: "2", group_members: ["Jeremy","Edward"], chat_id: "c2")
-//        let act2 = Activity(AID: "2", request_poster_username: "Jeremy", request_time: "11:45", yelp_business_id: "yelp_id", overview: "Example2", group: group2, location: loc2, restaurant: "What A Burger")
-//        self.activities.append(act2)
-//        
-//        let group3 = Group(GID: "g3", owner_uid: "3", group_members: ["Michael","Green"], chat_id: "c3")
-//        let loc3 = CLLocationCoordinate2D(latitude: 30.6024, longitude: -96.3154)
-//
-//        let act3 = Activity(AID: "3", request_poster_username: "Michael", request_time: "12:00", yelp_business_id: "yelp_id", overview: "Example3", group: group3, location: loc3, restaurant: "McDonald")
-//        self.activities.append(act3)
-//
-//        let loc4 = CLLocationCoordinate2D(latitude: 30.6024, longitude: -96.3164)
-//        let group4 = Group(GID: "g4", owner_uid: "4", group_members: ["Eric","Cathy"], chat_id: "c4")
-//        let act4 = Activity(AID: "4", request_poster_username: "Eric", request_time: "12:15", yelp_business_id: "yelp_id", overview: "Example4", group: group4, location: loc4, restaurant: "Chef Cao")
-//        self.activities.append(act4)
-        print("Successfully Created 4 examples")
+    func createSomeFriends(){
+        let idList = ["jp2qy0tBEL", "SAFznh6L8J"]
+        for id in idList{
+            User.currentUser!.friendList = idList
+            
         
-        
-        
-    
+        }
+        print("Successfully created a friendList for current User")
     }
+    
+
 
 }
