@@ -17,11 +17,19 @@ class RestaurantReviewCell: UITableViewCell {
     
     var review: NSDictionary! {
         didSet {
-            nameLabel.text = review["user"]!["name"] as? String
-            let profileURL = review["user"]!["image_url"] as? String
-            profileView.setImageWithURL(NSURL(string: profileURL!)! )
-            ratingView.setImageWithURL(NSURL(string: review["rating_image_url"] as! String)!)
-            excerptLabel.text = review["excerpt"] as? String
+            if let name = review["user"]!["name"] as? String{
+                nameLabel.text = name
+            }
+            
+            if let profileURL = review["user"]!["image_url"] as? String {
+                profileView.setImageWithURL(NSURL(string: profileURL)! )
+            }
+            if let ratingURL = review["rating_image_url"] as? String {
+                ratingView.setImageWithURL(NSURL(string: ratingURL)!)
+            }
+            if let excerpt = review["excerpt"] as? String {
+                excerptLabel.text = excerpt
+            }
         }
     }
     

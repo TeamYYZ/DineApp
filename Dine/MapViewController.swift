@@ -86,7 +86,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         if let vc = sender.sourceViewController as? FriendsViewController {
+
         let activity = vc.activityInProgress
+            //save to Parse
+            activity?.saveToBackend({ () -> () in
+                print("save successfully")
+                }, failureHandler: { () -> () in
+                print("something wrong...")
+            })
         }
         
     }

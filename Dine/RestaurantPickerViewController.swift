@@ -89,7 +89,10 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
 
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         detailBusiness = businesses[indexPath.row]
+        
+        
         Business.getDetailWithId((detailBusiness?.businessID)!, completion: { (business: Business!, error: NSError!) -> Void in
+                print(business)
             self.performSegueWithIdentifier("toRestaurantDetailSegue", sender: business)
         })
         return indexPath
@@ -172,7 +175,6 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
             let vc = segue.destinationViewController as! RestaurantDetailViewController
 
             vc.business = sender as! Business
-            
         }
 
     }

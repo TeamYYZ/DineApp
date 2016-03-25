@@ -73,7 +73,9 @@ class RestaurantDetailViewController: UITableViewController {
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! RestaurantReviewCell
-            cell.review = business.reviews![indexPath.row - 2]
+            if business.reviews != nil {
+                cell.review = business.reviews![indexPath.row - 2]
+            }
             // Configure the cell...
             
             return cell

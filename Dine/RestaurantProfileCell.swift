@@ -18,9 +18,15 @@ class RestaurantProfileCell: UITableViewCell {
     
     var business: Business! {
         didSet {
+            if business.name != nil {
             nameLabel.text = business.name
-            ratingView.setImageWithURL(business.ratingImageURL!)
-            categoryLabel.text = business.categories
+            }
+            if business.ratingImageURL != nil {
+               ratingView.setImageWithURL(business.ratingImageURL!)
+            }
+            if business.categories != nil {
+                categoryLabel.text = business.categories
+            }
             openhourLabel.text = "Open Now"
         }
     }

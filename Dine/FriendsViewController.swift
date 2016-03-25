@@ -31,7 +31,7 @@ class FriendsViewController: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         for friendId in friendsIdList{
-            var query = PFUser.query()
+            let query = PFUser.query()
             query!.getObjectInBackgroundWithId(friendId) {
                 (friend: PFObject?, error: NSError?) -> Void in
                 if error == nil && friend != nil {
@@ -97,15 +97,16 @@ class FriendsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
         
         if checked[indexPath.row] {
+            
             cell.accessoryType = .Checkmark
             cell.inviteLabel.text = "Invited"
             cell.inviteLabel.textColor = UIColor.flatGrayColor()
         } else {
+            
             cell.accessoryType = .None
             cell.inviteLabel.text = "Invite"
             cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
         }
-        print(indexPath.row)
         let friend = self.friendsUserList[indexPath.row]
         if let userName = friend.username{
             cell.userNameLabel.text! = userName
@@ -154,14 +155,20 @@ class FriendsViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        var invitedIdList = [String]()
+        for (index, value) in checked.enumerate() {
+            if value {
+                invitedIdList.append(friendsIdList[index])
+            }
+        }
+        activityInProgress?.setupGroup(invitedIdList)
     }
-    */
+    
 
 }
