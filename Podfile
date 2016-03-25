@@ -11,5 +11,8 @@ target 'Dine' do
     pod 'ParseFacebookUtilsV4'
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
+    pod 'AFNetworking', '~> 2.5'
+    pod 'BDBOAuth1Manager'
+    pod 'MBProgressHUD'
 end
 

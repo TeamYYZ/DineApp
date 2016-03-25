@@ -49,7 +49,6 @@ class FriendsViewController: UITableViewController {
             
         }
 
-
     }
 
     override func didReceiveMemoryWarning() {

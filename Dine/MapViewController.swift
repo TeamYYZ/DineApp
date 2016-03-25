@@ -34,9 +34,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         let status = CLLocationManager.authorizationStatus()
-        
+
         if status == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
+
             print("WhenInUse")
             goToLocation(location)
             
@@ -52,7 +53,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         loadMap()
-        createSomeFriends()
+
 
     }
     
@@ -85,8 +86,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
-        let vc = sender.sourceViewController as! FriendsViewController
+        if let vc = sender.sourceViewController as? FriendsViewController {
         let activity = vc.activityInProgress
+        }
         
     }
     
@@ -98,6 +100,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            mapView.showsUserLocation = true
             locationManager.startUpdatingLocation()
         }
     }
@@ -158,6 +161,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let annotation = sender as! MapAnnotation
         activityProfileViewController.activity = annotation.activity
         }
+        
+        if let navVC = segue.destinationViewController as? UINavigationController {
+            if let restaurantPickerViewController = navVC.topViewController as? RestaurantPickerViewController {
+                restaurantPickerViewController.location = locationManager.location?.coordinate
+            }
+        }
                 
     }
     
@@ -199,16 +208,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     // This function is created for debug.
-    
-    func createSomeFriends(){
-        let idList = ["jp2qy0tBEL", "SAFznh6L8J"]
-        for id in idList{
-            User.currentUser!.friendList = idList
-            
-        
-        }
-        print("Successfully created a friendList for current User")
-    }
+
     
 
 

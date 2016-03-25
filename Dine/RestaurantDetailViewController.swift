@@ -10,19 +10,26 @@ import UIKit
 import MapKit
 
 class RestaurantDetailViewController: UITableViewController {
+    
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
     weak var activityInProgress: Activity?
+    var business: Business!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         profileView = UIImageView(image: UIImage(named: "map"))
+        if business.imageURL != nil {
+            profileView.setImageWithURL(business.imageURL!)
+        }
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
         profileView.clipsToBounds = true
         profileView.contentMode = .ScaleAspectFill
+
         tableHeaderView.addSubview(profileView)
+
         tableView.tableHeaderView = tableHeaderView
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -43,29 +50,30 @@ class RestaurantDetailViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return (business.reviews?.count)!+2
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             //profile
-        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath)
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as! RestaurantProfileCell
+            cell.business = business
         // Configure the cell...
+            
 
         return cell
         }
         else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath)
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath) as! MapCell
+            cell.business = business
             // Configure the cell...
             
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath)
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! RestaurantReviewCell
+            cell.review = business.reviews![indexPath.row - 2]
             // Configure the cell...
             
             return cell
@@ -83,6 +91,7 @@ class RestaurantDetailViewController: UITableViewController {
         }
     }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

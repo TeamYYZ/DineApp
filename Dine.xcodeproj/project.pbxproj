@@ -29,6 +29,12 @@
 		C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */; };
 		C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
+		C63113541CA4578400C66952 /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113531CA4578400C66952 /* YelpClient.swift */; };
+		C63113561CA4579200C66952 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113551CA4579200C66952 /* Business.swift */; };
+		C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113571CA457AF00C66952 /* RestaurantCell.swift */; };
+		C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */; };
+		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
+		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BE41CA3B93A00115AF2 /* RequestCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
@@ -81,6 +87,12 @@
 		C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
+		C63113531CA4578400C66952 /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YelpClient.swift; path = Yelp/API/YelpClient.swift; sourceTree = SOURCE_ROOT; };
+		C63113551CA4579200C66952 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Business.swift; path = Yelp/Models/Business.swift; sourceTree = SOURCE_ROOT; };
+		C63113571CA457AF00C66952 /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
+		C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantProfileCell.swift; sourceTree = "<group>"; };
+		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
+		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		C6913BE41CA3B93A00115AF2 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +166,7 @@
 		C17AABDE1C984A6100CC83CF /* API */ = {
 			isa = PBXGroup;
 			children = (
+				C63113531CA4578400C66952 /* YelpClient.swift */,
 				C17AABDF1C984A7500CC83CF /* ParseAPI.swift */,
 			);
 			name = API;
@@ -168,6 +181,28 @@
 				C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */,
 			);
 			name = SignUp;
+			sourceTree = "<group>";
+		};
+		C631135D1CA4A55A00C66952 /* Restaurant */ = {
+			isa = PBXGroup;
+			children = (
+				C6913BE41CA3B93A00115AF2 /* RequestCell.swift */,
+				C63113571CA457AF00C66952 /* RestaurantCell.swift */,
+				C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */,
+				C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */,
+				C631135F1CA4A59700C66952 /* MapCell.swift */,
+			);
+			name = Restaurant;
+			sourceTree = "<group>";
+		};
+		C631135E1CA4A56D00C66952 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				C6EE092F1C960ECA00345357 /* MapDetailView.swift */,
+				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
+				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		C6EE09061C906F6200345357 = {
@@ -234,17 +269,15 @@
 		C6EE09251C9070F700345357 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C6EE092F1C960ECA00345357 /* MapDetailView.swift */,
-				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
-				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
 				C6EE09351C96272900345357 /* CheckButton.swift */,
+				C631135E1CA4A56D00C66952 /* Map */,
+				C631135D1CA4A55A00C66952 /* Restaurant */,
 				C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */,
 				C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */,
 				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
 				C17AABE31C984EA100CC83CF /* YYZTextField.swift */,
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
 				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
-				C6913BE41CA3B93A00115AF2 /* RequestCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -252,6 +285,7 @@
 		C6EE09261C90710400345357 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C63113551CA4579200C66952 /* Business.swift */,
 				C17AABDC1C97E6B900CC83CF /* User.swift */,
 				3BD848AC1CA0EF2700E40A8B /* Activity.swift */,
 				3BD848AE1CA0F21F00E40A8B /* Group.swift */,
@@ -297,7 +331,7 @@
 				TargetAttributes = {
 					C6EE090E1C906F6200345357 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5H9S37TQFY;
+						DevelopmentTeam = 7R3DE3Z498;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -399,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */,
 				C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */,
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
@@ -407,6 +442,8 @@
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
 				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
+				C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */,
+				C63113561CA4579200C66952 /* Business.swift in Sources */,
 				C6EE09441C9742C200345357 /* UserProfileViewController.swift in Sources */,
 				C6EE09301C960ECA00345357 /* MapDetailView.swift in Sources */,
 				3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */,
@@ -421,14 +458,17 @@
 				C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,
 				C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */,
+				C63113541CA4578400C66952 /* YelpClient.swift in Sources */,
 				C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */,
 				C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */,
+				C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,
 				C6EE092C1C96038700345357 /* MapViewController.swift in Sources */,
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
+				C63113601CA4A59700C66952 /* MapCell.swift in Sources */,
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
@@ -568,9 +608,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Dine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yyz.Dine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamyyz.Dine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -583,9 +625,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Dine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yyz.Dine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamyyz.Dine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";
 			};
