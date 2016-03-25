@@ -35,6 +35,7 @@
 		C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */; };
 		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
 		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
+		C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BE41CA3B93A00115AF2 /* RequestCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
@@ -93,6 +94,7 @@
 		C63113591CA48F2A00C66952 /* RestaurantProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantProfileCell.swift; sourceTree = "<group>"; };
 		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
 		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCreatorViewController.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		C6913BE41CA3B93A00115AF2 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,16 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
+		C63113611CA4B66B00C66952 /* ActivityCreator */ = {
+			isa = PBXGroup;
+			children = (
+				C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */,
+				C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */,
+				C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */,
+			);
+			name = ActivityCreator;
+			sourceTree = "<group>";
+		};
 		C6EE09061C906F6200345357 = {
 			isa = PBXGroup;
 			children = (
@@ -251,12 +263,11 @@
 		C6EE09241C9070ED00345357 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C63113611CA4B66B00C66952 /* ActivityCreator */,
 				C1D04F621C9E3161003EB3C9 /* SignUp */,
 				C6EE09431C9742C200345357 /* UserProfileViewController.swift */,
 				C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */,
 				C6EE092B1C96038700345357 /* MapViewController.swift */,
-				C6EE094B1C976D1A00345357 /* RestaurantPickerViewController.swift */,
-				C6EE094D1C97754A00345357 /* RestaurantDetailViewController.swift */,
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
 				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
@@ -451,6 +462,7 @@
 				C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */,
 				C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */,
 				C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */,
+				C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */,
 				C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */,
 				C17AABDD1C97E6B900CC83CF /* User.swift in Sources */,
 				C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */,

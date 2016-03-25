@@ -14,7 +14,6 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var activityInProgress: Activity?
     var checked = false
     
     var businesses: [Business]!
@@ -27,6 +26,12 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //get user current location
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let lat = defaults.objectForKey("user_current_location_lat") as! CLLocationDegrees
+        let lon = defaults.objectForKey("user_current_location_lon") as! CLLocationDegrees
+        location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -37,7 +42,6 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         // Example of Yelp search with more search options specified
         updateSearch()
 
-        activityInProgress = Activity()
         
     }
     
@@ -98,13 +102,13 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
                 selectedBusiness = businesses[sender.tag]
         
                 //change bar button item
-                nextButton.title = "Next"
+                nextButton.enabled = true
                 
                 //delete other rows
                 
             }else {
                 //change bar button item
-                nextButton.title = "Skip"
+                nextButton.enabled = false
                 
                 //reload tableview
             }
@@ -167,16 +171,10 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         if segue.identifier == "toRestaurantDetailSegue" {
             let vc = segue.destinationViewController as! RestaurantDetailViewController
 
-            vc.activityInProgress = self.activityInProgress
             vc.business = sender as! Business
             
         }
-        if segue.identifier == "nextSegue" {
-            if selectedBusiness != nil {
-            activityInProgress?.setupRestaurant(selectedBusiness!)
-                
-            }
-        }
+
     }
 
 }

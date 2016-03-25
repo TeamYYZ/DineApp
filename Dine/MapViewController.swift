@@ -54,7 +54,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         loadMap()
-
+        
     }
     
     
@@ -162,8 +162,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
         if let navVC = segue.destinationViewController as? UINavigationController {
-            if let restaurantPickerViewController = navVC.topViewController as? RestaurantPickerViewController {
-                restaurantPickerViewController.location = locationManager.location?.coordinate
+            if let _ = navVC.topViewController as? ActivityCreatorViewController {
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(locationManager.location?.coordinate.latitude, forKey: "user_current_location_lat")
+                defaults.setObject(locationManager.location?.coordinate.longitude, forKey: "user_current_location_lon")
+                
+                defaults.synchronize()
+                
             }
         }
                 

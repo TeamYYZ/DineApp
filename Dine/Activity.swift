@@ -48,6 +48,15 @@ class Activity: NSObject {
         self.group = group
     }
     
+    func setupDetail(title: String?, time: NSDate, overview: String?) {
+        self.title = title
+        self.requestTime = time
+        self.overview = overview
+        print("set up detail: "+self.title!)
+        print(time)
+        print(overview)
+    }
+    
     func saveToBackend(successHandler: ()->(), failureHandler: ()->()) {
         let PFActivity = PFObject(className: "Activity")
         
