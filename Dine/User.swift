@@ -11,56 +11,57 @@ import Parse
 
 class User {
     var userId: String?
+    var pfUser: PFUser?
     var username: String?
-    var firstName: String?
-    var lastName: String?
+    var screenName: String?
     var password: String?
     var dateOfBirth: NSDate?
     var gender: Bool?
     var email: String?
     var profileDescription: String?
     var avatarImage: UIImage?
-    var friendList: [String]?   // save user's objectID
+    var friendList: [String]?   // save users' objectID
     var current_location: CLLocation?
+    var notificationsRecv: [UserNotification]?
     
     static var currentUser: User?
-
+    
     // for persistently store the current User object, generate a User object after restarting in Appdelegate
     
     init (userId: String) {
-    
-    
+        self.userId = userId
     }
     
     init (pfUser: PFUser) {
+        self.pfUser = pfUser
         self.userId = pfUser.objectId
         self.username = pfUser.username
         self.password = pfUser.password
-        if let lastName = pfUser["last_name"] as? String {
-            self.lastName = lastName
+        if let screenName = pfUser["screenName"] as? String {
+            self.screenName = screenName
         }
-        if let firstName = pfUser["first_name"] as? String {
-            self.firstName = firstName
+        self.friendList = pfUser["friendList"] as? [String]
+        let notificationDictArray = pfUser["notificationsRecv"] as! [NSDictionary]
+        notificationsRecv = [UserNotification]()
+        for notifyication in notificationDictArray {
+            notificationsRecv?.append(UserNotification(dict: notifyication))
         }
-        
-        
     }
     
-
-    
-    init(UID: String, username: String, firstName: String, lastName: String, password: String, dateOfBirth: NSDate, gender: Bool, email: String, profileDescription: String, avatarImage: UIImage, friendList: [String], current_location: CLLocation){
-        self.userId = UID
-        self.firstName = firstName
-        self.lastName = lastName
-        self.password = password
-        self.dateOfBirth = dateOfBirth
-        self.gender = gender
-        self.profileDescription = profileDescription
-        self.avatarImage = avatarImage
-        self.friendList = friendList
-        self.current_location = current_location
+    func getNotifications() -> [UserNotification]?{
+        // FIXME: will this fetch new notifications from server? I am not sure
+        if let user = pfUser {
+            notificationsRecv = [UserNotification]()
+            let notificationDictArray = user["notificationsRecv"] as! [NSDictionary]
+            for notifyication in notificationDictArray {
+                notificationsRecv?.append(UserNotification(dict: notifyication))
+            }
+            return notificationsRecv
+        } else {
+            return nil
+        }
     }
     
     
-
+    
 }

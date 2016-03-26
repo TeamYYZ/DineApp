@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Zk6-JN-Pu7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Zk6-JN-Pu7">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Sidebar Menu View Controller-->
@@ -112,6 +113,38 @@
                                             <segue destination="l59-6A-SCW" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dVu-E8-6ev"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aD5-hN-8hC">
+                                        <rect key="frame" x="0.0" y="132" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aD5-hN-8hC" id="ekg-xj-hqV">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Invite" translatesAutoresizingMaskIntoConstraints="NO" id="SZk-BG-jeF">
+                                                    <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="7DM-AH-Rfj"/>
+                                                        <constraint firstAttribute="height" constant="20" id="ETe-TA-iXS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GnA-Ja-9eE">
+                                                    <rect key="frame" x="55" y="13" width="86.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SZk-BG-jeF" firstAttribute="centerY" secondItem="ekg-xj-hqV" secondAttribute="centerY" id="2v6-Vh-ZqZ"/>
+                                                <constraint firstItem="GnA-Ja-9eE" firstAttribute="leading" secondItem="SZk-BG-jeF" secondAttribute="trailing" constant="15" id="645-lG-bfL"/>
+                                                <constraint firstItem="SZk-BG-jeF" firstAttribute="leading" secondItem="ekg-xj-hqV" secondAttribute="leadingMargin" constant="12" id="ZN7-dM-KCH"/>
+                                                <constraint firstItem="GnA-Ja-9eE" firstAttribute="centerY" secondItem="ekg-xj-hqV" secondAttribute="centerY" id="bdl-MO-Xt8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kJf-W4-ATg" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="kyF-6m-Yk7"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -148,7 +181,7 @@
                 <viewControllerPlaceholder storyboardName="MainFunction" id="q3D-iQ-h5r" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laN-Bp-abq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-288" y="728"/>
+            <point key="canvasLocation" x="64" y="685"/>
         </scene>
         <!--Invitation-->
         <scene sceneID="Rey-DJ-osI">
@@ -156,7 +189,7 @@
                 <viewControllerPlaceholder storyboardName="Invitation" id="l59-6A-SCW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eqy-ne-jBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287.5" y="908"/>
+            <point key="canvasLocation" x="186.5" y="685"/>
         </scene>
         <!--UserProfile-->
         <scene sceneID="6Hj-PI-IIW">
@@ -164,7 +197,15 @@
                 <viewControllerPlaceholder storyboardName="UserProfile" id="SXV-K0-4Ui" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odk-pq-vvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634" y="248"/>
+            <point key="canvasLocation" x="677.5" y="275"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="Ymf-9J-6i0">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Notifications" id="kJf-W4-ATg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0pG-1D-WCT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="673" y="177"/>
         </scene>
         <!--UINavigationController-PjI-5X-j9h-->
         <scene sceneID="Ns3-sA-wZ9">
@@ -172,7 +213,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UINavigationController-PjI-5X-j9h" id="lQL-g9-6P3" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHB-tn-FWj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-276" y="-416"/>
+            <point key="canvasLocation" x="608.5" y="228"/>
         </scene>
     </scenes>
     <resources>

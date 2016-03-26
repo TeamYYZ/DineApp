@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iyE-rB-Ak4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iyE-rB-Ak4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--Reveal View Controller-->
@@ -24,6 +24,7 @@
                         <segue destination="q3D-iQ-h5r" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="yNR-T9-foY"/>
                         <segue destination="l59-6A-SCW" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="Yi4-ex-3vd"/>
                         <segue destination="PjI-5X-j9h" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="s3q-vb-l5O"/>
+                        <segue destination="5fr-jh-e1b" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSeguePushController" id="HPc-A6-bJp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4k-zD-lqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -52,7 +53,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGy-FD-5Ux" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-244" y="248"/>
+            <point key="canvasLocation" x="-276" y="248"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mfY-Kx-qcS">
@@ -87,7 +88,15 @@
                 <viewControllerPlaceholder storyboardName="MainFunction" id="q3D-iQ-h5r" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laN-Bp-abq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-268" y="712"/>
+            <point key="canvasLocation" x="-514" y="712"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="5Do-a4-eS8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Notifications" id="5fr-jh-e1b" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Dd-kf-Jl9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-244" y="712"/>
         </scene>
         <!--UITableViewController-jCr-o5-zRm-->
         <scene sceneID="dqx-73-54A">
