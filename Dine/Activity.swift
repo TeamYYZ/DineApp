@@ -30,6 +30,7 @@ class Activity: NSObject {
     override init() {
         super.init()
         self.ownerId = PFUser.currentUser()?.objectId
+
     }
     
     func setupRestaurant(yelpBusiness: Business) {
@@ -60,14 +61,14 @@ class Activity: NSObject {
     func saveToBackend(successHandler: ()->(), failureHandler: ()->()) {
         let PFActivity = PFObject(className: "Activity")
         
-        PFActivity["title"] = title
-        PFActivity["ownerId"] = ownerId
-        PFActivity["requestTime"] = requestTime
-        PFActivity["yelpBusinessId"] = yelpBusinessId
-        PFActivity["overview"] = overview
-        PFActivity["groupMembers"] = group?.getUserListDictArray()
+        PFActivity["title"] = title!
+        PFActivity["ownerId"] = ownerId!
+        PFActivity["requestTime"] = requestTime!
+        PFActivity["yelpBusinessId"] = yelpBusinessId!
+        PFActivity["overview"] = overview!
+        PFActivity["groupMembers"] = group!.getUserListDictArray()
         PFActivity["location"] = [location!.latitude, location!.longitude]
-        PFActivity["restaurant"] = restaurant
+        PFActivity["restaurant"] = restaurant!
         
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {

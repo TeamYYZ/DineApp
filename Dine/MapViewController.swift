@@ -37,8 +37,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         if status == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
-
-            print("WhenInUse")
             goToLocation(location)
             
             locationManager.startUpdatingLocation()
@@ -52,7 +50,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         exitActivityButton.addTarget(self, action: Selector("userExitedActivity:"), forControlEvents: .TouchUpInside)
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
-        loadMap()
+        updateMap()
 
     }
     
@@ -67,7 +65,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         arrivalTimeLabel.hidden = false
 //        self.viewDidLoad()
         
-        loadMap()
+        updateMap()
    
     }
     
@@ -77,7 +75,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
 //        self.viewDidLoad()
-        loadMap()
+        updateMap()
     }
     
     func userExitedActivity(sender: UIButton!) {
@@ -86,7 +84,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         if let vc = sender.sourceViewController as? FriendsViewController {
+
         let activity = vc.activityInProgress
+            //save to Parse
+            activity?.saveToBackend({ () -> () in
+                print("save successfully")
+                Activity.current_activity = activity
+                self.userJoinedActivity()
+                }, failureHandler: { () -> () in
+                print("something wrong...")
+            })
+            
         }
         
     }
@@ -174,10 +182,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
     }
     
-
-
-    
-    func loadMap() {
+    func updateMap() {
         mapView.removeAnnotations(mapView.annotations)
         if Activity.current_activity == nil{
             for activity in activities{
@@ -186,8 +191,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
               mapView.addAnnotation(annotation)
             }
         }else{
+            print("joined activity")
             let annotation = MapAnnotation(activity: Activity.current_activity!)
             mapView.addAnnotation(annotation)
+            //start navigation
             
         }
         

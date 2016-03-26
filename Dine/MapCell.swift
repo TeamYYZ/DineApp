@@ -16,9 +16,13 @@ class MapCell: UITableViewCell,CLLocationManagerDelegate, MKMapViewDelegate {
     
     var business: Business! {
         didSet{
-            self.annotationTitle = business.address
-            goToLocation(business.coordinate!)
-            addAnnotationAtCoordinate(business.coordinate!)
+            if business.address != nil {
+                self.annotationTitle = business.address
+            }
+            if business.coordinate != nil {
+                goToLocation(business.coordinate!)
+                addAnnotationAtCoordinate(business.coordinate!)
+            }
         }
     }
 
