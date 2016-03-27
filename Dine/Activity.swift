@@ -56,6 +56,7 @@ class Activity: NSObject {
         print("set up detail: " + self.title!)
         print(time)
         print(overview)
+
     }
     
     func saveToBackend(successHandler: ()->(), failureHandler: ()->()) {

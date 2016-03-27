@@ -64,7 +64,7 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let friendVC = segue.destinationViewController as? FriendsViewController {
             friendVC.activityInProgress = self.activityInProgress
-
+            friendVC.inviteNotAdd = true
             self.activityInProgress?.setupDetail(self.titleField.text, time: datePicker.date, overview: descriptionField.text)
         }
     }
