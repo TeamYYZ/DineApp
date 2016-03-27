@@ -30,8 +30,11 @@
                             <constraint firstItem="ack-EJ-6VU" firstAttribute="top" secondItem="chF-AQ-KXG" secondAttribute="bottom" constant="-64" id="aPz-xF-yYi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="wVD-4Q-e8m"/>
+                    <navigationItem key="navigationItem" id="wVD-4Q-e8m">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="ppJ-CO-F1R"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="menuButton" destination="ppJ-CO-F1R" id="jIz-KN-Fob"/>
                         <outlet property="tableView" destination="ack-EJ-6VU" id="Rd3-sw-Roo"/>
                     </connections>
                 </viewController>
@@ -58,4 +61,7 @@
             <point key="canvasLocation" x="214" y="342"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Menu" width="32" height="32"/>
+    </resources>
 </document>

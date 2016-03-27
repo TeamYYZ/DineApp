@@ -11,6 +11,10 @@ import UIKit
 class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    
     var notifications = [UserNotification]()
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,6 +51,8 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        menuButton.target = self.revealViewController()
+        menuButton.action = Selector("revealToggle:")
         fetchNotifications()
         tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
         

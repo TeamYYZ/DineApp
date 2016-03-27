@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         if let currentUser = PFUser.currentUser() {
+
             //go to logged in screen
             
             // test code put here
@@ -49,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             User.currentUser = User(pfUser: currentUser)
             let vc = storyboard.instantiateViewControllerWithIdentifier("SWRevealViewController") as UIViewController
             window?.rootViewController = vc
+        } else {
+            userDidLogout()
+        
         }
 
         
