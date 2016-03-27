@@ -20,6 +20,11 @@
 		C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDF1C984A7500CC83CF /* ParseAPI.swift */; };
 		C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE31C984EA100CC83CF /* YYZTextField.swift */; };
 		C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE51C9851E200CC83CF /* YYZButton.swift */; };
+		C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1A474B91CA71C3500141692 /* Notifications.storyboard */; };
+		C1A474C11CA723D800141692 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474BF1CA723D800141692 /* NotificationCell.swift */; };
+		C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A474C01CA723D800141692 /* NotificationCell.xib */; };
+		C1A474C41CA72A3800141692 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474C31CA72A3800141692 /* NotificationViewController.swift */; };
+		C1A474C61CA72B0400141692 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474C51CA72B0400141692 /* Notification.swift */; };
 		C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */; };
 		C1AF836D1CA3C17400E634E3 /* ActvitityCreater.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */; };
 		C1AF83701CA3C1F300E634E3 /* MainFunction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */; };
@@ -81,6 +86,11 @@
 		C17AABDF1C984A7500CC83CF /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
 		C17AABE31C984EA100CC83CF /* YYZTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZTextField.swift; sourceTree = "<group>"; };
 		C17AABE51C9851E200CC83CF /* YYZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZButton.swift; sourceTree = "<group>"; };
+		C1A474B91CA71C3500141692 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
+		C1A474BF1CA723D800141692 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		C1A474C01CA723D800141692 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
+		C1A474C31CA72A3800141692 /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		C1A474C51CA72B0400141692 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C1AF836A1CA3BF6900E634E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignInSignOut.storyboard; sourceTree = "<group>"; };
 		C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActvitityCreater.storyboard; sourceTree = "<group>"; };
 		C1AF836F1CA3C1F300E634E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainFunction.storyboard; sourceTree = "<group>"; };
@@ -257,6 +267,7 @@
 				C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */,
 				C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */,
 				C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */,
+				C1A474B91CA71C3500141692 /* Notifications.storyboard */,
 				C6EE09191C906F6200345357 /* Assets.xcassets */,
 				C6EE091B1C906F6200345357 /* LaunchScreen.storyboard */,
 				C6EE091E1C906F6200345357 /* Info.plist */,
@@ -278,6 +289,7 @@
 				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
 				C6EE09491C975F7F00345357 /* ChatViewController.swift */,
 				3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */,
+				C1A474C31CA72A3800141692 /* NotificationViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -295,6 +307,8 @@
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
 				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
 				3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */,
+				C1A474BF1CA723D800141692 /* NotificationCell.swift */,
+				C1A474C01CA723D800141692 /* NotificationCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -309,6 +323,7 @@
 				3BD848B01CA0F8F200E40A8B /* Invitation.swift */,
 				C127F56F1CA3885700D40088 /* Message.swift */,
 				C127F5711CA394AD00D40088 /* GroupMember.swift */,
+				C1A474C51CA72B0400141692 /* Notification.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -384,6 +399,7 @@
 				C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */,
 				C1AF83701CA3C1F300E634E3 /* MainFunction.storyboard in Resources */,
 				C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */,
+				C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */,
 				C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */,
 				C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */,
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,
@@ -392,6 +408,7 @@
 				C6EE09181C906F6200345357 /* Main.storyboard in Resources */,
 				C1AF837A1CA3C48400E634E3 /* UserProfile.storyboard in Resources */,
 				C1AF837C1CA3C49100E634E3 /* Sidebar.storyboard in Resources */,
+				C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +483,7 @@
 				3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */,
 				C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */,
 				C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */,
+				C1A474C11CA723D800141692 /* NotificationCell.swift in Sources */,
 				C6EE094C1C976D1A00345357 /* RestaurantPickerViewController.swift in Sources */,
 				C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */,
 				C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */,
@@ -489,6 +507,8 @@
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
 				C63113601CA4A59700C66952 /* MapCell.swift in Sources */,
+				C1A474C41CA72A3800141692 /* NotificationViewController.swift in Sources */,
+				C1A474C61CA72B0400141692 /* Notification.swift in Sources */,
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
