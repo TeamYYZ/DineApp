@@ -38,7 +38,9 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         searchController.dimsBackgroundDuringPresentation = false
         
         // Customize the appearance of the search bar
-        searchController.searchBar.placeholder = "Search new friends..."
+        searchController.searchBar.placeholder = "Search new friends by Email"
+        searchController.searchBar.autocapitalizationType = .None
+        searchController.searchBar.autocorrectionType = .No
         searchController.searchBar.tintColor = UIColor(red: 100.0/255.0, green: 100.0/255.0, blue: 100.0/255.0, alpha: 1.0)
         searchController.searchBar.barTintColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 0.6)
         searchController.searchBar.delegate = self
@@ -113,6 +115,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.userName.text = username
         }
         
+        cell.addButton.removeTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
         cell.addButton.addTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
         cell.addButton.tag = indexPath.row
         return cell
@@ -120,8 +123,16 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func AddFriend(sender: AnyObject){
         let cell = sender as! UIButton
-        let user = self.friends[cell.tag]
-        print(user.username!)
+        let destinationUser = self.friends[cell.tag]
+        let notification = UserNotification(type: .FriendRequest, content: "Wants to be your friend", senderId: User.currentUser!.userId!, receiverId: destinationUser.userId!, associatedId: nil, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
+        
+        
+        notification.saveToBackend({ (ret: UserNotification) -> () in
+            print(ret.receiverId)
+            print("success")
+            }, failureHandler: { (error: NSError?) -> () in
+                print("failure")
+        })
         //Here should send a notification to ask for permission
         
     }

@@ -33,8 +33,18 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
             cell.typeLabel.text = "Unknown"
         }
         cell.senderLabel.text = notification.senderName
+        cell.acceptButton.removeTarget(self, action: "acceptRequest:", forControlEvents: .TouchDown)
+        cell.acceptButton.addTarget(self, action: "acceptRequest:", forControlEvents: .TouchDown)
+        cell.acceptButton.tag = indexPath.row
         return cell
     }
+    
+    func acceptRequest(sender: AnyObject){
+        let index = sender.tag
+        let notification = notifications[index]
+        notification.acceptRequest()
+    }
+    
     
     func fetchNotifications() {
         if let user = User.currentUser {
@@ -51,6 +61,9 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        self.edgesForExtendedLayout = UIRectEdge.None
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
         fetchNotifications()

@@ -85,27 +85,26 @@ class UserNotification {
 
         }
         
+    }
+    
+    func acceptRequest() {
+        switch self.type {
+        case .FriendRequest:
+            PFCloud.callFunctionInBackground("acceptFriendRequest", withParameters: ["fromUser": self.senderId]) {
+            (response: AnyObject?, error: NSError?) -> Void in
+                let success = response as! Bool
+                if success {
+                    print("accept successfully")
+                } else {
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        default:
+            print("Undefined notification type")
         
-        
-//        let userQuery = PFUser.query()
-//        userQuery?.getObjectInBackgroundWithId(receiverId, block: { (receiver: PFObject?, error: NSError?) -> Void in
-//            if error != nil {
-//                print(error?.localizedDescription)
-//                failureHandler(error)
-//            } else if let receiver = receiver {
-//                receiver.addObject(self.getDict(), forKey: "notificationsRecv")
-//                receiver.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
-//                    if success {
-//                        successHandler(self)
-//                    } else {
-//                        failureHandler(error)
-//                    }
-//                })
-//                
-//            }
-//            
-//        })
-        
+        }
     
     
     }

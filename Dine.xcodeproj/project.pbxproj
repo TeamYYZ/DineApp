@@ -15,6 +15,7 @@
 		A9F20DA4F0AE323B838DB4D6 /* Pods_Dine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420E646DC877272EF89BFF60 /* Pods_Dine.framework */; };
 		C127F5701CA3885700D40088 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F56F1CA3885700D40088 /* Message.swift */; };
 		C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F5711CA394AD00D40088 /* GroupMember.swift */; };
+		C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */; };
 		C17424861C9789D400125377 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17424851C9789D400125377 /* ColorTheme.swift */; };
 		C17AABDD1C97E6B900CC83CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDC1C97E6B900CC83CF /* User.swift */; };
 		C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDF1C984A7500CC83CF /* ParseAPI.swift */; };
@@ -81,6 +82,7 @@
 		420E646DC877272EF89BFF60 /* Pods_Dine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C127F56F1CA3885700D40088 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C127F5711CA394AD00D40088 /* GroupMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
+		C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZAcceptButton.swift; sourceTree = "<group>"; };
 		C17424851C9789D400125377 /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		C17AABDC1C97E6B900CC83CF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C17AABDF1C984A7500CC83CF /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */,
 				C1A474BF1CA723D800141692 /* NotificationCell.swift */,
 				C1A474C01CA723D800141692 /* NotificationCell.xib */,
+				C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 			files = (
 				C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */,
 				C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */,
+				C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */,
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
 				C127F5701CA3885700D40088 /* Message.swift in Sources */,
