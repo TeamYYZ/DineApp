@@ -16,8 +16,6 @@ class ActivityProfileViewController: UITableViewController {
     var activity: Activity!
     var activityInCreating: Activity!
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
@@ -81,14 +79,5 @@ class ActivityProfileViewController: UITableViewController {
         }
         
     }
-    
-//    func createSomeMembers(){
-//        let 
-//    
-//    
-//    }
-    
-    
-
 
 }

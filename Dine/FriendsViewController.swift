@@ -18,7 +18,7 @@ class FriendsViewController: UITableViewController {
     var requests:[String] = ["July", "S", "Beth"]
 
     //var friendsIdList = User.currentUser?.friendList
-    var friendsIdList = ["jp2qy0tBEL", "SAFznh6L8J"]
+    var friendsIdList = ["TcayLCwdsI", "rBtM0A2hb2"]
     var friendsUserList = [User]()
     
     override func viewDidLoad() {

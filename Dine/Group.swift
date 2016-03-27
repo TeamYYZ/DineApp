@@ -31,6 +31,15 @@ class Group: NSObject {
     func addMember(userId: String, joined: Bool) {
         groupMembers.append(GroupMember(userId: userId, joined: joined))
     }
+    
+    func getUserIdList() -> [String] {
+        var members = [String]()
+        for member in groupMembers {
+            members.append(member.userId)
+        }
+        return members
+    
+    }
 
     func getUserList() -> [GroupMember]?{
         return groupMembers

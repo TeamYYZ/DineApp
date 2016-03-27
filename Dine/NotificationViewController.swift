@@ -28,15 +28,18 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         default:
             cell.typeLabel.text = "Unknown"
         }
-        cell.senderLabel.text = notification.senderId
-        return UITableViewCell()
+        cell.senderLabel.text = notification.senderName
+        return cell
     }
     
     func fetchNotifications() {
         if let user = User.currentUser {
-            if let notificationsFetched = user.getNotifications() {
-                notifications = notificationsFetched
-            }
+            user.getNotifications({ (fetchedNotifications: [UserNotification]?) -> () in
+                if let notifications = fetchedNotifications {
+                    self.notifications = notifications
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     

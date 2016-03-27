@@ -36,9 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        if PFUser.currentUser() != nil {
+        if let currentUser = PFUser.currentUser() {
             //go to logged in screen
-            print("current user detected: \(PFUser.currentUser()?.username)")
+            
+            // test code put here
+
+
+            
+            // test code put here
+            
+            print("current user detected: \(currentUser.username)")
+            User.currentUser = User(pfUser: currentUser)
             let vc = storyboard.instantiateViewControllerWithIdentifier("SWRevealViewController") as UIViewController
             window?.rootViewController = vc
         }

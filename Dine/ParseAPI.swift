@@ -19,6 +19,7 @@ class ParseAPI {
         user["screenName"] = screenName
         user.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
+                User.currentUser = User(pfUser: user)
                 successCallback()
             } else {
                 failureCallback(error)

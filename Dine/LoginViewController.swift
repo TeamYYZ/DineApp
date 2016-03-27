@@ -58,17 +58,7 @@ class LoginViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        ParseAPI.createActivity(NSDate(), yelpBusinessId: "test", overview: "test", location: CLLocationCoordinate2D(), restaurant: "test", successHandler: {(success: Bool, PFActivity: PFObject?) -> () in
-//                print("success")
-//            
-//            
-//            }, failureHandler: {()->() in
-//                print("success")
-//        
-//        
-//        
-//        
-//        })
+
         gradientLayer.frame = self.view.bounds
         gradientLayer.zPosition = -1
         let color1 = ColorTheme.sharedInstance.loginGradientFisrtColor.CGColor as CGColorRef
@@ -96,19 +86,14 @@ class LoginViewController: UIViewController{
         let userInfo = notif.userInfo
         let keyBoardSize: CGSize = (userInfo![UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size)!
         var visibleRect: CGRect = self.containerView.frame
-        //print(visibleRect)
         visibleRect.size.height -= keyBoardSize.height
-        //print(visibleRect)
         var lastElementOrigin: CGPoint = signInButton.frame.origin
         let lastElementHeight: CGFloat = signInButton.frame.size.height
-        //print(lastElementOrigin)
         lastElementOrigin.y += lastElementHeight
-        //print(lastElementOrigin)
-
         
         if (!CGRectContainsPoint(visibleRect, lastElementOrigin)){
             print("Not in visibleRect")
-            let scrollPoint: CGPoint = CGPointMake(0.0, lastElementOrigin.y - visibleRect.size.height + 12 /* margin to bottom*/)
+            let scrollPoint: CGPoint = CGPointMake(0.0, lastElementOrigin.y - visibleRect.size.height + 12 /* margin to bottom */)
             scrollView.setContentOffset(scrollPoint, animated: true)
         }
         
@@ -119,7 +104,7 @@ class LoginViewController: UIViewController{
     
     func LoginWithFacebook() {
         print("Trying to login with FB")
-        var permissions = ["public_profile"]
+        let permissions = ["public_profile"]
         PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions) {
             (user: PFUser?, error: NSError?) -> Void in
             if let user = user {
@@ -128,6 +113,7 @@ class LoginViewController: UIViewController{
                     print(user)
                     self.performSegueWithIdentifier("signupSegue", sender: self)
                 } else {
+                    User.currentUser = User(pfUser: user)
                     print("User logged in through Facebook!")
                     self.performSegueWithIdentifier("loginSegue", sender: self)
                 }
@@ -135,7 +121,6 @@ class LoginViewController: UIViewController{
                 print("Uh oh. The user cancelled the Facebook login.")
             }
         }
-
     
     }
     
@@ -172,14 +157,10 @@ class LoginViewController: UIViewController{
     @IBAction func unwindToLogin(sender: UIStoryboardSegue) {
         
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
     }
-    */
+
 
 }

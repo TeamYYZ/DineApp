@@ -32,6 +32,7 @@ class SidebarMenuViewController: UITableViewController {
         if (section == 0) {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
             let header = SidebarMenuHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+            header.usernameLabel.text = User.currentUser?.screenName
             let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("imageTapped:"))
             header.addGestureRecognizer(tapRecognizer)
             headerView.addSubview(header)

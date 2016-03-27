@@ -19,6 +19,7 @@ class User {
     var gender: Bool?
     var email: String?
     var profileDescription: String?
+    var avatarImagePFFile: PFFile?
     var avatarImage: UIImage?
     var friendList: [String]?   // save users' objectID
     var current_location: CLLocation?
@@ -37,29 +38,34 @@ class User {
         self.userId = pfUser.objectId
         self.username = pfUser.username
         self.password = pfUser.password
+        self.avatarImagePFFile = pfUser["avatar"] as? PFFile
         if let screenName = pfUser["screenName"] as? String {
             self.screenName = screenName
         }
         self.friendList = pfUser["friendList"] as? [String]
-        let notificationDictArray = pfUser["notificationsRecv"] as! [NSDictionary]
         notificationsRecv = [UserNotification]()
-        for notifyication in notificationDictArray {
-            notificationsRecv?.append(UserNotification(dict: notifyication))
+        if let notificationDictArray = pfUser["notificationsRecv"] as? [NSDictionary] {
+            for notification in notificationDictArray {
+                notificationsRecv?.append(UserNotification(dict: notification))
+            }
         }
+
     }
     
-    func getNotifications() -> [UserNotification]?{
-        // FIXME: will this fetch new notifications from server? I am not sure
-        if let user = pfUser {
-            notificationsRecv = [UserNotification]()
-            let notificationDictArray = user["notificationsRecv"] as! [NSDictionary]
-            for notifyication in notificationDictArray {
-                notificationsRecv?.append(UserNotification(dict: notifyication))
+    func getNotifications(successHandler: ([UserNotification]?)->()) {
+        let userQuery = PFUser.query()
+        userQuery?.getObjectInBackgroundWithId(userId!, block: { (user: PFObject?, error: NSError?) -> Void in
+            if error == nil && user != nil{
+                self.notificationsRecv = [UserNotification]()
+                let notificationDictArray = user!["notificationsRecv"] as! [NSDictionary]
+                for notifyication in notificationDictArray {
+                    self.notificationsRecv?.append(UserNotification(dict: notifyication))
+                }
+                successHandler(self.notificationsRecv)
+                
             }
-            return notificationsRecv
-        } else {
-            return nil
-        }
+
+        })
     }
     
     

@@ -9,8 +9,11 @@
 import Foundation
 import Parse
 
-enum NotificationType {
-    case FriendRequest, Invitation, PrivateMessage
+enum NotificationType: String {
+    case FriendRequest = "FriendRequest"
+    case Invitation = "Invitation"
+    case PrivateMessage = "PrivateMessage"
+    case Unknown = "Unknown"
     
 }
 
@@ -38,7 +41,18 @@ class UserNotification {
     
     // create from Parse
     init(dict: NSDictionary) {
-        self.type = dict["type"] as! NotificationType
+        let notificationType = dict["type"] as! String
+        switch notificationType {
+        case "Invitation":
+            self.type = .Invitation
+        case "FriendRequest":
+            self.type = .FriendRequest
+        case "PrivateMessage":
+            self.type = .PrivateMessage
+        default:
+            self.type = .Unknown
+        }
+        
         self.content = dict["content"] as! String
         self.senderId = dict["senderId"] as! String
         self.receiverId = dict["receiverId"] as! String
@@ -47,4 +61,52 @@ class UserNotification {
         self.senderAvatarPFFile = dict["senderAvatar"] as? PFFile
     }
     
+    func getDict() -> NSMutableDictionary {
+        let dict = NSMutableDictionary()
+        dict["type"] = self.type.rawValue
+        dict["content"] = self.content
+        dict["senderId"] = self.senderId
+        dict["receiverId"] = self.receiverId
+        dict["associatedId"] = self.associatedId
+        dict["senderName"] = self.senderName
+        dict["senderAvatar"] = self.senderAvatarPFFile
+        return dict
+    }
+    
+    
+    func saveToBackend(successHandler: (UserNotification)->(), failureHandler: (NSError?)->()) {
+        PFCloud.callFunctionInBackground("addNotification", withParameters: ["notification": self.getDict()]) {
+            (response: AnyObject?, error: NSError?) -> Void in
+            if error == nil {
+                print("Notification sent")
+            } else {
+                print(error!)
+            }
+
+        }
+        
+        
+        
+//        let userQuery = PFUser.query()
+//        userQuery?.getObjectInBackgroundWithId(receiverId, block: { (receiver: PFObject?, error: NSError?) -> Void in
+//            if error != nil {
+//                print(error?.localizedDescription)
+//                failureHandler(error)
+//            } else if let receiver = receiver {
+//                receiver.addObject(self.getDict(), forKey: "notificationsRecv")
+//                receiver.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+//                    if success {
+//                        successHandler(self)
+//                    } else {
+//                        failureHandler(error)
+//                    }
+//                })
+//                
+//            }
+//            
+//        })
+        
+    
+    
+    }
 }

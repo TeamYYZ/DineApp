@@ -89,6 +89,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             //save to Parse
             activity?.saveToBackend({ () -> () in
                 print("save successfully")
+                if let invitedUserList = activity?.group?.getUserIdList() {
+                    for invitedUser in invitedUserList {
+                        print(User.currentUser!.screenName!)
+                        let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.ownerId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
+                        
+                        
+                        notification.saveToBackend({ (ret: UserNotification) -> () in
+                            print(ret.receiverId)
+                            print("success")
+                            }, failureHandler: { (error: NSError?) -> () in
+                            print("failure")
+                        })
+                        
+                    
+                    
+                    }
+                }
+                
                 Activity.current_activity = activity
                 self.userJoinedActivity()
                 }, failureHandler: { () -> () in
