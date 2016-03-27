@@ -95,7 +95,8 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         }
         
         return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            let dictionaries = response["businesses"] as? [NSDictionary]
+            let responseAsDictionary = response as! NSDictionary
+            let dictionaries = responseAsDictionary["businesses"] as? [NSDictionary]
             if dictionaries != nil {
                 completion(Business.businesses(array: dictionaries!), nil)
             }

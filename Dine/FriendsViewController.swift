@@ -11,7 +11,8 @@ import UIKit
 class FriendsViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     weak var activityInProgress: Activity?
-//    var kk: Int = 5
+    var inviteNotAdd = Bool()
+    //    var kk: Int = 5
 
     var checked: [Bool]!
     @IBOutlet weak var inviteButton: UIBarButtonItem!
@@ -24,7 +25,17 @@ class FriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        inviteButton.enabled = false
+        print(inviteNotAdd)
+        if inviteNotAdd{
+            inviteButton.enabled = false
+            inviteButton.image = nil
+            inviteButton.title = "Invite"
+            inviteButton.tag = 0
+        }else{
+
+            inviteButton.enabled = true
+            inviteButton.tag = 1
+        }
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
         checked = [Bool](count: friendsIdList.count, repeatedValue: false)
@@ -38,9 +49,7 @@ class FriendsViewController: UITableViewController {
                     let friendAsPFUser = friend as! PFUser
                     let friendAsUser = User.init(pfUser: friendAsPFUser)
                     self.friendsUserList.append(friendAsUser)
-                    print("YES")
                     self.tableView.reloadData()
-                    
                 } else {
                     print("Fail to get the friendList")
                     print(error)
@@ -60,6 +69,7 @@ class FriendsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if inviteNotAdd == true{
         checked[indexPath.row] = !checked[indexPath.row]
         var enableInviteButton = false
         for checkbox in checked {
@@ -73,29 +83,24 @@ class FriendsViewController: UITableViewController {
         }else {
             inviteButton.enabled = false
         }
-        
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //return 2
+
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 0 {
-//            return requests.count
-//        }else {
-//            return friendsIdList.count
-//        }
+
         return friendsUserList.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-       
         let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
-        
+        if inviteNotAdd == true {
         if checked[indexPath.row] {
             
             cell.accessoryType = .Checkmark
@@ -106,6 +111,9 @@ class FriendsViewController: UITableViewController {
             cell.accessoryType = .None
             cell.inviteLabel.text = "Invite"
             cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
+            }
+        }else{
+            cell.inviteLabel.hidden = true
         }
         let friend = self.friendsUserList[indexPath.row]
         if let userName = friend.username{
@@ -160,14 +168,18 @@ class FriendsViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        var invitedIdList = [String]()
-        for (index, value) in checked.enumerate() {
+        let button = sender as! UIBarButtonItem
+            if button.tag == 0{
+                var invitedIdList = [String]()
+                for (index, value) in checked.enumerate() {
             if value {
                 invitedIdList.append(friendsIdList[index])
             }
         }
-        activityInProgress?.setupGroup(invitedIdList)
+            activityInProgress?.setupGroup(invitedIdList)
+        }
+            
+        
     }
     
 

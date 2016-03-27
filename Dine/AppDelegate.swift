@@ -43,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
         }
 
-        
-        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
-        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
+//        
+//        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
+//        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
         
         
         return true

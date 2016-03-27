@@ -59,11 +59,14 @@ class SidebarMenuViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//        if segue.identifier == 
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "FirendListViewControllerSegue"{
+            let vc = segue.destinationViewController as! FriendsViewController
+            vc.inviteNotAdd = false
+        }
+    }
     
 
     override func prefersStatusBarHidden() -> Bool {
