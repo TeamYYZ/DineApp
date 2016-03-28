@@ -27,8 +27,10 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         switch notification.type {
         case .FriendRequest:
             cell.typeLabel.text = "Friend Request"
+            cell.typeImageView.image = UIImage(named: "addFriend")
         case .Invitation:
             cell.typeLabel.text = "Activity Invitation"
+            cell.typeImageView.image = UIImage(named: "dine")
         default:
             cell.typeLabel.text = "Unknown"
         }
