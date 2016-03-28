@@ -16,7 +16,7 @@ class NotificationCell: UITableViewCell {
     
     @IBOutlet weak var typeLabel: UILabel!
     
-    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var acceptButton: YYZAcceptButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -18,4 +18,24 @@ class YYZAcceptButton: UIButton {
     }
     */
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupButton()
+    }
+    
+    override init(frame aRect: CGRect) {
+        super.init(frame: aRect)
+        setupButton()
+    }
+    
+    
+    func setupButton() {
+        
+        self.layer.cornerRadius = 4.0
+        self.layer.borderWidth = 0.2
+        self.layer.borderColor = UIColor(white: 0.7095, alpha: 1.0).CGColor
+        self.layer.backgroundColor = ColorTheme.sharedInstance.acceptButtonColor.CGColor
+        self.tintColor = ColorTheme.sharedInstance.loginTextColor
+        
+    }
 }

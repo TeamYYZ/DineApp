@@ -15,7 +15,8 @@ class SidebarMenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let width = self.view.bounds.width
-        spaceItem.width = width*3.0/5.0 - 80
+        print(width)
+        spaceItem.width = width * 3.0/5.0 - 40
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,12 +58,8 @@ class SidebarMenuViewController: UITableViewController {
         
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
         if segue.identifier == "FirendListViewControllerSegue"{
             let vc = segue.destinationViewController as! FriendsViewController
             vc.inviteNotAdd = false

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -14,6 +14,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="52" id="hoI-8U-cnl" customClass="FriendCell" customModule="Dine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="52"/>
@@ -23,14 +24,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="wxy-8x-Efd">
-                                            <rect key="frame" x="15" y="6" width="40" height="40"/>
+                                            <rect key="frame" x="15" y="8.5" width="35" height="35"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="kS4-yi-g0K"/>
-                                                <constraint firstAttribute="height" constant="40" id="rQB-x3-pRL"/>
+                                                <constraint firstAttribute="width" constant="35" id="kS4-yi-g0K"/>
+                                                <constraint firstAttribute="height" constant="35" id="rQB-x3-pRL"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Sam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sni-xO-93V">
-                                            <rect key="frame" x="63" y="15" width="34" height="20.5"/>
+                                            <rect key="frame" x="58" y="15" width="34" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -47,13 +48,13 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Sni-xO-93V" firstAttribute="centerY" secondItem="wxy-8x-Efd" secondAttribute="centerY" id="IAy-kc-key"/>
-                                        <constraint firstItem="Sni-xO-93V" firstAttribute="centerY" secondItem="QwV-Kr-WeG" secondAttribute="centerY" id="OWr-9v-PPJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="wxy-8x-Efd" secondAttribute="bottom" constant="8" id="IhA-m3-A0P"/>
                                         <constraint firstAttribute="trailing" secondItem="tgf-7E-eEY" secondAttribute="trailing" constant="8" id="St0-Bw-m2g"/>
                                         <constraint firstItem="Sni-xO-93V" firstAttribute="leading" secondItem="wxy-8x-Efd" secondAttribute="trailing" constant="8" id="Zlp-LD-7Ts"/>
                                         <constraint firstItem="wxy-8x-Efd" firstAttribute="leading" secondItem="QwV-Kr-WeG" secondAttribute="leading" constant="15" id="fej-qG-MWo"/>
+                                        <constraint firstItem="tgf-7E-eEY" firstAttribute="top" secondItem="QwV-Kr-WeG" secondAttribute="topMargin" constant="8" id="gW5-0v-ceE"/>
                                         <constraint firstItem="tgf-7E-eEY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sni-xO-93V" secondAttribute="trailing" constant="8" id="ksu-gR-06L"/>
-                                        <constraint firstItem="wxy-8x-Efd" firstAttribute="centerY" secondItem="QwV-Kr-WeG" secondAttribute="centerY" id="voQ-GF-oa7"/>
-                                        <constraint firstItem="tgf-7E-eEY" firstAttribute="centerY" secondItem="QwV-Kr-WeG" secondAttribute="centerY" id="zvh-5Y-sfs"/>
+                                        <constraint firstItem="wxy-8x-Efd" firstAttribute="top" secondItem="QwV-Kr-WeG" secondAttribute="top" constant="8.5" id="o3z-5D-EjE"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -189,7 +190,7 @@
     </scenes>
     <resources>
         <image name="Menu" width="32" height="32"/>
-        <image name="User" width="30" height="30"/>
+        <image name="User" width="64" height="64"/>
         <image name="addFriends" width="64" height="64"/>
     </resources>
 </document>

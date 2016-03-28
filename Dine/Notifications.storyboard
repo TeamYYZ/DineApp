@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Notification View Controller-->
+        <!--Notifications-->
         <scene sceneID="M82-ig-Jvd">
             <objects>
                 <viewController id="mD1-vA-i2r" customClass="NotificationViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,7 +30,7 @@
                             <constraint firstItem="ack-EJ-6VU" firstAttribute="top" secondItem="chF-AQ-KXG" secondAttribute="bottom" id="aPz-xF-yYi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="wVD-4Q-e8m">
+                    <navigationItem key="navigationItem" title="Notifications" id="wVD-4Q-e8m">
                         <barButtonItem key="leftBarButtonItem" image="Menu" id="ppJ-CO-F1R"/>
                     </navigationItem>
                     <connections>
