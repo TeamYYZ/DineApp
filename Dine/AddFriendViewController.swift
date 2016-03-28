@@ -20,7 +20,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var cancelButton = UIBarButtonItem(
+        let cancelButton = UIBarButtonItem(
             title: "Cancel",
             style: .Plain,
             target: self,

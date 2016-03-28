@@ -47,6 +47,8 @@ class FriendsViewController: UITableViewController {
         checked = [Bool](count: friendsIdList.count, repeatedValue: false)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
         generateFriendDic()
 
 
