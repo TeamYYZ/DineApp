@@ -71,6 +71,23 @@ class User {
         })
     }
     
+    func getFriendsList(successHandler: ([String]?)->()) {
+        let userQuery = PFUser.query()
+        userQuery?.getObjectInBackgroundWithId(userId!, block: { (user: PFObject?, error: NSError?) -> Void in
+            if error == nil && user != nil{
+                self.friendList = [String]()
+                let notificationArray = user!["friendList"] as? [String]
+                if let friendArray = notificationArray {
+                    self.friendList = friendArray
+                    successHandler(self.friendList)
+                }
+                
+                
+            }
+            
+        })
+    }
+    
     
     
 }

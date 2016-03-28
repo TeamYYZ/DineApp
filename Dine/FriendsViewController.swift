@@ -22,7 +22,7 @@ class FriendsViewController: UITableViewController {
 
 
     //var friendsIdList = User.currentUser?.friendList
-    var friendsIdList = ["TcayLCwdsI", "rBtM0A2hb2","jp2qy0tBEL","SAFznh6L8J","BbRZl7fVFO","NDDVl9hpZK","bqClrxzTSY","EEp3XQHUbI","0rBg5pCzzQ"]
+    var friendsIdList = [String]()
     var friendsUserList = [User]()
     var friendsUserDic = [String : [User]]()
     var friendUsernameTitles = [String]()
@@ -47,9 +47,20 @@ class FriendsViewController: UITableViewController {
         checked = [Bool](count: friendsIdList.count, repeatedValue: false)
         tableView.dataSource = self
         tableView.delegate = self
-        generateFriendDic()
 
+        fetchFriendList()
 
+    }
+    
+    func fetchFriendList() {
+        User.currentUser?.getFriendsList({ (friendList: [String]?) -> () in
+            if let fetchedfriendList = friendList {
+                self.friendsIdList = fetchedfriendList
+                print(self.friendUsernameTitles)
+                self.generateFriendDic()
+                self.tableView.reloadData()
+            }
+        })
     }
     
     func generateFriendDic(){
@@ -59,8 +70,8 @@ class FriendsViewController: UITableViewController {
                 (friend: PFObject?, error: NSError?) -> Void in
                 if error == nil && friend != nil {
                     let friendAsPFUser = friend as! PFUser
-                    let friendAsUser = User.init(pfUser: friendAsPFUser)
-                    let username = friendAsUser.username
+                    let friendAsUser = User(pfUser: friendAsPFUser)
+                    let username = friendAsUser.screenName
                     let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
                     if var usernameValues = self.friendsUserDic[usernameKey] {
                         usernameValues.append(friendAsUser)
@@ -163,7 +174,7 @@ class FriendsViewController: UITableViewController {
                 cell.inviteLabel.hidden = true
             }
 
-                cell.userNameLabel.text! = usernameValues[indexPath.row].username!
+                cell.userNameLabel.text = usernameValues[indexPath.row].screenName
     
                 if let avatarImage = usernameValues[indexPath.row].avatarImage{
                     cell.avatarImage.image = avatarImage
@@ -176,7 +187,7 @@ class FriendsViewController: UITableViewController {
         
         let headerView = view as! UITableViewHeaderFooterView
         headerView.textLabel?.textColor = UIColor.orangeColor()
-        headerView.textLabel?.font = UIFont(name: "Avenir", size: 25.0)
+        headerView.textLabel?.font = UIFont(name: "Avenir", size: 14.0)
     }
     
 
