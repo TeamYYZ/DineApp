@@ -81,40 +81,8 @@
                                             <segue destination="lQL-g9-6P3" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="vXx-W9-cQW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2fK-1U-tWX">
-                                        <rect key="frame" x="0.0" y="88" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2fK-1U-tWX" id="pqf-Nd-iJ0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invitations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-65-8fk">
-                                                    <rect key="frame" x="55" y="13" width="71" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Invite" translatesAutoresizingMaskIntoConstraints="NO" id="gQ1-ME-8HB">
-                                                    <rect key="frame" x="20" y="12" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="76G-tX-q1K"/>
-                                                        <constraint firstAttribute="width" constant="20" id="aV2-rD-9HP"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Xtz-65-8fk" firstAttribute="centerY" secondItem="pqf-Nd-iJ0" secondAttribute="centerY" id="4Dn-0D-J8V"/>
-                                                <constraint firstItem="gQ1-ME-8HB" firstAttribute="centerY" secondItem="pqf-Nd-iJ0" secondAttribute="centerY" id="DoK-vr-dKv"/>
-                                                <constraint firstItem="Xtz-65-8fk" firstAttribute="leading" secondItem="gQ1-ME-8HB" secondAttribute="trailing" constant="15" id="TcD-KK-iG2"/>
-                                                <constraint firstItem="gQ1-ME-8HB" firstAttribute="leading" secondItem="pqf-Nd-iJ0" secondAttribute="leading" constant="20" id="uxo-7H-T52"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="l59-6A-SCW" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="dVu-E8-6ev"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aD5-hN-8hC">
-                                        <rect key="frame" x="0.0" y="132" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aD5-hN-8hC" id="ekg-xj-hqV">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
