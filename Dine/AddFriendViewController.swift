@@ -30,15 +30,17 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 200
-        self.edgesForExtendedLayout = UIRectEdge.None
+        
+        
         
         // Adding a search bar
         searchController = UISearchController(searchResultsController: nil)
         tableView.tableHeaderView = searchController.searchBar
         searchController.dimsBackgroundDuringPresentation = false
+        self.edgesForExtendedLayout = UIRectEdge.None
         
         // Customize the appearance of the search bar
-        searchController.searchBar.placeholder = "Search new friends by Email"
+        searchController.searchBar.placeholder = "Search new friends by Username"
         searchController.searchBar.autocapitalizationType = .None
         searchController.searchBar.autocorrectionType = .No
         searchController.searchBar.tintColor = UIColor(red: 100.0/255.0, green: 100.0/255.0, blue: 100.0/255.0, alpha: 1.0)

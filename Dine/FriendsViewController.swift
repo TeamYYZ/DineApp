@@ -19,11 +19,15 @@ class FriendsViewController: UITableViewController {
     var checked: [Bool]!
     @IBOutlet weak var inviteButton: UIBarButtonItem!
     
-    var requests:[String] = ["July", "S", "Beth"]
+
 
     //var friendsIdList = User.currentUser?.friendList
-    var friendsIdList = ["TcayLCwdsI", "rBtM0A2hb2"]
+    var friendsIdList = ["TcayLCwdsI", "rBtM0A2hb2","jp2qy0tBEL","SAFznh6L8J","BbRZl7fVFO","NDDVl9hpZK","bqClrxzTSY","EEp3XQHUbI","0rBg5pCzzQ"]
     var friendsUserList = [User]()
+    var friendsUserDic = [String : [User]]()
+    var friendUsernameTitles = [String]()
+    let friendUsernameIndexTitles =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +47,12 @@ class FriendsViewController: UITableViewController {
         checked = [Bool](count: friendsIdList.count, repeatedValue: false)
         tableView.dataSource = self
         tableView.delegate = self
+        generateFriendDic()
+
+
+    }
+    
+    func generateFriendDic(){
         for friendId in friendsIdList{
             let query = PFUser.query()
             query!.getObjectInBackgroundWithId(friendId) {
@@ -50,7 +60,18 @@ class FriendsViewController: UITableViewController {
                 if error == nil && friend != nil {
                     let friendAsPFUser = friend as! PFUser
                     let friendAsUser = User.init(pfUser: friendAsPFUser)
-                    self.friendsUserList.append(friendAsUser)
+                    let username = friendAsUser.username
+                    let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
+                    if var usernameValues = self.friendsUserDic[usernameKey] {
+                        usernameValues.append(friendAsUser)
+                        self.friendsUserDic[usernameKey] = usernameValues
+                    } else {
+                        self.friendsUserDic[usernameKey] = [friendAsUser]
+                        self.friendUsernameTitles.append(usernameKey)
+                        self.friendUsernameTitles.sortInPlace()
+                    }
+                    
+                    //self.friendsUserList.append(friendAsUser)
                     self.tableView.reloadData()
                 } else {
                     print("Fail to get the friendList")
@@ -59,6 +80,19 @@ class FriendsViewController: UITableViewController {
             }
             
         }
+    
+    }
+    
+    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return self.friendUsernameIndexTitles
+    }
+    
+    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        guard let index = self.friendUsernameTitles.indexOf(title) else {
+            return -1
+        }
+        return index
+        
 
     }
 
@@ -91,40 +125,58 @@ class FriendsViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 
-        return 1
+        return friendsUserDic.count
     }
+    
+    override func  tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return friendUsernameTitles[section]
+    }
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return friendsUserList.count
+        let usernameKey = self.friendUsernameTitles[section]
+        if let usernameValues = self.friendsUserDic[usernameKey] {
+            return usernameValues.count
+        }
+        return 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
-        if inviteNotAdd == true {
-        if checked[indexPath.row] {
+        let usernameKey = self.friendUsernameTitles[indexPath.section]
+        if let usernameValues = self.friendsUserDic[usernameKey]{
+            if inviteNotAdd == true {
+                if checked[indexPath.row] {
             
-            cell.accessoryType = .Checkmark
-            cell.inviteLabel.text = "Invited"
-            cell.inviteLabel.textColor = UIColor.flatGrayColor()
-        } else {
+                    cell.accessoryType = .Checkmark
+                    cell.inviteLabel.text = "Invited"
+                    cell.inviteLabel.textColor = UIColor.flatGrayColor()
+                } else {
             
-            cell.accessoryType = .None
-            cell.inviteLabel.text = "Invite"
-            cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
+                    cell.accessoryType = .None
+                    cell.inviteLabel.text = "Invite"
+                    cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
+                }
+            }else{
+                cell.inviteLabel.hidden = true
             }
-        }else{
-            cell.inviteLabel.hidden = true
-        }
-        let friend = self.friendsUserList[indexPath.row]
-        if let userName = friend.username{
-            cell.userNameLabel.text! = userName
-        }
-        if let avatarImage = friend.avatarImage{
-            cell.avatarImage.image = avatarImage
+
+                cell.userNameLabel.text! = usernameValues[indexPath.row].username!
+    
+                if let avatarImage = usernameValues[indexPath.row].avatarImage{
+                    cell.avatarImage.image = avatarImage
+                }
         }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let headerView = view as! UITableViewHeaderFooterView
+        headerView.textLabel?.textColor = UIColor.orangeColor()
+        headerView.textLabel?.font = UIFont(name: "Avenir", size: 25.0)
     }
     
 
