@@ -39,10 +39,16 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         return cell
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+    }
+    
     func acceptRequest(sender: AnyObject){
         let index = sender.tag
         let notification = notifications[index]
         notification.acceptRequest()
+        notifications.removeAtIndex(index)
+        tableView.reloadData()
     }
     
     
@@ -62,12 +68,13 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         tableView.delegate = self
         tableView.dataSource = self
         self.edgesForExtendedLayout = UIRectEdge.None
+        tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = 62
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
         fetchNotifications()
-        tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
+
         
         // Do any additional setup after loading the view.
     }

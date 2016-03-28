@@ -90,15 +90,15 @@ class UserNotification {
     func acceptRequest() {
         switch self.type {
         case .FriendRequest:
-            PFCloud.callFunctionInBackground("acceptFriendRequest", withParameters: ["fromUser": self.senderId]) {
+            PFCloud.callFunctionInBackground("acceptFriendRequest", withParameters: ["fromUser": self.senderId, "notification": self.getDict()]) {
             (response: AnyObject?, error: NSError?) -> Void in
-                let success = response as! Bool
-                if success {
-                    print("accept successfully")
-                } else {
-                    if let error = error {
-                        print(error.localizedDescription)
+                if error == nil {
+                    let success = response as! Bool
+                    if success {
+                        print("accept SUCCESS")
                     }
+                } else {
+                    print(error!.localizedDescription)
                 }
             }
         default:
