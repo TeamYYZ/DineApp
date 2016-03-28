@@ -17,8 +17,8 @@ class Message {
     init(dictionary: NSDictionary) {
         let senderId = dictionary["sender"] as! String
         self.sender = User(userId: senderId)
-        self.content = dictionary["content"] as! String
-        self.createdAt = dictionary["createdAt"] as! NSDate
+        self.content = dictionary["content"] as? String
+        self.createdAt = dictionary["createdAt"] as? NSDate
     }
     
     

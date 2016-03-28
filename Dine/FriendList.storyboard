@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -29,14 +29,17 @@
                                                 <constraint firstAttribute="height" constant="40" id="rQB-x3-pRL"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sni-xO-93V">
-                                            <rect key="frame" x="63" y="15" width="34" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Sam" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sni-xO-93V">
+                                            <rect key="frame" x="63" y="15" width="34" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgf-7E-eEY">
-                                            <rect key="frame" x="273" y="16" width="39" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Invited" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgf-7E-eEY">
+                                            <rect key="frame" x="266" y="16" width="46" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="46" id="XF6-VC-4yf"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -48,6 +51,7 @@
                                         <constraint firstAttribute="trailing" secondItem="tgf-7E-eEY" secondAttribute="trailing" constant="8" id="St0-Bw-m2g"/>
                                         <constraint firstItem="Sni-xO-93V" firstAttribute="leading" secondItem="wxy-8x-Efd" secondAttribute="trailing" constant="8" id="Zlp-LD-7Ts"/>
                                         <constraint firstItem="wxy-8x-Efd" firstAttribute="leading" secondItem="QwV-Kr-WeG" secondAttribute="leading" constant="15" id="fej-qG-MWo"/>
+                                        <constraint firstItem="tgf-7E-eEY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sni-xO-93V" secondAttribute="trailing" constant="8" id="ksu-gR-06L"/>
                                         <constraint firstItem="wxy-8x-Efd" firstAttribute="centerY" secondItem="QwV-Kr-WeG" secondAttribute="centerY" id="voQ-GF-oa7"/>
                                         <constraint firstItem="tgf-7E-eEY" firstAttribute="centerY" secondItem="QwV-Kr-WeG" secondAttribute="centerY" id="zvh-5Y-sfs"/>
                                     </constraints>
