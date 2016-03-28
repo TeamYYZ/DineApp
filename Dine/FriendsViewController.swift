@@ -64,34 +64,36 @@ class FriendsViewController: UITableViewController {
     }
     
     func generateFriendDic(){
-        for friendId in friendsIdList{
-            let query = PFUser.query()
-            query!.getObjectInBackgroundWithId(friendId) {
-                (friend: PFObject?, error: NSError?) -> Void in
-                if error == nil && friend != nil {
-                    let friendAsPFUser = friend as! PFUser
-                    let friendAsUser = User(pfUser: friendAsPFUser)
-                    let username = friendAsUser.screenName
-                    let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
-                    if var usernameValues = self.friendsUserDic[usernameKey] {
-                        usernameValues.append(friendAsUser)
-                        self.friendsUserDic[usernameKey] = usernameValues
-                    } else {
-                        self.friendsUserDic[usernameKey] = [friendAsUser]
-                        self.friendUsernameTitles.append(usernameKey)
-                        self.friendUsernameTitles.sortInPlace()
-                    }
-                    
-                    //self.friendsUserList.append(friendAsUser)
-                    self.tableView.reloadData()
+        let query = PFUser.query()
+        query?.whereKey("objectId", containedIn: friendsIdList)
+        query?.findObjectsInBackgroundWithBlock({ (friends:[PFObject]?, error: NSError?) -> Void in
+        if error == nil && friends != nil {
+            for friend in friends! {
+                let friendAsPFUser = friend as! PFUser
+                let friendAsUser = User(pfUser: friendAsPFUser)
+                let username = friendAsUser.screenName
+                let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
+                if var usernameValues = self.friendsUserDic[usernameKey] {
+                    usernameValues.append(friendAsUser)
+                    self.friendsUserDic[usernameKey] = usernameValues
                 } else {
-                    print("Fail to get the friendList")
-                    print(error)
+                    self.friendsUserDic[usernameKey] = [friendAsUser]
+                    self.friendUsernameTitles.append(usernameKey)
+                    self.friendUsernameTitles.sortInPlace()
                 }
-            }
             
+            }
+
+            
+            //self.friendsUserList.append(friendAsUser)
+            self.tableView.reloadData()
+        } else {
+            print("Fail to get the friendList")
+            print(error)
         }
-    
+        })
+
+        
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
