@@ -44,14 +44,14 @@ class FriendsViewController: UITableViewController {
         }
         menuButton.target = self.revealViewController()
         menuButton.action = Selector("revealToggle:")
-        checked = [Bool](count: friendsIdList.count, repeatedValue: false)
+        fetchFriendList()
+        //generateFriendDic()
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
-        generateFriendDic()
 
-        fetchFriendList()
 
     }
     
@@ -61,6 +61,8 @@ class FriendsViewController: UITableViewController {
                 self.friendsIdList = fetchedfriendList
                 print(self.friendUsernameTitles)
                 self.generateFriendDic()
+                self.checked = [Bool](count: self.friendsIdList.count, repeatedValue: false)
+
                 self.tableView.reloadData()
             }
         })
