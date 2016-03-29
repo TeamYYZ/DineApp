@@ -55,16 +55,23 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         return searchWithTerm(term, location: location, sort: nil, radius: 0, categories: nil, deals: nil, offset: nil, completion: completion)
     }
     
-    func getBusinessWithId(id: String, completion: (business: Business!, NSError!) -> Void) -> AFHTTPRequestOperation {
-        let parameters: [String : AnyObject] = ["actionlinks": false]
-        return self.GET("business/"+id, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            let dictionary = response as? NSDictionary
-            if dictionary != nil {
-                completion(business: Business(dictionary: dictionary!), nil)
-            }
-            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
-                completion(business: nil, error)
-        })!
+    func getBusinessWithId(id: String, completion: (business: Business!, NSError!) -> Void) -> AFHTTPRequestOperation? {
+        if let escapedId = id.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) {
+            print(escapedId)
+            let parameters: [String : AnyObject] = ["actionlinks": false]
+            return self.GET("business/" + escapedId, parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+                let dictionary = response as? NSDictionary
+                if dictionary != nil {
+                    completion(business: Business(dictionary: dictionary!), nil)
+                }
+                }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in
+                    completion(business: nil, error)
+            })!  
+        
+        } else {
+            return nil
+        }
+
 
     }
     
