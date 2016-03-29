@@ -12,9 +12,11 @@ class SearchFriendCell: UITableViewCell {
 
     @IBOutlet weak var avatarImage: UIImageView!
     
-    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
     
-    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var emailLabel: UILabel!
+    
+    @IBOutlet weak var addButton: YYZAcceptButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

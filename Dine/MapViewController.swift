@@ -51,7 +51,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         updateMap()
-
     }
     
     
@@ -95,8 +94,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.ownerId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
                         
                         
-                        notification.saveToBackend({ (ret: UserNotification) -> () in
-                            print(ret.receiverId)
+                        notification.saveToBackend({ () -> () in
                             print("success")
                             }, failureHandler: { (error: NSError?) -> () in
                             print("failure")

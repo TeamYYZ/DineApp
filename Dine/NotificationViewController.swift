@@ -42,7 +42,10 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let notification = notifications[indexPath.row]
+        notification.delete()
         notifications.removeAtIndex(indexPath.row)
+        
         tableView.reloadData()
     }
     

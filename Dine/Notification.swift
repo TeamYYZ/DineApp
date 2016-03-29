@@ -74,11 +74,12 @@ class UserNotification {
     }
     
     
-    func saveToBackend(successHandler: (UserNotification)->(), failureHandler: (NSError?)->()) {
+    func saveToBackend(successHandler: ()->(), failureHandler: (NSError?)->()) {
         PFCloud.callFunctionInBackground("addNotification", withParameters: ["notification": self.getDict()]) {
             (response: AnyObject?, error: NSError?) -> Void in
             if error == nil {
                 print("Notification sent")
+                successHandler()
             } else {
                 print(error!)
             }
@@ -105,7 +106,28 @@ class UserNotification {
             print("Undefined notification type")
         
         }
+    }
     
-    
+    func delete() {
+        
+        if self.type == .Unknown {
+            return
+        }
+        
+        let userQuery = PFUser.query()
+        userQuery?.getObjectInBackgroundWithId(self.receiverId, block: { (pfObject: PFObject?, error: NSError?) -> Void in
+            if error == nil {
+                if let user = pfObject {
+                    user.removeObject(self.getDict(), forKey: "notificationsRecv")
+                    user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
+                        if success {
+                            print("Notification Deleted")
+                        }
+                    })
+                    
+                }
+                
+            }
+        })
     }
 }

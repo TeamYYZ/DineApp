@@ -15,6 +15,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableView: UITableView!
     
     var friends = [User]()
+    var addStatus = [Bool]()
     
     var searchController: UISearchController!
     
@@ -59,24 +60,24 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func searchFriendsWithEmail(text: String){
-        
-
-        
+        friends.removeAll()
+        addStatus.removeAll()
         let query = PFQuery(className:"_User")
         query.whereKey("username", equalTo: text)
-        print(text)
         query.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
             
             if error == nil {
-                print(objects!.count)
                 if let objects = objects {
                     for object in objects {
                         let objectAsPFUser = object as! PFUser
                         let objectAsUser = User.init(pfUser: objectAsPFUser)
                         self.friends.append(objectAsUser)
-                        self.tableView.reloadData()
                     }
+                    self.addStatus = [Bool](count: self.friends.count, repeatedValue: false)
+                    self.tableView.reloadData()
+
+                    
                 }
             } else {
                 // Log details of the failure
@@ -107,30 +108,48 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("NewFriendCell") as! SearchFriendCell
         let friend = friends[indexPath.row]
+        let isSent = addStatus[indexPath.row]
         if let avatarImage = friend.avatarImage{
             cell.avatarImage.image = avatarImage
         }else{
             cell.avatarImage.image = UIImage(named: "User")
         }
         
-        if let username = friend.username{
-            cell.userName.text = username
+        if let screenName = friend.screenName{
+            cell.screenNameLabel.text = screenName
+        } else {
+            cell.screenNameLabel.text = "Unknown"
+        }
+        
+        if let email = friend.username {
+            cell.emailLabel.text = email
+        } else {
+            cell.emailLabel.text = "Unknown"
         }
         
         cell.addButton.removeTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
-        cell.addButton.addTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
-        cell.addButton.tag = indexPath.row
+        if isSent {
+            cell.addButton.disable()
+        } else {
+            cell.addButton.enable()
+            cell.addButton.addTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
+            cell.addButton.tag = indexPath.row
+        }
+
         return cell
     }
     
     func AddFriend(sender: AnyObject){
-        let cell = sender as! UIButton
-        let destinationUser = self.friends[cell.tag]
+        let button = sender as! YYZAcceptButton
+        let index = button.tag
+        let destinationUser = self.friends[index]
         let notification = UserNotification(type: .FriendRequest, content: "Wants to be your friend", senderId: User.currentUser!.userId!, receiverId: destinationUser.userId!, associatedId: nil, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
         
         
-        notification.saveToBackend({ (ret: UserNotification) -> () in
-            print(ret.receiverId)
+        notification.saveToBackend({ () -> () in
+            self.addStatus[index] = true
+            button.disable()
+            button.setTitle("Sent", forState: UIControlState.Disabled)
             print("success")
             }, failureHandler: { (error: NSError?) -> () in
                 print("failure")
