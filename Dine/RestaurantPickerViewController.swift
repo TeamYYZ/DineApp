@@ -28,9 +28,15 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         super.viewDidLoad()
         //get user current location
         let defaults = NSUserDefaults.standardUserDefaults()
-        let lat = defaults.objectForKey("user_current_location_lat") as! CLLocationDegrees
-        let lon = defaults.objectForKey("user_current_location_lon") as! CLLocationDegrees
-        location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        if let lat = defaults.objectForKey("user_current_location_lat") as? CLLocationDegrees {
+            if let lon = defaults.objectForKey("user_current_location_lon") as? CLLocationDegrees {
+                location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+
+            }
+        }
+        if location == nil {
+            location = CLLocationCoordinate2D(latitude: 30.601433, longitude: -96.314464)
+        }
         
         tableView.dataSource = self
         tableView.delegate = self
