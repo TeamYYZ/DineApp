@@ -22,6 +22,7 @@ class ColorTheme {
 
     var navigationBarBackgroundColor: UIColor
     var acceptButtonColor: UIColor
+    var acceptButtonDisableColor: UIColor
     
     init() {
         navigationBarBackgroundColor = UIColor.flatMintColor()
@@ -33,7 +34,9 @@ class ColorTheme {
         
         YYZButtonDisableTextColor = UIColor.flatGrayColor()
         YYZButtonDisableBackgroundColor = UIColor.flatGrayColorDark()
+        
         acceptButtonColor = UIColor.flatGreenColorDark()
+        acceptButtonDisableColor = UIColor.flatGrayColor()
         
     }
 

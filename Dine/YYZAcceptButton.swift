@@ -28,6 +28,15 @@ class YYZAcceptButton: UIButton {
         setupButton()
     }
     
+    func enable() {
+        self.enabled = true
+        self.layer.backgroundColor = ColorTheme.sharedInstance.acceptButtonColor.CGColor
+    }
+    
+    func disable() {
+        self.enabled = false
+        self.layer.backgroundColor = ColorTheme.sharedInstance.acceptButtonDisableColor.CGColor
+    }
     
     func setupButton() {
         
