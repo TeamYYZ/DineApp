@@ -24,7 +24,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var locationManager = CLLocationManager()
     var activities = [Activity]()
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +58,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     func userJoinedActivity() {
         //update map, only show selected point and direction
+        GoogleDirectionsAPI.direction((locationManager.location?.coordinate)!, destination: CLLocationCoordinate2D(latitude: 30.6414995, longitude: -96.3086088)) { (routes: [Route]!, error: NSError!) in
+            print(routes)
+        }
+
         //always show pin view
         
         toolBar.hidden = false
