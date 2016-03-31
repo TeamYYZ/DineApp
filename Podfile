@@ -7,12 +7,13 @@ target 'Dine' do
 	pod 'Parse'
     pod 'ParseUI'
     pod 'SWRevealViewController'
-    pod 'ChameleonFramework/Swift'
+    pod 'ChameleonFramework/Swift', '~> 2.1.0'
     pod 'ParseFacebookUtilsV4'
     pod 'FBSDKCoreKit'
     pod 'FBSDKLoginKit'
     pod 'AFNetworking', '~> 2.5'
     pod 'BDBOAuth1Manager'
     pod 'MBProgressHUD'
+    pod 'GoogleMaps'
 end
 

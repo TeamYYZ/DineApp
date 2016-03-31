@@ -16,6 +16,7 @@ class Route: NSObject {
         var endLoc: CLLocationCoordinate2D?
         var polyLine: String?
         var instruction: String?
+        var maneuver: String?
         
         init(dictionary:NSDictionary) {
             distance = dictionary["distance"]?["text"] as? String
@@ -34,6 +35,7 @@ class Route: NSObject {
             
             instruction = dictionary["html_instructions"] as? String
             polyLine = dictionary["polyline"] as? String
+            maneuver = dictionary["maneuver"] as? String
         }
     }
     var steps = [Step]()

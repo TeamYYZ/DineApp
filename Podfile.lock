@@ -36,9 +36,10 @@ PODS:
     - Bolts (~> 1.5)
   - FBSDKLoginKit (4.10.1):
     - FBSDKCoreKit
+  - GoogleMaps (1.13.0)
   - MBProgressHUD (0.9.2)
-  - Parse (1.13.0):
-    - Bolts/Tasks (~> 1.6)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
   - ParseFacebookUtilsV4 (1.11.1):
     - Bolts/Tasks (>= 1.6)
     - FBSDKCoreKit (~> 4.10)
@@ -53,9 +54,10 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - BDBOAuth1Manager
-  - ChameleonFramework/Swift
+  - ChameleonFramework/Swift (~> 2.1.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
+  - GoogleMaps
   - MBProgressHUD
   - Parse
   - ParseFacebookUtilsV4
@@ -69,8 +71,9 @@ SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
   FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
+  GoogleMaps: 7a6caeb8336d7cb42982e969fc9b1b20a889fe79
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a

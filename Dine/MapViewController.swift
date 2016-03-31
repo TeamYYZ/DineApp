@@ -10,56 +10,95 @@ import UIKit
 import MapKit
 import SWRevealViewController
 import Parse
+import GoogleMaps
 
-
-
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var exitActivityButton: UIButton!
+
+    @IBOutlet weak var directionsLabel: UILabel!
 
     var location: CLLocation?
     var locationManager = CLLocationManager()
     var activities = [Activity]()
     
+    dynamic var mapView: GMSMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(PFUser.currentUser()?.username)
-        mapView.delegate = self
+        
+        setupGoogleMap()
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        let status = CLLocationManager.authorizationStatus()
+//        let status = CLLocationManager.authorizationStatus()
 
-        if status == .AuthorizedWhenInUse {
-            mapView.showsUserLocation = true
-            goToLocation(location)
-            
-            locationManager.startUpdatingLocation()
-        }
+//        if status == .AuthorizedWhenInUse {
+//            //goToLocation(location)
+//            locationManager.startUpdatingLocation()
+//        }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userJoinedActivity", name: "userJoinedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userExitedActivity", name: "userExitedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userJoinedActivity), name: "userJoinedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity as (MapViewController) -> () -> ()), name: "userExitedNotification", object: nil)
         
         menuButton.target = self.revealViewController()
-        menuButton.action = Selector("revealToggle:")
-        exitActivityButton.addTarget(self, action: Selector("userExitedActivity:"), forControlEvents: .TouchUpInside)
+        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        exitActivityButton.addTarget(self, action: #selector(MapViewController.userExitedActivity(_:)), forControlEvents: .TouchUpInside)
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
-        updateMap()
+        //updateMap()
+
+        
     }
     
+    func setupGoogleMap() {
+        let camera = GMSCameraPosition.cameraWithLatitude(-33.86,
+                                                          longitude: 151.20, zoom: 6)
+        var bound = self.view.bounds
+        let navHeight = self.navigationController!.navigationBar.frame.size.height
+        
+        bound = CGRect(x: 0.0, y: navHeight, width: bound.width, height: bound.height - navHeight)
+        print(bound)
+        mapView = GMSMapView.mapWithFrame(bound, camera: camera)
+        mapView.settings.compassButton = true
+        mapView.settings.myLocationButton = true
+        mapView.delegate = self
+        self.view.insertSubview(mapView, atIndex:0)
+        
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+            if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
+                mapView.camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 14.0)
+                //update direction info
+                GoogleDirectionsAPI.direction(myLocation.coordinate, destination: CLLocationCoordinate2D(latitude: 30.6414995, longitude: -96.3086088)) { (routes: [Route]!, error: NSError!) in
+                    
+                    if let instruction = routes[0].steps[0].instruction {
+                        let attrStr = try! NSAttributedString(
+                            data: instruction.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
+                            options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                            documentAttributes: nil)
+                        self.directionsLabel.attributedText = attrStr
+                    }
+                }
+        }
+    }
     
-
-
+    deinit {
+        mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
+    }
+    
     func userJoinedActivity() {
         //update map, only show selected point and direction
-        GoogleDirectionsAPI.direction((locationManager.location?.coordinate)!, destination: CLLocationCoordinate2D(latitude: 30.6414995, longitude: -96.3086088)) { (routes: [Route]!, error: NSError!) in
-            print(routes)
-        }
 
         //always show pin view
         
@@ -67,7 +106,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         arrivalTimeLabel.hidden = false
 //        self.viewDidLoad()
         
-        updateMap()
+        //updateMap()
    
     }
     
@@ -77,7 +116,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
 //        self.viewDidLoad()
-        updateMap()
+        //updateMap()
     }
     
     func userExitedActivity(sender: UIButton!) {
@@ -126,21 +165,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
-            mapView.showsUserLocation = true
-            locationManager.startUpdatingLocation()
+            mapView.myLocationEnabled = true
+
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        goToLocation(nil)
-
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        //goToLocation(nil)
+//
+//        if let location: CLLocation = locations.last {
+//        var eventDate: NSDate = location.timestamp
+//        var howRecent: NSTimeInterval = eventDate.timeIntervalSinceNow
+//        if abs(howRecent) < 15.0 {
+//            // Update your marker on your map using location.coordinate.latitude
+//            mapView.myLocation = location
+//
+//            //and location.coordinate.longitude);
+//        }
+//        }
+    
+        
 //        print(locations.last!)
 //        if locations.last!.distanceFromLocation(location!) > CLLocationDistance(1.0){
 //            location = locations.last!
 //            User.currentUser?.current_location = location
 //            goToLocation(location!)
 //        }
-    }
+//    }
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
@@ -201,41 +252,40 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
     }
     
-    func updateMap() {
-        mapView.removeAnnotations(mapView.annotations)
-        if Activity.current_activity == nil{
-            for activity in activities{
-              let annotation = MapAnnotation(activity: activity)
-                
-              mapView.addAnnotation(annotation)
-            }
-        }else{
-            print("joined activity")
-            let annotation = MapAnnotation(activity: Activity.current_activity!)
-            mapView.addAnnotation(annotation)
-            //start navigation
-            
-        }
-        
-    }
+//    func updateMap() {
+//        mapView.removeAnnotations(mapView.annotations)
+//        if Activity.current_activity == nil{
+//            for activity in activities{
+//              let annotation = MapAnnotation(activity: activity)
+//                
+//              mapView.addAnnotation(annotation)
+//            }
+//        }else{
+//            print("joined activity")
+//            let annotation = MapAnnotation(activity: Activity.current_activity!)
+//            mapView.addAnnotation(annotation)
+//            //start navigation
+//            
+//        }
+//        
+//    }
     
     
-    // lock my region
-    func goToLocation(currlocation: CLLocation?) {
-        if let myLocation
-            = locationManager.location {
-            let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//            let span = MKCoordinateSpanMake(0.1, 0.1)
-//            let region = MKCoordinateRegionMake(myLocation.coordinate, span)
-            //mapView.setRegion(region, animated: false)
-//            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-//            locationManager.distanceFilter = 200
-            //print(User.currentUser?.current_location)
-            mapView.setRegion(region, animated: false)
-        }
-
-    }
+//    // lock my region
+//    func goToLocation(currlocation: CLLocation?) {
+//        if let myLocation
+//            = locationManager.location {
+//            let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
+//            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+////            let span = MKCoordinateSpanMake(0.1, 0.1)
+////            let region = MKCoordinateRegionMake(myLocation.coordinate, span)
+//            //mapView.setRegion(region, animated: false)
+////            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+////            locationManager.distanceFilter = 200
+//            //print(User.currentUser?.current_location)
+//        }
+//
+//    }
     
     // This function is created for debug.
 
