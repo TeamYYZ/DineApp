@@ -110,6 +110,7 @@
                     <connections>
                         <outlet property="arrivalTimeLabel" destination="fAe-za-lDP" id="TyQ-O9-py8"/>
                         <outlet property="directionsLabel" destination="vsg-TW-OHz" id="iNf-Sr-Y2v"/>
+                        <outlet property="directionsView" destination="ria-bR-0eA" id="jts-UY-ByY"/>
                         <outlet property="exitActivityButton" destination="XcF-zS-giK" id="uRY-p6-NTw"/>
                         <outlet property="menuButton" destination="8RE-dH-wAH" id="J6z-VI-sLC"/>
                         <outlet property="toolBar" destination="6y2-kC-d4g" id="3fC-HE-rB9"/>
