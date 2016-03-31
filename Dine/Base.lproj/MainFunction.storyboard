@@ -66,7 +66,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="Info"/>
                                             <connections>
-                                                <segue destination="c19-J4-Paj" kind="push" identifier="toActivityProfileSegue" id="Mlk-Wd-taN"/>
+                                                <segue destination="2xd-fa-dlc" kind="push" identifier="toActivityProfileSegue" id="Mlk-Wd-taN"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -129,7 +129,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="115" id="6rR-xD-n7e" customClass="ActivityProfileCell" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="115"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6rR-xD-n7e" id="XZ2-WZ-kYm">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="114.5"/>
@@ -195,7 +195,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc">
-                                <rect key="frame" x="0.0" y="187" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="143" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7C-sr-bYc" id="XTM-bw-Pem">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
@@ -247,7 +247,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="63" id="cRu-Y7-tkj">
-                                <rect key="frame" x="0.0" y="72" width="320" height="63"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cRu-Y7-tkj" id="KJA-MM-EPq">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="62.5"/>
@@ -285,7 +285,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="selfCell" rowHeight="63" id="83h-Oi-YnR">
-                                <rect key="frame" x="0.0" y="135" width="320" height="63"/>
+                                <rect key="frame" x="0.0" y="91" width="320" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="83h-Oi-YnR" id="1GG-4S-odA">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="62.5"/>
@@ -383,6 +383,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vi-Lz-xyS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1060" y="2083"/>
+        </scene>
+        <!--ChatView-->
+        <scene sceneID="ViJ-nY-Hsh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChatView" id="VL5-au-zmM" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8cB-9U-YfR"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkO-S3-0t9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2018" y="1262"/>
+        </scene>
+        <!--ActivityProfileViewController-->
+        <scene sceneID="nMZ-qd-8z4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ActivityProfileViewController" id="2xd-fa-dlc" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="1nC-VV-j1s"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="29L-Fp-0cp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1555" y="1262"/>
         </scene>
     </scenes>
     <resources>

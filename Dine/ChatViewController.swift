@@ -7,25 +7,115 @@
 //
 
 import UIKit
+import Parse
 
 class ChatViewController: UITableViewController {
     @IBOutlet weak var replyItem: UIBarButtonItem!
     @IBOutlet weak var replyButton: UIBarButtonItem!
     @IBOutlet var replyBar: UIToolbar!
     @IBOutlet weak var replyField: UITextField!
+    var messages = [Message]()
+    var chatName = "myChat"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.registerNib(UINib(nibName: "MemberMessageCell", bundle: nil), forCellReuseIdentifier: "MemberMessageCell")
+        tableView.registerNib(UINib(nibName: "SelfMessageCell", bundle: nil), forCellReuseIdentifier: "SelfMessageCell")
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
         replyItem.width = self.view.bounds.width - 80
+        self.replyButton.action = "sendButtonOnClick"
+        self.tableView.reloadData()
     }
+    
+    func sendButtonOnClick(){
+        if let content = self.replyField.text{
+            let senderId = User.currentUser?.userId
+            //let file = User.currentUser?.avatarImagePFFile
+            let screenName = User.currentUser?.screenName
+            let message = Message(senderId: senderId!, screenName: screenName!, content: content)
+            let chat = PFObject(className:  chatName)
+            chat["content"] = message.content
+            chat["senderId"] = message.senderId
+            chat["screenName"] = message.screenName
+            //chat["file"] = message.senderAvatarPFFile
+             self.replyField.text = nil
+            chat.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                if success == true && error == nil{
+                    self.fetchData()
+                }else{
+                    print(error)
+                }
+            })
+           
+            
+        }
+        
+    
+    }
+    
+    func fetchData(){
+        if self.messages.count == 0{
+           let query = PFQuery(className: chatName)
+            query.orderByAscending("createdAt")
+            query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
+                if error == nil && objects!.count > 0{
+                    for object in objects!{
+                        let senderId = object["senderId"] as! String
+                        let content = object["content"] as! String
+                        let screenName = object["screenName"] as! String
+                        //                        let file = object["file"] as! PFFile
+                        let createdAt = object.createdAt! as NSDate
+                        let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
+                        self.messages.append(message)
+                        self.tableView.reloadData()
+                        var indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+                    }
+                }else{
+                    print(error)
+                }
+            }
+        }
+        if let offset = self.messages.last?.createdAt{
+            let query = PFQuery(className: chatName)
+            query.whereKey("createdAt", greaterThan: offset)
+            query.orderByAscending("createdAt")
+            query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
+                if error == nil && objects!.count > 0{
+                    print(objects!.count)
+                    for object in objects!{
+                        let senderId = object["senderId"] as! String
+                        let content = object["content"] as! String
+                        let screenName = object["screenName"] as! String
+//                        let file = object["file"] as! PFFile
+                        let createdAt = object.createdAt! as NSDate
+                        let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
+                        self.messages.append(message)
+                        self.tableView.reloadData()
+                        var indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+                    }
+                }else{
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
+    
     override var inputAccessoryView: UIView{
         get{
             return self.replyBar
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,25 +130,46 @@ class ChatViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return self.messages.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        //just for skeleton view, need reimplementation!!
-        //need to display different cell based on chat table, if sender == self, dequeue selfCell, else dequeue memberCell
-        if indexPath.row == 0 {
-        let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let message = self.messages[indexPath.row]
+        if message.senderId == User.currentUser?.userId {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SelfMessageCell") as! SelfMessageCell
+            cell.screenNameLabel.text = message.screenName
+           message.senderAvatarPFFile?.getDataInBackgroundWithBlock({
+                (result, error) in
+            if error == nil{
+                cell.avatarImageView.image = UIImage(data: result!)
+            }else{
+                print(error)
+            }})
+        cell.contentLabel.text = message.content
+        let date = message.createdAt
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        var dateString = dateFormatter.stringFromDate(date!)
+        cell.timeLabel.text = dateString
         return cell
         }else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("selfCell", forIndexPath: indexPath)
-            
-            // Configure the cell...
-            
+            let cell = tableView.dequeueReusableCellWithIdentifier("MemberMessageCell") as! MemberMessageCell
+            cell.screenNameLabel.text = message.screenName
+            message.senderAvatarPFFile?.getDataInBackgroundWithBlock({
+                (result, error) in
+                if error == nil{
+                    cell.avatarImageView.image = UIImage(data: result!)
+                }else{
+                    print(error)
+                }})
+            cell.contentLabel.text = message.content
+            let date = message.createdAt
+            var dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "hh:mm"
+            var dateString = dateFormatter.stringFromDate(date!)
+            cell.timeLabel.text = dateString
             return cell
         }
     }

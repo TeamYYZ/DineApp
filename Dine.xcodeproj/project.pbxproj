@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3B87EC291CA77D8D0045AF18 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */; };
+		3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */; };
+		3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5970C1CAC7F1F00D0E6C7 /* MemberMessageCell.swift */; };
+		3BA5970F1CAC7F1F00D0E6C7 /* MemberMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA5970D1CAC7F1F00D0E6C7 /* MemberMessageCell.xib */; };
+		3BA597121CAC835F00D0E6C7 /* SelfMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA597101CAC835F00D0E6C7 /* SelfMessageCell.swift */; };
+		3BA597131CAC835F00D0E6C7 /* SelfMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA597111CAC835F00D0E6C7 /* SelfMessageCell.xib */; };
+		3BA597191CACA32600D0E6C7 /* ActivityProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA597171CACA32600D0E6C7 /* ActivityProfileViewController.storyboard */; };
 		3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848AC1CA0EF2700E40A8B /* Activity.swift */; };
 		3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848AE1CA0F21F00E40A8B /* Group.swift */; };
 		3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848B01CA0F8F200E40A8B /* Invitation.swift */; };
@@ -77,6 +83,12 @@
 		1339928E4EE71C5793830748 /* Pods-Dine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.debug.xcconfig"; sourceTree = "<group>"; };
 		3B5BB70C1CA3881F003D2EB3 /* Dine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dine-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
+		3BA5970A1CAC7E2500D0E6C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatView.storyboard; sourceTree = "<group>"; };
+		3BA5970C1CAC7F1F00D0E6C7 /* MemberMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberMessageCell.swift; sourceTree = "<group>"; };
+		3BA5970D1CAC7F1F00D0E6C7 /* MemberMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberMessageCell.xib; sourceTree = "<group>"; };
+		3BA597101CAC835F00D0E6C7 /* SelfMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfMessageCell.swift; sourceTree = "<group>"; };
+		3BA597111CAC835F00D0E6C7 /* SelfMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelfMessageCell.xib; sourceTree = "<group>"; };
+		3BA597181CACA32600D0E6C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ActivityProfileViewController.storyboard; sourceTree = "<group>"; };
 		3BD848AC1CA0EF2700E40A8B /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		3BD848AE1CA0F21F00E40A8B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		3BD848B01CA0F8F200E40A8B /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
@@ -272,6 +284,8 @@
 				C1AF83761CA3C34100E634E3 /* Invitation.storyboard */,
 				C1AF83711CA3C2D100E634E3 /* FriendList.storyboard */,
 				C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */,
+				3BA597171CACA32600D0E6C7 /* ActivityProfileViewController.storyboard */,
+				3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */,
 				C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */,
 				C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */,
 				C1A474B91CA71C3500141692 /* Notifications.storyboard */,
@@ -293,10 +307,10 @@
 				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
 				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
-				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
 				C6EE09491C975F7F00345357 /* ChatViewController.swift */,
 				3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */,
 				C1A474C31CA72A3800141692 /* NotificationViewController.swift */,
+				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -317,6 +331,10 @@
 				C1A474BF1CA723D800141692 /* NotificationCell.swift */,
 				C1A474C01CA723D800141692 /* NotificationCell.xib */,
 				C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */,
+				3BA5970C1CAC7F1F00D0E6C7 /* MemberMessageCell.swift */,
+				3BA5970D1CAC7F1F00D0E6C7 /* MemberMessageCell.xib */,
+				3BA597101CAC835F00D0E6C7 /* SelfMessageCell.swift */,
+				3BA597111CAC835F00D0E6C7 /* SelfMessageCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -404,13 +422,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */,
 				C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */,
 				C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */,
+				3BA5970F1CAC7F1F00D0E6C7 /* MemberMessageCell.xib in Resources */,
 				C1AF83701CA3C1F300E634E3 /* MainFunction.storyboard in Resources */,
 				C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */,
 				C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */,
+				3BA597131CAC835F00D0E6C7 /* SelfMessageCell.xib in Resources */,
 				C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */,
 				C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */,
+				3BA597191CACA32600D0E6C7 /* ActivityProfileViewController.storyboard in Resources */,
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,
 				C1AF83771CA3C34100E634E3 /* Invitation.storyboard in Resources */,
 				C1AF836D1CA3C17400E634E3 /* ActvitityCreater.storyboard in Resources */,
@@ -514,6 +536,7 @@
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,
 				C6EE092C1C96038700345357 /* MapViewController.swift in Sources */,
 				3BF4D2721CA73A1000126A91 /* AddFriendViewController.swift in Sources */,
+				3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */,
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,
 				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
@@ -524,12 +547,29 @@
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
+				3BA597121CAC835F00D0E6C7 /* SelfMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BA5970A1CAC7E2500D0E6C7 /* Base */,
+			);
+			name = ChatView.storyboard;
+			sourceTree = "<group>";
+		};
+		3BA597171CACA32600D0E6C7 /* ActivityProfileViewController.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BA597181CACA32600D0E6C7 /* Base */,
+			);
+			name = ActivityProfileViewController.storyboard;
+			sourceTree = "<group>";
+		};
 		C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

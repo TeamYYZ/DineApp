@@ -20,9 +20,10 @@ class Activity: NSObject {
     var overview: String?
     var yelpBusiness: Business?
     var group: Group?
-    var groupMessages: [Message]?
+    //var groupMessages: [String]?
     var location: CLLocationCoordinate2D?
     var restaurant: String?
+    var chatTableId : String?
     
     static var current_activity: Activity?
     //The activity that the current_user has joined

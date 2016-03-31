@@ -244,12 +244,13 @@ class FriendsViewController: UITableViewController {
             if button.tag == 0{
                 var invitedIdList = [String]()
                 for (index, value) in checked.enumerate() {
-            if value {
-                invitedIdList.append(friendsIdList[index])
+                    if value {
+                        invitedIdList.append(friendsIdList[index])
+                    }
+                }
+                activityInProgress?.setupGroup(invitedIdList)
+               self.dismissViewControllerAnimated(true, completion: nil)
             }
-        }
-            activityInProgress?.setupGroup(invitedIdList)
-        }
             
         
     }
