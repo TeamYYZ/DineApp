@@ -42,8 +42,8 @@ class LoginViewController: UIViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
 
     }
@@ -75,7 +75,7 @@ class LoginViewController: UIViewController{
         
         fbIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
         fbIcon.tintColor = ColorTheme.sharedInstance.loginTextColor
-        createNewAccountLabel.addTarget(self, action: "LoginWithFacebook", forControlEvents: .TouchDown)
+        createNewAccountLabel.addTarget(self, action: #selector(LoginViewController.LoginWithFacebook), forControlEvents: .TouchDown)
             
         
         // Do any additional setup after loading the view.

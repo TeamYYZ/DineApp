@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 import ChameleonFramework
 import ParseFacebookUtilsV4
 import GoogleMaps
@@ -16,11 +15,37 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var storyboard = UIStoryboard(name: "Main", bundle: nil)
-    var signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
+    let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
+    var slideMenuController: ContainerViewController!
+    
+    private func createMenuView() {
+        
+        let sidebarSB = UIStoryboard(name: "Sidebar", bundle: nil)
+        let mainfuncSB = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mainViewController = mainfuncSB.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        let leftViewController =
+            sidebarSB.instantiateViewControllerWithIdentifier("SidebarMenuViewController") as! SidebarMenuViewController
+        
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        leftViewController.mainViewController = nvc
+        let nvcl: UINavigationController = UINavigationController(rootViewController: leftViewController)
+        
+        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
+        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
 
+        slideMenuController = ContainerViewController(mainViewController: nvc, leftMenuViewController: nvcl)
+        
+        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+        slideMenuController.delegate = mainViewController
 
+        self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.createMenuView()
         
         GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
 
@@ -52,17 +77,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             print("current user detected: \(currentUser.username)")
             User.currentUser = User(pfUser: currentUser)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("SWRevealViewController") as UIViewController
-            window?.rootViewController = vc
+            self.window?.rootViewController = slideMenuController
+            self.window?.makeKeyAndVisible()
         } else {
             userDidLogout()
         
         }
-
-        
-        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
-        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
-        
         
         return true
     }

@@ -88,7 +88,7 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         let cell = tableView.dequeueReusableCellWithIdentifier("restaurantCell", forIndexPath: indexPath) as! RestaurantCell
         cell.business = businesses[indexPath.row]
         cell.checkButton.tag = indexPath.row
-        cell.checkButton.addTarget(self, action: "buttonChecked:", forControlEvents: .TouchUpInside)
+        cell.checkButton.addTarget(self, action: #selector(RestaurantPickerViewController.buttonChecked(_:)), forControlEvents: .TouchUpInside)
 
         return cell
     }

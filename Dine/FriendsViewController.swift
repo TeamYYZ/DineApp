@@ -9,7 +9,6 @@
 import UIKit
 
 class FriendsViewController: UITableViewController {
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     weak var activityInProgress: Activity?
 
     var inviteNotAdd = Bool()
@@ -42,8 +41,6 @@ class FriendsViewController: UITableViewController {
             inviteButton.enabled = true
             inviteButton.tag = 1
         }
-        menuButton.target = self.revealViewController()
-        menuButton.action = Selector("revealToggle:")
         fetchFriendList()
         //generateFriendDic()
 
@@ -53,6 +50,12 @@ class FriendsViewController: UITableViewController {
         tableView.estimatedRowHeight = 120
 
 
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setNavigationBarItem()
     }
     
     func fetchFriendList() {
