@@ -18,14 +18,15 @@ class SignUpNameViewController: SignUpViewController {
     @IBAction func submitOnTap(sender: AnyObject) {
         if PFUser.currentUser() == nil{
         ParseAPI.signUp(SignUpViewController.emailaddr!, password: SignUpViewController.password!, screenName: yourNameField.text!, successCallback: { () -> () in
-                self.performSegueWithIdentifier("signUpSuccessSegue", sender: sender)
+            NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+
             
             }) { (error: NSError?) -> () in
                 print("Sign Up faliure")
             }
         }else{
             PFUser.currentUser()?.username = yourNameField.text!
-            self.performSegueWithIdentifier("signUpSuccessSegue", sender: sender)
+            NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
         }
     }
     

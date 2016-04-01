@@ -195,7 +195,6 @@
                         <outlet property="signInButton" destination="J4r-6C-y9G" id="b9s-2C-iv1"/>
                         <outlet property="signUpButton" destination="fJO-3s-q83" id="j8U-Ab-y3H"/>
                         <outlet property="usernameField" destination="gNd-gL-jOa" id="fQD-PH-sjv"/>
-                        <segue destination="t2Z-Tr-XHb" kind="modal" identifier="loginSegue" id="y2N-rr-SeJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -377,7 +376,6 @@
                     <connections>
                         <outlet property="nextButton" destination="Dtu-lr-whb" id="Wq9-wb-SAK"/>
                         <outlet property="yourNameField" destination="Lhf-6N-RZu" id="OEk-HJ-qeX"/>
-                        <segue destination="t2Z-Tr-XHb" kind="modal" identifier="signUpSuccessSegue" id="wKe-qt-vsn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXr-hn-Rkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -402,19 +400,8 @@
             </objects>
             <point key="canvasLocation" x="-1414" y="1082"/>
         </scene>
-        <!--ContainerViewController-->
-        <scene sceneID="b2q-Bm-3FR">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="ContainerViewController" storyboardName="Main" referencedIdentifier="ContainerViewController" id="t2Z-Tr-XHb" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9p8-yt-fQJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="708" y="234"/>
-        </scene>
     </scenes>
     <resources>
         <image name="facebook" width="64" height="64"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="wKe-qt-vsn"/>
-    </inferredMetricsTieBreakers>
 </document>

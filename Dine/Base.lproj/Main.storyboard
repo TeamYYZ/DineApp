@@ -119,24 +119,6 @@
             </objects>
             <point key="canvasLocation" x="1054" y="1256"/>
         </scene>
-        <!--Container View Controller-->
-        <scene sceneID="Pmn-Mh-SmJ">
-            <objects>
-                <viewController storyboardIdentifier="ContainerViewController" id="Uno-IN-Lz5" customClass="ContainerViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yxa-0k-QPa"/>
-                        <viewControllerLayoutGuide type="bottom" id="P5B-6y-xId"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="M1d-iJ-dEu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6oY-Tj-4hy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="146" y="1256"/>
-        </scene>
         <!--ActvitityCreater-->
         <scene sceneID="pCM-lc-cQm">
             <objects>

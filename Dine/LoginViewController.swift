@@ -141,7 +141,7 @@ class LoginViewController: UIViewController{
         // need to validate input first
         ParseAPI.signIn(usernameField.text!, password: passwordField.text!, successCallback: { () -> () in
             //print("Login Successfully")
-            self.performSegueWithIdentifier("loginSegue", sender: sender)
+            NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
 
             }) { (error: NSError?) -> () in
             print(error?.localizedDescription)

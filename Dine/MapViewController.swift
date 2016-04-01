@@ -48,6 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
 
     override func viewWillAppear(animated: Bool) {
+        print("observer added")
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
