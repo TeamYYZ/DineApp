@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import ChameleonFramework
 import ParseFacebookUtilsV4
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: "userDidLogoutNotification", object: nil)
+        GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogout), name: "userDidLogoutNotification", object: nil)
+        
         
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.

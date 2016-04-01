@@ -14,14 +14,14 @@ class Activity: NSObject {
     var activityId: String?
     var title: String?
     var isPrivate: Bool?
-    var ownerId: String?
-    var requestTime: NSDate?
+    var ownerId: String!
+    var requestTime: NSDate!
     var yelpBusinessId: String?
     var overview: String?
     var yelpBusiness: Business?
     var group: Group?
     //var groupMessages: [String]?
-    var location: CLLocationCoordinate2D?
+    var location: CLLocationCoordinate2D!
     var restaurant: String?
     var chatTableId : String?
     
@@ -69,7 +69,7 @@ class Activity: NSObject {
         PFActivity["yelpBusinessId"] = yelpBusinessId!
         PFActivity["overview"] = overview!
         PFActivity["groupMembers"] = group!.getUserListDictArray()
-        PFActivity["location"] = [location!.latitude, location!.longitude]
+        PFActivity["location"] = [location.latitude, location.longitude]
         PFActivity["restaurant"] = restaurant!
         
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -90,12 +90,23 @@ class Activity: NSObject {
         self.requestTime = PFActivity["requestTime"] as? NSDate
         self.yelpBusinessId = PFActivity["yelpBusinessId"] as? String
         self.overview = PFActivity["overview"] as? String
-        let groupDictArray = PFActivity["group"] as! [NSMutableDictionary]
-        self.group = Group(membersDictArray: groupDictArray)
-        self.location = (PFActivity["location"] as? CLLocationCoordinate2D)!
+        if let groupDictArray = PFActivity["group"] as? [NSMutableDictionary] {
+            self.group = Group(membersDictArray: groupDictArray)
+        }
+        if let loc = PFActivity["location"] as? [CLLocationDegrees] {
+            self.location = CLLocationCoordinate2D(latitude: loc[0], longitude: loc[1])
+        }
         self.restaurant = PFActivity["restaurant"] as? String
     }
     
+    class func activitiesWithArray(array: [PFObject]) -> [Activity] {
+        var activites = [Activity]()
+        
+        for object in array {
+            activites.append(Activity(PFActivity: object))
+        }
+        return activites
+    }
     
     /*
     init(AID: String, request_poster_username: String, request_time: String, yelp_business_id: String, overview: String, group: Group, location: CLLocationCoordinate2D, restaurant: String){

@@ -240,7 +240,7 @@ class FriendsViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let button = sender as! UIBarButtonItem
+        if let button = sender as? UIBarButtonItem {
             if button.tag == 0{
                 var invitedIdList = [String]()
                 for (index, value) in checked.enumerate() {
@@ -249,9 +249,9 @@ class FriendsViewController: UITableViewController {
                     }
                 }
                 activityInProgress?.setupGroup(invitedIdList)
-               self.dismissViewControllerAnimated(true, completion: nil)
+                self.performSegueWithIdentifier("toMapViewSegue", sender: self)
             }
-            
+        }
         
     }
     
