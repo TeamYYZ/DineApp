@@ -9,9 +9,8 @@
 import UIKit
 import MapKit
 
-class MapAnnotation: NSObject, MKAnnotation {
+class MapAnnotation: NSObject {
     let title: String?
-    let coordinate: CLLocationCoordinate2D
     var restaurantName: String?
     var members: String?
     var time: String?
@@ -20,7 +19,6 @@ class MapAnnotation: NSObject, MKAnnotation {
     
     override init() {
         title = " "
-        coordinate = CLLocationCoordinate2D(latitude: 30.601433, longitude: -96.314464)
         restaurantName = "Whataburger"
         members = "Sam, Ian, Jessica, Louie"
         time = "12:30"
@@ -28,7 +26,6 @@ class MapAnnotation: NSObject, MKAnnotation {
     
      init(dictionary: NSDictionary) {
         self.title = dictionary["title"] as? String
-        self.coordinate = (dictionary["coordinate"] as? CLLocationCoordinate2D)!
         self.restaurantName = dictionary["restaurantName"] as? String
         self.members = dictionary["members"] as? String
         self.time = dictionary["time"] as? String
@@ -37,7 +34,6 @@ class MapAnnotation: NSObject, MKAnnotation {
     init(activity: Activity) {
         self.activity = activity
         self.title = activity.title
-        self.coordinate = activity.location!
         self.restaurantName = activity.restaurant
         self.members = activity.ownerId
         self.requestTime = activity.requestTime

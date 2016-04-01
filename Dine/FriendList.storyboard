@@ -83,9 +83,11 @@
                     <connections>
                         <outlet property="inviteButton" destination="1EU-hb-vkI" id="x6l-FY-CvS"/>
                         <outlet property="menuButton" destination="lTV-vk-648" id="x6b-TQ-oi0"/>
+                        <segue destination="npx-rr-lMA" kind="unwind" identifier="toMapViewSegue" unwindAction="unwindToMapView:" id="CDb-5b-ZtY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5e1-o1-cNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="npx-rr-lMA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-353" y="-1184"/>
         </scene>

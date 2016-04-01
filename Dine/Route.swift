@@ -12,8 +12,8 @@ class Route: NSObject {
     struct Step {
         var distance: String?
         var duration: String?
-        var startLoc: CLLocationCoordinate2D?
-        var endLoc: CLLocationCoordinate2D?
+        var startLoc: CLLocation?
+        var endLoc: CLLocation?
         var polyLine: String?
         var instruction: String?
         var maneuver: String?
@@ -23,13 +23,13 @@ class Route: NSObject {
             duration = dictionary["duration"]?["text"] as? String
             if let lat = dictionary["end_location"]?["lat"] as? CLLocationDegrees {
                 if let lng = dictionary["end_location"]?["lng"] as? CLLocationDegrees {
-                    endLoc = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    endLoc = CLLocation(latitude: lat, longitude: lng)
                 }
             }
             
             if let lat = dictionary["start_location"]?["lat"] as? CLLocationDegrees {
                 if let lng = dictionary["start_location"]?["lng"] as? CLLocationDegrees {
-                    startLoc = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                    startLoc = CLLocation(latitude: lat, longitude: lng)
                 }
             }
             

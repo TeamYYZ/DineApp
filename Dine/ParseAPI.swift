@@ -60,7 +60,21 @@ class ParseAPI {
     
     }
     
-    
+    class func getActivites(completion: (acts: [Activity]!, error: NSError?) -> Void) {
+        let query = PFQuery(className: "Activity")
+        query.limit = 10
+        query.findObjectsInBackgroundWithBlock { (activities: [PFObject]?, error: NSError?) -> Void in
+            if let actObjects = activities {
+                // do something with the data fetched
+                let acts = Activity.activitiesWithArray(actObjects)
+                completion(acts: acts, error: nil)
+                
+            } else {
+                // handle error
+                completion(acts: nil, error: error)
+            }
+        }
+    }
 
 
 
