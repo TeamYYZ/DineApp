@@ -7,13 +7,9 @@
 //
 
 import UIKit
-import MapKit
-import SWRevealViewController
-import Parse
 import GoogleMaps
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var exitActivityButton: UIButton!
@@ -38,34 +34,40 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         arrivalTimeLabel.hidden = true
         directionsView.hidden = true
         
-        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        menuButton.target = self.revealViewController()
-        menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
         exitActivityButton.addTarget(self, action: #selector(MapViewController.userExitedActivity(_:)), forControlEvents: .TouchUpInside)
         
         setupGoogleMap()
         updateMapMarkers()
     }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    }
+
     override func viewWillAppear(animated: Bool) {
+        print("observer added")
+        super.viewWillAppear(animated)
+        self.setNavigationBarItem()
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
-        print(mapView.myLocation)
-        print("view will disappear")
         mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
-        
+        print("observer removed")
     }
     
     func setupGoogleMap() {
-        print("setup......google map")
         let bound = self.view.bounds
-        let navHeight = self.navigationController!.navigationBar.frame.size.height
+        var bounds: CGRect!
         
-        let bounds = CGRect(x: 0.0, y: navHeight, width: bound.width, height: bound.height - navHeight)
+        if let navHeight = self.navigationController?.navigationBar.bounds.height {
+            bounds = CGRect(x: 0.0, y: navHeight, width: bound.width, height: bound.height - navHeight)
+        }else {
+            bounds = self.view.bounds
+        }
         
         mapView = GMSMapView.init(frame: bounds)
         mapView.settings.compassButton = true
@@ -74,9 +76,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         mapView.delegate = self
         self.view.insertSubview(mapView, belowSubview: directionsView)
-        
-        
-        print("finished setup")
     }
     
     func updateMapMarkers() {
@@ -120,12 +119,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-//    func mapView(mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-//        let annotation = MapAnnotation(activity: marker.userData as! Activity)
-//        let markerInfo = MapDetailView()
-//        markerInfo.annotation = annotation
-//        return markerInfo
-//    }
     
     func userJoinedActivity() {
         //update map, only show selected point and direction
@@ -209,64 +202,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     
-    //    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    //        //goToLocation(nil)
-    //
-    //        if let location: CLLocation = locations.last {
-    //        var eventDate: NSDate = location.timestamp
-    //        var howRecent: NSTimeInterval = eventDate.timeIntervalSinceNow
-    //        if abs(howRecent) < 15.0 {
-    //            // Update your marker on your map using location.coordinate.latitude
-    //            mapView.myLocation = location
-    //
-    //            //and location.coordinate.longitude);
-    //        }
-    //        }
-    
-    
-    //        print(locations.last!)
-    //        if locations.last!.distanceFromLocation(location!) > CLLocationDistance(1.0){
-    //            location = locations.last!
-    //            User.currentUser?.current_location = location
-    //            goToLocation(location!)
-    //        }
-    //    }
-    
-//    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-//        
-//        if annotation.isKindOfClass(MKUserLocation) {
-//            return nil
-//        }
-//        
-//        if let annotation = annotation as? MapAnnotation {
-//            
-//            var view = mapView.dequeueReusableAnnotationViewWithIdentifier("id")
-//            if view == nil {
-//                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
-//            }
-//            
-//            view!.canShowCallout = true
-//            view!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-//            //let button = CheckButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//            //view!.leftCalloutAccessoryView = button
-//            
-//            let mapDetailView = MapDetailView()
-//            mapDetailView.annotation = annotation
-//            view!.detailCalloutAccessoryView = mapDetailView
-//            return view
-//        }
-//        return nil
-//    }
-//    
-//    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        if control == annotationView.rightCalloutAccessoryView {
-//            //print(annotationView.annotation?.title)
-//            self.performSegueWithIdentifier("toActivityProfileSegue", sender: annotationView.annotation)
-//            
-//        }
-//    }
-    
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -291,44 +226,40 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
-    //    func updateMap() {
-    //        mapView.removeAnnotations(mapView.annotations)
-    //        if Activity.current_activity == nil{
-    //            for activity in activities{
-    //              let annotation = MapAnnotation(activity: activity)
-    //
-    //              mapView.addAnnotation(annotation)
-    //            }
-    //        }else{
-    //            print("joined activity")
-    //            let annotation = MapAnnotation(activity: Activity.current_activity!)
-    //            mapView.addAnnotation(annotation)
-    //            //start navigation
-    //
-    //        }
-    //
-    //    }
-    
-    
-    //    // lock my region
-    //    func goToLocation(currlocation: CLLocation?) {
-    //        if let myLocation
-    //            = locationManager.location {
-    //            let center = CLLocationCoordinate2D(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
-    //            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-    ////            let span = MKCoordinateSpanMake(0.1, 0.1)
-    ////            let region = MKCoordinateRegionMake(myLocation.coordinate, span)
-    //            //mapView.setRegion(region, animated: false)
-    ////            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-    ////            locationManager.distanceFilter = 200
-    //            //print(User.currentUser?.current_location)
-    //        }
-    //
-    //    }
-    
-    // This function is created for debug.
-    
-    
-    
-    
 }
+
+extension MapViewController : SlideMenuControllerDelegate {
+    
+    func leftWillOpen() {
+        print("SlideMenuControllerDelegate: leftWillOpen")
+    }
+    
+    func leftDidOpen() {
+        print("SlideMenuControllerDelegate: leftDidOpen")
+    }
+    
+    func leftWillClose() {
+        print("SlideMenuControllerDelegate: leftWillClose")
+    }
+    
+    func leftDidClose() {
+        print("SlideMenuControllerDelegate: leftDidClose")
+    }
+    
+    func rightWillOpen() {
+        print("SlideMenuControllerDelegate: rightWillOpen")
+    }
+    
+    func rightDidOpen() {
+        print("SlideMenuControllerDelegate: rightDidOpen")
+    }
+    
+    func rightWillClose() {
+        print("SlideMenuControllerDelegate: rightWillClose")
+    }
+    
+    func rightDidClose() {
+        print("SlideMenuControllerDelegate: rightDidClose")
+    }
+}
+

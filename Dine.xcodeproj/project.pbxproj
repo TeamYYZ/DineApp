@@ -34,15 +34,18 @@
 		C1A474C61CA72B0400141692 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474C51CA72B0400141692 /* Notification.swift */; };
 		C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */; };
 		C1AF836D1CA3C17400E634E3 /* ActvitityCreater.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */; };
-		C1AF83701CA3C1F300E634E3 /* MainFunction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */; };
 		C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF83711CA3C2D100E634E3 /* FriendList.storyboard */; };
-		C1AF83771CA3C34100E634E3 /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF83761CA3C34100E634E3 /* Invitation.storyboard */; };
 		C1AF837A1CA3C48400E634E3 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF83781CA3C48400E634E3 /* UserProfile.storyboard */; };
 		C1AF837C1CA3C49100E634E3 /* Sidebar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1AF837B1CA3C49100E634E3 /* Sidebar.storyboard */; };
 		C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */; };
 		C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */; };
 		C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
+		C62937E51CAF097700E46009 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62937E41CAF097700E46009 /* ContainerViewController.swift */; };
+		C62937E91CAF183900E46009 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62937E81CAF183900E46009 /* UIViewController.swift */; };
+		C62937EB1CAF19F800E46009 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62937EA1CAF19F800E46009 /* UIApplication.swift */; };
+		C62937EE1CAF20BD00E46009 /* GroupChatView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C62937EC1CAF20BD00E46009 /* GroupChatView.storyboard */; };
+		C62937F11CAF230700E46009 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C62937EF1CAF230700E46009 /* Main.storyboard */; };
 		C63113541CA4578400C66952 /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113531CA4578400C66952 /* YelpClient.swift */; };
 		C63113561CA4579200C66952 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113551CA4579200C66952 /* Business.swift */; };
 		C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113571CA457AF00C66952 /* RestaurantCell.swift */; };
@@ -55,7 +58,6 @@
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
 		C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BE41CA3B93A00115AF2 /* RequestCell.swift */; };
 		C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09121C906F6200345357 /* AppDelegate.swift */; };
-		C6EE09181C906F6200345357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09161C906F6200345357 /* Main.storyboard */; };
 		C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09191C906F6200345357 /* Assets.xcassets */; };
 		C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EE091B1C906F6200345357 /* LaunchScreen.storyboard */; };
 		C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09271C94B81500345357 /* LoginViewController.swift */; };
@@ -66,7 +68,6 @@
 		C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6EE09311C960EDA00345357 /* MapDetailView.xib */; };
 		C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09331C960EFB00345357 /* MapAnnotation.swift */; };
 		C6EE09361C96272900345357 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09351C96272900345357 /* CheckButton.swift */; };
-		C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE09391C96328C00345357 /* InvitationViewController.swift */; };
 		C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093B1C96355500345357 /* FriendsViewController.swift */; };
 		C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */; };
 		C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */; };
@@ -109,15 +110,18 @@
 		C1A474C51CA72B0400141692 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		C1AF836A1CA3BF6900E634E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignInSignOut.storyboard; sourceTree = "<group>"; };
 		C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ActvitityCreater.storyboard; sourceTree = "<group>"; };
-		C1AF836F1CA3C1F300E634E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainFunction.storyboard; sourceTree = "<group>"; };
 		C1AF83711CA3C2D100E634E3 /* FriendList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FriendList.storyboard; sourceTree = "<group>"; };
-		C1AF83761CA3C34100E634E3 /* Invitation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		C1AF83791CA3C48400E634E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/UserProfile.storyboard; sourceTree = "<group>"; };
 		C1AF837B1CA3C49100E634E3 /* Sidebar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sidebar.storyboard; sourceTree = "<group>"; };
 		C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
 		C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
+		C62937E41CAF097700E46009 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		C62937E81CAF183900E46009 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		C62937EA1CAF19F800E46009 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		C62937ED1CAF20BD00E46009 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GroupChatView.storyboard; sourceTree = "<group>"; };
+		C62937F01CAF230700E46009 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C63113531CA4578400C66952 /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YelpClient.swift; path = Yelp/API/YelpClient.swift; sourceTree = SOURCE_ROOT; };
 		C63113551CA4579200C66952 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Business.swift; path = Yelp/Models/Business.swift; sourceTree = SOURCE_ROOT; };
 		C63113571CA457AF00C66952 /* RestaurantCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
@@ -132,7 +136,6 @@
 		C6A3071F68AFEDB657083F9B /* Pods-Dine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.release.xcconfig"; sourceTree = "<group>"; };
 		C6EE090F1C906F6200345357 /* Dine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6EE09121C906F6200345357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C6EE09171C906F6200345357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C6EE09191C906F6200345357 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C6EE091C1C906F6200345357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6EE091E1C906F6200345357 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,7 +147,6 @@
 		C6EE09311C960EDA00345357 /* MapDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapDetailView.xib; sourceTree = "<group>"; };
 		C6EE09331C960EFB00345357 /* MapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		C6EE09351C96272900345357 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
-		C6EE09391C96328C00345357 /* InvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		C6EE093B1C96355500345357 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMenuViewController.swift; sourceTree = "<group>"; };
 		C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarMenuHeaderView.swift; sourceTree = "<group>"; };
@@ -207,15 +209,37 @@
 			name = API;
 			sourceTree = "<group>";
 		};
-		C1D04F621C9E3161003EB3C9 /* SignUp */ = {
+		C1D04F621C9E3161003EB3C9 /* LoginSignUp */ = {
 			isa = PBXGroup;
 			children = (
+				C6EE09271C94B81500345357 /* LoginViewController.swift */,
 				C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */,
 				C6EE09291C94B87700345357 /* EmailSignupViewController.swift */,
 				C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */,
 				C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */,
 			);
-			name = SignUp;
+			name = LoginSignUp;
+			sourceTree = "<group>";
+		};
+		C62937E61CAF13DD00E46009 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
+				C6EE092B1C96038700345357 /* MapViewController.swift */,
+				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
+				C1A474C31CA72A3800141692 /* NotificationViewController.swift */,
+				C62937E41CAF097700E46009 /* ContainerViewController.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		C62937E71CAF182500E46009 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C62937E81CAF183900E46009 /* UIViewController.swift */,
+				C62937EA1CAF19F800E46009 /* UIApplication.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		C631135D1CA4A55A00C66952 /* Restaurant */ = {
@@ -272,23 +296,23 @@
 		C6EE09111C906F6200345357 /* Dine */ = {
 			isa = PBXGroup;
 			children = (
+				C6EE09121C906F6200345357 /* AppDelegate.swift */,
+				C62937E71CAF182500E46009 /* Extension */,
 				C17AABDE1C984A6100CC83CF /* API */,
 				C17424841C9785C300125377 /* Helpers */,
 				C6EE09261C90710400345357 /* Models */,
 				C6EE09251C9070F700345357 /* Views */,
 				C6EE09241C9070ED00345357 /* View Controllers */,
-				C6EE09121C906F6200345357 /* AppDelegate.swift */,
-				C6EE09161C906F6200345357 /* Main.storyboard */,
 				C1AF837B1CA3C49100E634E3 /* Sidebar.storyboard */,
-				C1AF83781CA3C48400E634E3 /* UserProfile.storyboard */,
-				C1AF83761CA3C34100E634E3 /* Invitation.storyboard */,
+				C62937EF1CAF230700E46009 /* Main.storyboard */,
+				C62937EC1CAF20BD00E46009 /* GroupChatView.storyboard */,
 				C1AF83711CA3C2D100E634E3 /* FriendList.storyboard */,
-				C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */,
+				C1A474B91CA71C3500141692 /* Notifications.storyboard */,
+				C1AF83781CA3C48400E634E3 /* UserProfile.storyboard */,
 				3BA597171CACA32600D0E6C7 /* ActivityProfileViewController.storyboard */,
 				3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */,
 				C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */,
 				C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */,
-				C1A474B91CA71C3500141692 /* Notifications.storyboard */,
 				C6EE09191C906F6200345357 /* Assets.xcassets */,
 				C6EE091B1C906F6200345357 /* LaunchScreen.storyboard */,
 				C6EE091E1C906F6200345357 /* Info.plist */,
@@ -299,18 +323,13 @@
 		C6EE09241C9070ED00345357 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C62937E61CAF13DD00E46009 /* Menu */,
 				C63113611CA4B66B00C66952 /* ActivityCreator */,
-				C1D04F621C9E3161003EB3C9 /* SignUp */,
+				C1D04F621C9E3161003EB3C9 /* LoginSignUp */,
 				C6EE09431C9742C200345357 /* UserProfileViewController.swift */,
 				C6EE09451C974EF100345357 /* ActivityProfileViewController.swift */,
-				C6EE092B1C96038700345357 /* MapViewController.swift */,
-				C6EE09271C94B81500345357 /* LoginViewController.swift */,
-				C6EE09391C96328C00345357 /* InvitationViewController.swift */,
-				C6EE093B1C96355500345357 /* FriendsViewController.swift */,
 				C6EE09491C975F7F00345357 /* ChatViewController.swift */,
 				3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */,
-				C1A474C31CA72A3800141692 /* NotificationViewController.swift */,
-				C6EE093D1C97207A00345357 /* SidebarMenuViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -424,19 +443,18 @@
 			files = (
 				3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */,
 				C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */,
+				C62937EE1CAF20BD00E46009 /* GroupChatView.storyboard in Resources */,
 				C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */,
 				3BA5970F1CAC7F1F00D0E6C7 /* MemberMessageCell.xib in Resources */,
-				C1AF83701CA3C1F300E634E3 /* MainFunction.storyboard in Resources */,
 				C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */,
+				C62937F11CAF230700E46009 /* Main.storyboard in Resources */,
 				C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */,
 				3BA597131CAC835F00D0E6C7 /* SelfMessageCell.xib in Resources */,
 				C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */,
 				C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */,
 				3BA597191CACA32600D0E6C7 /* ActivityProfileViewController.storyboard in Resources */,
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,
-				C1AF83771CA3C34100E634E3 /* Invitation.storyboard in Resources */,
 				C1AF836D1CA3C17400E634E3 /* ActvitityCreater.storyboard in Resources */,
-				C6EE09181C906F6200345357 /* Main.storyboard in Resources */,
 				C1AF837A1CA3C48400E634E3 /* UserProfile.storyboard in Resources */,
 				C1AF837C1CA3C49100E634E3 /* Sidebar.storyboard in Resources */,
 				C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */,
@@ -498,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C62937EB1CAF19F800E46009 /* UIApplication.swift in Sources */,
 				C63113581CA457AF00C66952 /* RestaurantCell.swift in Sources */,
 				C6EE09481C975F1200345357 /* ActivityProfileCell.swift in Sources */,
 				C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */,
@@ -506,6 +525,7 @@
 				C127F5701CA3885700D40088 /* Message.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
+				C62937E91CAF183900E46009 /* UIViewController.swift in Sources */,
 				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */,
@@ -526,6 +546,7 @@
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */,
 				C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */,
+				C62937E51CAF097700E46009 /* ContainerViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,
 				C6EE09281C94B81500345357 /* LoginViewController.swift in Sources */,
 				C63113541CA4578400C66952 /* YelpClient.swift in Sources */,
@@ -538,7 +559,6 @@
 				3BF4D2721CA73A1000126A91 /* AddFriendViewController.swift in Sources */,
 				3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */,
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,
-				C6EE093A1C96328C00345357 /* InvitationViewController.swift in Sources */,
 				C6EE09341C960EFB00345357 /* MapAnnotation.swift in Sources */,
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
 				C63113601CA4A59700C66952 /* MapCell.swift in Sources */,
@@ -578,14 +598,6 @@
 			name = SignInSignOut.storyboard;
 			sourceTree = "<group>";
 		};
-		C1AF836E1CA3C1F300E634E3 /* MainFunction.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C1AF836F1CA3C1F300E634E3 /* Base */,
-			);
-			name = MainFunction.storyboard;
-			sourceTree = "<group>";
-		};
 		C1AF83781CA3C48400E634E3 /* UserProfile.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -594,10 +606,18 @@
 			name = UserProfile.storyboard;
 			sourceTree = "<group>";
 		};
-		C6EE09161C906F6200345357 /* Main.storyboard */ = {
+		C62937EC1CAF20BD00E46009 /* GroupChatView.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C6EE09171C906F6200345357 /* Base */,
+				C62937ED1CAF20BD00E46009 /* Base */,
+			);
+			name = GroupChatView.storyboard;
+			sourceTree = "<group>";
+		};
+		C62937EF1CAF230700E46009 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C62937F01CAF230700E46009 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

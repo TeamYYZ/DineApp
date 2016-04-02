@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 
 class AddFriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -25,7 +24,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
             title: "Cancel",
             style: .Plain,
             target: self,
-            action: "cancelButtonOnClick"
+            action: #selector(AddFriendViewController.cancelButtonOnClick)
         )
         self.navigationItem.leftBarButtonItem = cancelButton
         self.tableView.delegate = self
@@ -127,12 +126,12 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.emailLabel.text = "Unknown"
         }
         
-        cell.addButton.removeTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
+        cell.addButton.removeTarget(self, action: #selector(AddFriendViewController.AddFriend(_:)), forControlEvents: .TouchDown)
         if isSent {
             cell.addButton.disable()
         } else {
             cell.addButton.enable()
-            cell.addButton.addTarget(self, action: "AddFriend:", forControlEvents: .TouchDown)
+            cell.addButton.addTarget(self, action: #selector(AddFriendViewController.AddFriend(_:)), forControlEvents: .TouchDown)
             cell.addButton.tag = indexPath.row
         }
 

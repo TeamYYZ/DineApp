@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 import ChameleonFramework
 import ParseFacebookUtilsV4
 import GoogleMaps
@@ -16,20 +15,49 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var storyboard = UIStoryboard(name: "Main", bundle: nil)
-    var signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
-
-
+    
+    let mainSB = UIStoryboard(name: "Main", bundle: nil)
+    var slideMenuController: ContainerViewController!
+    
+    private func createMenu() {
+        let sidebarSB = UIStoryboard(name: "Sidebar", bundle: nil)
+        let mainfuncSB = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mainViewController = mainfuncSB.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        let leftViewController =
+            sidebarSB.instantiateViewControllerWithIdentifier("SidebarMenuViewController") as! SidebarMenuViewController
+        
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        leftViewController.mainViewController = nvc
+        let nvcl: UINavigationController = UINavigationController(rootViewController: leftViewController)
+        
+        slideMenuController = ContainerViewController(mainViewController: nvc, leftMenuViewController: nvcl)
+        
+        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+        slideMenuController.delegate = mainViewController
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.createMenu()
+        
+        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
+        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
+        
+        self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+        
+        //g map
         
         GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogout), name: "userDidLogoutNotification", object: nil)
         
         
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogout), name: "userDidLogoutNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogin), name: "userDidLoginNotification", object: nil)
+        
         Parse.initializeWithConfiguration(
             ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
                 configuration.applicationId = "DineApp"
@@ -41,28 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         if let currentUser = PFUser.currentUser() {
-
-            //go to logged in screen
-            
-            // test code put here
-
-
-            
-            // test code put here
-            
             print("current user detected: \(currentUser.username)")
             User.currentUser = User(pfUser: currentUser)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("SWRevealViewController") as UIViewController
-            window?.rootViewController = vc
+            userDidLogin()
         } else {
             userDidLogout()
         
         }
-
-        
-        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
-        UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
-        
         
         return true
     }
@@ -71,8 +84,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
+    func userDidLogin() {
+        self.createMenu()
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+    }
     
     func userDidLogout() {
+        let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
         let vc = signSB.instantiateInitialViewController()
         window?.rootViewController = vc
     }

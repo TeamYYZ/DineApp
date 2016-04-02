@@ -12,10 +12,13 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
 
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var menuButton: UIBarButtonItem!
-    
-    
     var notifications = [UserNotification]()
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setNavigationBarItem()
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notifications.count
@@ -35,8 +38,8 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
             cell.typeLabel.text = "Unknown"
         }
         cell.senderLabel.text = notification.senderName
-        cell.acceptButton.removeTarget(self, action: "acceptRequest:", forControlEvents: .TouchDown)
-        cell.acceptButton.addTarget(self, action: "acceptRequest:", forControlEvents: .TouchDown)
+        cell.acceptButton.removeTarget(self, action: #selector(NotificationViewController.acceptRequest(_:)), forControlEvents: .TouchDown)
+        cell.acceptButton.addTarget(self, action: #selector(NotificationViewController.acceptRequest(_:)), forControlEvents: .TouchDown)
         cell.acceptButton.tag = indexPath.row
         return cell
     }
@@ -77,8 +80,6 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 62
-        menuButton.target = self.revealViewController()
-        menuButton.action = Selector("revealToggle:")
         fetchNotifications()
 
         
