@@ -19,6 +19,8 @@ class ChatViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.separatorColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor(red: 237, green: 237, blue: 237, alpha: 1)
         tableView.registerNib(UINib(nibName: "MemberMessageCell", bundle: nil), forCellReuseIdentifier: "MemberMessageCell")
         tableView.registerNib(UINib(nibName: "SelfMessageCell", bundle: nil), forCellReuseIdentifier: "SelfMessageCell")
         tableView.estimatedRowHeight = 200
@@ -42,6 +44,7 @@ class ChatViewController: UITableViewController {
              self.replyField.text = nil
             chat.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                 if success == true && error == nil{
+                    
                     self.fetchData()
                 }else{
                     print(error)
@@ -56,6 +59,7 @@ class ChatViewController: UITableViewController {
     
     func fetchData(){
         if self.messages.count == 0{
+           
            let query = PFQuery(className: chatName)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
@@ -147,11 +151,13 @@ class ChatViewController: UITableViewController {
                 print(error)
             }})
         cell.contentLabel.text = message.content
+        cell.avatarImageView.image = UIImage(named: "User")
         let date = message.createdAt
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "hh:mm"
         let dateString = dateFormatter.stringFromDate(date!)
         cell.timeLabel.text = dateString
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("MemberMessageCell") as! MemberMessageCell
@@ -164,11 +170,14 @@ class ChatViewController: UITableViewController {
                     print(error)
                 }})
             cell.contentLabel.text = message.content
+             cell.avatarImageView.image = UIImage(named: "User")
             let date = message.createdAt
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "hh:mm"
             let dateString = dateFormatter.stringFromDate(date!)
             cell.timeLabel.text = dateString
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+
             return cell
         }
     }
