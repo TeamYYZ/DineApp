@@ -18,9 +18,12 @@ class MemberMessageCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var textView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.textView.layer.cornerRadius = 8.0
         // Initialization code
     }
 
