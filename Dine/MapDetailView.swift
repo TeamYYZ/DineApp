@@ -10,6 +10,7 @@ import UIKit
 
 class MapDetailView: UIView {
     @IBOutlet var view: UIView!
+    @IBOutlet weak var profileView: UIImageView!
 
     @IBOutlet weak var restaurantLabel: UILabel!
     @IBOutlet weak var membersLabel: UILabel!
@@ -19,6 +20,7 @@ class MapDetailView: UIView {
             restaurantLabel.text = annotation!.restaurantName
             membersLabel.text = annotation!.members
             timeLabel.text = annotation!.time
+            profileView.setImageWithURL(annotation.profileURL!)
         }
     }
     
