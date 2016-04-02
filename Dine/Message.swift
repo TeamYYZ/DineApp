@@ -18,10 +18,10 @@ class Message {
     var createdAt: NSDate?
     
     init(dictionary: NSDictionary) {
-        self.messageId = dictionary["messageId"] as! String
-        self.senderId = dictionary["senderId"] as! String
-        self.screenName = dictionary["screenName"] as! String
-        self.senderAvatarPFFile = dictionary["senderAvatarPFFile"] as! PFFile
+        self.messageId = dictionary["messageId"] as? String
+        self.senderId = dictionary["senderId"] as? String
+        self.screenName = dictionary["screenName"] as? String
+        self.senderAvatarPFFile = dictionary["senderAvatarPFFile"] as? PFFile
         self.content = dictionary["content"] as? String
         self.createdAt = dictionary["createdAt"] as? NSDate
     }

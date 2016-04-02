@@ -6,7 +6,6 @@ use_frameworks!
 target 'Dine' do
 	pod 'Parse'
     pod 'ParseUI'
-    pod 'SWRevealViewController'
     pod 'ChameleonFramework/Swift', '~> 2.1.0'
     pod 'ParseFacebookUtilsV4'
     pod 'FBSDKCoreKit'
@@ -15,5 +14,6 @@ target 'Dine' do
     pod 'BDBOAuth1Manager'
     pod 'MBProgressHUD'
     pod 'GoogleMaps'
+    pod 'SlideMenuControllerSwift'
 end
 
