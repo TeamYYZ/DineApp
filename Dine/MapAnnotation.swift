@@ -14,7 +14,7 @@ class MapAnnotation: NSObject {
     var restaurantName: String?
     var members: String?
     var time: String?
-    var requestTime: NSDate?
+    var profileURL: NSURL?
     var activity: Activity?
     
     override init() {
@@ -24,18 +24,17 @@ class MapAnnotation: NSObject {
         time = "12:30"
     }
     
-     init(dictionary: NSDictionary) {
-        self.title = dictionary["title"] as? String
-        self.restaurantName = dictionary["restaurantName"] as? String
-        self.members = dictionary["members"] as? String
-        self.time = dictionary["time"] as? String
-    }
-    
     init(activity: Activity) {
         self.activity = activity
         self.title = activity.title
         self.restaurantName = activity.restaurant
         self.members = activity.ownerId
-        self.requestTime = activity.requestTime
+        if let time = activity.requestTime {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "hh:mm"
+            let dateString = dateFormatter.stringFromDate(time)
+            self.time = dateString
+        }
+        self.profileURL = activity.profileURL
     }
 }

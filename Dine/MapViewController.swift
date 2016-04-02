@@ -95,6 +95,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.map = mapView
         marker.userData = act
     }
+
+    
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+
+        let infoWindow = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
+        infoWindow.backgroundColor = UIColor.flatWhiteColor()
+        infoWindow.layer.cornerRadius = 5
+        infoWindow.clipsToBounds = true
+        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
+        let act = marker.userData as! Activity
+        let annotation = MapAnnotation(activity: act)
+            mapDetailView.annotation = annotation
+            infoWindow.addSubview(mapDetailView)
+
+        return infoWindow
+
+    }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {

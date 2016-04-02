@@ -17,8 +17,8 @@ class Activity: NSObject {
     var ownerId: String!
     var requestTime: NSDate!
     var yelpBusinessId: String?
+    var profileURL: NSURL?
     var overview: String?
-    var yelpBusiness: Business?
     var group: Group?
     //var groupMessages: [String]?
     var location: CLLocationCoordinate2D!
@@ -36,9 +36,9 @@ class Activity: NSObject {
     
     func setupRestaurant(yelpBusiness: Business) {
         
-        self.yelpBusiness = yelpBusiness
         self.restaurant = yelpBusiness.name
         self.yelpBusinessId = yelpBusiness.businessID
+        self.profileURL = yelpBusiness.imageURL
         //location is the same as yelp business coordinate
         self.location = yelpBusiness.coordinate
         print("set up restaurant: " + self.restaurant!)
@@ -71,7 +71,8 @@ class Activity: NSObject {
         PFActivity["groupMembers"] = group!.getUserListDictArray()
         PFActivity["location"] = [location.latitude, location.longitude]
         PFActivity["restaurant"] = restaurant!
-        
+        PFActivity["profileURL"] = profileURL?.absoluteString
+
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
                 successHandler()
@@ -97,6 +98,10 @@ class Activity: NSObject {
             self.location = CLLocationCoordinate2D(latitude: loc[0], longitude: loc[1])
         }
         self.restaurant = PFActivity["restaurant"] as? String
+        if let profileString = PFActivity["profileURL"] as? String {
+            self.profileURL = NSURL(string: profileString)
+
+        }
     }
     
     class func activitiesWithArray(array: [PFObject]) -> [Activity] {
