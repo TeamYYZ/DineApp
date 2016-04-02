@@ -7,16 +7,41 @@
 //
 
 import UIKit
-import Parse
 
-class SidebarMenuViewController: UITableViewController {
-    @IBOutlet weak var spaceItem: UIBarButtonItem!
+enum LeftMenu: Int {
+    case Main = 0
+    case Friends
+    case Notifications
+}
 
+protocol SideMenuProtocol : class {
+    func changeViewController(menu: LeftMenu)
+}
+
+class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
+
+    var mainViewController: UIViewController!
+    var friendsViewController: UIViewController!
+    var notificationsViewController: UIViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let width = self.view.bounds.width
-        print(width)
-        spaceItem.width = width * 3.0/5.0 - 40
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(SidebarMenuViewController.onLogOut(_:)))
+        self.setToolbarItems([logoutButton], animated: false)
+        self.navigationController?.toolbarHidden = false
+        self.navigationController?.navigationBarHidden = true
+        
+        
+        //create menu
+        let friendSB = UIStoryboard(name: "FriendList", bundle: nil)
+        let friendVC = friendSB.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
+        self.friendsViewController = UINavigationController(rootViewController: friendVC)
+
+        
+        let notificationSB = UIStoryboard(name: "Notifications", bundle: nil)
+        let notificationVC = notificationSB.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
+        self.notificationsViewController = UINavigationController(rootViewController: notificationVC)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,9 +49,29 @@ class SidebarMenuViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func onLogOut(sender: AnyObject) {
+    func onLogOut(sender: AnyObject) {
         PFUser.logOut()
         NSNotificationCenter.defaultCenter().postNotificationName("userDidLogoutNotification", object: nil)
+    }
+    
+    func changeViewController(menu: LeftMenu) {
+        print("main view controller")
+        print(self.mainViewController)
+        switch menu {
+        case .Main:
+            self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
+            
+        case .Friends:
+            self.slideMenuController()?.changeMainViewController(self.friendsViewController, close: true)
+        case .Notifications:
+            self.slideMenuController()?.changeMainViewController(self.notificationsViewController, close: true)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let menu = LeftMenu(rawValue: indexPath.item) {
+            self.changeViewController(menu)
+        }
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -34,7 +79,7 @@ class SidebarMenuViewController: UITableViewController {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
             let header = SidebarMenuHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
             header.usernameLabel.text = User.currentUser?.screenName
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("imageTapped:"))
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(SidebarMenuViewController.imageTapped(_:)))
             header.addGestureRecognizer(tapRecognizer)
             headerView.addSubview(header)
             
@@ -66,10 +111,6 @@ class SidebarMenuViewController: UITableViewController {
         }
     }
     
-
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
 }
 
 

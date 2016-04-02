@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!

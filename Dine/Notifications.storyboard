@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ylJ-rI-Zvf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="mD1-vA-i2r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,7 +8,7 @@
         <!--Notifications-->
         <scene sceneID="M82-ig-Jvd">
             <objects>
-                <viewController id="mD1-vA-i2r" customClass="NotificationViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotificationViewController" id="mD1-vA-i2r" customClass="NotificationViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="chF-AQ-KXG"/>
                         <viewControllerLayoutGuide type="bottom" id="r6o-Zt-xGG"/>
@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ack-EJ-6VU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ack-EJ-6VU">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -30,11 +30,8 @@
                             <constraint firstItem="ack-EJ-6VU" firstAttribute="top" secondItem="chF-AQ-KXG" secondAttribute="bottom" id="aPz-xF-yYi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Notifications" id="wVD-4Q-e8m">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="ppJ-CO-F1R"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Notifications" id="wVD-4Q-e8m"/>
                     <connections>
-                        <outlet property="menuButton" destination="ppJ-CO-F1R" id="jIz-KN-Fob"/>
                         <outlet property="tableView" destination="ack-EJ-6VU" id="Rd3-sw-Roo"/>
                     </connections>
                 </viewController>
@@ -42,26 +39,5 @@
             </objects>
             <point key="canvasLocation" x="617" y="342"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="K8U-no-wDC">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ylJ-rI-Zvf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UtD-I4-B2x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mD1-vA-i2r" kind="relationship" relationship="rootViewController" id="cxb-Ep-aad"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PLR-z7-1yM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="214" y="342"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="Menu" width="32" height="32"/>
-    </resources>
 </document>

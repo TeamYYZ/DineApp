@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Parse
 
 class ChatViewController: UITableViewController {
     @IBOutlet weak var replyItem: UIBarButtonItem!
@@ -70,7 +69,7 @@ class ChatViewController: UITableViewController {
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         self.messages.append(message)
                         self.tableView.reloadData()
-                        var indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                        let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                         self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
                     }
                 }else{
@@ -94,7 +93,7 @@ class ChatViewController: UITableViewController {
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         self.messages.append(message)
                         self.tableView.reloadData()
-                        var indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                        let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                         self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
                     }
                 }else{
@@ -149,9 +148,9 @@ class ChatViewController: UITableViewController {
             }})
         cell.contentLabel.text = message.content
         let date = message.createdAt
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "hh:mm"
-        var dateString = dateFormatter.stringFromDate(date!)
+        let dateString = dateFormatter.stringFromDate(date!)
         cell.timeLabel.text = dateString
         return cell
         }else {
@@ -166,9 +165,9 @@ class ChatViewController: UITableViewController {
                 }})
             cell.contentLabel.text = message.content
             let date = message.createdAt
-            var dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "hh:mm"
-            var dateString = dateFormatter.stringFromDate(date!)
+            let dateString = dateFormatter.stringFromDate(date!)
             cell.timeLabel.text = dateString
             return cell
         }
