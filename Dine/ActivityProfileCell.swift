@@ -25,7 +25,8 @@ class ActivityProfileCell: UITableViewCell {
                 let dateString = dateFormatter.stringFromDate(time)
                 timeLabel.text = dateString
             }
-            if let screenName = activity.owner["screenName"] as? String{
+            let owner = try? activity.owner.fetchIfNeeded()
+            if let screenName = owner!["screenName"] as? String{
                 ownerLabel.text = "created by "+screenName
             }
             checkButton.activity = activity

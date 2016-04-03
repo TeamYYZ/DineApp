@@ -43,9 +43,9 @@ class Activity: NSObject {
         print("set up restaurant: " + self.restaurant!)
     }
     
-    func setupGroup(userList: [PFUser]) {
+    func setupGroup(userList: [String]) {
         let group = Group(userList: userList)
-        group.addMember(owner!, joined: true)
+        group.addMember(owner.objectId!, joined: true)
         self.group = group
     }
     
