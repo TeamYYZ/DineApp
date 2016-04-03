@@ -104,13 +104,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         infoWindow.layer.cornerRadius = 5
         infoWindow.clipsToBounds = true
         let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
-        let act = marker.userData as! Activity
-        let annotation = MapAnnotation(activity: act)
+        if let act = marker.userData as? Activity {
+            let annotation = MapAnnotation(activity: act)
             mapDetailView.annotation = annotation
-            infoWindow.addSubview(mapDetailView)
+        }
+        infoWindow.addSubview(mapDetailView)
 
         return infoWindow
 
+    }
+    
+    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
+        let act = marker.userData as! Activity
+        self.performSegueWithIdentifier("toActivityProfileSegue", sender: act)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -120,8 +126,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             
             if steps != nil {
             let dist = myLocation.distanceFromLocation(steps[currentStep].endLoc!)
+                print(dist)
             if dist < 0.00001 {
-                print("update")
+                print("update direction.....")
                 currentStep += 1
             }
             if let instruction = steps[currentStep].instruction {
@@ -188,7 +195,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 if let invitedUserList = activity?.group?.getUserIdList() {
                     for invitedUser in invitedUserList {
                         print(User.currentUser!.screenName!)
-                        let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.ownerId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
+                        let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
                         
                         
                         notification.saveToBackend({ () -> () in
@@ -226,8 +233,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
-            let annotation = sender as! MapAnnotation
-            activityProfileViewController.activity = annotation.activity
+            let act = sender as! Activity
+            activityProfileViewController.activity = act
         }
         
         if let navVC = segue.destinationViewController as? UINavigationController {

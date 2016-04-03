@@ -10,7 +10,7 @@ import UIKit
 
 class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
-    var profileView: UIImageView!
+    var profileView = UIImageView()
     var activity: Activity!
     var activityInCreating: Activity!
 
@@ -19,10 +19,13 @@ class ActivityProfileViewController: UITableViewController {
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
         activityInCreating = Activity()
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
-        profileView = UIImageView(image: UIImage(named: "map"))
+        
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
         profileView.clipsToBounds = true
         profileView.contentMode = .ScaleAspectFill
+        if let url = activity.profileURL {
+            profileView.setImageWithURL(url)
+        }
         tableHeaderView.addSubview(profileView)
         self.tableView.tableHeaderView = tableHeaderView
 
@@ -38,12 +41,12 @@ class ActivityProfileViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
         let cell = tableView.dequeueReusableCellWithIdentifier("profileCell")! as! ActivityProfileCell
-            cell.checkButton.activity = self.activity
-            cell.checkButton.setButton()
+            
+            cell.activity = self.activity
             
         return cell
         }else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             return cell
         }
     }
