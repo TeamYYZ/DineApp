@@ -76,6 +76,16 @@ class ParseAPI {
         }
     }
 
+    class func getUserByID(id: String!, completion: (screenName: String!, error: NSError?) -> Void) {
+        let user = try? PFQuery.getUserObjectWithId(id)
+        
+        if let user = user {
+        if let screenName = user["screenName"] as? String{
+            completion(screenName: screenName, error: nil)
+        }
+        }
+        completion(screenName: nil, error: nil)
+    }
 
 
 }

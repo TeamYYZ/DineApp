@@ -14,7 +14,7 @@ class Activity: NSObject {
     var activityId: String?
     var title: String?
     var isPrivate: Bool?
-    var ownerId: String!
+    var owner: PFUser!
     var requestTime: NSDate!
     var yelpBusinessId: String?
     var profileURL: NSURL?
@@ -30,8 +30,7 @@ class Activity: NSObject {
     
     override init() {
         super.init()
-        self.ownerId = PFUser.currentUser()?.objectId
-
+        self.owner = PFUser.currentUser()
     }
     
     func setupRestaurant(yelpBusiness: Business) {
@@ -46,7 +45,7 @@ class Activity: NSObject {
     
     func setupGroup(userList: [String]) {
         let group = Group(userList: userList)
-        group.addMember(ownerId!, joined: true)
+        group.addMember(owner.objectId!, joined: true)
         self.group = group
     }
     
@@ -64,7 +63,7 @@ class Activity: NSObject {
         let PFActivity = PFObject(className: "Activity")
         
         PFActivity["title"] = title!
-        PFActivity["ownerId"] = ownerId!
+        PFActivity["owner"] = owner!
         PFActivity["requestTime"] = requestTime!
         PFActivity["yelpBusinessId"] = yelpBusinessId!
         PFActivity["overview"] = overview!
@@ -87,11 +86,11 @@ class Activity: NSObject {
     init (PFActivity: PFObject) {
         self.title = PFActivity["title"] as? String
         self.activityId = PFActivity.objectId
-        self.ownerId = PFActivity["ownerId"] as? String
+        self.owner = PFActivity["owner"] as? PFUser
         self.requestTime = PFActivity["requestTime"] as? NSDate
         self.yelpBusinessId = PFActivity["yelpBusinessId"] as? String
         self.overview = PFActivity["overview"] as? String
-        if let groupDictArray = PFActivity["group"] as? [NSMutableDictionary] {
+        if let groupDictArray = PFActivity["groupMembers"] as? [NSMutableDictionary] {
             self.group = Group(membersDictArray: groupDictArray)
         }
         if let loc = PFActivity["location"] as? [CLLocationDegrees] {

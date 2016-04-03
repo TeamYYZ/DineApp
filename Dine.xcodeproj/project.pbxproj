@@ -53,6 +53,7 @@
 		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
 		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
 		C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */; };
+		C66890441CB1776300812FE5 /* ActivityMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66890431CB1776300812FE5 /* ActivityMemberCell.swift */; };
 		C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */; };
 		C67FF47A1CAC2E9500EB256A /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67FF4791CAC2E9500EB256A /* Route.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
@@ -129,6 +130,7 @@
 		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
 		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCreatorViewController.swift; sourceTree = "<group>"; };
+		C66890431CB1776300812FE5 /* ActivityMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMemberCell.swift; sourceTree = "<group>"; };
 		C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsAPI.swift; sourceTree = "<group>"; };
 		C67FF4791CAC2E9500EB256A /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */,
 				C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */,
 				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
+				C66890431CB1776300812FE5 /* ActivityMemberCell.swift */,
 				C17AABE31C984EA100CC83CF /* YYZTextField.swift */,
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
 				C6913BC41CA306FC00115AF2 /* FriendCell.swift */,
@@ -552,6 +555,7 @@
 				C63113541CA4578400C66952 /* YelpClient.swift in Sources */,
 				3B87EC291CA77D8D0045AF18 /* SearchFriendCell.swift in Sources */,
 				C6913BE51CA3B93A00115AF2 /* RequestCell.swift in Sources */,
+				C66890441CB1776300812FE5 /* ActivityMemberCell.swift in Sources */,
 				C6EE09401C972A4200345357 /* SidebarMenuHeaderView.swift in Sources */,
 				C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,

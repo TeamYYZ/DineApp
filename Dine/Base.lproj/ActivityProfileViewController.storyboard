@@ -78,9 +78,12 @@
                                 <connections>
                                     <outlet property="chatButton" destination="tAX-Pt-hTm" id="AX9-wG-nuf"/>
                                     <outlet property="checkButton" destination="qPS-oV-yKP" id="exk-qz-EEx"/>
+                                    <outlet property="nameLabel" destination="imx-XN-cVI" id="kck-ba-GE0"/>
+                                    <outlet property="ownerLabel" destination="IMq-jp-H9K" id="yYx-Sn-bxs"/>
+                                    <outlet property="timeLabel" destination="BGg-Uk-fvV" id="YpI-5s-AT5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc" customClass="ActivityMemberCell" customModule="Dine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="187" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7C-sr-bYc" id="XTM-bw-Pem">
@@ -107,6 +110,10 @@
                                         <constraint firstItem="KkV-o6-PMG" firstAttribute="centerY" secondItem="XTM-bw-Pem" secondAttribute="centerY" id="wcz-oj-nlg"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="ELE-fK-GUS" id="znN-7x-0ud"/>
+                                    <outlet property="statusLabel" destination="KkV-o6-PMG" id="YVp-ZF-CYL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>

@@ -10,9 +10,30 @@ import UIKit
 
 class ActivityProfileCell: UITableViewCell {
     @IBOutlet weak var chatButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var ownerLabel: UILabel!
     
     @IBOutlet weak var checkButton: CheckButton!
 
+    var activity: Activity! {
+        didSet{
+            nameLabel.text = activity.restaurant
+            if let time = activity.requestTime {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
+                let dateString = dateFormatter.stringFromDate(time)
+                timeLabel.text = dateString
+            }
+            let owner = try? activity.owner.fetchIfNeeded()
+            if let screenName = owner!["screenName"] as? String{
+                ownerLabel.text = "created by "+screenName
+            }
+            checkButton.activity = activity
+            checkButton.setButton()
+
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
