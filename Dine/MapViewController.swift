@@ -21,6 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var activities = [Activity]()
     var steps : [Route.Step]!
     var currentStep = 0
+    var joinedActivity = false
     
     var mapView: GMSMapView!
     
@@ -95,7 +96,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.map = mapView
         marker.userData = act
     }
-
+    
+    func drawPolyLines() {
+        //add polylines
+        for step in steps {
+            if let polyLine = step.polyLine {
+                let path = GMSPath(fromEncodedPath: polyLine)
+                let line = GMSPolyline(path: path)
+                line.strokeWidth = 5
+                line.strokeColor = UIColor(red: 0.0, green: 0.5, blue: 0.5, alpha: 0.5)
+                line.map = mapView
+            }
+        }
+    }
+    
+    func updateMapCamera() {
+        let start = steps[currentStep].startLoc!.coordinate
+        let end = steps[currentStep].endLoc!.coordinate
+        let bounds = GMSCoordinateBounds(coordinate: start, coordinate: end)
+        let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 50.0)
+        mapView.moveCamera(update)
+        
+        mapView.animateToBearing(GoogleDirectionsAPI.getBearingBetweenTwoPoints(steps[currentStep].startLoc!, point2: steps[currentStep].endLoc!) )
+        mapView.animateToViewingAngle(45)
+    }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 
@@ -119,15 +143,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.performSegueWithIdentifier("toActivityProfileSegue", sender: act)
     }
     
+    
+    //control camera update
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-            let camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 14.0)
-            mapView.camera = camera
-            
-            if steps != nil {
+            if !joinedActivity {
+//                if mapView.camera = nil {
+//            let camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 14.0)
+//            mapView.camera = camera
+//                }else {
+                    let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
+                    mapView.moveCamera(update)
+                //}
+            }else{
+                //start navigation
+                
+
             let dist = myLocation.distanceFromLocation(steps[currentStep].endLoc!)
-                print(dist)
-            if dist < 0.00001 {
+            if dist < 50 {
+                updateMapCamera()
                 print("update direction.....")
                 currentStep += 1
             }
@@ -152,10 +186,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         toolBar.hidden = false
         arrivalTimeLabel.hidden = false
         directionsView.hidden = false
-        mapView.bounds = CGRect(x: mapView.bounds.origin.x, y: mapView.bounds.origin.y, width: mapView.bounds.width, height: mapView.bounds.height - toolBar.bounds.height)
-        updateMapMarkers()
         //updateMap()
         
+
     }
     
     func userExitedActivity() {
@@ -164,11 +197,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         toolBar.hidden = true
         arrivalTimeLabel.hidden = true
         directionsView.hidden = true
-        let navHeight = self.navigationController!.navigationBar.frame.size.height
-        
-        let bounds = CGRect(x: 0.0, y: navHeight, width: self.view.bounds.width, height: self.view.bounds.height - navHeight)
-        mapView.bounds = bounds
+
         updateMapMarkers()
+        //remove polyline
+        mapView.clear()
+        joinedActivity = false
+        mapView.animateToViewingAngle(0)
         //updateMap()
     }
     
@@ -177,6 +211,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
+        if let vc = sender.sourceViewController as? ActivityProfileViewController {
+            let activity = vc.activity
+            if let destination = activity?.location {
+                if let myLocation  = self.mapView.myLocation {
+                    GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
+                        self.steps = routes[0].steps
+                        self.updateMapMarkers()
+                        self.drawPolyLines()
+                        self.joinedActivity = true
+                        self.updateMapCamera()
+                        //self.mapView.animateToViewingAngle(45)
+                    }
+                }
+            }
+        }
+        
+        
         if let vc = sender.sourceViewController as? FriendsViewController {
             let activity = vc.activityInProgress
             //save to Parse
@@ -187,6 +238,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     if let myLocation  = self.mapView.myLocation {
                         GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
                             self.steps = routes[0].steps
+                            self.updateMapMarkers()
+                            self.drawPolyLines()
+                            self.joinedActivity = true
+                            self.updateMapCamera()
+                            //self.mapView.animateToViewingAngle(45)
                         }
                     }
                 }

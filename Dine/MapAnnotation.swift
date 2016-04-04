@@ -28,8 +28,7 @@ class MapAnnotation: NSObject {
         self.activity = activity
         self.title = activity.title
         self.restaurantName = activity.restaurant
-        let owner = try? activity.owner.fetchIfNeeded()
-        self.members = owner!["screenName"] as? String
+        
         if let time = activity.requestTime {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "hh:mm"
