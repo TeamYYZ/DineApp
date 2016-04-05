@@ -48,14 +48,13 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         let friendSB = UIStoryboard(name: "FriendList", bundle: nil)
         let friendVC = friendSB.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         self.friendsViewController = UINavigationController(rootViewController: friendVC)
-
         
         let notificationSB = UIStoryboard(name: "Notifications", bundle: nil)
         let notificationVC = notificationSB.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
         self.notificationsViewController = UINavigationController(rootViewController: notificationVC)
 
     }
-
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
