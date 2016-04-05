@@ -92,8 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogout() {
         let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
-        let vc = signSB.instantiateInitialViewController()
+        let vc = signSB.instantiateViewControllerWithIdentifier("LoginViewController")
         window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+
     }
 
     func applicationWillResignActive(application: UIApplication) {

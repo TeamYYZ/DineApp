@@ -18,6 +18,18 @@ protocol SideMenuProtocol : class {
     func changeViewController(menu: LeftMenu)
 }
 
+extension SlideMenuController {
+    func setCloseWindowLevel() {
+        if (SlideMenuOptions.hideStatusBar) {
+            dispatch_async(dispatch_get_main_queue(), {
+                if let window = UIApplication.sharedApplication().keyWindow {
+                    window.windowLevel = UIWindowLevelNormal
+                }
+            })
+        }
+    }
+}
+
 class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
 
     var mainViewController: UIViewController!
@@ -51,6 +63,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
 
     func onLogOut(sender: AnyObject) {
         PFUser.logOut()
+        self.slideMenuController()?.setCloseWindowLevel()
         NSNotificationCenter.defaultCenter().postNotificationName("userDidLogoutNotification", object: nil)
     }
     

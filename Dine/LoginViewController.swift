@@ -115,7 +115,7 @@ class LoginViewController: UIViewController{
                 } else {
                     User.currentUser = User(pfUser: user)
                     print("User logged in through Facebook!")
-                    self.performSegueWithIdentifier("loginSegue", sender: self)
+                    NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
                 }
             } else {
                 print("Uh oh. The user cancelled the Facebook login.")
