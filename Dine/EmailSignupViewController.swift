@@ -62,8 +62,15 @@ class EmailSignupViewController: SignUpViewController {
             if PFUser.currentUser() == nil{
                 SignUpViewController.emailaddr = emailField.text
             }else{
-                PFUser.currentUser()?.email = emailField.text
-                
+                let myUser = PFUser.currentUser()
+                myUser?.username = emailField.text
+                myUser?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if error == nil{
+                        print("Yes")
+                    }else{
+                        print(error)
+                    }
+                 })
                 
             }
         }

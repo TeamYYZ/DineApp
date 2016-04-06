@@ -104,19 +104,50 @@ class LoginViewController: UIViewController{
     
     func LoginWithFacebook() {
         print("Trying to login with FB")
-        let permissions = ["public_profile"]
+        let permissions = ["public_profile", "email"]
         PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions) {
             (user: PFUser?, error: NSError?) -> Void in
             if let user = user {
                 if user.isNew {
                     print("User signed up and logged in through Facebook!")
-                    print(user)
-                    self.performSegueWithIdentifier("signupSegue", sender: self)
-                } else {
+                     let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"name, email"])
                     User.currentUser = User(pfUser: user)
-                    print("User logged in through Facebook!")
-                    NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+                    graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+                        
+                        if (error != nil){
+                           print(error)
+                        }
+                        else{
+                            let screenName: String = (result.valueForKey("name") as? String)!
+                            //let Email: String = (result.valueForKey("email") as? String)!
+                            let myUser = PFUser.currentUser()
+
+                                myUser!.setObject(screenName, forKey: "screenName")
+                            if let username = result.valueForKey("email") as? String{
+                                myUser?.setValue(username, forKey: "username")
+                            
+                            }
+                            
+                        myUser!.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                                    if success == true && error == nil{
+                                        let myUser = PFUser.currentUser()
+
+                                        if myUser?.username == nil{
+                                            self.performSegueWithIdentifier("signupSegue", sender: self)
+                                        }else{
+                                            self.performSegueWithIdentifier("setPasswordSegue", sender: self)
+                                        }
+                                    }else{
+                                        print(error)
+                            }})
+                        }
+                    })}
+                else {
+                User.currentUser = User(pfUser: user)
+                print("User logged in through Facebook!")
+                NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
                 }
+                
             } else {
                 print("Uh oh. The user cancelled the Facebook login.")
             }
@@ -125,7 +156,7 @@ class LoginViewController: UIViewController{
     }
     
     func keyboardWillHide(notif: NSNotification) {
-        //print("didHide")
+
         let scrollPoint: CGPoint = CGPointMake(0.0, 0.0)
         scrollView.setContentOffset(scrollPoint, animated: true)
 

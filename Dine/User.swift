@@ -88,6 +88,16 @@ class User {
         })
     }
     
+    func save(){
+        let userQuery = PFUser.query()
+        userQuery?.getObjectInBackgroundWithId(userId!, block: { (pfUser: PFObject?, error: NSError?) in
+            if pfUser != nil && error == nil{
+                print(pfUser)
+                pfUser?.saveInBackground()
+            }
+        })
+    }
+    
     
     
 }

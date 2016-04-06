@@ -25,8 +25,19 @@ class SignUpNameViewController: SignUpViewController {
                 print("Sign Up faliure")
             }
         }else{
-            PFUser.currentUser()?.username = yourNameField.text!
+            
+//            let pfUser = PFUser.currentUser()
+            PFUser.currentUser()!["screenName"] = yourNameField.text!
+            PFUser.currentUser()!.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                if success == true && error == nil{
+                    print("Yes")
+                }else{
+                    print(error)
+                }
+            })
+            
             NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+
         }
     }
     
