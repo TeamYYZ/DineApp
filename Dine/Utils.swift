@@ -7,3 +7,27 @@
 //
 
 import Foundation
+
+extension NSDate {
+    func yearsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: date, toDate: self, options: .MatchLast).year
+    }
+    
+    func monthsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Month, fromDate: date, toDate: self, options: .MatchLast).month
+    }
+
+    func daysFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Day, fromDate: date, toDate: self, options: .MatchLast).day
+    }
+    func hoursFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Hour, fromDate: date, toDate: self, options: .MatchLast).hour
+    }
+    func minutesFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Minute, fromDate: date, toDate: self, options: .MatchLast).minute
+    }
+    func secondsFrom(date:NSDate) -> Int{
+        return NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: date, toDate: self, options: .MatchLast).second
+    }
+
+}

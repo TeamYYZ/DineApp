@@ -18,6 +18,9 @@ class MemberMessageCell: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var timeLabelHeight: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var textView: UIView!
     
     override func awakeFromNib() {

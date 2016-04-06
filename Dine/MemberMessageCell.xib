@@ -61,7 +61,6 @@
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="12" id="2o1-sv-gp5"/>
                     <constraint firstItem="M50-tZ-div" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="8" id="3n3-U2-o4j"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="M50-tZ-div" secondAttribute="leading" id="9bM-Bo-yNl"/>
-                    <constraint firstItem="w46-0S-seq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="AS5-eb-EsC"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="M50-tZ-div" secondAttribute="trailing" constant="10" id="B4V-XJ-y5b"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="13" id="CEo-hG-L9O"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="w46-0S-seq" secondAttribute="bottom" constant="8.5" id="EaJ-PF-rEH"/>
@@ -78,6 +77,7 @@
                     <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="8" id="fxF-t3-Xvz"/>
                     <constraint firstItem="hRi-z6-DKs" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lx7-Zc-V9u"/>
                     <constraint firstItem="hRi-z6-DKs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="tJk-hY-ThY"/>
+                    <constraint firstItem="w46-0S-seq" firstAttribute="top" secondItem="hRi-z6-DKs" secondAttribute="bottom" constant="1" id="w6n-Dr-xp5"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -98,6 +98,7 @@
                 <outlet property="screenNameLabel" destination="M50-tZ-div" id="KCe-kJ-0mf"/>
                 <outlet property="textView" destination="JF6-ha-qAv" id="Kuw-P2-kLD"/>
                 <outlet property="timeLabel" destination="hRi-z6-DKs" id="0dx-Hb-1au"/>
+                <outlet property="timeLabelHeight" destination="UwV-aM-Ea8" id="1GW-HK-1D9"/>
             </connections>
             <point key="canvasLocation" x="300.5" y="257"/>
         </tableViewCell>

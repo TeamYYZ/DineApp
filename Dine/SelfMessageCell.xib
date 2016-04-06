@@ -57,6 +57,7 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="9Fx-5S-EL9" secondAttribute="bottom" constant="1" id="3nk-aC-d0W"/>
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="leading" secondItem="2E2-hn-yf0" secondAttribute="trailing" constant="13" id="4B4-bd-HgK"/>
                     <constraint firstItem="kIg-fS-XX6" firstAttribute="top" secondItem="2E2-hn-yf0" secondAttribute="bottom" constant="8" id="7ub-uY-kKt"/>
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="leading" secondItem="kIg-fS-XX6" secondAttribute="trailing" constant="13" id="B8S-I4-MdJ"/>
@@ -67,7 +68,6 @@
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2fi-qo-8Rv" secondAttribute="bottom" constant="10" id="LWg-Rw-oi2"/>
                     <constraint firstItem="2E2-hn-yf0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TOm-Qy-AkW"/>
                     <constraint firstItem="kIg-fS-XX6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fWm-n6-lMy"/>
-                    <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="r2E-3i-oYR"/>
                     <constraint firstItem="9Fx-5S-EL9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="yBV-oG-ZeG"/>
                 </constraints>
             </tableViewCellContentView>
@@ -77,6 +77,7 @@
                 <outlet property="screenNameLabel" destination="2E2-hn-yf0" id="6Lk-GG-PwA"/>
                 <outlet property="textView" destination="kIg-fS-XX6" id="KzX-tc-hpL"/>
                 <outlet property="timeLabel" destination="9Fx-5S-EL9" id="56w-of-SVs"/>
+                <outlet property="timeLabelHeight" destination="W0e-E3-fPI" id="ydH-ZL-Nlr"/>
             </connections>
             <point key="canvasLocation" x="352.5" y="329"/>
         </tableViewCell>

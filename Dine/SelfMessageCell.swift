@@ -18,6 +18,7 @@ class SelfMessageCell: UITableViewCell {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    @IBOutlet weak var timeLabelHeight: NSLayoutConstraint!
     
     @IBOutlet weak var timeLabel: UILabel!
     
