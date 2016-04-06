@@ -13,6 +13,8 @@ class RestaurantDetailViewController: UITableViewController {
     
     let kHeaderHeight:CGFloat = 150.0
     var profileView: UIImageView!
+    var smallProfileView: UIImageView!
+    var blurView: UIVisualEffectView!
     weak var activityInProgress: Activity?
     var business: Business!
     
@@ -21,15 +23,30 @@ class RestaurantDetailViewController: UITableViewController {
 
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         profileView = UIImageView(image: UIImage(named: "map"))
+        smallProfileView = UIImageView(image: UIImage(named: "map"))
         if business.imageURL != nil {
             profileView.setImageWithURL(business.imageURL!)
+            smallProfileView.setImageWithURL(business.imageURL!)
         }
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
         profileView.clipsToBounds = true
         profileView.contentMode = .ScaleAspectFill
-
+        
+        //blur image
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = profileView.frame
+        blurView.alpha = 0.8
+        
+        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 40, 80, 80)
+        smallProfileView.clipsToBounds = true
+        smallProfileView.layer.cornerRadius = 5
+        smallProfileView.contentMode = .ScaleAspectFill
+        
         tableHeaderView.addSubview(profileView)
-
+        tableHeaderView.addSubview(blurView)
+        tableHeaderView.addSubview(smallProfileView)
+        
         tableView.tableHeaderView = tableHeaderView
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -90,6 +107,7 @@ class RestaurantDetailViewController: UITableViewController {
             imgRect.origin.y = scrollView.contentOffset.y
             imgRect.size.height = kHeaderHeight+yPos
             profileView.frame = imgRect
+            blurView.frame = imgRect
         }
     }
 
