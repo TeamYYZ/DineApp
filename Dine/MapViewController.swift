@@ -143,11 +143,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         cameraMoveWithUser = false
         return false
     }
+    
     func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
         cameraMoveWithUser = true
     }
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
-        let act = marker.userData as! Activity
+        let view = marker.userData as! MapDetailView
+        let act = view.annotation.activity
         self.performSegueWithIdentifier("toActivityProfileSegue", sender: act)
     }
     
