@@ -24,6 +24,9 @@ class MemberMessageCell: UITableViewCell {
         super.awakeFromNib()
         
         self.textView.layer.cornerRadius = 8.0
+        self.textView.backgroundColor = ColorTheme.sharedInstance.chatRecipientBackgroudColor
+        contentLabel.textColor = ColorTheme.sharedInstance.chatRecipientMessageColor
+        
         // Initialization code
     }
 

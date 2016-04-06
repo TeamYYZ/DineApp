@@ -24,6 +24,11 @@ class ColorTheme {
     var acceptButtonColor: UIColor
     var acceptButtonDisableColor: UIColor
     
+    var chatRecipientMessageColor: UIColor
+    var chatMyMessageColor: UIColor
+    var chatRecipientBackgroudColor: UIColor
+    var chatMyBackgroudColor: UIColor
+
     init() {
         navigationBarBackgroundColor = UIColor.flatMintColor()
         loginGradientFisrtColor = UIColor.flatWatermelonColor()
@@ -38,6 +43,11 @@ class ColorTheme {
         acceptButtonColor = UIColor.flatGreenColorDark()
         acceptButtonDisableColor = UIColor.flatGrayColor()
         
+        chatRecipientBackgroudColor = UIColor.flatGrayColor()
+        chatMyBackgroudColor = UIColor.flatSkyBlueColor()
+        
+        chatRecipientMessageColor = ContrastColorOf(chatRecipientBackgroudColor, returnFlat: true)
+        chatMyMessageColor = ContrastColorOf(chatMyBackgroudColor, returnFlat: true)
     }
 
 

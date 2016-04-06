@@ -38,10 +38,10 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIg-fS-XX6">
-                        <rect key="frame" x="169" y="54" width="148" height="36"/>
+                        <rect key="frame" x="169" y="54" width="148" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes, I am coming" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-nX-RT7">
-                                <rect key="frame" x="10" y="7" width="130" height="21"/>
+                                <rect key="frame" x="9" y="7" width="130" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -49,10 +49,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.14901960784313725" green="0.50980392156862742" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="kvs-nX-RT7" firstAttribute="leading" secondItem="kIg-fS-XX6" secondAttribute="leading" constant="10" id="Hs8-c5-SWb"/>
-                            <constraint firstAttribute="bottom" secondItem="kvs-nX-RT7" secondAttribute="bottom" constant="8" id="UM9-d1-One"/>
-                            <constraint firstItem="kvs-nX-RT7" firstAttribute="top" secondItem="kIg-fS-XX6" secondAttribute="top" constant="7" id="ZEv-DD-IRP"/>
-                            <constraint firstAttribute="trailing" secondItem="kvs-nX-RT7" secondAttribute="trailing" constant="8" id="hAY-8z-dEU"/>
+                            <constraint firstAttribute="trailing" secondItem="kvs-nX-RT7" secondAttribute="trailing" constant="9" id="OYK-cv-Ovf"/>
+                            <constraint firstItem="kvs-nX-RT7" firstAttribute="top" secondItem="kIg-fS-XX6" secondAttribute="top" constant="7" id="UCC-06-f20"/>
+                            <constraint firstItem="kvs-nX-RT7" firstAttribute="leading" secondItem="kIg-fS-XX6" secondAttribute="leading" constant="9" id="dFG-mk-PoH"/>
+                            <constraint firstAttribute="bottom" secondItem="kvs-nX-RT7" secondAttribute="bottom" constant="7" id="ygR-h4-moJ"/>
                         </constraints>
                     </view>
                 </subviews>

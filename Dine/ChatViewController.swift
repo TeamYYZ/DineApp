@@ -63,7 +63,6 @@ class ChatViewController: UITableViewController {
            let query = PFQuery(className: groupChatId)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
-                print("here")
                 print(error)
                 print(objects!.count)
                 if error == nil && objects!.count > 0{

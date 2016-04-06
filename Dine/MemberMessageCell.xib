@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -39,25 +39,26 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF6-ha-qAv">
-                        <rect key="frame" x="77" y="54" width="60" height="35.5"/>
+                        <rect key="frame" x="77" y="54" width="60" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7O-Tg-Zph">
-                                <rect key="frame" x="8" y="6" width="42" height="21"/>
+                                <rect key="frame" x="9" y="7" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235294117647" green="0.92549019607843142" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="T7O-Tg-Zph" secondAttribute="trailing" constant="10" id="NAw-Rn-og4"/>
-                            <constraint firstItem="T7O-Tg-Zph" firstAttribute="leading" secondItem="JF6-ha-qAv" secondAttribute="leading" constant="8" id="Th5-Ff-S5e"/>
-                            <constraint firstAttribute="bottom" secondItem="T7O-Tg-Zph" secondAttribute="bottom" constant="8" id="f1E-rT-9fd"/>
-                            <constraint firstItem="T7O-Tg-Zph" firstAttribute="top" secondItem="JF6-ha-qAv" secondAttribute="top" constant="6" id="x3s-DV-SRw"/>
+                            <constraint firstAttribute="trailing" secondItem="T7O-Tg-Zph" secondAttribute="trailing" constant="9" id="O7p-oW-hIC"/>
+                            <constraint firstItem="T7O-Tg-Zph" firstAttribute="top" secondItem="JF6-ha-qAv" secondAttribute="top" constant="7" id="VE1-GJ-9Gx"/>
+                            <constraint firstAttribute="bottom" secondItem="T7O-Tg-Zph" secondAttribute="bottom" constant="7" id="o5w-Cl-WHG"/>
+                            <constraint firstItem="T7O-Tg-Zph" firstAttribute="leading" secondItem="JF6-ha-qAv" secondAttribute="leading" constant="9" id="zx1-82-eBf"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="12" id="2o1-sv-gp5"/>
                     <constraint firstItem="M50-tZ-div" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="8" id="3n3-U2-o4j"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="M50-tZ-div" secondAttribute="leading" id="9bM-Bo-yNl"/>
                     <constraint firstItem="w46-0S-seq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="AS5-eb-EsC"/>
@@ -65,13 +66,12 @@
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="13" id="CEo-hG-L9O"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="w46-0S-seq" secondAttribute="bottom" constant="8.5" id="EaJ-PF-rEH"/>
                     <constraint firstItem="w46-0S-seq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Oxu-JX-EdJ"/>
-                    <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="8" id="Oy3-w3-69q"/>
+                    <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="8.5" id="Oy3-w3-69q"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="10" id="Q0p-ep-5wK"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="10" id="SHu-WF-UE1"/>
                     <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="13.5" id="Wj4-hZ-inu"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="top" secondItem="M50-tZ-div" secondAttribute="bottom" constant="8" id="YFC-Vp-fKE"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="8" id="Z9y-kn-H0F"/>
-                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="10" id="ZTk-db-paX"/>
                     <constraint firstItem="M50-tZ-div" firstAttribute="top" secondItem="w46-0S-seq" secondAttribute="top" id="e3w-AI-Alv"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="top" secondItem="M50-tZ-div" secondAttribute="bottom" constant="8" id="edX-6w-qQc"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="top" secondItem="M50-tZ-div" secondAttribute="bottom" constant="8" id="ezw-3S-kds"/>
@@ -99,7 +99,7 @@
                 <outlet property="textView" destination="JF6-ha-qAv" id="Kuw-P2-kLD"/>
                 <outlet property="timeLabel" destination="hRi-z6-DKs" id="0dx-Hb-1au"/>
             </connections>
-            <point key="canvasLocation" x="188.5" y="341"/>
+            <point key="canvasLocation" x="300.5" y="257"/>
         </tableViewCell>
     </objects>
 </document>

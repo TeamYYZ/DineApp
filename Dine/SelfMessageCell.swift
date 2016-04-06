@@ -27,9 +27,8 @@ class SelfMessageCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.textView.layer.cornerRadius = 8.0
-//        let triangle = TriangeView(frame: CGRectMake(10, 20, 25, 30))
-//        triangle.backgroundColor = .whiteColor()
-//        view.addSubview(triangle)
+        self.contentLabel.textColor = ColorTheme.sharedInstance.chatMyMessageColor
+        self.textView.backgroundColor = ColorTheme.sharedInstance.chatMyBackgroudColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
