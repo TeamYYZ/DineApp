@@ -20,10 +20,9 @@ class Activity: NSObject {
     var profileURL: NSURL?
     var overview: String?
     var group: Group?
-    //var groupMessages: [String]?
     var location: CLLocationCoordinate2D!
     var restaurant: String?
-    var chatTableId : String?
+    var groupChatId : String?
     
     static var current_activity: Activity?
     //The activity that the current_user has joined
@@ -31,6 +30,7 @@ class Activity: NSObject {
     override init() {
         super.init()
         self.owner = PFUser.currentUser()
+        self.groupChatId = "ActivityChat_" + uniqueId()
     }
     
     func setupRestaurant(yelpBusiness: Business) {
@@ -43,9 +43,10 @@ class Activity: NSObject {
         print("set up restaurant: " + self.restaurant!)
     }
     
-    func setupGroup(userList: [String]) {
+    func setupGroup(userList: [GroupMember]) {
         let group = Group(userList: userList)
-        group.addMember(owner.objectId!, joined: true)
+        let owner = GroupMember(user: User.currentUser!)
+        group.addOwner(owner)
         self.group = group
     }
     
@@ -59,7 +60,7 @@ class Activity: NSObject {
 
     }
     
-    func saveToBackend(successHandler: ()->(), failureHandler: ()->()) {
+    func saveToBackend(successHandler: (String)->(), failureHandler: ()->()) {
         let PFActivity = PFObject(className: "Activity")
         
         PFActivity["title"] = title!
@@ -71,10 +72,11 @@ class Activity: NSObject {
         PFActivity["location"] = [location.latitude, location.longitude]
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
+        PFActivity["groupChatId"] = groupChatId
 
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
-                successHandler()
+                successHandler(PFActivity.objectId!)
             } else {
                 failureHandler()
             }
@@ -101,6 +103,7 @@ class Activity: NSObject {
             self.profileURL = NSURL(string: profileString)
 
         }
+        self.groupChatId = PFActivity["groupChatId"] as? String
     }
     
     class func activitiesWithArray(array: [PFObject]) -> [Activity] {
@@ -110,6 +113,18 @@ class Activity: NSObject {
             activites.append(Activity(PFActivity: object))
         }
         return activites
+    }
+    
+    func uniqueId() -> String {
+        let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let charactersArray = Array(charactersString.characters)
+        
+        var string = ""
+        for _ in 0..<10 {
+            string += String(charactersArray[Int(arc4random()) % charactersArray.count])
+        }
+        print(string)
+        return string
     }
     
     /*

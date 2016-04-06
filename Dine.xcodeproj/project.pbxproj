@@ -22,6 +22,7 @@
 		C127F5701CA3885700D40088 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F56F1CA3885700D40088 /* Message.swift */; };
 		C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F5711CA394AD00D40088 /* GroupMember.swift */; };
 		C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */; };
+		C16DFF031CB4B84E001E1962 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DFF021CB4B84E001E1962 /* Utils.swift */; };
 		C17424861C9789D400125377 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17424851C9789D400125377 /* ColorTheme.swift */; };
 		C17AABDD1C97E6B900CC83CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDC1C97E6B900CC83CF /* User.swift */; };
 		C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDF1C984A7500CC83CF /* ParseAPI.swift */; };
@@ -99,6 +100,7 @@
 		C127F56F1CA3885700D40088 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C127F5711CA394AD00D40088 /* GroupMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
 		C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZAcceptButton.swift; sourceTree = "<group>"; };
+		C16DFF021CB4B84E001E1962 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C17424851C9789D400125377 /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		C17AABDC1C97E6B900CC83CF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C17AABDF1C984A7500CC83CF /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			children = (
 				C17424851C9789D400125377 /* ColorTheme.swift */,
 				C1F978591C97BDBF007CE2A3 /* ViewExt.swift */,
+				C16DFF021CB4B84E001E1962 /* Utils.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */,
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */,
+				C16DFF031CB4B84E001E1962 /* Utils.swift in Sources */,
 				C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */,
 				C62937E51CAF097700E46009 /* ContainerViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,

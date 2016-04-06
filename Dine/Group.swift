@@ -21,12 +21,21 @@ class Group: NSObject {
         
     }
     
-    init(userList: [String]) {
+    init(userList: [GroupMember]) {
         for user in userList {
-            groupMembers.append(GroupMember(userId: user, joined: false))
+            groupMembers.append(user)
         }
     }
 
+    func addOwner(owner: GroupMember) {
+        owner.owner = true
+        owner.joined = true
+        groupMembers.insert(owner, atIndex: 0)
+    }
+    
+    func addMember(groupMember: GroupMember) {
+        groupMembers.append(groupMember)
+    }
     
     func addMember(userId: String, joined: Bool) {
         groupMembers.append(GroupMember(userId: userId, joined: joined))
@@ -50,7 +59,10 @@ class Group: NSObject {
         for member in groupMembers {
             let dict = NSMutableDictionary()
             dict["userId"] = member.userId
+            dict["screenName"] = member.screenName
+            dict["avatar"] = member.avatar
             dict["joined"] = member.joined
+            dict["owner"] = member.owner
             dictArray.append(dict)
             
         }

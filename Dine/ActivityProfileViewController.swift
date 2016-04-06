@@ -12,12 +12,11 @@ class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var activity: Activity!
-    var activityInCreating: Activity!
+    var groupMembers = [GroupMember]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
-        activityInCreating = Activity()
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         
         profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
@@ -28,9 +27,26 @@ class ActivityProfileViewController: UITableViewController {
         }
         tableHeaderView.addSubview(profileView)
         self.tableView.tableHeaderView = tableHeaderView
+        fetchGroupMembers()
 
     }
 
+    func fetchGroupMembers() {
+        if let activityId = activity?.activityId {
+            print("Try fetchGroupMembers")
+            GroupMember.fetchGroupMember(activityId, successHandler: { (groupMembers: [GroupMember]) in
+                self.groupMembers = groupMembers
+                self.tableView.reloadData()
+                print("fetchGroupMembers success \(self.groupMembers.count)")
+                }, failureHandler: { (error: NSError?) -> () in
+                print(error?.localizedDescription)
+            })
+        }
+
+    
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,13 +56,22 @@ class ActivityProfileViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-        let cell = tableView.dequeueReusableCellWithIdentifier("profileCell")! as! ActivityProfileCell
-            
-            cell.activity = self.activity
-            
-        return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
+                
+                cell.activity = self.activity
+                
+            return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
+            let member = groupMembers[indexPath.row - 1]
+            print("indexPath.row \(indexPath.row)")
+            cell.userId = member.userId
+            cell.nameLabel.text = member.screenName
+            if member.joined {
+                cell.statusLabel.text = "Accept"
+            } else {
+                cell.statusLabel.text = "Waiting for Acceptance"
+            }
             return cell
         }
     }
@@ -66,7 +91,7 @@ class ActivityProfileViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return 1 + 2 // 1 + number of members
+        return 1 + groupMembers.count // 1 + number of members
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -79,6 +104,16 @@ class ActivityProfileViewController: UITableViewController {
             profileView.frame = imgRect
         }
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toGroupChatSegue" {
+            let vc = segue.destinationViewController as! ChatViewController
+            if let groupChatId = activity?.groupChatId {
+                vc.groupChatId = groupChatId
+
+            }
+        }
     }
 
 }

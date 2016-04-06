@@ -11,6 +11,7 @@ import UIKit
 class ActivityMemberCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    var userId: String?
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -14,7 +14,7 @@ class ChatViewController: UITableViewController {
     @IBOutlet var replyBar: UIToolbar!
     @IBOutlet weak var replyField: UITextField!
     var messages = [Message]()
-    var chatName = "myChat"
+    var groupChatId = "myChat"
     
 
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class ChatViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         replyItem.width = self.view.bounds.width - 80
         self.replyButton.action = "sendButtonOnClick"
-        self.tableView.reloadData()
+        fetchData()
     }
     
     func sendButtonOnClick(){
@@ -36,7 +36,7 @@ class ChatViewController: UITableViewController {
             //let file = User.currentUser?.avatarImagePFFile
             let screenName = User.currentUser?.screenName
             let message = Message(senderId: senderId!, screenName: screenName!, content: content)
-            let chat = PFObject(className:  chatName)
+            let chat = PFObject(className:  groupChatId)
             chat["content"] = message.content
             chat["senderId"] = message.senderId
             chat["screenName"] = message.screenName
@@ -59,11 +59,15 @@ class ChatViewController: UITableViewController {
     
     func fetchData(){
         if self.messages.count == 0{
-           
-           let query = PFQuery(className: chatName)
+           print(groupChatId)
+           let query = PFQuery(className: groupChatId)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
+                print("here")
+                print(error)
+                print(objects!.count)
                 if error == nil && objects!.count > 0{
+                    print(objects!.count)
                     for object in objects!{
                         let senderId = object["senderId"] as! String
                         let content = object["content"] as! String
@@ -72,17 +76,20 @@ class ChatViewController: UITableViewController {
                         let createdAt = object.createdAt! as NSDate
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         self.messages.append(message)
-                        self.tableView.reloadData()
-                        let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
-                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+
                     }
+                    self.tableView.reloadData()
+                    let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+
                 }else{
                     print(error)
                 }
             }
         }
+        
         if let offset = self.messages.last?.createdAt{
-            let query = PFQuery(className: chatName)
+            let query = PFQuery(className: groupChatId)
             query.whereKey("createdAt", greaterThan: offset)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
@@ -96,10 +103,12 @@ class ChatViewController: UITableViewController {
                         let createdAt = object.createdAt! as NSDate
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         self.messages.append(message)
-                        self.tableView.reloadData()
-                        let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
-                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+
                     }
+                    self.tableView.reloadData()
+                    let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+
                 }else{
                     print(error)
                 }

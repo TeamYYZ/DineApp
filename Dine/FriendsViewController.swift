@@ -65,8 +65,6 @@ class FriendsViewController: UITableViewController {
                 print(self.friendUsernameTitles)
                 self.generateFriendDic()
                 self.checked = [Bool](count: self.friendsIdList.count, repeatedValue: false)
-
-                self.tableView.reloadData()
             }
         })
     }
@@ -76,9 +74,11 @@ class FriendsViewController: UITableViewController {
         query?.whereKey("objectId", containedIn: friendsIdList)
         query?.findObjectsInBackgroundWithBlock({ (friends:[PFObject]?, error: NSError?) -> Void in
         if error == nil && friends != nil {
+            self.friendsUserList = [User]()
             for friend in friends! {
                 let friendAsPFUser = friend as! PFUser
                 let friendAsUser = User(pfUser: friendAsPFUser)
+                self.friendsUserList.append(friendAsUser)
                 let username = friendAsUser.screenName
                 let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
                 if var usernameValues = self.friendsUserDic[usernameKey] {
@@ -92,9 +92,8 @@ class FriendsViewController: UITableViewController {
             
             }
 
-            
-            //self.friendsUserList.append(friendAsUser)
             self.tableView.reloadData()
+            
         } else {
             print("Fail to get the friendList")
             print(error)
@@ -245,10 +244,10 @@ class FriendsViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let button = sender as? UIBarButtonItem {
             if button.tag == 0{
-                var invitedIdList = [String]()
+                var invitedIdList = [GroupMember]()
                 for (index, value) in checked.enumerate() {
                     if value {
-                        invitedIdList.append(friendsIdList[index])
+                        invitedIdList.append(GroupMember(user: friendsUserList[index]))
                     }
                 }
                 activityInProgress?.setupGroup(invitedIdList)

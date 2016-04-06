@@ -231,8 +231,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if let vc = sender.sourceViewController as? FriendsViewController {
             let activity = vc.activityInProgress
             //save to Parse
-            activity?.saveToBackend({ () -> () in
+            // show Progress to prevent accessing null activityId
+            activity?.saveToBackend({ (activityId: String) -> () in
                 print("saved successfully")
+                activity?.activityId = activityId
                 //update direction info
                 if let destination = activity?.location {
                     if let myLocation  = self.mapView.myLocation {
@@ -266,6 +268,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 }
                 
                 Activity.current_activity = activity
+                
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
                 }, failureHandler: { () -> () in
                     print("something wrong...")
@@ -289,8 +292,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
-            let act = sender as! Activity
-            activityProfileViewController.activity = act
+            if let act = Activity.current_activity {
+                print("current_activity TRUE")
+                activityProfileViewController.activity = act
+            }
         }
         
         if let navVC = segue.destinationViewController as? UINavigationController {
