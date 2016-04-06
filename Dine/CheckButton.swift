@@ -47,7 +47,7 @@ class CheckButton: UIButton {
         }
         self.adjustsImageWhenHighlighted = false
         
-        self.frame = CGRectMake(0, 0, 30, 30)
+//        self.frame = CGRectMake(0, 0, 30, 30)
     
     }
     

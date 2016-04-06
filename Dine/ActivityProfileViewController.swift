@@ -68,7 +68,7 @@ class ActivityProfileViewController: UITableViewController {
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
-                cell.statusLabel.text = "Accept"
+                cell.statusLabel.text = "Accepted"
             } else {
                 cell.statusLabel.text = "Waiting for Acceptance"
             }
