@@ -64,7 +64,6 @@ class ActivityProfileViewController: UITableViewController {
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             let member = groupMembers[indexPath.row - 1]
-            print("indexPath.row \(indexPath.row)")
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
