@@ -21,6 +21,7 @@ class MapDetailView: UIView {
             membersLabel.text = annotation!.members
             timeLabel.text = annotation!.time
             profileView.setImageWithURL(annotation.profileURL!)
+
         }
     }
     

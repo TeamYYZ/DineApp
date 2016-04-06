@@ -95,7 +95,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.title = act.title
         marker.snippet = act.overview
         marker.map = mapView
-        marker.userData = act
+        
+        //set image when adding marker
+        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
+        let annotation = MapAnnotation(activity: act)
+        mapDetailView.annotation = annotation
+        
+        marker.userData = mapDetailView
     }
     
     func drawPolyLines() {
@@ -127,12 +133,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         infoWindow.backgroundColor = UIColor.flatWhiteColor()
         infoWindow.layer.cornerRadius = 5
         infoWindow.clipsToBounds = true
-        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
-        if let act = marker.userData as? Activity {
-            let annotation = MapAnnotation(activity: act)
-            mapDetailView.annotation = annotation
-        }
-        infoWindow.addSubview(mapDetailView)
+        infoWindow.addSubview(marker.userData as! MapDetailView)
 
         return infoWindow
 
