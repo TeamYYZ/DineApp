@@ -41,11 +41,27 @@ class SignUpPasswordViewController: SignUpViewController {
 
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let myUser = PFUser.currentUser()
+        if myUser!["screenName"] != nil{
+            NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+        }
+        
+        
         if segue.identifier == "signUpFinishPasswordSegue" {
             if PFUser.currentUser() == nil{
                 SignUpViewController.password = passwordField.text
             }else{
-                PFUser.currentUser()?.password = passwordField.text
+             
+                PFUser.currentUser()!.password = passwordField.text
+                PFUser.currentUser()!.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success == true && error == nil{
+                        print("Yes")
+                    }else{
+                        print(error)
+                    }
+                })
+
+                
             }
         }
         

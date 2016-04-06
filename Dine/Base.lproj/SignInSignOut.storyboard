@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -195,6 +195,7 @@
                         <outlet property="signInButton" destination="J4r-6C-y9G" id="b9s-2C-iv1"/>
                         <outlet property="signUpButton" destination="fJO-3s-q83" id="j8U-Ab-y3H"/>
                         <outlet property="usernameField" destination="gNd-gL-jOa" id="fQD-PH-sjv"/>
+                        <segue destination="bZv-A3-zyW" kind="modal" identifier="setPasswordSegue" id="L3Q-iN-dVA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -204,7 +205,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1608" y="214"/>
+            <point key="canvasLocation" x="-1552" y="-30"/>
         </scene>
         <!--Email Signup View Controller-->
         <scene sceneID="1sO-dd-Euy">
@@ -263,12 +264,12 @@
                     <connections>
                         <outlet property="emailField" destination="ODj-of-Ulp" id="wGb-rd-RlE"/>
                         <outlet property="nextButton" destination="WbZ-uX-dla" id="ogR-Oc-B8h"/>
-                        <segue destination="p18-OE-F4U" kind="push" identifier="signUpFinishEmailSegue" id="zbc-aK-yXE"/>
+                        <segue destination="bZv-A3-zyW" kind="push" identifier="signUpFinishEmailSegue" id="zbc-aK-yXE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCs-hk-9dI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-603" y="1186"/>
+            <point key="canvasLocation" x="-902" y="860"/>
         </scene>
         <!--Sign Up Password View Controller-->
         <scene sceneID="UZq-YM-phA">
@@ -324,7 +325,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heb-SS-BKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-120" y="1166"/>
+            <point key="canvasLocation" x="-448" y="-16"/>
         </scene>
         <!--Sign Up Name View Controller-->
         <scene sceneID="UEt-uY-cvi">
@@ -380,7 +381,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXr-hn-Rkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="1146"/>
+            <point key="canvasLocation" x="433" y="-71"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yJ1-fw-n34">
@@ -400,8 +401,30 @@
             </objects>
             <point key="canvasLocation" x="-1414" y="1082"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ehh-fm-4cE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bZv-A3-zyW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="pXJ-Wv-OmD"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="b4r-na-0tD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="p18-OE-F4U" kind="relationship" relationship="rootViewController" id="19L-JA-s73"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ase-t4-9Vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-980" y="-16"/>
+        </scene>
     </scenes>
     <resources>
         <image name="facebook" width="64" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="L3Q-iN-dVA"/>
+    </inferredMetricsTieBreakers>
 </document>
