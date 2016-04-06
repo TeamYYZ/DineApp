@@ -12,6 +12,8 @@ class RestaurantCell: UITableViewCell {
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
+    @IBOutlet weak var profileView: UIImageView!
+    @IBOutlet weak var ratingView: UIImageView!
 
     let checked = UIImage(named: "Checked")
     let cancel = UIImage(named: "CheckedFilled")
@@ -21,12 +23,19 @@ class RestaurantCell: UITableViewCell {
         didSet {
             nameLabel.text = business.name
             genreLabel.text = business.categories
+            if let image = business.imageURL {
+                profileView.setImageWithURL(image)
+            }
+            if let image = business.ratingImageURL {
+                ratingView.setImageWithURL(image)
+            }
+
         }
     }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        checkButton.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
+        checkButton.addTarget(self, action: #selector(RestaurantCell.buttonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
