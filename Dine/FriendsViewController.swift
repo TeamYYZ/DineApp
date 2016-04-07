@@ -30,7 +30,6 @@ class FriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(inviteNotAdd)
         if inviteNotAdd{
             inviteButton.enabled = false
             inviteButton.image = nil
@@ -42,7 +41,6 @@ class FriendsViewController: UITableViewController {
             inviteButton.tag = 1
         }
         fetchFriendList()
-        //generateFriendDic()
 
         tableView.dataSource = self
         tableView.delegate = self

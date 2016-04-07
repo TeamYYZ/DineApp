@@ -12,6 +12,7 @@ enum LeftMenu: Int {
     case Main = 0
     case Friends
     case Notifications
+    case ProfileSettings
 }
 
 protocol SideMenuProtocol : class {
@@ -35,6 +36,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     var mainViewController: UIViewController!
     var friendsViewController: UIViewController!
     var notificationsViewController: UIViewController!
+    var profileSettingsController: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +45,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         self.navigationController?.toolbarHidden = false
         self.navigationController?.navigationBarHidden = true
         
-        
+
         //create menu
         let friendSB = UIStoryboard(name: "FriendList", bundle: nil)
         let friendVC = friendSB.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
@@ -52,6 +54,10 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         let notificationSB = UIStoryboard(name: "Notifications", bundle: nil)
         let notificationVC = notificationSB.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
         self.notificationsViewController = UINavigationController(rootViewController: notificationVC)
+        
+        let profileSettingsSB = UIStoryboard(name: "ProfileSettings", bundle: nil)
+        let profileSettingsVC = profileSettingsSB.instantiateViewControllerWithIdentifier("ProfileSettingsViewController") as! ProfileSettingsViewController
+        self.profileSettingsController = UINavigationController(rootViewController: profileSettingsVC)
 
     }
  
@@ -67,8 +73,8 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     }
     
     func changeViewController(menu: LeftMenu) {
-        print("main view controller")
-        print(self.mainViewController)
+//        print("main view controller")
+//        print(self.mainViewController)
         switch menu {
         case .Main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
@@ -77,6 +83,8 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.friendsViewController, close: true)
         case .Notifications:
             self.slideMenuController()?.changeMainViewController(self.notificationsViewController, close: true)
+        case .ProfileSettings:
+            self.slideMenuController()?.changeMainViewController(self.profileSettingsController, close: true)
         }
     }
     

@@ -44,7 +44,6 @@ class ChatViewController: UITableViewController {
              self.replyField.text = nil
             chat.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                 if success == true && error == nil{
-                    
                     self.fetchData()
                 }else{
                     print(error)
@@ -59,7 +58,6 @@ class ChatViewController: UITableViewController {
     
     func fetchData(){
         if self.messages.count == 0{
-           print(groupChatId)
            let query = PFQuery(className: groupChatId)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
@@ -101,7 +99,6 @@ class ChatViewController: UITableViewController {
                         let createdAt = object.createdAt! as NSDate
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         self.messages.append(message)
-
                     }
                     self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)

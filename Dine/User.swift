@@ -42,6 +42,12 @@ class User {
         if let screenName = pfUser["screenName"] as? String {
             self.screenName = screenName
         }
+        
+        if let description = pfUser["description"] as? String{
+            self.profileDescription = description
+        
+        }
+        
         self.friendList = pfUser["friendList"] as? [String]
         notificationsRecv = [UserNotification]()
         if let notificationDictArray = pfUser["notificationsRecv"] as? [NSDictionary] {
@@ -88,6 +94,108 @@ class User {
         })
     }
     
+    func updateScreenName(screenName: String?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        if let name = screenName {
+            if let user = pfUser {
+                // Add relevant fields to the object
+                user["screenName"] = name // PFFile column type
+                user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success == true && error == nil{
+                        User.currentUser?.screenName = name
+                        completion?(success, error)
+                        //print("EEEEE")
+                    }else{
+                        print(error)
+                    }
+                })
+                
+            }
+        }
+        
+    }
+    
+    func updateUsername(username: String?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        if let name = username{
+            if let user = pfUser {
+                // Add relevant fields to the object
+                user["username"] = name // PFFile column type
+                user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success == true && error == nil{
+                        User.currentUser?.username = name
+                        completion?(success, error)
+                        //print("EEEEE")
+                    }else{
+                        print(error)
+                    }
+                })
+                
+            }
+        
+        }
+    }
+    
+    func updateDescription(description: String?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        if let text = description{
+            if let user = pfUser {
+                // Add relevant fields to the object
+                user["description"] = text // PFFile column type
+                user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success == true && error == nil{
+                        User.currentUser?.profileDescription = text
+                        completion?(success, error)
+                        //print("EEEEE")
+                    }else{
+                        print(error)
+                    }
+                })
+                
+            }
+            
+        }
+    }
+    
+    
+
+
+    
+    func updateProfilePhoto(image: UIImage?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        if let image = image {
+            if let user = pfUser {
+                // Add relevant fields to the object
+               user["avatar"] = self.getPFFileFromImage(image) // PFFile column type
+                user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success == true && error == nil{
+                        User.currentUser?.avatarImage = image
+                        completion?(success, error)
+                    }else{
+                        print(error)
+                    }
+               })
+
+            }
+        }
+        
+    }
+    
+
+    func getPFFileFromImage(image: UIImage?) -> PFFile? {
+        // check if image is not nil
+        if let image = image {
+            // get image data and check if that is not nil
+            if let imageData = UIImagePNGRepresentation(image) {
+                return PFFile(name: "image.png", data: imageData)
+            }
+        }
+        return nil
+    }
+
+    
+    
+    
     func save(){
         let userQuery = PFUser.query()
         userQuery?.getObjectInBackgroundWithId(userId!, block: { (pfUser: PFObject?, error: NSError?) in
@@ -97,6 +205,8 @@ class User {
             }
         })
     }
+    
+    
     
     
     
