@@ -48,11 +48,11 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
     }
 
     @IBAction func unwindToActivityCreator(segue: UIStoryboardSegue) {
-        if let restaurantPicker = segue.sourceViewController as? RestaurantPickerViewController {
+        if let restaurant = segue.sourceViewController as? RestaurantDetailViewController {
             
-            restaurantField.text = restaurantPicker.selectedBusiness?.name
-            if restaurantPicker.selectedBusiness != nil {
-                self.activityInProgress?.setupRestaurant(restaurantPicker.selectedBusiness!)
+            restaurantField.text = restaurant.business?.name
+            if restaurant.business != nil {
+                self.activityInProgress?.setupRestaurant(restaurant.business!)
             }
         }
     }

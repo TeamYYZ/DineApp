@@ -12,7 +12,8 @@ class CheckButton: UIButton {
 
     let checked = UIImage(named: "Checked")
     let cancel = UIImage(named: "Cancel")
-//    var isChecked = false
+    
+    var isChecked = false
     var activity: Activity?
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,9 +37,11 @@ class CheckButton: UIButton {
     func setButton(){
 
         if Activity.current_activity == nil {
+            isChecked = false
             self.setImage(checked, forState: .Normal)
             self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
         }else if Activity.current_activity!.activityId == self.activity!.activityId{
+            isChecked = true
             self.setImage(cancel, forState: .Normal)
             self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
         }else{
@@ -47,12 +50,13 @@ class CheckButton: UIButton {
         }
         self.adjustsImageWhenHighlighted = false
         
-        self.frame = CGRectMake(0, 0, 30, 30)
+//        self.frame = CGRectMake(0, 0, 30, 30)
     
     }
     
     func buttonClicked (sender : UIButton!) {
         if Activity.current_activity == nil {
+            isChecked = true
             self.setImage(cancel, forState: .Normal)
             self.setImage(cancel, forState: .Highlighted)
             Activity.current_activity = self.activity
@@ -60,6 +64,7 @@ class CheckButton: UIButton {
             NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
 
         }else {
+            isChecked = false
             self.setImage(checked, forState: .Normal)
             self.setImage(checked, forState: .Highlighted)
             Activity.current_activity = nil

@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Chat View Controller-->
+        <!--Group Chat-->
         <scene sceneID="aPb-Oj-xYP">
             <objects>
                 <tableViewController storyboardIdentifier="UITableViewController-IXF-oa-elQ" id="IXF-oa-elQ" customClass="ChatViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                             <outlet property="delegate" destination="IXF-oa-elQ" id="tyy-2z-EgO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ITa-Xe-iEX"/>
+                    <navigationItem key="navigationItem" title="Group Chat" id="ITa-Xe-iEX"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

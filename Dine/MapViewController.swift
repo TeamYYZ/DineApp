@@ -21,7 +21,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var activities = [Activity]()
     var steps : [Route.Step]!
     var currentStep = 0
-    var joinedActivity = false
+    var cameraMoveWithUser = true
+    var inNavigation = false
     
     var mapView: GMSMapView!
     
@@ -94,7 +95,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.title = act.title
         marker.snippet = act.overview
         marker.map = mapView
-        marker.userData = act
+        
+        //set image when adding marker
+        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
+        let annotation = MapAnnotation(activity: act)
+        mapDetailView.annotation = annotation
+        
+        marker.userData = mapDetailView
     }
     
     func drawPolyLines() {
@@ -118,7 +125,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.moveCamera(update)
         
         mapView.animateToBearing(GoogleDirectionsAPI.getBearingBetweenTwoPoints(steps[currentStep].startLoc!, point2: steps[currentStep].endLoc!) )
-        mapView.animateToViewingAngle(45)
     }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -127,19 +133,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         infoWindow.backgroundColor = UIColor.flatWhiteColor()
         infoWindow.layer.cornerRadius = 5
         infoWindow.clipsToBounds = true
-        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
-        if let act = marker.userData as? Activity {
-            let annotation = MapAnnotation(activity: act)
-            mapDetailView.annotation = annotation
-        }
-        infoWindow.addSubview(mapDetailView)
+        infoWindow.addSubview(marker.userData as! MapDetailView)
 
         return infoWindow
 
     }
     
+    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+        cameraMoveWithUser = false
+        return false
+    }
+    
+    func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
+        cameraMoveWithUser = true
+    }
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
-        let act = marker.userData as! Activity
+        let view = marker.userData as! MapDetailView
+        let act = view.annotation.activity
         self.performSegueWithIdentifier("toActivityProfileSegue", sender: act)
     }
     
@@ -147,18 +157,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     //control camera update
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-            if !joinedActivity {
-//                if mapView.camera = nil {
-//            let camera = GMSCameraPosition.cameraWithTarget(myLocation.coordinate, zoom: 14.0)
-//            mapView.camera = camera
-//                }else {
+            if cameraMoveWithUser {
                     let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                     mapView.moveCamera(update)
                 //}
-            }else{
+            }else if (inNavigation){
                 //start navigation
                 
-
             let dist = myLocation.distanceFromLocation(steps[currentStep].endLoc!)
             if dist < 50 {
                 updateMapCamera()
@@ -201,7 +206,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         updateMapMarkers()
         //remove polyline
         mapView.clear()
-        joinedActivity = false
+        cameraMoveWithUser = true
+        inNavigation = false
         mapView.animateToViewingAngle(0)
         //updateMap()
     }
@@ -210,18 +216,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         userExitedActivity()
     }
     
+    func startNavigation(steps: [Route.Step]) {
+        self.steps = steps
+        self.updateMapMarkers()
+        self.drawPolyLines()
+        self.cameraMoveWithUser = false
+        self.inNavigation = true
+        self.updateMapCamera()
+        self.mapView.animateToViewingAngle(45)
+    }
+    
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         if let vc = sender.sourceViewController as? ActivityProfileViewController {
             let activity = vc.activity
             if let destination = activity?.location {
                 if let myLocation  = self.mapView.myLocation {
                     GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
-                        self.steps = routes[0].steps
-                        self.updateMapMarkers()
-                        self.drawPolyLines()
-                        self.joinedActivity = true
-                        self.updateMapCamera()
-                        //self.mapView.animateToViewingAngle(45)
+                        self.startNavigation(routes[0].steps)
+
                     }
                 }
             }
@@ -239,12 +251,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 if let destination = activity?.location {
                     if let myLocation  = self.mapView.myLocation {
                         GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
-                            self.steps = routes[0].steps
-                            self.updateMapMarkers()
-                            self.drawPolyLines()
-                            self.joinedActivity = true
-                            self.updateMapCamera()
-                            //self.mapView.animateToViewingAngle(45)
+                            self.startNavigation(routes[0].steps)
                         }
                     }
                 }
@@ -294,6 +301,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
             if let act = Activity.current_activity {
                 print("current_activity TRUE")
+                activityProfileViewController.activity = act
+            }else {
+                let act = sender as! Activity
                 activityProfileViewController.activity = act
             }
         }

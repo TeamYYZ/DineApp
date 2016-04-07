@@ -61,7 +61,7 @@
                         <constraint firstAttribute="width" secondItem="qEy-QU-JDD" secondAttribute="height" multiplier="1:1" id="uEj-RA-ZkL"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8NQ-2j-uGy">
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8NQ-2j-uGy">
                     <rect key="frame" x="250" y="25" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Oby-fa-G0O"/>

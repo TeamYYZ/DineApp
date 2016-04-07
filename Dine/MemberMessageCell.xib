@@ -17,6 +17,9 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jason" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M50-tZ-div">
                         <rect key="frame" x="72" y="30" width="36" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="La8-uw-imO"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.71513007198952883" green="0.71513007198952883" blue="0.71513007198952883" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -39,10 +42,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF6-ha-qAv">
-                        <rect key="frame" x="77" y="54" width="60" height="35"/>
+                        <rect key="frame" x="77" y="54" width="60" height="34.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7O-Tg-Zph">
-                                <rect key="frame" x="9" y="7" width="42" height="21"/>
+                                <rect key="frame" x="9" y="7" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -64,8 +67,9 @@
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="M50-tZ-div" secondAttribute="trailing" constant="10" id="B4V-XJ-y5b"/>
                     <constraint firstItem="JF6-ha-qAv" firstAttribute="leading" secondItem="w46-0S-seq" secondAttribute="trailing" constant="13" id="CEo-hG-L9O"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="w46-0S-seq" secondAttribute="bottom" constant="8.5" id="EaJ-PF-rEH"/>
+                    <constraint firstItem="M50-tZ-div" firstAttribute="top" secondItem="hRi-z6-DKs" secondAttribute="bottom" constant="1" id="ORZ-8S-np1"/>
                     <constraint firstItem="w46-0S-seq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Oxu-JX-EdJ"/>
-                    <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="8.5" id="Oy3-w3-69q"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="8" id="Oy3-w3-69q"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="10" id="Q0p-ep-5wK"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JF6-ha-qAv" secondAttribute="trailing" constant="10" id="SHu-WF-UE1"/>
                     <constraint firstAttribute="bottom" secondItem="JF6-ha-qAv" secondAttribute="bottom" constant="13.5" id="Wj4-hZ-inu"/>
@@ -81,6 +85,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="e3w-AI-Alv"/>
                         <exclude reference="9bM-Bo-yNl"/>
                         <exclude reference="Q0p-ep-5wK"/>
                         <exclude reference="SHu-WF-UE1"/>
