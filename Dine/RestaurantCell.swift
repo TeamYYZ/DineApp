@@ -9,15 +9,10 @@
 import UIKit
 
 class RestaurantCell: UITableViewCell {
-    @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var genreLabel: UILabel!
     @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var ratingView: UIImageView!
-
-    let checked = UIImage(named: "Checked")
-    let cancel = UIImage(named: "CheckedFilled")
-    var isChecked = false
 
     var business: Business! {
         didSet {
@@ -35,7 +30,6 @@ class RestaurantCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        checkButton.addTarget(self, action: #selector(RestaurantCell.buttonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -43,20 +37,5 @@ class RestaurantCell: UITableViewCell {
         selectionStyle = .None
         // Configure the view for the selected state
     }
-    
-    func buttonClicked (sender : UIButton!) {
-        isChecked = !isChecked
-        if (isChecked) {
-            checkButton.setImage(cancel, forState: .Normal)
-            checkButton.setImage(cancel, forState: .Highlighted)
-            
-        }else {
-            checkButton.setImage(checked, forState: .Normal)
-            checkButton.setImage(checked, forState: .Highlighted)
-
-        }
-        
-    }
-
 
 }

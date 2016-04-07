@@ -10,11 +10,13 @@ import UIKit
 
 class RestaurantProfileCell: UITableViewCell {
 
-    @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingView: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var openhourLabel: UILabel!
+    
+    let checked = UIImage(named: "Checked")
+    let cancel = UIImage(named: "CheckedFilled")
     
     var business: Business! {
         didSet {
@@ -34,6 +36,7 @@ class RestaurantProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -41,5 +44,4 @@ class RestaurantProfileCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
