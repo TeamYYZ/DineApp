@@ -125,6 +125,8 @@ class Activity: NSObject {
     
     }
     
+    
+    
     init (PFActivity: PFObject) {
         self.title = PFActivity["title"] as? String
         self.activityId = PFActivity.objectId
@@ -144,6 +146,29 @@ class Activity: NSObject {
 
         }
         self.groupChatId = PFActivity["groupChatId"] as? String
+    }
+    
+    
+    func fetchGroupMember (successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
+        if let groupMemberId = self.groupMemberId {
+            let groupMemberQuery = PFQuery(className: groupMemberId)
+            groupMemberQuery.findObjectsInBackgroundWithBlock { (groupMembersList: [PFObject]?, error: NSError?) in
+                if error == nil && groupMembersList != nil {
+                    var ret = [GroupMember]()
+                    for groupMember in groupMembersList! {
+                        ret.append(GroupMember(pfObject: groupMember))
+                    }
+                    successHandler(ret)
+                } else {
+                    failureHandler?(error)
+                }
+                
+                
+            }
+        } else {
+            failureHandler?(NSError(domain: "Local End Error", code: 1, userInfo: nil))
+        }
+
     }
     
     class func activitiesWithArray(array: [PFObject]) -> [Activity] {

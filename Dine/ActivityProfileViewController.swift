@@ -33,9 +33,9 @@ class ActivityProfileViewController: UITableViewController {
     }
 
     func fetchGroupMembers() {
-        if let uniqueId = activity?.uniqueId {
+        if let activity = activity {
             print("Try fetchGroupMembers")
-            GroupMember.fetchGroupMember(uniqueId, successHandler: { (groupMembers: [GroupMember]) in
+            activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
                 self.tableView.reloadData()
                 print("fetchGroupMembers success \(self.groupMembers.count)")
@@ -43,7 +43,6 @@ class ActivityProfileViewController: UITableViewController {
                 print(error?.localizedDescription)
             })
         }
-
     
     }
     
