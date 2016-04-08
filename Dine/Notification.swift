@@ -125,6 +125,7 @@ class UserNotification {
                         groupMember!["joined"] = true
                         groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                             if success {
+                                self.delete()
                                 print("accept SUCCESS")
                             }
                         })

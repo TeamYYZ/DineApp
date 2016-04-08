@@ -15,7 +15,7 @@ class ContainerViewController: SlideMenuController {
         if let vc = UIApplication.topViewController() {
             if vc is MapViewController ||
                 vc is FriendsViewController ||
-                vc is NotificationViewController
+                vc is NotificationViewController || vc is ProfileSettingsViewController
             {
                 return true
             }

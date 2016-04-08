@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="c19-J4-Paj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="c19-J4-Paj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -41,7 +41,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPS-oV-yKP" customClass="CheckButton" customModule="Dine" customModuleProvider="target">
-                                            <rect key="frame" x="225" y="32" width="30" height="30"/>
+                                            <rect key="frame" x="225" y="36" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="Cx9-xM-f1P"/>
                                                 <constraint firstAttribute="height" constant="30" id="edi-Fk-Q3V"/>
@@ -51,7 +51,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAX-Pt-hTm">
-                                            <rect key="frame" x="273" y="32" width="30" height="30"/>
+                                            <rect key="frame" x="273" y="36" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="N83-hp-eKc"/>
                                                 <constraint firstAttribute="width" constant="30" id="zpk-FB-jFD"/>
@@ -66,6 +66,7 @@
                                         <constraint firstItem="BGg-Uk-fvV" firstAttribute="top" secondItem="imx-XN-cVI" secondAttribute="bottom" constant="2" id="60t-7Y-xJE"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IMq-jp-H9K" secondAttribute="bottom" constant="12" id="8bP-62-QHg"/>
                                         <constraint firstItem="IMq-jp-H9K" firstAttribute="leading" secondItem="BGg-Uk-fvV" secondAttribute="leading" id="FIE-KK-Chl"/>
+                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="top" secondItem="BGg-Uk-fvV" secondAttribute="top" id="QYv-vU-2Qz"/>
                                         <constraint firstItem="imx-XN-cVI" firstAttribute="leading" secondItem="XZ2-WZ-kYm" secondAttribute="leading" constant="18" id="RPu-gf-P8N"/>
                                         <constraint firstItem="BGg-Uk-fvV" firstAttribute="leading" secondItem="imx-XN-cVI" secondAttribute="leading" id="VpS-2h-ds9"/>
                                         <constraint firstItem="imx-XN-cVI" firstAttribute="top" secondItem="XZ2-WZ-kYm" secondAttribute="top" constant="13" id="X8a-hh-Z8b"/>
@@ -73,7 +74,6 @@
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="leading" secondItem="qPS-oV-yKP" secondAttribute="trailing" constant="18" id="jny-qx-o0b"/>
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="qPS-oV-yKP" secondAttribute="centerY" id="r5p-vk-7XW"/>
                                         <constraint firstAttribute="trailing" secondItem="tAX-Pt-hTm" secondAttribute="trailing" constant="17" id="s32-td-u8t"/>
-                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="BGg-Uk-fvV" secondAttribute="centerY" id="sxv-NV-c3U"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

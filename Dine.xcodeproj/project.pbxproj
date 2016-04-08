@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B26AAC01CB5B619007A7F43 /* ProfileSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B26AABF1CB5B619007A7F43 /* ProfileSettings.storyboard */; };
+		3B26AAC21CB5B652007A7F43 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26AAC11CB5B652007A7F43 /* ProfileSettingsViewController.swift */; };
+		3B26AAC61CB5E463007A7F43 /* profileEditingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26AAC51CB5E463007A7F43 /* profileEditingController.swift */; };
+		3B26AACA1CB5F8F0007A7F43 /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26AAC91CB5F8F0007A7F43 /* DescriptionEditViewController.swift */; };
 		3B87EC291CA77D8D0045AF18 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */; };
 		3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */; };
 		3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5970C1CAC7F1F00D0E6C7 /* MemberMessageCell.swift */; };
@@ -84,6 +88,10 @@
 
 /* Begin PBXFileReference section */
 		1339928E4EE71C5793830748 /* Pods-Dine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dine/Pods-Dine.debug.xcconfig"; sourceTree = "<group>"; };
+		3B26AABF1CB5B619007A7F43 /* ProfileSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProfileSettings.storyboard; sourceTree = "<group>"; };
+		3B26AAC11CB5B652007A7F43 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
+		3B26AAC51CB5E463007A7F43 /* profileEditingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileEditingController.swift; sourceTree = "<group>"; };
+		3B26AAC91CB5F8F0007A7F43 /* DescriptionEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionEditViewController.swift; sourceTree = "<group>"; };
 		3B5BB70C1CA3881F003D2EB3 /* Dine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dine-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		3BA5970A1CAC7E2500D0E6C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatView.storyboard; sourceTree = "<group>"; };
@@ -176,6 +184,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B26AAA91CB57DA2007A7F43 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3B26AAC11CB5B652007A7F43 /* ProfileSettingsViewController.swift */,
+				3B26AAC51CB5E463007A7F43 /* profileEditingController.swift */,
+				3B26AAC91CB5F8F0007A7F43 /* DescriptionEditViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		9A2698932E8848FD28CBC6FC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +327,7 @@
 				C6EE09251C9070F700345357 /* Views */,
 				C6EE09241C9070ED00345357 /* View Controllers */,
 				C1AF837B1CA3C49100E634E3 /* Sidebar.storyboard */,
+				3B26AABF1CB5B619007A7F43 /* ProfileSettings.storyboard */,
 				C62937EF1CAF230700E46009 /* Main.storyboard */,
 				C62937EC1CAF20BD00E46009 /* GroupChatView.storyboard */,
 				C1AF83711CA3C2D100E634E3 /* FriendList.storyboard */,
@@ -328,6 +347,7 @@
 		C6EE09241C9070ED00345357 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3B26AAA91CB57DA2007A7F43 /* Settings */,
 				C62937E61CAF13DD00E46009 /* Menu */,
 				C63113611CA4B66B00C66952 /* ActivityCreator */,
 				C1D04F621C9E3161003EB3C9 /* LoginSignUp */,
@@ -462,6 +482,7 @@
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,
 				C1AF836D1CA3C17400E634E3 /* ActvitityCreater.storyboard in Resources */,
 				C1AF837A1CA3C48400E634E3 /* UserProfile.storyboard in Resources */,
+				3B26AAC01CB5B619007A7F43 /* ProfileSettings.storyboard in Resources */,
 				C1AF837C1CA3C49100E634E3 /* Sidebar.storyboard in Resources */,
 				C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */,
 			);
@@ -529,6 +550,8 @@
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
 				C127F5701CA3885700D40088 /* Message.swift in Sources */,
+				3B26AACA1CB5F8F0007A7F43 /* DescriptionEditViewController.swift in Sources */,
+				3B26AAC21CB5B652007A7F43 /* ProfileSettingsViewController.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
 				C62937E91CAF183900E46009 /* UIViewController.swift in Sources */,
@@ -571,6 +594,7 @@
 				C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */,
 				C63113601CA4A59700C66952 /* MapCell.swift in Sources */,
 				C1A474C41CA72A3800141692 /* NotificationViewController.swift in Sources */,
+				3B26AAC61CB5E463007A7F43 /* profileEditingController.swift in Sources */,
 				C1A474C61CA72B0400141692 /* Notification.swift in Sources */,
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
