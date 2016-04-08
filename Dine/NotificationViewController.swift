@@ -11,7 +11,7 @@ import UIKit
 class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    let refreshControl = UIRefreshControl()
     var notifications = [UserNotification]()
     
     
@@ -69,6 +69,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
                 if let notifications = fetchedNotifications {
                     self.notifications = notifications
                     self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
             })
         }
@@ -82,12 +83,18 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         tableView.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 62
+        refreshControl.addTarget(self, action: #selector(NotificationViewController.refreshControlAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
         fetchNotifications()
 
         
         // Do any additional setup after loading the view.
     }
 
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        fetchNotifications()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
