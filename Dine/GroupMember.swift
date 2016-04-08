@@ -48,28 +48,29 @@ class GroupMember {
     
     }
     
-    class func fetchGroupMember(activityId: String, successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
-        let activityQuery = PFQuery(className: "Activity")
-        activityQuery.getObjectInBackgroundWithId(activityId, block: { (activity: PFObject?, error: NSError?) -> Void in
-            if error == nil && activity != nil{
-                print("fetchGroupMember in GroupMember success")
-                if let groupMembers = activity!["groupMembers"] as? [NSDictionary]{
-                    var ret = [GroupMember]()
-                    for member in groupMembers {
-                        ret.append(GroupMember(dict: member))
-                    
-                    }
-                    successHandler(ret)
-                    return
+    init(pfObject: PFObject) {
+        self.userId = pfObject["userId"] as! String
+        self.screenName = pfObject["screenName"] as? String
+        self.avatar = pfObject["avatar"] as? PFFile
+        self.joined = pfObject["joined"] as! Bool
+        self.owner = pfObject["owner"] as? Bool
+    }
+    
+    class func fetchGroupMember(uniqueId: String, successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
+        let groupMemberQuery = PFQuery(className: "GroupMember_" + uniqueId)
+        groupMemberQuery.findObjectsInBackgroundWithBlock { (groupMembersList: [PFObject]?, error: NSError?) in
+            if error == nil && groupMembersList != nil {
+                var ret = [GroupMember]()
+                for groupMember in groupMembersList! {
+                    ret.append(GroupMember(pfObject: groupMember))
                 }
-                
+                successHandler(ret)
+            } else {
+                failureHandler?(error)
             }
-            print("fetchGroupMember in GroupMember failure")
-
-            failureHandler?(error)
-        })
-    
-    
+            
+            
+        }
     }
     
 }

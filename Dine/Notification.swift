@@ -88,6 +88,20 @@ class UserNotification {
         
     }
     
+    class func broadcastInBackend(notificationList: [NSDictionary], successHandler: ()->(), failureHandler: (NSError?)->()) {
+        PFCloud.callFunctionInBackground("broadcastNotifications", withParameters: ["notificationList": notificationList]) {
+            (response: AnyObject?, error: NSError?) -> Void in
+            if error == nil {
+                print("Notification sent")
+                successHandler()
+            } else {
+                print(error!)
+            }
+            
+        }
+
+    }
+    
     func acceptRequest() {
         switch self.type {
         case .FriendRequest:
@@ -102,6 +116,25 @@ class UserNotification {
                     print(error!.localizedDescription)
                 }
             }
+        case .Invitation:
+            if let activityId = associatedId {
+                let query = PFQuery(className: "GroupMember_" + activityId)
+                query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+                query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
+                    if error == nil && groupMember != nil{
+                        groupMember!["joined"] = true
+                        groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                            if success {
+                                print("accept SUCCESS")
+                            }
+                        })
+                        
+                    }
+                    
+                })
+            
+            }
+
         default:
             print("Undefined notification type")
         

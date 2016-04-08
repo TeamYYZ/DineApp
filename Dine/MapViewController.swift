@@ -246,7 +246,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             // show Progress to prevent accessing null activityId
             activity?.saveToBackend({ (activityId: String) -> () in
                 print("saved successfully")
-                activity?.activityId = activityId
                 //update direction info
                 if let destination = activity?.location {
                     if let myLocation  = self.mapView.myLocation {
@@ -258,27 +257,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 
                 
                 if let invitedUserList = activity?.group?.getUserIdList() {
+                    var notificationList = [NSDictionary]()
                     for invitedUser in invitedUserList {
+                        print("invitedUser \(invitedUser)")
                         print(User.currentUser!.screenName!)
                         let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
-                        
-                        
-                        notification.saveToBackend({ () -> () in
-                            print("success")
-                            }, failureHandler: { (error: NSError?) -> () in
-                                print("failure")
-                        })
-                        
-                        
-                        
+                        print("Dict print")
+                        print(notification.getDict())
+                        notificationList.append(notification.getDict())
                     }
+                    
+                    UserNotification.broadcastInBackend(notificationList, successHandler: {
+                        print("notificationSuccess")
+                        }, failureHandler: { (error: NSError?) in
+                            print(error?.localizedDescription)
+                    })
                 }
                 
                 Activity.current_activity = activity
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
-                }, failureHandler: { () -> () in
+                
+                }, failureHandler: { (error: NSError?) -> () in
                     print("something wrong...")
+                    print(error?.localizedDescription)
             })
             
         }

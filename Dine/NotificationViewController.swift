@@ -47,6 +47,8 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let notification = notifications[indexPath.row]
         notification.delete()
+        print(PFUser.currentUser()?.objectId!)
+        print(notification.receiverId)
         notifications.removeAtIndex(indexPath.row)
         
         tableView.reloadData()

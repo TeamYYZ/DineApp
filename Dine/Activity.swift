@@ -11,7 +11,14 @@ import Parse
 
 class Activity: NSObject {
     
-    var activityId: String?
+    var activityId: String? {
+        didSet {
+            groupChatId = "ActivityChat_" + activityId!
+            groupMemberId = "GroupMember_" + activityId!
+            print("Gonna show groupMemberId")
+            print(groupMemberId)
+        }
+    }
     var title: String?
     var isPrivate: Bool?
     var owner: PFUser!
@@ -22,15 +29,17 @@ class Activity: NSObject {
     var group: Group?
     var location: CLLocationCoordinate2D!
     var restaurant: String?
+    var uniqueId: String?
     var groupChatId : String?
+    var groupMemberId: String?
     
     static var current_activity: Activity?
     //The activity that the current_user has joined
     
     override init() {
         super.init()
-        self.owner = PFUser.currentUser()
-        self.groupChatId = "ActivityChat_" + uniqueId()
+        uniqueId = Activity.getUniqueId()
+        owner = PFUser.currentUser()
     }
     
     func setupRestaurant(yelpBusiness: Business) {
@@ -60,7 +69,8 @@ class Activity: NSObject {
 
     }
     
-    func saveToBackend(successHandler: (String)->(), failureHandler: ()->()) {
+    func saveToBackend(successHandler: (String)->(), failureHandler: ((NSError?)->())?) {
+        print("saveToBackend called")
         let PFActivity = PFObject(className: "Activity")
         
         PFActivity["title"] = title!
@@ -68,17 +78,47 @@ class Activity: NSObject {
         PFActivity["requestTime"] = requestTime!
         PFActivity["yelpBusinessId"] = yelpBusinessId!
         PFActivity["overview"] = overview!
-        PFActivity["groupMembers"] = group!.getUserListDictArray()
         PFActivity["location"] = [location.latitude, location.longitude]
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
-        PFActivity["groupChatId"] = groupChatId
 
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
-                successHandler(PFActivity.objectId!)
+                print("Step 1 success")
+                self.activityId = PFActivity.objectId
+                var PFGroupMemberArray = [PFObject]()
+                if let groupMemberList = self.group?.getUserList() {
+                    print("list exists")
+                    for groupMember in groupMemberList {
+                        let PFGroupMember = PFObject(className: self.groupMemberId!)
+                        PFGroupMember["userId"] = groupMember.userId
+                        PFGroupMember["screenName"] = groupMember.screenName
+                        if let avatar = groupMember.avatar {
+                            PFGroupMember["avatar"] = avatar
+                        }
+                        PFGroupMember["joined"] = groupMember.joined
+                        if let owner = groupMember.owner {
+                            PFGroupMember["owner"] = owner
+                        }
+                        PFGroupMemberArray.append(PFGroupMember)
+                    }
+                    print("Generate Member Array")
+                    print(PFGroupMemberArray.count)
+                    
+                    PFObject.saveAllInBackground(PFGroupMemberArray, block: { (success: Bool, error: NSError?) in
+                        if success {
+                            print("Saving objects in GM Doc successfully!")
+                            successHandler(PFActivity.objectId!)
+                        } else {
+                            failureHandler?(error)
+                        }
+                    })
+
+                }
+                
+                
             } else {
-                failureHandler()
+                failureHandler?(error)
             }
         }
     
@@ -115,7 +155,7 @@ class Activity: NSObject {
         return activites
     }
     
-    func uniqueId() -> String {
+    class func getUniqueId() -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let charactersArray = Array(charactersString.characters)
         
