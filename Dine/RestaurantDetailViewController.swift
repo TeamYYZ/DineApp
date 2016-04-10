@@ -83,6 +83,7 @@ class RestaurantDetailViewController: UITableViewController {
         }
         else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath) as! MapCell
+            cell.bounds = CGRectMake(0, 0, self.tableView.frame.width, cell.bounds.height)
             cell.business = business
             // Configure the cell...
             

@@ -7,21 +7,21 @@
 //
 
 import UIKit
-import MapKit
+import GoogleMaps
 
-class MapCell: UITableViewCell,CLLocationManagerDelegate, MKMapViewDelegate {
-    var locationManager : CLLocationManager!
-    @IBOutlet weak var mapView: MKMapView!
+class MapCell: UITableViewCell,CLLocationManagerDelegate, GMSMapViewDelegate {
     var annotationTitle:String!
-    
+
+    @IBOutlet weak var view: UIView!
+    var mapView: GMSMapView!
+
     var business: Business! {
         didSet{
             if business.address != nil {
                 self.annotationTitle = business.address
             }
             if business.coordinate != nil {
-                goToLocation(business.coordinate!)
-                addAnnotationAtCoordinate(business.coordinate!)
+                setupMap(business.coordinate!)
             }
         }
     }
@@ -30,31 +30,24 @@ class MapCell: UITableViewCell,CLLocationManagerDelegate, MKMapViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        mapView.delegate = self
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
-        locationManager.requestWhenInUseAuthorization()
     }
 
+    func setupMap(coords: CLLocationCoordinate2D) {
+        mapView = GMSMapView.mapWithFrame(self.view.bounds, camera: GMSCameraPosition.cameraWithTarget(coords, zoom: 14.0))
+        mapView.myLocationEnabled = true
+        
+        mapView.delegate = self
+        view.addSubview(mapView)
+        
+        let marker = GMSMarker()
+        marker.position = coords
+        marker.map = mapView
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
-
-    func goToLocation(location: CLLocationCoordinate2D) {
-        let span = MKCoordinateSpanMake(0.01, 0.01)
-        let region = MKCoordinateRegionMake(location, span)
-        mapView.setRegion(region, animated: false)
-    }
     
-    
-    func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        annotation.title = annotationTitle
-        mapView.addAnnotation(annotation)
-    }
 }

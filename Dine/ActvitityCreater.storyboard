@@ -184,22 +184,23 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="141.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zG7-9E-d5f">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2s-cn-4SK">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="141.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="141.5" id="cAG-nz-eT6"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="141.5" id="CTP-Lj-Okh"/>
                                             </constraints>
-                                        </mapView>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="zG7-9E-d5f" secondAttribute="bottom" id="42r-1g-LP1"/>
-                                        <constraint firstAttribute="trailing" secondItem="zG7-9E-d5f" secondAttribute="trailing" id="JRi-24-r0q"/>
-                                        <constraint firstItem="zG7-9E-d5f" firstAttribute="top" secondItem="ceA-Ov-2G3" secondAttribute="top" id="SRL-qt-l6w"/>
-                                        <constraint firstItem="zG7-9E-d5f" firstAttribute="leading" secondItem="ceA-Ov-2G3" secondAttribute="leading" id="mio-UW-rMk"/>
+                                        <constraint firstAttribute="trailing" secondItem="K2s-cn-4SK" secondAttribute="trailing" id="DFC-zP-2xb"/>
+                                        <constraint firstItem="K2s-cn-4SK" firstAttribute="top" secondItem="ceA-Ov-2G3" secondAttribute="top" id="FsV-pD-g8w"/>
+                                        <constraint firstItem="K2s-cn-4SK" firstAttribute="leading" secondItem="ceA-Ov-2G3" secondAttribute="leading" id="Vi4-oI-nQN"/>
+                                        <constraint firstAttribute="bottom" secondItem="K2s-cn-4SK" secondAttribute="bottom" id="c9C-sw-JMB"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="mapView" destination="zG7-9E-d5f" id="BcZ-Z4-M9a"/>
+                                    <outlet property="view" destination="K2s-cn-4SK" id="GVj-Xy-s7V"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="84" id="QYI-Vm-rad" customClass="RestaurantReviewCell" customModule="Dine" customModuleProvider="target">
