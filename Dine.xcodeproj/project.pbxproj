@@ -26,6 +26,7 @@
 		C127F5701CA3885700D40088 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F56F1CA3885700D40088 /* Message.swift */; };
 		C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F5711CA394AD00D40088 /* GroupMember.swift */; };
 		C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */; };
+		C15C358E1CBC13C300260BCB /* CurrentActivityBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15C358D1CBC13C300260BCB /* CurrentActivityBottomBar.swift */; };
 		C16DFF031CB4B84E001E1962 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16DFF021CB4B84E001E1962 /* Utils.swift */; };
 		C17424861C9789D400125377 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17424851C9789D400125377 /* ColorTheme.swift */; };
 		C17AABDD1C97E6B900CC83CF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDC1C97E6B900CC83CF /* User.swift */; };
@@ -108,6 +109,7 @@
 		C127F56F1CA3885700D40088 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C127F5711CA394AD00D40088 /* GroupMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
 		C12EB7DA1CA878AC004B80DF /* YYZAcceptButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZAcceptButton.swift; sourceTree = "<group>"; };
+		C15C358D1CBC13C300260BCB /* CurrentActivityBottomBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentActivityBottomBar.swift; sourceTree = "<group>"; };
 		C16DFF021CB4B84E001E1962 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C17424851C9789D400125377 /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		C17AABDC1C97E6B900CC83CF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				3BA5970D1CAC7F1F00D0E6C7 /* MemberMessageCell.xib */,
 				3BA597101CAC835F00D0E6C7 /* SelfMessageCell.swift */,
 				3BA597111CAC835F00D0E6C7 /* SelfMessageCell.xib */,
+				C15C358D1CBC13C300260BCB /* CurrentActivityBottomBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,
 				C62937E91CAF183900E46009 /* UIViewController.swift in Sources */,
 				3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */,
+				C15C358E1CBC13C300260BCB /* CurrentActivityBottomBar.swift in Sources */,
 				C6EE093E1C97207A00345357 /* SidebarMenuViewController.swift in Sources */,
 				C631135A1CA48F2A00C66952 /* RestaurantProfileCell.swift in Sources */,
 				C63113561CA4579200C66952 /* Business.swift in Sources */,

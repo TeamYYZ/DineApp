@@ -102,7 +102,7 @@ class UserNotification {
 
     }
     
-    func acceptRequest() {
+    func acceptRequest(successHandler: ((type: NotificationType)->())?, failureHandler: ((NSError?)->())?) {
         switch self.type {
         case .FriendRequest:
             PFCloud.callFunctionInBackground("acceptFriendRequest", withParameters: ["fromUser": self.senderId, "notification": self.getDict()]) {
@@ -127,6 +127,24 @@ class UserNotification {
                             if success {
                                 self.delete()
                                 print("accept SUCCESS")
+                                if let userQuery = PFUser.currentUser() {
+                                    userQuery["currentActivity"] = activityId
+                                    userQuery.saveInBackground()
+                                    let activityQuery = PFQuery(className: "Activity")
+                                    activityQuery.getObjectInBackgroundWithId(activityId, block: { (pfObject: PFObject?, error: NSError?) in
+                                        if pfObject != nil && error == nil {
+                                            let activity = Activity(PFActivity: pfObject!)
+                                            Activity.current_activity = activity
+                                            successHandler?(type: .Invitation)
+                                        } else {
+                                            failureHandler?(error)
+                                        }
+
+                                        
+                                    })
+                                
+                                
+                                }
                             }
                         })
                         

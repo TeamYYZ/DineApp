@@ -18,11 +18,21 @@ extension UIView {
         self.layer.addSublayer(BottomBorder)
     }
     
+    func setTopBorder(color color: UIColor) {
+        let TopBorder = CALayer()
+        TopBorder.frame = CGRectMake(0.0, 0.0, self.frame.size.width, 1.5)
+        TopBorder.backgroundColor = color.CGColor
+        TopBorder.opacity = 0.3
+        
+        self.layer.addSublayer(TopBorder)
+    }
+    
     func applyPlainShadow() {
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOffset = CGSize(width: 1.3, height: 1.3)
         layer.shadowOpacity = 0.4
         layer.shadowRadius = 1
+        
     }
     
     func applySharpShadow(color: UIColor) {

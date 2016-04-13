@@ -29,6 +29,7 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
 
             }
         }
+        
         if location == nil {
             location = CLLocationCoordinate2D(latitude: 30.601433, longitude: -96.314464)
         }
@@ -42,7 +43,6 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
         //feed in tableview yelp data
         // Example of Yelp search with more search options specified
         updateSearch()
-
         
     }
     

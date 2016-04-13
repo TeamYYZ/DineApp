@@ -57,7 +57,14 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     func acceptRequest(sender: AnyObject){
         let index = sender.tag
         let notification = notifications[index]
-        notification.acceptRequest()
+        notification.acceptRequest({ (type: NotificationType) in
+            if type == .Invitation {
+                print("join activity successfully")
+                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+            }
+        }) { (error: NSError?) in
+            print(error?.localizedDescription)
+        }
         notifications.removeAtIndex(index)
         tableView.reloadData()
     }

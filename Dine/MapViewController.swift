@@ -14,6 +14,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet weak var arrivalTimeLabel: UILabel!
     @IBOutlet weak var exitActivityButton: UIButton!
     
+    @IBOutlet weak var currentActivityPanelView: CurrentActivityBottomBar!
+    
+    @IBOutlet weak var ActivityPanelViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
     @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var directionsView: UIView!
     
@@ -32,15 +37,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userJoinedActivity), name: "userJoinedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity as (MapViewController) -> () -> ()), name: "userExitedNotification", object: nil)
         
-        toolBar.hidden = true
-        arrivalTimeLabel.hidden = true
-        directionsView.hidden = true
-        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
-        exitActivityButton.addTarget(self, action: #selector(MapViewController.userExitedActivity(_:)), forControlEvents: .TouchUpInside)
-        
+        self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
+        self.view.layoutIfNeeded()
+
         setupGoogleMap()
         updateMapMarkers()
     }
@@ -75,7 +76,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.settings.compassButton = true
         mapView.settings.myLocationButton = true
         mapView.myLocationEnabled = true
-        
+        mapView.padding = UIEdgeInsetsMake(0, 0, 48, 0);
+
         mapView.delegate = self
         self.view.insertSubview(mapView, belowSubview: directionsView)
     }
@@ -184,12 +186,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     
     func userJoinedActivity() {
-        //update map, only show selected point and direction
-        
-        //always show pin view
         print("user joined activity")
-        toolBar.hidden = false
-        arrivalTimeLabel.hidden = false
+        UIView.animateWithDuration(0.3) {
+            self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant
+            self.view.layoutIfNeeded()
+        }
         directionsView.hidden = false
         //updateMap()
         
@@ -198,11 +199,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func userExitedActivity() {
         //update map, show all requests in the area
-        
-        toolBar.hidden = true
-        arrivalTimeLabel.hidden = true
-        directionsView.hidden = true
-
         updateMapMarkers()
         //remove polyline
         mapView.clear()
@@ -242,8 +238,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         if let vc = sender.sourceViewController as? FriendsViewController {
             let activity = vc.activityInProgress
-            //save to Parse
-            // show Progress to prevent accessing null activityId
+
             activity?.saveToBackend({ (activityId: String) -> () in
                 print("saved successfully")
                 //update direction info
@@ -254,7 +249,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         }
                     }
                 }
-                
                 
                 if let invitedUserList = activity?.group?.getUserIdList() {
                     var notificationList = [NSDictionary]()
@@ -287,39 +281,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
-            if let act = Activity.current_activity {
-                print("current_activity TRUE")
-                activityProfileViewController.activity = act
-            }else {
-                let act = sender as! Activity
-                activityProfileViewController.activity = act
+        if segue.identifier == "toActivityProfileSegue" {
+            
+            if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
+                if let act = Activity.current_activity {
+                    print("current_activity TRUE")
+                    activityProfileViewController.activity = act
+                }else {
+                    let act = sender as! Activity
+                    activityProfileViewController.activity = act
+                }
             }
+            
+            if let navVC = segue.destinationViewController as? UINavigationController {
+                if let _ = navVC.topViewController as? ActivityCreatorViewController {
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(locationManager.location?.coordinate.latitude, forKey: "user_current_location_lat")
+                    defaults.setObject(locationManager.location?.coordinate.longitude, forKey: "user_current_location_lon")
+                    
+                    defaults.synchronize()
+                    
+                }
+            }
+        
         }
         
-        if let navVC = segue.destinationViewController as? UINavigationController {
-            if let _ = navVC.topViewController as? ActivityCreatorViewController {
-                let defaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(locationManager.location?.coordinate.latitude, forKey: "user_current_location_lat")
-                defaults.setObject(locationManager.location?.coordinate.longitude, forKey: "user_current_location_lon")
-                
-                defaults.synchronize()
-                
-            }
-        }
         
     }
     

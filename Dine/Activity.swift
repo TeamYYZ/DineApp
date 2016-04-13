@@ -130,13 +130,15 @@ class Activity: NSObject {
     init (PFActivity: PFObject) {
         self.title = PFActivity["title"] as? String
         self.activityId = PFActivity.objectId
+        if let activityId = self.activityId {
+            groupChatId = "ActivityChat_" + activityId
+            groupMemberId = "GroupMember_" + activityId
+        }
+        print(activityId)
         self.owner = PFActivity["owner"] as? PFUser
         self.requestTime = PFActivity["requestTime"] as? NSDate
         self.yelpBusinessId = PFActivity["yelpBusinessId"] as? String
         self.overview = PFActivity["overview"] as? String
-        if let groupDictArray = PFActivity["groupMembers"] as? [NSMutableDictionary] {
-            self.group = Group(membersDictArray: groupDictArray)
-        }
         if let loc = PFActivity["location"] as? [CLLocationDegrees] {
             self.location = CLLocationCoordinate2D(latitude: loc[0], longitude: loc[1])
         }
@@ -145,7 +147,7 @@ class Activity: NSObject {
             self.profileURL = NSURL(string: profileString)
 
         }
-        self.groupChatId = PFActivity["groupChatId"] as? String
+        
     }
     
     
@@ -158,6 +160,7 @@ class Activity: NSObject {
                     for groupMember in groupMembersList! {
                         ret.append(GroupMember(pfObject: groupMember))
                     }
+                    self.group = Group(userList: ret)
                     successHandler(ret)
                 } else {
                     failureHandler?(error)
@@ -166,7 +169,8 @@ class Activity: NSObject {
                 
             }
         } else {
-            failureHandler?(NSError(domain: "Local End Error", code: 1, userInfo: nil))
+            failureHandler?(NSError(domain: "groupMemberId not set", code: 1, userInfo: nil))
+            print(self.groupMemberId)
         }
 
     }
