@@ -9,6 +9,7 @@
 import UIKit
 
 class FriendsViewController: UITableViewController {
+    
     weak var activityInProgress: Activity?
 
     var inviteNotAdd = Bool()
@@ -53,7 +54,9 @@ class FriendsViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
+        if activityInProgress == nil {
+            self.setNavigationBarItem()
+        }
     }
     
     func fetchFriendList() {
