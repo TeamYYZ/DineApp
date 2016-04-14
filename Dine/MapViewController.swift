@@ -10,24 +10,22 @@ import UIKit
 import GoogleMaps
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
-    @IBOutlet weak var toolBar: UIToolbar!
-    @IBOutlet weak var arrivalTimeLabel: UILabel!
-    @IBOutlet weak var exitActivityButton: UIButton!
+    @IBOutlet weak var navigationBtn: UIButton!
+    @IBOutlet weak var pathBtn: UIButton!
     
     @IBOutlet weak var currentActivityPanelView: CurrentActivityBottomBar!
     
     @IBOutlet weak var ActivityPanelViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
-    @IBOutlet weak var directionsLabel: UILabel!
-    @IBOutlet weak var directionsView: UIView!
+    
     
     var locationManager = CLLocationManager()
     var activities = [Activity]()
     var steps : [Route.Step]!
     var currentStep = 0
-    var cameraMoveWithUser = true
-    var inNavigation = false
+    var searchUserLocation = true
+    var showPath = false
     
     var mapView: GMSMapView!
     
@@ -42,7 +40,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
         self.view.layoutIfNeeded()
 
-        directionsView.hidden = true
+        self.pathBtn.transform.tx = 100
+        self.navigationBtn.transform.tx = 150
         
         setupGoogleMap()
         updateMapMarkers()
@@ -81,10 +80,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.padding = UIEdgeInsetsMake(0, 0, 48, 0);
 
         mapView.delegate = self
-        self.view.insertSubview(mapView, belowSubview: directionsView)
+        self.view.insertSubview(mapView, atIndex: 0)
+        
     }
     
     func updateMapMarkers() {
+        //pass in current map center point
+        //only get activites within certain range
+        
         ParseAPI.getActivites { (acts, error) in
             self.activities = acts
             for act in self.activities {
@@ -125,6 +128,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
+    @IBAction func onRedoSearch(sender: AnyObject) {
+        //update activities
+        updateMapMarkers()
+    }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 
@@ -138,14 +145,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 
     }
     
-    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
-        cameraMoveWithUser = false
-        return false
-    }
-    
-    func mapView(mapView: GMSMapView, didTapAtCoordinate coordinate: CLLocationCoordinate2D) {
-        cameraMoveWithUser = true
-    }
+
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
         let view = marker.userData as! MapDetailView
         let act = view.annotation.activity
@@ -156,25 +156,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     //control camera update
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-            if cameraMoveWithUser {
+            if searchUserLocation {
                     let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                     mapView.moveCamera(update)
-                //}
-            }else if (inNavigation){
-                //start navigation
-                
-            let dist = myLocation.distanceFromLocation(steps[currentStep].endLoc!)
-            if dist < 50 {
-                print("update direction.....")
-                currentStep += 1
-            }
-            if let instruction = steps[currentStep].instruction {
-                let attrStr = try! NSAttributedString(
-                    data: instruction.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!,
-                    options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-                    documentAttributes: nil)
-                self.directionsLabel.attributedText = attrStr
-            }
+                    searchUserLocation = false
             }
 
         }
@@ -186,8 +171,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         UIView.animateWithDuration(0.3) {
             self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant
             self.view.layoutIfNeeded()
+            self.navigationBtn.transform.tx = 0
+            self.pathBtn.transform.tx = 0
+
         }
-        directionsView.hidden = false
         //updateMap()
         
 
@@ -198,9 +185,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         updateMapMarkers()
         //remove polyline
         mapView.clear()
-        cameraMoveWithUser = true
-        inNavigation = false
-        directionsView.hidden = true
+        
+        self.pathBtn.transform.tx = 100
+        self.navigationBtn.transform.tx = 150
     }
     
     func userExitedActivity(sender: UIButton!) {
@@ -211,8 +198,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.steps = steps
         self.updateMapMarkers()
         self.drawPolyLines()
-        self.cameraMoveWithUser = false
-        self.inNavigation = true
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
@@ -317,35 +302,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 extension MapViewController : SlideMenuControllerDelegate {
     
     func leftWillOpen() {
-        print("SlideMenuControllerDelegate: leftWillOpen")
+        //print("SlideMenuControllerDelegate: leftWillOpen")
     }
     
     func leftDidOpen() {
-        print("SlideMenuControllerDelegate: leftDidOpen")
+        //print("SlideMenuControllerDelegate: leftDidOpen")
     }
     
     func leftWillClose() {
-        print("SlideMenuControllerDelegate: leftWillClose")
+        //print("SlideMenuControllerDelegate: leftWillClose")
     }
     
     func leftDidClose() {
-        print("SlideMenuControllerDelegate: leftDidClose")
+        //print("SlideMenuControllerDelegate: leftDidClose")
     }
     
     func rightWillOpen() {
-        print("SlideMenuControllerDelegate: rightWillOpen")
+        //print("SlideMenuControllerDelegate: rightWillOpen")
     }
     
     func rightDidOpen() {
-        print("SlideMenuControllerDelegate: rightDidOpen")
+        //print("SlideMenuControllerDelegate: rightDidOpen")
     }
     
     func rightWillClose() {
-        print("SlideMenuControllerDelegate: rightWillClose")
+        //print("SlideMenuControllerDelegate: rightWillClose")
     }
     
     func rightDidClose() {
-        print("SlideMenuControllerDelegate: rightDidClose")
+        //print("SlideMenuControllerDelegate: rightDidClose")
     }
 }
 
