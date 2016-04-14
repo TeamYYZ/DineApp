@@ -42,6 +42,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
         self.view.layoutIfNeeded()
 
+        directionsView.hidden = true
+        
         setupGoogleMap()
         updateMapMarkers()
     }
@@ -119,15 +121,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-    func updateMapCamera() {
-        let start = steps[currentStep].startLoc!.coordinate
-        let end = steps[currentStep].endLoc!.coordinate
-        let bounds = GMSCoordinateBounds(coordinate: start, coordinate: end)
-        let update = GMSCameraUpdate.fitBounds(bounds, withPadding: 50.0)
-        mapView.moveCamera(update)
-        
-        mapView.animateToBearing(GoogleDirectionsAPI.getBearingBetweenTwoPoints(steps[currentStep].startLoc!, point2: steps[currentStep].endLoc!) )
-    }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 
@@ -168,7 +161,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 
             let dist = myLocation.distanceFromLocation(steps[currentStep].endLoc!)
             if dist < 50 {
-                updateMapCamera()
                 print("update direction.....")
                 currentStep += 1
             }
@@ -204,8 +196,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView.clear()
         cameraMoveWithUser = true
         inNavigation = false
-        mapView.animateToViewingAngle(0)
-        //updateMap()
+        directionsView.hidden = true
     }
     
     func userExitedActivity(sender: UIButton!) {
@@ -218,8 +209,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.drawPolyLines()
         self.cameraMoveWithUser = false
         self.inNavigation = true
-        self.updateMapCamera()
-        self.mapView.animateToViewingAngle(45)
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
