@@ -20,6 +20,7 @@ class MapCell: UITableViewCell,CLLocationManagerDelegate, GMSMapViewDelegate {
             if business.address != nil {
                 self.annotationTitle = business.address
             }
+
             if business.coordinate != nil {
                 setupMap(business.coordinate!)
             }
@@ -29,15 +30,25 @@ class MapCell: UITableViewCell,CLLocationManagerDelegate, GMSMapViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("awakeFromNib")
+
         // Initialization code
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        mapView.frame.size.width = self.frame.size.width
     }
 
     func setupMap(coords: CLLocationCoordinate2D) {
-        mapView = GMSMapView.mapWithFrame(self.view.bounds, camera: GMSCameraPosition.cameraWithTarget(coords, zoom: 14.0))
+        print("setupMap")
+        mapView = GMSMapView.mapWithFrame(self.view.frame, camera: GMSCameraPosition.cameraWithTarget(coords, zoom: 14.0))
+        print(self.view.frame)
         mapView.myLocationEnabled = true
         
         mapView.delegate = self
         view.addSubview(mapView)
+
         
         let marker = GMSMarker()
         marker.position = coords

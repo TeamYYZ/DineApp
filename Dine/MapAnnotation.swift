@@ -43,7 +43,7 @@ class MapAnnotation: NSObject {
                 }
             }
         }
-        membersString.removeAtIndex(membersString.endIndex)
+//        membersString.removeAtIndex(membersString.endIndex)
         self.members = membersString
         self.profileURL = activity.profileURL
     }
