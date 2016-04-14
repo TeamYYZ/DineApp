@@ -35,6 +35,16 @@ class MapAnnotation: NSObject {
             let dateString = dateFormatter.stringFromDate(time)
             self.time = dateString
         }
+        var membersString = ""
+        if let group = activity.group {
+            for member in group.groupMembers {
+                if member.joined {
+                    membersString += member.screenName!+", "
+                }
+            }
+        }
+        membersString.removeAtIndex(membersString.endIndex)
+        self.members = membersString
         self.profileURL = activity.profileURL
     }
 }

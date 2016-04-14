@@ -88,7 +88,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         ParseAPI.getActivites { (acts, error) in
             self.activities = acts
             for act in self.activities {
+            act.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.addMapMarker(act)
+            }, failureHandler: { (error: NSError?) -> () in
+                print(error?.localizedDescription)
+        })
             }
         }
     }
@@ -99,7 +103,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.title = act.title
         marker.snippet = act.overview
         marker.map = mapView
-        
+
         //set image when adding marker
         let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
         let annotation = MapAnnotation(activity: act)
