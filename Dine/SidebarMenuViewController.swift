@@ -37,6 +37,10 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     var friendsViewController: UIViewController!
     var notificationsViewController: UIViewController!
     var profileSettingsController: UIViewController!
+    let menuTextList = ["Home", "Friends", "Notifications", "Profile"]
+    let menuImageList = ["MapMarker", "UserGroup", "Invite", "Settings"]
+    var selectedIndex = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +49,13 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         self.navigationController?.toolbarHidden = false
         self.navigationController?.navigationBarHidden = true
         
-
-        //create menu
+        tableView.backgroundColor = ColorTheme.sharedInstance.menuBackgroundColor
+        
+        
+        // MARK: reg Nib
+        tableView.registerNib(UINib(nibName: "MenuCell", bundle: nil), forCellReuseIdentifier: "MenuCell")
+        
+        // MARK: create VCs for menu
         let friendSB = UIStoryboard(name: "FriendList", bundle: nil)
         let friendVC = friendSB.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         self.friendsViewController = UINavigationController(rootViewController: friendVC)
@@ -73,8 +82,6 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     }
     
     func changeViewController(menu: LeftMenu) {
-//        print("main view controller")
-//        print(self.mainViewController)
         switch menu {
         case .Main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
@@ -88,19 +95,47 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         }
     }
     
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.item) {
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            cell?.backgroundColor = ColorTheme.sharedInstance.menuSelectedBackgroundColor
+            selectedIndex = indexPath.row
+            tableView.reloadData()
             self.changeViewController(menu)
         }
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return menuTextList.count
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("MenuCell", forIndexPath: indexPath) as! MenuCell
+        let index = indexPath.row
+        if index == selectedIndex {
+            cell.backgroundColor = ColorTheme.sharedInstance.menuSelectedBackgroundColor
+        } else {
+            cell.backgroundColor = ColorTheme.sharedInstance.menuBackgroundColor
+        }
+        cell.menuTextLabel.textColor = ColorTheme.sharedInstance.menuTextColor
+        cell.menuTextLabel.text = menuTextList[index]
+        cell.iconImageView.image = UIImage(named: menuImageList[index])
+        return cell
+    
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 0) {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
             let header = SidebarMenuHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
+            header.view.backgroundColor = ColorTheme.sharedInstance.menuBackgroundColor
             header.usernameLabel.text = User.currentUser?.screenName
+            header.usernameLabel.textColor = ColorTheme.sharedInstance.menuTextColor
             let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(SidebarMenuViewController.imageTapped(_:)))
             header.addGestureRecognizer(tapRecognizer)
+            headerView.backgroundColor = header.backgroundColor
             headerView.addSubview(header)
             
             return headerView

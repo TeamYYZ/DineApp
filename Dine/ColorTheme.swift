@@ -28,6 +28,11 @@ class ColorTheme {
     var chatMyMessageColor: UIColor
     var chatRecipientBackgroudColor: UIColor
     var chatMyBackgroudColor: UIColor
+    
+    var menuBackgroundColor: UIColor
+    var menuTextColor: UIColor
+    var menuIconTintColor: UIColor
+    var menuSelectedBackgroundColor: UIColor
 
     init() {
         navigationBarBackgroundColor = UIColor.flatMintColor()
@@ -48,6 +53,11 @@ class ColorTheme {
         
         chatRecipientMessageColor = ContrastColorOf(chatRecipientBackgroudColor, returnFlat: true)
         chatMyMessageColor = ContrastColorOf(chatMyBackgroudColor, returnFlat: true)
+        
+        menuBackgroundColor = UIColor.flatMagentaColorDark()
+        menuTextColor = ContrastColorOf(menuBackgroundColor, returnFlat: true)
+        menuIconTintColor = menuTextColor
+        menuSelectedBackgroundColor = UIColor.flatMagentaColor()
     }
 
 

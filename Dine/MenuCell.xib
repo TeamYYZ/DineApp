@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="40" id="KGk-i7-Jjw" customClass="MenuCell" customModule="Dine" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapMarker" translatesAutoresizingMaskIntoConstraints="NO" id="Ytb-pC-xcP">
+                        <rect key="frame" x="8" y="11" width="22" height="18"/>
+                        <color key="tintColor" red="0.9767052531" green="0.60546392199999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="awL-58-C2M"/>
+                            <constraint firstAttribute="width" constant="22" id="zgH-X8-RLC"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fP-1L-hrf">
+                        <rect key="frame" x="43" y="11" width="41" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2fP-1L-hrf" firstAttribute="centerY" secondItem="Ytb-pC-xcP" secondAttribute="centerY" id="4TA-Iq-7KA"/>
+                    <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="4zM-3s-irT"/>
+                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="6GX-O4-VrT"/>
+                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="SNi-yV-8Mf"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="2fP-1L-hrf" secondAttribute="trailing" constant="8" id="WMa-aq-trb"/>
+                    <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="cEN-5g-z2H"/>
+                    <constraint firstAttribute="bottom" secondItem="Ytb-pC-xcP" secondAttribute="bottom" constant="11" id="rm4-0N-rZp"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="4zM-3s-irT"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconImageView" destination="Ytb-pC-xcP" id="0Vv-Kn-Xv2"/>
+                <outlet property="menuTextLabel" destination="2fP-1L-hrf" id="66K-op-qIV"/>
+            </connections>
+            <point key="canvasLocation" x="85" y="244"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="MapMarker" width="30" height="30"/>
+    </resources>
+</document>

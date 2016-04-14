@@ -33,6 +33,8 @@
 		C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABDF1C984A7500CC83CF /* ParseAPI.swift */; };
 		C17AABE41C984EA100CC83CF /* YYZTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE31C984EA100CC83CF /* YYZTextField.swift */; };
 		C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE51C9851E200CC83CF /* YYZButton.swift */; };
+		C18320B91CBF80F30088600F /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18320B71CBF80F20088600F /* MenuCell.swift */; };
+		C18320BA1CBF80F30088600F /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C18320B81CBF80F20088600F /* MenuCell.xib */; };
 		C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1A474B91CA71C3500141692 /* Notifications.storyboard */; };
 		C1A474C11CA723D800141692 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474BF1CA723D800141692 /* NotificationCell.swift */; };
 		C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A474C01CA723D800141692 /* NotificationCell.xib */; };
@@ -117,6 +119,8 @@
 		C17AABE31C984EA100CC83CF /* YYZTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZTextField.swift; sourceTree = "<group>"; };
 		C17AABE51C9851E200CC83CF /* YYZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZButton.swift; sourceTree = "<group>"; };
 		C18320B61CBF3B230088600F /* Dine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Dine.entitlements; sourceTree = "<group>"; };
+		C18320B71CBF80F20088600F /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		C18320B81CBF80F20088600F /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
 		C1A474B91CA71C3500141692 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
 		C1A474BF1CA723D800141692 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C1A474C01CA723D800141692 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
@@ -385,6 +389,8 @@
 				3BA597101CAC835F00D0E6C7 /* SelfMessageCell.swift */,
 				3BA597111CAC835F00D0E6C7 /* SelfMessageCell.xib */,
 				C15C358D1CBC13C300260BCB /* CurrentActivityBottomBar.swift */,
+				C18320B71CBF80F20088600F /* MenuCell.swift */,
+				C18320B81CBF80F20088600F /* MenuCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 			files = (
 				3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */,
 				C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */,
+				C18320BA1CBF80F30088600F /* MenuCell.xib in Resources */,
 				C62937EE1CAF20BD00E46009 /* GroupChatView.storyboard in Resources */,
 				C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */,
 				3BA5970F1CAC7F1F00D0E6C7 /* MemberMessageCell.xib in Resources */,
@@ -610,6 +617,7 @@
 				C1A474C61CA72B0400141692 /* Notification.swift in Sources */,
 				3BD848AD1CA0EF2700E40A8B /* Activity.swift in Sources */,
 				C6EE094A1C975F7F00345357 /* ChatViewController.swift in Sources */,
+				C18320B91CBF80F30088600F /* MenuCell.swift in Sources */,
 				C6EE09361C96272900345357 /* CheckButton.swift in Sources */,
 				3BA597121CAC835F00D0E6C7 /* SelfMessageCell.swift in Sources */,
 			);
