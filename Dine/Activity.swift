@@ -175,6 +175,7 @@ class Activity: NSObject {
     
     func exitActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
         User.currentUser?.setCurrentActivity(nil, successHandler: successHandler, failureHandler: failureHandler)
+        // TODO: should remove myself from group member
         if User.currentUser?.userId == owner.objectId {
             Log.info("I am the owner")
             deleteActivity(nil)
