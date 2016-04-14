@@ -60,15 +60,12 @@ class CheckButton: UIButton {
             self.setImage(cancel, forState: .Normal)
             self.setImage(cancel, forState: .Highlighted)
             Activity.current_activity = self.activity
-//            Group.current_group = Activity.current_activity?.group
             NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
 
         }else {
             isChecked = false
             self.setImage(checked, forState: .Normal)
             self.setImage(checked, forState: .Highlighted)
-            Activity.current_activity = nil
-//            Group.current_group = nil
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
         }
         

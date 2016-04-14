@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class Activity: NSObject {
-    
+    var pfActivity: PFObject?
     var activityId: String? {
         didSet {
             groupChatId = "ActivityChat_" + activityId!
@@ -31,13 +31,23 @@ class Activity: NSObject {
     var groupChatId : String?
     var groupMemberId: String?
     
-    static var current_activity: Activity?
+    static var current_activity: Activity? {
+        didSet {
+            if current_activity != nil {
+                User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
+                    Log.warning("set Current Activity to User success")
+                    }, failureHandler: { (error: NSError?) in
+                        Log.error(error?.localizedDescription)
+                        
+                })
+            }
+        }
+    }
     //The activity that the current_user has joined
     
     override init() {
         super.init()
         // FIXME: may be some problems with this line, owner should not be assigned in this constructor
-        owner = PFUser.currentUser()
     }
     
     func setupRestaurant(yelpBusiness: Business) {
@@ -72,9 +82,17 @@ class Activity: NSObject {
         let PFActivity = PFObject(className: "Activity")
         
         PFActivity["title"] = title!
-        PFActivity["owner"] = owner!
+        if let currentUser = PFUser.currentUser() {
+            PFActivity["owner"] = currentUser as PFUser
+            owner = currentUser
+        }
+        
         PFActivity["requestTime"] = requestTime!
-        PFActivity["yelpBusinessId"] = yelpBusinessId!
+        
+        if let yelpBusinessId = self.yelpBusinessId {
+            PFActivity["yelpBusinessId"] = yelpBusinessId
+        }
+        
         PFActivity["overview"] = overview!
         PFActivity["location"] = [location.latitude, location.longitude]
         PFActivity["restaurant"] = restaurant!
@@ -84,6 +102,7 @@ class Activity: NSObject {
             if success {
                 print("Step 1 success")
                 self.activityId = PFActivity.objectId
+                self.pfActivity = PFActivity
                 var PFGroupMemberArray = [PFObject]()
                 if let groupMemberList = self.group?.getUserList() {
                     print("list exists")
@@ -126,6 +145,7 @@ class Activity: NSObject {
     
     init (PFActivity: PFObject) {
         super.init()
+        self.pfActivity = PFActivity
         self.title = PFActivity["title"] as? String
         ({self.activityId = PFActivity.objectId})()
         print(activityId)
@@ -144,6 +164,23 @@ class Activity: NSObject {
         
     }
     
+    func deleteActivity(successHandler: (()->())?) {
+        if let pfActivityToDelete = self.pfActivity {
+            pfActivityToDelete.deleteInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                successHandler?()
+            })
+        }
+    
+    }
+    
+    func exitActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
+        User.currentUser?.setCurrentActivity(nil, successHandler: successHandler, failureHandler: failureHandler)
+        // TODO: should remove myself from group member
+        if User.currentUser?.userId == owner.objectId {
+            Log.info("I am the owner")
+            deleteActivity(nil)
+        }
+    }
     
     func fetchGroupMember (successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
         if let groupMemberId = self.groupMemberId {
@@ -167,6 +204,26 @@ class Activity: NSObject {
             print(self.groupMemberId)
         }
 
+    }
+    
+    class func getCurrentActivity(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
+        let activityQuery = PFQuery(className: "Activity")
+        activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
+            if pfObject != nil && error == nil {
+                let activity = Activity(PFActivity: pfObject!)
+                Activity.current_activity = activity
+                successHandler?(activity)
+            } else {
+                if let error = error {
+                    if error.code == 101 {
+                        User.currentUser?.setCurrentActivity(nil, successHandler: nil, failureHandler: nil)
+                    }
+                }
+                failureHandler?(error)
+            }
+            
+        })
+    
     }
     
     class func activitiesWithArray(array: [PFObject]) -> [Activity] {

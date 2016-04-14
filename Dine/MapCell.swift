@@ -37,6 +37,7 @@ class MapCell: UITableViewCell,CLLocationManagerDelegate, GMSMapViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        // because storyboard has intrinsic width (4s for inferred size), when this view shows on bigger screen, we need to update bounds as well (Maybe it's a bug??)
         mapView.frame.size.width = self.frame.size.width
     }
 

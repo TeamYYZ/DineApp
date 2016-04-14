@@ -135,6 +135,7 @@ class UserNotification {
                                         if pfObject != nil && error == nil {
                                             let activity = Activity(PFActivity: pfObject!)
                                             Activity.current_activity = activity
+                                            
                                             successHandler?(type: .Invitation)
                                         } else {
                                             failureHandler?(error)

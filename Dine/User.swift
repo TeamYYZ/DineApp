@@ -23,6 +23,7 @@ class User {
     var avatarImage: UIImage?
     var friendList: [String]?   // save users' objectID
     var current_location: CLLocation?
+    var currentActivityId: String? // for persistent maintaining activity
     var notificationsRecv: [UserNotification]?
     
     static var currentUser: User?
@@ -38,6 +39,7 @@ class User {
         self.userId = pfUser.objectId
         self.username = pfUser.username
         self.password = pfUser.password
+        self.currentActivityId = pfUser["currentActivity"] as? String
         self.avatarImagePFFile = pfUser["avatar"] as? PFFile
         if let screenName = pfUser["screenName"] as? String {
             self.screenName = screenName
@@ -56,6 +58,28 @@ class User {
             }
         }
 
+    }
+    
+    // passing nil activityId will clear currentActivity Field in User object
+    func setCurrentActivity(activityId: String?, successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
+        if let pfUser = self.pfUser {
+            if let activityId = activityId {
+                pfUser["currentActivity"] = activityId
+            } else {
+                pfUser.removeObjectForKey("currentActivity")
+            }
+            
+            pfUser.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                if success {
+                    successHandler?()
+                } else {
+                    failureHandler?(error)
+                }
+            })
+        } else {
+            failureHandler?(NSError(domain: "Current user not Found", code: 2, userInfo: nil))
+        }
+    
     }
     
     func getNotifications(successHandler: ([UserNotification]?)->()) {

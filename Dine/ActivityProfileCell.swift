@@ -25,7 +25,7 @@ class ActivityProfileCell: UITableViewCell {
                 let dateString = dateFormatter.stringFromDate(time)
                 timeLabel.text = dateString
             }
-            activity.owner.fetchIfNeededInBackgroundWithBlock({ (owner:PFObject?, error:NSError?) in
+            activity.owner.fetchIfNeededInBackgroundWithBlock({ (owner: PFObject?, error:NSError?) in
                 if let screenName = owner!["screenName"] as? String{
                     self.ownerLabel.text = "created by "+screenName
                 }
