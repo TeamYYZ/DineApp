@@ -16,7 +16,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapMarker" translatesAutoresizingMaskIntoConstraints="NO" id="Ytb-pC-xcP">
-                        <rect key="frame" x="8" y="11" width="22" height="18"/>
+                        <rect key="frame" x="16" y="11" width="22" height="18"/>
                         <color key="tintColor" red="0.9767052531" green="0.60546392199999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="awL-58-C2M"/>
@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fP-1L-hrf">
-                        <rect key="frame" x="43" y="11" width="41" height="18"/>
+                        <rect key="frame" x="51" y="11" width="41" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -33,7 +33,7 @@
                 <constraints>
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="centerY" secondItem="Ytb-pC-xcP" secondAttribute="centerY" id="4TA-Iq-7KA"/>
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="4zM-3s-irT"/>
-                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="6GX-O4-VrT"/>
+                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6GX-O4-VrT"/>
                     <constraint firstItem="Ytb-pC-xcP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="SNi-yV-8Mf"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="2fP-1L-hrf" secondAttribute="trailing" constant="8" id="WMa-aq-trb"/>
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="cEN-5g-z2H"/>

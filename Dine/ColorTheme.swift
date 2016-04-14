@@ -33,6 +33,8 @@ class ColorTheme {
     var menuTextColor: UIColor
     var menuIconTintColor: UIColor
     var menuSelectedBackgroundColor: UIColor
+    
+    var profileSignOutLabelColor: UIColor
 
     init() {
         navigationBarBackgroundColor = UIColor.flatMintColor()
@@ -58,6 +60,8 @@ class ColorTheme {
         menuTextColor = ContrastColorOf(menuBackgroundColor, returnFlat: true)
         menuIconTintColor = menuTextColor
         menuSelectedBackgroundColor = UIColor.flatMagentaColor()
+        
+        profileSignOutLabelColor = UIColor.flatRedColor()
     }
 
 

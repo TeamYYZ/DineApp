@@ -44,9 +44,6 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(SidebarMenuViewController.onLogOut(_:)))
-        self.setToolbarItems([logoutButton], animated: false)
-        self.navigationController?.toolbarHidden = false
         self.navigationController?.navigationBarHidden = true
         
         tableView.backgroundColor = ColorTheme.sharedInstance.menuBackgroundColor
@@ -75,11 +72,6 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         // Dispose of any resources that can be recreated.
     }
 
-    func onLogOut(sender: AnyObject) {
-        PFUser.logOut()
-        self.slideMenuController()?.setCloseWindowLevel()
-        NSNotificationCenter.defaultCenter().postNotificationName("userDidLogoutNotification", object: nil)
-    }
     
     func changeViewController(menu: LeftMenu) {
         switch menu {
@@ -122,10 +114,13 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         cell.menuTextLabel.textColor = ColorTheme.sharedInstance.menuTextColor
         cell.menuTextLabel.text = menuTextList[index]
         cell.iconImageView.image = UIImage(named: menuImageList[index])
+        cell.iconImageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+        cell.iconImageView.tintColor = ColorTheme.sharedInstance.menuTextColor
         return cell
     
     }
     
+    /*
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 0) {
             let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
@@ -142,14 +137,15 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         }
         return nil
     }
+ */
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0) {
-            return 60
-        }
-        return 0
-    }
-    
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if (section == 0) {
+//            return 60
+//        }
+//        return 0
+//    }
+//    
     func imageTapped(img: AnyObject){
         self.performSegueWithIdentifier("toUserProfileSegue", sender: self)
     }
