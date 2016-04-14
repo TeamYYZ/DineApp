@@ -39,11 +39,11 @@ class MapAnnotation: NSObject {
         if let group = activity.group {
             for member in group.groupMembers {
                 if member.joined {
-                    membersString += member.screenName!+", "
+                    membersString += member.screenName!+". "
                 }
             }
         }
-        membersString.removeAtIndex(membersString.endIndex)
+        
         self.members = membersString
         self.profileURL = activity.profileURL
     }
