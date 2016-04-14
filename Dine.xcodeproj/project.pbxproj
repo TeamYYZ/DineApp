@@ -116,6 +116,7 @@
 		C17AABDF1C984A7500CC83CF /* ParseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseAPI.swift; sourceTree = "<group>"; };
 		C17AABE31C984EA100CC83CF /* YYZTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZTextField.swift; sourceTree = "<group>"; };
 		C17AABE51C9851E200CC83CF /* YYZButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYZButton.swift; sourceTree = "<group>"; };
+		C18320B61CBF3B230088600F /* Dine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Dine.entitlements; sourceTree = "<group>"; };
 		C1A474B91CA71C3500141692 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
 		C1A474BF1CA723D800141692 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C1A474C01CA723D800141692 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
@@ -321,6 +322,7 @@
 		C6EE09111C906F6200345357 /* Dine */ = {
 			isa = PBXGroup;
 			children = (
+				C18320B61CBF3B230088600F /* Dine.entitlements */,
 				C6EE09121C906F6200345357 /* AppDelegate.swift */,
 				C62937E71CAF182500E46009 /* Extension */,
 				C17AABDE1C984A6100CC83CF /* API */,
@@ -438,10 +440,16 @@
 				TargetAttributes = {
 					C6EE090E1C906F6200345357 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 5H9S37TQFY;
+						DevelopmentTeam = NL7M2J93PJ;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -763,7 +771,7 @@
 				INFOPLIST_FILE = Dine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.youwu.Dine;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.dineapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";
@@ -783,7 +791,7 @@
 				INFOPLIST_FILE = Dine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.youwu.Dine;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.dineapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";

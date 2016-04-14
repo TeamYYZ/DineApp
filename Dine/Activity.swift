@@ -128,12 +128,9 @@ class Activity: NSObject {
     
     
     init (PFActivity: PFObject) {
+        super.init()
         self.title = PFActivity["title"] as? String
-        self.activityId = PFActivity.objectId
-        if let activityId = self.activityId {
-            groupChatId = "ActivityChat_" + activityId
-            groupMemberId = "GroupMember_" + activityId
-        }
+        ({self.activityId = PFActivity.objectId})()
         print(activityId)
         self.owner = PFActivity["owner"] as? PFUser
         self.requestTime = PFActivity["requestTime"] as? NSDate
