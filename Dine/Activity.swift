@@ -31,7 +31,18 @@ class Activity: NSObject {
     var groupChatId : String?
     var groupMemberId: String?
     
-    static var current_activity: Activity?
+    static var current_activity: Activity? {
+        didSet {
+            if current_activity != nil {
+                User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
+                    Log.warning("set Current Activity to User success")
+                    }, failureHandler: { (error: NSError?) in
+                        Log.error(error?.localizedDescription)
+                        
+                })
+            }
+        }
+    }
     //The activity that the current_user has joined
     
     override init() {
@@ -144,6 +155,9 @@ class Activity: NSObject {
         
     }
     
+    func exitActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
+        User.currentUser?.setCurrentActivity(nil, successHandler: successHandler, failureHandler: failureHandler)
+    }
     
     func fetchGroupMember (successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
         if let groupMemberId = self.groupMemberId {
@@ -167,6 +181,21 @@ class Activity: NSObject {
             print(self.groupMemberId)
         }
 
+    }
+    
+    class func getCurrentActivity(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
+        let activityQuery = PFQuery(className: "Activity")
+        activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
+            if pfObject != nil && error == nil {
+                let activity = Activity(PFActivity: pfObject!)
+                Activity.current_activity = activity
+                successHandler?(activity)
+            } else {
+                failureHandler?(error)
+            }
+            
+        })
+    
     }
     
     class func activitiesWithArray(array: [PFObject]) -> [Activity] {

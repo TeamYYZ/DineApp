@@ -8,6 +8,21 @@
 
 import Foundation
 
+class Log {
+    
+    class func info(content: String?) {
+        print("[Log][INFO]: \(content)")
+    }
+    
+    class func error(content: String?) {
+        print("[Log][ERROR]: \(content)")
+    }
+    
+    class func warning(content: String?) {
+        print("[Log][WARNING]: \(content)")
+    }
+}
+
 extension NSDate {
     func yearsFrom(date:NSDate) -> Int{
         return NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: date, toDate: self, options: .MatchLast).year

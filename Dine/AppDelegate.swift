@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
         
-        //g map
+        //google map API
         
         GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
 
@@ -70,8 +70,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let currentUser = PFUser.currentUser() {
             print("current user detected: \(currentUser.username)")
-            User.currentUser = User(pfUser: currentUser)
-            userDidLogin()
+            currentUser.fetchIfNeededInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
+                if updatedUser != nil && error == nil {
+                    User.currentUser = User(pfUser: currentUser)
+                    self.userDidLogin()
+                } else {
+                    print(error?.localizedDescription)
+                
+                }
+            })
         } else {
             userDidLogout()
         

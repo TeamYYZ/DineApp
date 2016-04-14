@@ -33,6 +33,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Map View Did Load")
         print(PFUser.currentUser()?.username)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userJoinedActivity), name: "userJoinedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity as (MapViewController) -> () -> ()), name: "userExitedNotification", object: nil)
@@ -42,6 +43,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
         self.view.layoutIfNeeded()
 
+        // get User's undergoing activity
+        if let currentActivityId = User.currentUser?.currentActivityId {
+            Log.info(currentActivityId)
+            Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
+                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                }, failureHandler: { (error: NSError?) in
+                    Log.error(error?.localizedDescription)
+            })
+        }
+        
         directionsView.hidden = true
         
         setupGoogleMap()
@@ -183,10 +194,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func userJoinedActivity() {
         print("user joined activity")
-        UIView.animateWithDuration(0.3) {
-            self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant
-            self.view.layoutIfNeeded()
+        if activityPanelBottomPos.constant == -ActivityPanelViewHeight.constant {
+            UIView.animateWithDuration(0.3) {
+                self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant
+                self.view.layoutIfNeeded()
+            }
         }
+        
         directionsView.hidden = false
         //updateMap()
         
@@ -194,6 +208,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func userExitedActivity() {
+        if activityPanelBottomPos.constant == 0 {
+            UIView.animateWithDuration(0.2) {
+                self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+        if let activity = Activity.current_activity {
+            Log.info("found current activity")
+            activity.exitActivity({
+                Log.info("clear User's current Activity successfully")
+                }, failureHandler: { (error: NSError?) in
+                    Log.error("failed to clear User's current Activity")
+                    Log.error(error?.localizedDescription)
+            })
+            
+        } else {
+            Log.warning("No current activity. Shoud not reach here")
+        }
         //update map, show all requests in the area
         updateMapMarkers()
         //remove polyline
@@ -264,6 +297,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             print(error?.localizedDescription)
                     })
                 }
+            
                 
                 Activity.current_activity = activity
                 
