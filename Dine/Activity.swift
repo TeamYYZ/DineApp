@@ -15,8 +15,6 @@ class Activity: NSObject {
         didSet {
             groupChatId = "ActivityChat_" + activityId!
             groupMemberId = "GroupMember_" + activityId!
-            print("Gonna show groupMemberId")
-            print(groupMemberId)
         }
     }
     var title: String?
@@ -38,7 +36,7 @@ class Activity: NSObject {
     
     override init() {
         super.init()
-        uniqueId = Activity.getUniqueId()
+        // FIXME: may be some problems with this line, owner should not be assigned in this constructor
         owner = PFUser.currentUser()
     }
     
@@ -126,7 +124,6 @@ class Activity: NSObject {
     }
     
     
-    
     init (PFActivity: PFObject) {
         super.init()
         self.title = PFActivity["title"] as? String
@@ -180,36 +177,5 @@ class Activity: NSObject {
         }
         return activites
     }
-    
-    class func getUniqueId() -> String {
-        let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let charactersArray = Array(charactersString.characters)
-        
-        var string = ""
-        for _ in 0..<10 {
-            string += String(charactersArray[Int(arc4random()) % charactersArray.count])
-        }
-        print(string)
-        return string
-    }
-    
-    /*
-    init(AID: String, request_poster_username: String, request_time: String, yelp_business_id: String, overview: String, group: Group, location: CLLocationCoordinate2D, restaurant: String){
-    
-        self.activityId = AID
-        self.requestPosterUsername = request_poster_username
-        self.requestTime = request_time
-        self.yelpBusinessId = yelp_business_id
-        self.overview = overview
-        self.group = group
-        self.location = location
-        self.restaurant = restaurant
-        
-    }
-    */
-    
-    
-    
-    
     
 }

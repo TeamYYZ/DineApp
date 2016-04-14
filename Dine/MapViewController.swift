@@ -242,6 +242,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 if let invitedUserList = activity?.group?.getUserIdList() {
                     var notificationList = [NSDictionary]()
                     for invitedUser in invitedUserList {
+                        if invitedUser == PFUser.currentUser()?.objectId {
+                            continue
+                        }
+                        
                         print("invitedUser \(invitedUser)")
                         print(User.currentUser!.screenName!)
                         let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
