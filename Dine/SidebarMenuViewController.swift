@@ -37,7 +37,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     var friendsViewController: UIViewController!
     var notificationsViewController: UIViewController!
     var profileSettingsController: UIViewController!
-    let menuTextList = ["Home", "Friends", "Notifications", "Profile"]
+    let menuTextList = ["Home", "Friends", "Notifications", "Settings"]
     let menuImageList = ["MapMarker", "UserGroup", "Invite", "Settings"]
     var selectedIndex = 0
     

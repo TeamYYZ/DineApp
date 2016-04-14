@@ -35,6 +35,11 @@ class ColorTheme {
     var menuSelectedBackgroundColor: UIColor
     
     var profileSignOutLabelColor: UIColor
+    
+    var activityPanelTagColor: UIColor
+    var activityPanelTagAnimateColor: UIColor
+
+    var activityPanelTextColor: UIColor
 
     init() {
         navigationBarBackgroundColor = UIColor.flatMintColor()
@@ -62,6 +67,10 @@ class ColorTheme {
         menuSelectedBackgroundColor = UIColor.flatMagentaColor()
         
         profileSignOutLabelColor = UIColor.flatRedColor()
+        
+        activityPanelTagColor = UIColor.flatBlueColor()
+        activityPanelTextColor = UIColor.flatBlackColorDark()
+        activityPanelTagAnimateColor = UIColor.flatRedColor()
     }
 
 
