@@ -79,6 +79,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         Log.info("observer removed")
     }
     
+    func setupMapButton(btn: UIButton) {
+        btn.layer.cornerRadius = 20.0
+        btn.layer.masksToBounds = false
+        
+        btn.layer.shadowOpacity = 0.5
+        btn.layer.shadowRadius = 1
+        btn.layer.shadowOffset = CGSizeMake(0.0, 1.0)
+        
+    }
+    
     func setupGoogleMap() {
         let bound = self.view.bounds
         var bounds: CGRect!
@@ -104,6 +114,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         self.pathBtn.alpha = 0
         self.navigationBtn.alpha = 0
+        setupMapButton(self.pathBtn)
+        setupMapButton(self.navigationBtn)
+        setupMapButton(self.redoBtn)
     }
     
     func getMapBoundingBox() -> GMSCoordinateBounds {
@@ -251,6 +264,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("found current activity")
             activity.exitActivity({
                 Log.info("clear User's current Activity successfully")
+                //animate map view camera
+                let update = GMSCameraUpdate.setTarget(self.mapView.myLocation!.coordinate, zoom: 14.0)
+                self.mapView.animateWithCameraUpdate(update)
                 //remove polyline
                 self.mapView.clear()
                 //update map, show all requests in the area
@@ -280,6 +296,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func startNavigation(steps: [Route.Step]) {
         self.steps = steps
         mapView.clear()
+        //adjust map bounds
+        let bounds = getMapBoundingBox()
+        
+        self.mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds.includingCoordinate(Activity.current_activity!.location), withPadding: 50.0))
         addMapMarker(Activity.current_activity!)
         self.drawPolyLines()
         
