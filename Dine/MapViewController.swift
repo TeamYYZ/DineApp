@@ -19,6 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
     
+    var currentActivity = Activity()
     
     var locationManager = CLLocationManager()
     var activities = [Activity]()
@@ -45,10 +46,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.pathBtn.transform.tx = 100
         self.navigationBtn.transform.tx = 150
 
+        setupGoogleMap()
+        updateMapMarkers()
+        
         // get User's undergoing activity
         if let currentActivityId = User.currentUser?.currentActivityId {
             Log.info(currentActivityId)
             Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
+                self.currentActivity = activity
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
                 }, failureHandler: { (error: NSError?) in
                     Log.error(error?.localizedDescription)
@@ -56,8 +61,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
         
-        setupGoogleMap()
-        updateMapMarkers()
+
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -97,12 +101,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
+    func getMapBoundingBox() -> GMSCoordinateBounds {
+        let visibleRegion = mapView.projection.visibleRegion
+        return GMSCoordinateBounds(region:visibleRegion())
+
+    }
+    
     func updateMapMarkers() {
-        //pass in current map center point
+        //pass in current map sw and ne point location
+        let bounds = getMapBoundingBox()
+        let SW = CLLocation(latitude: bounds.southWest.latitude, longitude: bounds.southWest.longitude)
+        let NE = CLLocation(latitude: bounds.northEast.latitude, longitude: bounds.northEast.longitude)
         //only get activites within certain range
         
-        ParseAPI.getActivites { (acts, error) in
+        ParseAPI.getActivites(SW, locNE: NE) { (acts, error) in
             self.activities = acts
+            print(acts)
             for act in self.activities {
             act.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.addMapMarker(act)
@@ -111,6 +125,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         })
             }
         }
+    }
+    
+    func showCurrentActivityMap() {
+        mapView.clear()
+        //show current activity restaurant
+        addMapMarker(currentActivity)
+        
+        //show members location
     }
     
     func addMapMarker(act: Activity) {

@@ -60,8 +60,9 @@ class ParseAPI {
     
     }
     
-    class func getActivites(completion: (acts: [Activity]!, error: NSError?) -> Void) {
+    class func getActivites(locSW: CLLocation, locNE: CLLocation, completion: (acts: [Activity]!, error: NSError?) -> Void) {
         let query = PFQuery(className: "Activity")
+        query.whereKey("location", withinGeoBoxFromSouthwest: PFGeoPoint(location: locSW) , toNortheast: PFGeoPoint(location: locNE))
         query.limit = 10
         query.findObjectsInBackgroundWithBlock { (activities: [PFObject]?, error: NSError?) -> Void in
             if let actObjects = activities {
