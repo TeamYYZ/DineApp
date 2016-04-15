@@ -92,7 +92,7 @@ class Activity: NSObject {
         }
         
         PFActivity["overview"] = overview!
-        PFActivity["location"] = PFGeoPoint(latitude:  location.latitude, longitude: location.longitude)
+        PFActivity["pfLocation"] = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
 
@@ -151,7 +151,7 @@ class Activity: NSObject {
         self.requestTime = PFActivity["requestTime"] as? NSDate
         self.yelpBusinessId = PFActivity["yelpBusinessId"] as? String
         self.overview = PFActivity["overview"] as? String
-        if let loc = PFActivity["location"] as? PFGeoPoint {
+        if let loc = PFActivity["pfLocation"] as? PFGeoPoint {
             self.location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
         }
         self.restaurant = PFActivity["restaurant"] as? String
