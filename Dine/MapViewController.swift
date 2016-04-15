@@ -51,7 +51,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.navigationBtn.transform.tx = 150
 
         setupGoogleMap()
-        updateMapMarkers()
         
         // get User's undergoing activity
         if let currentActivityId = User.currentUser?.currentActivityId {
@@ -108,8 +107,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func getMapBoundingBox() -> GMSCoordinateBounds {
-        let visibleRegion = mapView.projection.visibleRegion
-        return GMSCoordinateBounds(region:visibleRegion())
+        let visibleRegion = mapView.projection.visibleRegion()
+        return GMSCoordinateBounds(region:visibleRegion)
 
     }
     
@@ -119,7 +118,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let SW = CLLocation(latitude: bounds.southWest.latitude, longitude: bounds.southWest.longitude)
         let NE = CLLocation(latitude: bounds.northEast.latitude, longitude: bounds.northEast.longitude)
         //only get activites within certain range
-        
+
         ParseAPI.getActivites(SW, locNE: NE) { (acts, error) in
             self.activities = acts
             print(acts)
@@ -202,6 +201,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                     mapView.moveCamera(update)
                     searchUserLocation = false
+                updateMapMarkers()
+
             }
 
         }
