@@ -28,10 +28,10 @@ class profileEditingController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.contentField.delegate = self
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelButtonOnClick")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(profileEditingController.cancelButtonOnClick))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "doneButtonOnClick")
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(profileEditingController.doneButtonOnClick))
         navigationItem.rightBarButtonItem = doneButton
         
         contentField.clearButtonMode = UITextFieldViewMode.WhileEditing
@@ -59,8 +59,9 @@ class profileEditingController: UIViewController, UITextFieldDelegate {
                     }
               })
             }else{
-                let alert = UIAlertView(title: "Message", message: "Sorry, you can not use an empty screen name", delegate: self, cancelButtonTitle: "OK")
-                alert.show()
+                let alert = UIAlertController(title: "Message", message: "Sorry, you can not use an empty screen name", preferredStyle: UIAlertControllerStyle.Alert)
+                self.presentViewController(alert, animated: true, completion: nil)
+                
             }
         }else{
             self.user.updateUsername(text, withCompletion: { (success: Bool, error: NSError?) in

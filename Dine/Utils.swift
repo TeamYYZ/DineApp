@@ -11,15 +11,27 @@ import Foundation
 class Log {
     
     class func info(content: String?) {
-        print("[Log][INFO]: \(content)")
+        if let content = content {
+            print("[Log][INFO]: \(content)")
+        } else {
+            print("[Log][INFO]: nil")
+        }
     }
     
     class func error(content: String?) {
-        print("[Log][ERROR]: \(content)")
+        if let content = content {
+            print("[Log][ERROR]: \(content)")
+        } else {
+            print("[Log][ERROR]: nil")
+        }
     }
     
     class func warning(content: String?) {
-        print("[Log][WARNING]: \(content)")
+        if let content = content {
+            print("[Log][WARN]: \(content)")
+        } else {
+            print("[Log][WARN]: nil")
+        }
     }
 }
 

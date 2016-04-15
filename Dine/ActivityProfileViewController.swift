@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ActivityProfileViewController: UITableViewController {
     let kHeaderHeight:CGFloat = 150.0
@@ -59,8 +60,19 @@ class ActivityProfileViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
                 cell.activity = self.activity
-                
+            if Activity.current_activity == nil {
+                cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
+                cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
+            } else if Activity.current_activity!.activityId == self.activity!.activityId {
+                cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Normal)
+                cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
+            } else{
+                Log.error("should not reach here")
+                cell.checkButton.setImage(nil, forState: .Normal)
+            }
+            cell.checkButton.adjustsImageWhenHighlighted = false
             return cell
+            
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             let member = groupMembers[indexPath.row - 1]
@@ -73,6 +85,27 @@ class ActivityProfileViewController: UITableViewController {
             }
             return cell
         }
+    }
+    
+   
+    func checkButtonClicked (sender : UIButton!) {
+        if Activity.current_activity == nil {
+            sender.setImage(UIImage(named: "cancel"), forState: .Normal)
+            sender.setImage(UIImage(named: "cancel"), forState: .Highlighted)
+            Activity.current_activity = self.activity
+            self.activity.joinActivity({
+                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                }, failureHandler: { (error: NSError?) in
+                    Log.error(error?.localizedDescription)
+                    
+            })
+
+        }else {
+            sender.setImage(UIImage(named: "checked"), forState: .Normal)
+            sender.setImage(UIImage(named: "checked"), forState: .Highlighted)
+            NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
+        }
+        
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -36,7 +36,6 @@ class Route: NSObject {
             instruction = dictionary["html_instructions"] as? String
             if let polyLine = dictionary["polyline"]?["points"] as? String {
                 self.polyLine = polyLine
-                print(polyLine)
             }
             
             maneuver = dictionary["maneuver"] as? String

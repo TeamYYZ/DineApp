@@ -118,41 +118,13 @@ class UserNotification {
             }
         case .Invitation:
             if let activityId = associatedId {
-                let query = PFQuery(className: "GroupMember_" + activityId)
-                query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
-                query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
-                    if error == nil && groupMember != nil{
-                        groupMember!["joined"] = true
-                        groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
-                            if success {
-                                self.delete()
-                                print("accept SUCCESS")
-                                if let userQuery = PFUser.currentUser() {
-                                    userQuery["currentActivity"] = activityId
-                                    userQuery.saveInBackground()
-                                    let activityQuery = PFQuery(className: "Activity")
-                                    activityQuery.getObjectInBackgroundWithId(activityId, block: { (pfObject: PFObject?, error: NSError?) in
-                                        if pfObject != nil && error == nil {
-                                            let activity = Activity(PFActivity: pfObject!)
-                                            Activity.current_activity = activity
-                                            
-                                            successHandler?(type: .Invitation)
-                                        } else {
-                                            failureHandler?(error)
-                                        }
-
-                                        
-                                    })
-                                
-                                
-                                }
-                            }
-                        })
-                        
-                    }
-                    
+                Activity.joinActivityById(activityId, successHandler: {
+                    (activity: Activity) in
+                    Activity.current_activity = activity
+                    self.delete()
+                    }, failureHandler: { (error: NSError?) in
+                        Log.error(error?.localizedDescription)
                 })
-            
             }
 
         default:

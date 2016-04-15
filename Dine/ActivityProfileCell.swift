@@ -14,8 +14,8 @@ class ActivityProfileCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var ownerLabel: UILabel!
     
-    @IBOutlet weak var checkButton: CheckButton!
-
+    @IBOutlet weak var checkButton: UIButton!
+    var isChecked = false
     var activity: Activity! {
         didSet{
             nameLabel.text = activity.restaurant
@@ -31,8 +31,6 @@ class ActivityProfileCell: UITableViewCell {
                 }
 
             })
-            checkButton.activity = activity
-            checkButton.setButton()
 
         }
     }

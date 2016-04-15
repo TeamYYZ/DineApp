@@ -29,10 +29,10 @@ class DescriptionEditViewController: UITableViewController, UITextViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.contentTextView.delegate = self
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelButtonOnClick")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DescriptionEditViewController.cancelButtonOnClick))
         navigationItem.leftBarButtonItem = cancelButton
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "doneButtonOnClick")
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DescriptionEditViewController.doneButtonOnClick))
         navigationItem.rightBarButtonItem = doneButton
         self.contentTextView.text = user.profileDescription
        

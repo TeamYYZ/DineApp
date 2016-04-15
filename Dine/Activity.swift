@@ -92,7 +92,7 @@ class Activity: NSObject {
         }
         
         PFActivity["overview"] = overview!
-        PFActivity["location"] = [location.latitude, location.longitude]
+        PFActivity["pfLocation"] = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
 
@@ -151,8 +151,8 @@ class Activity: NSObject {
         self.requestTime = PFActivity["requestTime"] as? NSDate
         self.yelpBusinessId = PFActivity["yelpBusinessId"] as? String
         self.overview = PFActivity["overview"] as? String
-        if let loc = PFActivity["location"] as? [CLLocationDegrees] {
-            self.location = CLLocationCoordinate2D(latitude: loc[0], longitude: loc[1])
+        if let loc = PFActivity["pfLocation"] as? PFGeoPoint {
+            self.location = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
         }
         self.restaurant = PFActivity["restaurant"] as? String
         if let profileString = PFActivity["profileURL"] as? String {
@@ -171,13 +171,126 @@ class Activity: NSObject {
     
     }
     
+    class func joinActivityById(activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
+        
+        let query = PFQuery(className: "GroupMember_" + activityId)
+        query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+        query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
+            if error == nil && groupMember != nil{
+                groupMember!["joined"] = true
+                groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                    if success {
+                        print("accept SUCCESS")
+                        if let userQuery = PFUser.currentUser() {
+                            userQuery["currentActivity"] = activityId
+                            userQuery.saveInBackground()
+                            let activityQuery = PFQuery(className: "Activity")
+                            activityQuery.getObjectInBackgroundWithId(activityId, block: { (pfObject: PFObject?, error: NSError?) in
+                                if pfObject != nil && error == nil {
+                                    let activity = Activity(PFActivity: pfObject!)
+                                    
+                                    successHandler?(activity)
+                                } else {
+                                    failureHandler?(error)
+                                }
+                                
+                                
+                            })
+                            
+                            
+                        }
+                    }
+                })
+                
+            }
+            
+        })
+
+    }
+    
+    func joinActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
+        if let activityId = self.activityId {
+            let query = PFQuery(className: "GroupMember_" + activityId)
+            query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+            query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
+                if error == nil && groupMember != nil {
+                    groupMember!["joined"] = true
+                    groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                        if success {
+                            successHandler?()
+                        }
+                        
+                    })
+                } else {
+                    if let error = error {
+                        // MARK: 101 = found nothing in DB
+                        if error.code == 101 {
+                            let PFGroupMember = PFObject(className: self.groupMemberId!)
+                            if let userId = User.currentUser?.userId {
+                                PFGroupMember["userId"] = userId
+                            } else {
+                                Log.error("userId not found due to lack of currentUser in User class")
+                                return
+                            }
+                            if let screenName = User.currentUser?.screenName {
+                                PFGroupMember["screenName"] = screenName
+                            } else {
+                                Log.error("screenName not found due to lack of currentUser in User class")
+                                return
+                            }
+                            if let avatar = User.currentUser?.avatarImagePFFile {
+                                PFGroupMember["avatar"] = avatar
+                            }
+                            PFGroupMember["joined"] = true
+                            PFGroupMember["owner"] = false
+                            PFGroupMember.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                                if success {
+                                    successHandler?()
+                                } else {
+                                    failureHandler?(error)
+                                    Log.error("Fail to insert group member")
+                                    
+                                }
+                            })
+                        } else {
+                            failureHandler?(error)
+                        }
+                    } else {
+                        failureHandler?(NSError(domain: "Unexpected Error", code: 4, userInfo: nil))
+                    }
+                    
+                }
+                
+            })
+        }
+        
+    }
+    
+    
+    
     func exitActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
-        User.currentUser?.setCurrentActivity(nil, successHandler: successHandler, failureHandler: failureHandler)
-        // TODO: should remove myself from group member
+        if let currentActivity = Activity.current_activity, groupMemberId = currentActivity.groupMemberId {
+            let groupMemberQuery = PFQuery(className:  groupMemberId)
+            groupMemberQuery.whereKey("userId", equalTo: User.currentUser!.userId!)
+            groupMemberQuery.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
+                groupMember?.deleteEventually()
+                successHandler?()
+            })
+            
+        } else {
+            failureHandler?(NSError(domain: "no current activity found", code: 3, userInfo: nil))
+            return
+        }
+        
+
+
         if User.currentUser?.userId == owner.objectId {
-            Log.info("I am the owner")
+            Log.info("I am the owner, so delete the activity object in cloud")
             deleteActivity(nil)
         }
+        
+        Activity.current_activity = nil
+
     }
     
     func fetchGroupMember (successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
