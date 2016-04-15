@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import MBProgressHUD
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var navigationBtn: UIButton!
@@ -34,10 +35,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Map View Did Load")
-        print(PFUser.currentUser()?.username)
+        Log.info("Map View Did Load")
+        Log.info(PFUser.currentUser()?.username)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userJoinedActivity), name: "userJoinedNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity as (MapViewController) -> () -> ()), name: "userExitedNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity), name: "userExitedNotification", object: nil)
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -70,7 +71,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
 
     override func viewWillAppear(animated: Bool) {
-        print("observer added")
+        Log.info("observer added")
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
@@ -78,7 +79,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     override func viewWillDisappear(animated: Bool) {
         mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
-        print("observer removed")
+        Log.info("observer removed")
     }
     
     func setupGoogleMap() {
@@ -112,10 +113,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             act.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.addMapMarker(act)
             }, failureHandler: { (error: NSError?) -> () in
-                print(error?.localizedDescription)
+                Log.info(error?.localizedDescription)
         })
             }
         }
+        self.view.layoutIfNeeded()
     }
     
     func addMapMarker(act: Activity) {
@@ -185,8 +187,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     
     func userJoinedActivity() {
-        print("user joined activity")
-        UIView.animateWithDuration(2, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        Log.info("user joined activity")
+        UIView.animateWithDuration(1, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
             }, completion: nil)
@@ -199,10 +202,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 self.pathBtn.transform.tx = 0
             }
         }
-        
-
-        //updateMap()
-        
 
     }
     
@@ -218,9 +217,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("found current activity")
             activity.exitActivity({
                 Log.info("clear User's current Activity successfully")
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+
                 }, failureHandler: { (error: NSError?) in
                     Log.error("failed to clear User's current Activity")
                     Log.error(error?.localizedDescription)
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+
             })
             
         } else {
@@ -235,9 +238,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.navigationBtn.transform.tx = 150
     }
     
-    func userExitedActivity(sender: UIButton!) {
-        userExitedActivity()
-    }
     
     func startNavigation(steps: [Route.Step]) {
         self.steps = steps
@@ -246,6 +246,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
+        Log.info("unwindToMapView invoked")
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         if let vc = sender.sourceViewController as? ActivityProfileViewController {
             let activity = vc.activity
             if let destination = activity?.location {
@@ -263,7 +265,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             let activity = vc.activityInProgress
 
             activity?.saveToBackend({ (activityId: String) -> () in
-                print("saved successfully")
+                Log.info("saved successfully")
                 //update direction info
                 if let destination = activity?.location {
                     if let myLocation  = self.mapView.myLocation {
@@ -280,18 +282,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             continue
                         }
                         
-                        print("invitedUser \(invitedUser)")
-                        print(User.currentUser!.screenName!)
+                        Log.info("invitedUser \(invitedUser)")
+                        Log.info(User.currentUser!.screenName!)
                         let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
-                        print("Dict print")
-                        print(notification.getDict())
                         notificationList.append(notification.getDict())
                     }
                     
                     UserNotification.broadcastInBackend(notificationList, successHandler: {
-                        print("notificationSuccess")
+                        Log.info("notificationSuccess")
                         }, failureHandler: { (error: NSError?) in
-                            print(error?.localizedDescription)
+                            Log.info(error?.localizedDescription)
                     })
                 }
             
@@ -301,8 +301,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
                 
                 }, failureHandler: { (error: NSError?) -> () in
-                    print("something wrong...")
-                    print(error?.localizedDescription)
+                    Log.info("something wrong...")
+                    Log.info(error?.localizedDescription)
             })
             
         }
@@ -319,7 +319,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             
             if let activityProfileViewController = segue.destinationViewController as? ActivityProfileViewController {
                 if let act = Activity.current_activity {
-                    print("current_activity TRUE")
+                    Log.info("current_activity TRUE")
                     activityProfileViewController.activity = act
                 }else {
                     let act = sender as! Activity
@@ -348,35 +348,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
 extension MapViewController : SlideMenuControllerDelegate {
     
     func leftWillOpen() {
-        //print("SlideMenuControllerDelegate: leftWillOpen")
+        //Log.info("SlideMenuControllerDelegate: leftWillOpen")
     }
     
     func leftDidOpen() {
-        //print("SlideMenuControllerDelegate: leftDidOpen")
+        //Log.info("SlideMenuControllerDelegate: leftDidOpen")
     }
     
     func leftWillClose() {
-        //print("SlideMenuControllerDelegate: leftWillClose")
+        //Log.info("SlideMenuControllerDelegate: leftWillClose")
     }
     
     func leftDidClose() {
-        //print("SlideMenuControllerDelegate: leftDidClose")
+        //Log.info("SlideMenuControllerDelegate: leftDidClose")
     }
     
     func rightWillOpen() {
-        //print("SlideMenuControllerDelegate: rightWillOpen")
+        //Log.info("SlideMenuControllerDelegate: rightWillOpen")
     }
     
     func rightDidOpen() {
-        //print("SlideMenuControllerDelegate: rightDidOpen")
+        //Log.info("SlideMenuControllerDelegate: rightDidOpen")
     }
     
     func rightWillClose() {
-        //print("SlideMenuControllerDelegate: rightWillClose")
+        //Log.info("SlideMenuControllerDelegate: rightWillClose")
     }
     
     func rightDidClose() {
-        //print("SlideMenuControllerDelegate: rightDidClose")
+        //Log.info("SlideMenuControllerDelegate: rightDidClose")
     }
 }
 

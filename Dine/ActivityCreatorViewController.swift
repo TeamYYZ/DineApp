@@ -31,6 +31,11 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
 
     }
 
+    
+    @IBAction func cancelAction(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class CheckButton: UIButton {
 
@@ -29,46 +30,5 @@ class CheckButton: UIButton {
     
     func setupButton() {
 
-        //Wait until 
-        
-
     }
-    
-    func setButton(){
-
-        if Activity.current_activity == nil {
-            isChecked = false
-            self.setImage(checked, forState: .Normal)
-            self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
-        }else if Activity.current_activity!.activityId == self.activity!.activityId{
-            isChecked = true
-            self.setImage(cancel, forState: .Normal)
-            self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchDown)
-        }else{
-            
-            self.setImage(nil, forState: .Normal)
-        }
-        self.adjustsImageWhenHighlighted = false
-        
-//        self.frame = CGRectMake(0, 0, 30, 30)
-    
-    }
-    
-    func buttonClicked (sender : UIButton!) {
-        if Activity.current_activity == nil {
-            isChecked = true
-            self.setImage(cancel, forState: .Normal)
-            self.setImage(cancel, forState: .Highlighted)
-            Activity.current_activity = self.activity
-            NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
-
-        }else {
-            isChecked = false
-            self.setImage(checked, forState: .Normal)
-            self.setImage(checked, forState: .Highlighted)
-            NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
-        }
-        
-    }
-    
 }

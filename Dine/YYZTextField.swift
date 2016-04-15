@@ -18,7 +18,7 @@ class YYZTextField: UITextField {
     var textChangedCB: ((Bool)->())?
     var fieldType: CustomTextFieldType? {
         didSet {
-            self.addTarget(self, action: "textFieldDidChange:", forControlEvents: UIControlEvents.EditingChanged)
+            self.addTarget(self, action: #selector(YYZTextField.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         }
     }
     /*

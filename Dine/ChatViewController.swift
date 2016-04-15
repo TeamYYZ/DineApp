@@ -26,7 +26,7 @@ class ChatViewController: UITableViewController {
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
         replyItem.width = self.view.bounds.width - 80
-        self.replyButton.action = "sendButtonOnClick"
+        self.replyButton.action = #selector(ChatViewController.sendButtonOnClick)
         fetchData()
     }
     
