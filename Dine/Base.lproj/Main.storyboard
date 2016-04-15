@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6PW-HG-hpO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6PW-HG-hpO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Dine-->
@@ -69,19 +70,20 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94D-R4-JiU">
-                                <rect key="frame" x="245" y="245" width="75" height="155"/>
+                                <rect key="frame" x="245" y="342" width="75" height="108"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-zb-cNs" userLabel="navigate">
-                                        <rect key="frame" x="17" y="8" width="40" height="40"/>
+                                        <rect key="frame" x="17" y="12" width="40" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="0Oe-qA-zJT"/>
                                             <constraint firstAttribute="width" constant="40" id="dYM-lU-sut"/>
                                         </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                         <state key="normal" image="UpRight"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
+                                                <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
@@ -96,12 +98,12 @@
                                         <state key="normal" image="Polyline"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
+                                                <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34r-bE-k9k" userLabel="refresh">
-                                        <rect key="frame" x="17.5" y="112" width="40" height="40"/>
+                                        <rect key="frame" x="17" y="60" width="40" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="LqD-84-Ic0"/>
@@ -111,7 +113,7 @@
                                         <state key="normal" image="RefreshFilled"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
+                                                <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -120,13 +122,13 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="34r-bE-k9k" firstAttribute="top" secondItem="nLj-UI-Mvg" secondAttribute="bottom" constant="12" id="17M-NQ-E3G"/>
-                                    <constraint firstAttribute="height" constant="155" id="9dP-VE-t24"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="nLj-UI-Mvg" secondAttribute="bottom" id="7Q5-OL-tHW"/>
+                                    <constraint firstAttribute="height" constant="108" id="9dP-VE-t24"/>
                                     <constraint firstItem="SP5-zb-cNs" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="Aw1-SL-h5z"/>
-                                    <constraint firstItem="nLj-UI-Mvg" firstAttribute="top" secondItem="SP5-zb-cNs" secondAttribute="bottom" constant="12" id="Lfv-e8-8hc"/>
+                                    <constraint firstItem="nLj-UI-Mvg" firstAttribute="top" secondItem="SP5-zb-cNs" secondAttribute="bottom" constant="8" id="Lfv-e8-8hc"/>
                                     <constraint firstItem="nLj-UI-Mvg" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="Nkq-2Q-dX5"/>
                                     <constraint firstItem="34r-bE-k9k" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="OFm-nA-qDH"/>
-                                    <constraint firstItem="SP5-zb-cNs" firstAttribute="top" secondItem="94D-R4-JiU" secondAttribute="top" constant="8" id="aDS-oF-vTu"/>
+                                    <constraint firstAttribute="bottom" secondItem="34r-bE-k9k" secondAttribute="bottom" constant="8" id="vA6-ur-xNQ"/>
                                     <constraint firstAttribute="width" constant="75" id="zqX-wm-1aa"/>
                                 </constraints>
                             </view>
@@ -135,7 +137,7 @@
                         <constraints>
                             <constraint firstItem="sT8-pl-Wb3" firstAttribute="width" secondItem="QuG-ob-nRC" secondAttribute="width" id="0yN-qG-aCe"/>
                             <constraint firstItem="8DJ-ih-PLm" firstAttribute="top" secondItem="sT8-pl-Wb3" secondAttribute="bottom" id="Us6-q3-fIc"/>
-                            <constraint firstItem="sT8-pl-Wb3" firstAttribute="top" secondItem="94D-R4-JiU" secondAttribute="bottom" constant="120" id="kaY-7l-Jh0"/>
+                            <constraint firstItem="sT8-pl-Wb3" firstAttribute="top" secondItem="94D-R4-JiU" secondAttribute="bottom" constant="70" id="kaY-7l-Jh0"/>
                             <constraint firstAttribute="trailing" secondItem="sT8-pl-Wb3" secondAttribute="trailing" id="lh9-z5-rqv"/>
                             <constraint firstAttribute="trailing" secondItem="94D-R4-JiU" secondAttribute="trailing" id="nE3-ag-raz"/>
                             <constraint firstItem="sT8-pl-Wb3" firstAttribute="leading" secondItem="QuG-ob-nRC" secondAttribute="leading" id="pKX-FB-bJk"/>
@@ -159,6 +161,7 @@
                         <outlet property="currentActivityPanelView" destination="sT8-pl-Wb3" id="bO2-LJ-rgp"/>
                         <outlet property="navigationBtn" destination="SP5-zb-cNs" id="0pj-Iw-qQg"/>
                         <outlet property="pathBtn" destination="nLj-UI-Mvg" id="ud1-Z7-vju"/>
+                        <outlet property="redoBtn" destination="34r-bE-k9k" id="0eu-i0-ham"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TPz-9X-6m3" userLabel="First Responder" sceneMemberID="firstResponder"/>
