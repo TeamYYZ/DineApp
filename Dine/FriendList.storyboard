@@ -16,11 +16,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexColor" red="0.42655369639396667" green="0.47584608197212219" blue="0.48026475310325623" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="52" id="hoI-8U-cnl" customClass="FriendCell" customModule="Dine" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="52" id="hoI-8U-cnl" customClass="FriendCell" customModule="Dine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hoI-8U-cnl" id="QwV-Kr-WeG">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="51.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="wxy-8x-Efd">
@@ -36,7 +36,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Invited" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgf-7E-eEY">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" misplaced="YES" text="Invited" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgf-7E-eEY">
                                             <rect key="frame" x="266" y="16" width="46" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="46" id="XF6-VC-4yf"/>
@@ -82,12 +82,13 @@
                     <connections>
                         <outlet property="inviteButton" destination="1EU-hb-vkI" id="x6l-FY-CvS"/>
                         <segue destination="npx-rr-lMA" kind="unwind" identifier="toMapViewSegue" unwindAction="unwindToMapView:" id="CDb-5b-ZtY"/>
+                        <segue destination="F7c-LO-21Q" kind="push" identifier="toUserProfile" id="uaO-yi-XbK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5e1-o1-cNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="npx-rr-lMA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="179" y="-1184"/>
+            <point key="canvasLocation" x="224" y="-1446"/>
         </scene>
         <!--Storyboard Reference-->
         <scene sceneID="5G0-gg-VTT">
@@ -185,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veI-Od-j9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043" y="-1184"/>
+            <point key="canvasLocation" x="1575" y="-1184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ft1-lm-Mj1">
@@ -203,7 +204,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Paw-WF-UGM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="647" y="-1184"/>
+            <point key="canvasLocation" x="1179" y="-1184"/>
+        </scene>
+        <!--UserProfile-->
+        <scene sceneID="HRh-2c-JjF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserProfile" id="F7c-LO-21Q" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="IFc-Ob-suB"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0vG-fm-vzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="745" y="-1458"/>
         </scene>
     </scenes>
     <resources>

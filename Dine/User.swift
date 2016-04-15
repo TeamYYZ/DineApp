@@ -41,9 +41,21 @@ class User {
         self.password = pfUser.password
         self.currentActivityId = pfUser["currentActivity"] as? String
         self.avatarImagePFFile = pfUser["avatar"] as? PFFile
+        
+        if let file = self.avatarImagePFFile{
+           
+            file.getDataInBackgroundWithBlock({
+                (result, error) in
+                self.avatarImage = UIImage(data: result!)
+            })
+        }else{
+            self.avatarImage = UIImage(named: "User")
+        }
+        
         if let screenName = pfUser["screenName"] as? String {
             self.screenName = screenName
         }
+        
         
         if let description = pfUser["description"] as? String{
             self.profileDescription = description

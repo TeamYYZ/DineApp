@@ -13,7 +13,7 @@ class Message {
     var messageId: String?
     var senderId: String?
     var screenName: String?
-    var senderAvatarPFFile: PFFile?
+    var senderAvatarImage: UIImage?
     var content: String?
     var createdAt: NSDate?
     
@@ -21,7 +21,7 @@ class Message {
         self.messageId = dictionary["messageId"] as? String
         self.senderId = dictionary["senderId"] as? String
         self.screenName = dictionary["screenName"] as? String
-        self.senderAvatarPFFile = dictionary["senderAvatarPFFile"] as? PFFile
+        //self.senderAvatarPFFile = dictionary["senderAvatarPFFile"] as? PFFile
         self.content = dictionary["content"] as? String
         self.createdAt = dictionary["createdAt"] as? NSDate
     }
@@ -29,17 +29,15 @@ class Message {
     init(senderId: String, screenName: String, content: String){
         self.content = content
         self.screenName = screenName
-        if let senderAvatarPFFile = senderAvatarPFFile{
-            self.senderAvatarPFFile = senderAvatarPFFile
-        }
         self.senderId = senderId
+//        self.senderAvatarPFFile = file
 
     }
     
-    init(senderId: String, screenName: String,content: String, createdAt: NSDate){
+    init(senderId: String, screenName: String, content: String, createdAt: NSDate){
         self.content = content
         self.screenName = screenName
-//        self.senderAvatarPFFile = senderAvatarPFFile
+        //self.senderAvatarPFFile = file
         self.senderId = senderId
         self.createdAt = createdAt
     }

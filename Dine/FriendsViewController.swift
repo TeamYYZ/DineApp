@@ -63,7 +63,6 @@ class FriendsViewController: UITableViewController {
         User.currentUser?.getFriendsList({ (friendList: [String]?) -> () in
             if let fetchedfriendList = friendList {
                 self.friendsIdList = fetchedfriendList
-                print(self.friendUsernameTitles)
                 self.generateFriendDic()
                 self.checked = [Bool](count: self.friendsIdList.count, repeatedValue: false)
             }
@@ -79,9 +78,23 @@ class FriendsViewController: UITableViewController {
             for friend in friends! {
                 let friendAsPFUser = friend as! PFUser
                 let friendAsUser = User(pfUser: friendAsPFUser)
+                
+                let avatarImagePFFile = friendAsPFUser["avatar"] as? PFFile
+                
+                if let file = avatarImagePFFile{
+                    file.getDataInBackgroundWithBlock({
+                        (result, error) in
+                        friendAsUser.avatarImage = UIImage(data: result!)
+                        self.tableView.reloadData()
+                    })
+                }else{
+                    friendAsUser.avatarImage = UIImage(named: "User")
+                }
+                
                 self.friendsUserList.append(friendAsUser)
                 let username = friendAsUser.screenName
                 let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
+                
                 if var usernameValues = self.friendsUserDic[usernameKey] {
                     usernameValues.append(friendAsUser)
                     self.friendsUserDic[usernameKey] = usernameValues
@@ -90,6 +103,7 @@ class FriendsViewController: UITableViewController {
                     self.friendUsernameTitles.append(usernameKey)
                     self.friendUsernameTitles.sortInPlace()
                 }
+                
             
             }
 
@@ -183,14 +197,29 @@ class FriendsViewController: UITableViewController {
             }else{
                 cell.inviteLabel.hidden = true
             }
-
+            
                 cell.userNameLabel.text = usernameValues[indexPath.row].screenName
     
                 if let avatarImage = usernameValues[indexPath.row].avatarImage{
                     cell.avatarImage.image = avatarImage
+                    if cell.avatarImage.userInteractionEnabled == false {
+                        cell.avatarImage.userInteractionEnabled = true
+                        let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
+                        cell.avatarImage.addGestureRecognizer(tapGesture)
+                        cell.avatarImage.layer.cornerRadius = 10.0
+                    }
                 }
+    
         }
         return cell
+    }
+    
+    func profileTap (sender: AnyObject) {
+
+        let position: CGPoint =  sender.locationInView(self.tableView)
+        let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(position)!
+        performSegueWithIdentifier("toUserProfile", sender: indexPath)
+        
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -243,6 +272,16 @@ class FriendsViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toUserProfile"{
+             let indexPath = sender as! NSIndexPath
+//             let list = User.currentUser?.friendList
+             let vc = segue.destinationViewController as! UserProfileViewController
+             let section = indexPath.section
+             let row = indexPath.row
+             let title = self.friendUsernameTitles[section]
+             vc.uid = self.friendsUserDic[title]![row].userId
+        }
+        else{
         if let button = sender as? UIBarButtonItem {
             if button.tag == 0{
                 var invitedIdList = [GroupMember]()
@@ -253,6 +292,7 @@ class FriendsViewController: UITableViewController {
                 }
                 activityInProgress?.setupGroup(invitedIdList)
                 self.performSegueWithIdentifier("toMapViewSegue", sender: self)
+            }
             }
         }
         

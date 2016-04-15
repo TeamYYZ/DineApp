@@ -35,13 +35,16 @@ class ChatViewController: UITableViewController {
             let senderId = User.currentUser?.userId
             //let file = User.currentUser?.avatarImagePFFile
             let screenName = User.currentUser?.screenName
+
             let message = Message(senderId: senderId!, screenName: screenName!, content: content)
             let chat = PFObject(className:  groupChatId)
             chat["content"] = message.content
             chat["senderId"] = message.senderId
             chat["screenName"] = message.screenName
-            //chat["file"] = message.senderAvatarPFFile
-             self.replyField.text = nil
+            if let file = User.currentUser?.avatarImagePFFile{
+                chat["file"] = file
+            }
+            self.replyField.text = nil
             chat.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                 if success == true && error == nil{
                     self.fetchData()
@@ -61,20 +64,36 @@ class ChatViewController: UITableViewController {
            let query = PFQuery(className: groupChatId)
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
-                print(error)
-                print(objects!.count)
                 if error == nil && objects!.count > 0{
-                    print(objects!.count)
                     for object in objects!{
                         let senderId = object["senderId"] as! String
                         let content = object["content"] as! String
                         let screenName = object["screenName"] as! String
                         let createdAt = object.createdAt! as NSDate
+                        //let file = object["file"] as! PFFile
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
-                        self.messages.append(message)
+                        if let file = object["file"] as? PFFile{
+                           file.getDataInBackgroundWithBlock({
+                                (result, error) in
+                                if error == nil{
+                                    message.senderAvatarImage = UIImage(data: result!)
+                                    self.messages.append(message)
 
+                                    self.tableView.reloadData()
+                                }else{
+                                   
+                                    print(error)
+                                }
+                            })
+                        }else{
+                            self.messages.append(message)
+                            self.tableView.reloadData()
+                        
+                        }
+                        
+                        
                     }
-                    self.tableView.reloadData()
+                    //self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                     self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
 
@@ -90,17 +109,36 @@ class ChatViewController: UITableViewController {
             query.orderByAscending("createdAt")
             query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error:NSError?) in
                 if error == nil && objects!.count > 0{
-                    print(objects!.count)
+                   // print(objects!.count)
                     for object in objects!{
                         let senderId = object["senderId"] as! String
                         let content = object["content"] as! String
                         let screenName = object["screenName"] as! String
-//                        let file = object["file"] as! PFFile
+                        //let file = object["file"] as! PFFile
                         let createdAt = object.createdAt! as NSDate
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
-                        self.messages.append(message)
+                        if let file = object["file"] as? PFFile{
+                            file.getDataInBackgroundWithBlock({
+                                (result, error) in
+                                if error == nil{
+                                    message.senderAvatarImage = UIImage(data: result!)
+                                    self.messages.append(message)
+                                    self.tableView.reloadData()
+                                }else{
+                                    
+                                    print(error)
+                                }
+                            })
+                        }else{
+                            self.messages.append(message)
+                            
+                            self.tableView.reloadData()
+                        
+                        }
+                        
+                        
                     }
-                    self.tableView.reloadData()
+                    //self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                     self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
 
@@ -147,17 +185,20 @@ class ChatViewController: UITableViewController {
         if message.senderId == User.currentUser?.userId {
             let cell = tableView.dequeueReusableCellWithIdentifier("SelfMessageCell") as! SelfMessageCell
             cell.screenNameLabel.text = message.screenName
-            message.senderAvatarPFFile?.getDataInBackgroundWithBlock({
-                (result, error) in
-                if error == nil{
-                    cell.avatarImageView.image = UIImage(data: result!)
-                }else{
-                    print(error)
-                }
-            })
-            
             cell.contentLabel.text = message.content
-            cell.avatarImageView.image = UIImage(named: "User")
+            if let image = message.senderAvatarImage{
+                cell.avatarImageView.image = image
+            }else{
+                cell.avatarImageView.image = UIImage(named: "User")
+            }
+            
+            if cell.avatarImageView.userInteractionEnabled == false {
+                cell.avatarImageView.userInteractionEnabled = true
+                let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
+                cell.avatarImageView.addGestureRecognizer(tapGesture)
+                cell.avatarImageView.layer.cornerRadius = 10.0
+            }
+            
             let previousIndex = indexPath.row - 1
             let date = message.createdAt
             let dateFormatter = NSDateFormatter()
@@ -167,7 +208,7 @@ class ChatViewController: UITableViewController {
             if 0 <= previousIndex {
                 let previousDate = self.messages[previousIndex].createdAt
                 if date?.minutesFrom(previousDate!) < 1 {
-                    print(date?.minutesFrom(previousDate!))
+                    //print(date?.minutesFrom(previousDate!))
                     cell.timeLabel.text = ""
                     cell.timeLabelHeight.constant = 0.0
                 } else {
@@ -186,15 +227,26 @@ class ChatViewController: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("MemberMessageCell") as! MemberMessageCell
             cell.screenNameLabel.text = message.screenName
-            message.senderAvatarPFFile?.getDataInBackgroundWithBlock({
-                (result, error) in
-                if error == nil{
-                    cell.avatarImageView.image = UIImage(data: result!)
-                }else{
-                    print(error)
-                }})
+
             cell.contentLabel.text = message.content
-             cell.avatarImageView.image = UIImage(named: "User")
+            
+            if let image = message.senderAvatarImage{
+                
+                cell.avatarImageView.image = image
+                
+            }else{
+            
+                cell.avatarImageView.image = UIImage(named: "User")
+            }
+            
+            if cell.avatarImageView.userInteractionEnabled == false {
+                cell.avatarImageView.userInteractionEnabled = true
+                let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
+                cell.avatarImageView.addGestureRecognizer(tapGesture)
+                cell.avatarImageView.layer.cornerRadius = 10.0
+            }
+            
+            //cell.avatarImageView.image = UIImage(named: "User")
             let previousIndex = indexPath.row - 1
             let date = message.createdAt
             let dateFormatter = NSDateFormatter()
@@ -222,6 +274,16 @@ class ChatViewController: UITableViewController {
             return cell
         }
     }
+    
+    func profileTap (sender: AnyObject) {
+        
+        let position: CGPoint =  sender.locationInView(self.tableView)
+        let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(position)!
+        performSegueWithIdentifier("toUserProfile", sender: indexPath)
+        
+    }
+    
+    
     
 
     /*
@@ -259,14 +321,21 @@ class ChatViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "toUserProfile"{
+            let indexPath = sender as! NSIndexPath
+            let id = self.messages[indexPath.row].senderId
+            let vc = segue.destinationViewController as! UserProfileViewController
+            vc.uid = id
+        
+        }
     }
-    */
+    
 
 }
