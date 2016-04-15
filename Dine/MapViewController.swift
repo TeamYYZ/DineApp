@@ -20,6 +20,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
     
     var currentActivity = Activity()
+    @IBOutlet weak var activityPanelTag: UIView!
+    
+    @IBOutlet weak var activityNameLabel: UILabel!
     
     var locationManager = CLLocationManager()
     var activities = [Activity]()
@@ -60,6 +63,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             })
         }
         
+        activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
+        activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
         
 
     }
@@ -203,6 +208,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func userJoinedActivity() {
         print("user joined activity")
+        UIView.animateWithDuration(2, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
+            self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
+            self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
+            }, completion: nil)
+        activityNameLabel.text = Activity.current_activity?.title
         if activityPanelBottomPos.constant == -ActivityPanelViewHeight.constant {
             UIView.animateWithDuration(0.3) {
                 self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant

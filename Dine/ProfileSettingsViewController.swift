@@ -19,6 +19,8 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    @IBOutlet weak var signoutLabel: UILabel!
+    
     let user = User.currentUser!
     
     override func viewDidLoad() {
@@ -55,6 +57,7 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
             self.descriptionLabel.text = description
         }
         
+        self.signoutLabel.textColor = ColorTheme.sharedInstance.profileSignOutLabelColor
         self.title = "My Profile"
        
     
@@ -62,6 +65,11 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     
         
     
+    }
+    
+    func logOut() {
+        PFUser.logOut()
+        NSNotificationCenter.defaultCenter().postNotificationName("userDidLogoutNotification", object: nil)
     }
     
     func profileEditting(profileEditting: profileEditingController, didUpdateScreenName updatedScreenName: String?){
@@ -81,37 +89,44 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let row = indexPath.row
-        if row == 0 {
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
-                (action) in
-            }
-            
-            let cameraAction = UIAlertAction(title: "Take Picture", style: .Default) {
-                (action)in
-                let vc = UIImagePickerController()
-                vc.delegate = self
-                vc.allowsEditing = true
-                vc.sourceType = UIImagePickerControllerSourceType.Camera
-                self.presentViewController(vc, animated: true, completion: nil)
-            }
-            
-            let libraryAction = UIAlertAction(title: "Photo Library", style: .Default) {
-                (action) in
-                let vc = UIImagePickerController()
-                vc.delegate = self
-                vc.allowsEditing = true
-                vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-                self.presentViewController(vc, animated: true, completion: nil)
+        if indexPath.section == 0 {
+            if row == 0 {
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+                    (action) in
+                }
+                
+                let cameraAction = UIAlertAction(title: "Take Picture", style: .Default) {
+                    (action)in
+                    let vc = UIImagePickerController()
+                    vc.delegate = self
+                    vc.allowsEditing = true
+                    vc.sourceType = UIImagePickerControllerSourceType.Camera
+                    self.presentViewController(vc, animated: true, completion: nil)
+                }
+                
+                let libraryAction = UIAlertAction(title: "Photo Library", style: .Default) {
+                    (action) in
+                    let vc = UIImagePickerController()
+                    vc.delegate = self
+                    vc.allowsEditing = true
+                    vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+                    self.presentViewController(vc, animated: true, completion: nil)
+                    
+                }
+                
+                alertController.addAction(cameraAction)
+                alertController.addAction(libraryAction)
+                alertController.addAction(cancelAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
                 
             }
-            
-            alertController.addAction(cameraAction)
-            alertController.addAction(libraryAction)
-            alertController.addAction(cancelAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-            
+        } else {
+            if row == 0 {
+                logOut()
+            }
         }
+
     }
     
     
@@ -153,12 +168,16 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-      return 4
+        if section == 0 {
+            return 4
+        } else {
+            return 1
+        }
     }
     
     

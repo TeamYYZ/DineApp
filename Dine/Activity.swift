@@ -33,14 +33,12 @@ class Activity: NSObject {
     
     static var current_activity: Activity? {
         didSet {
-            if current_activity != nil {
-                User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
-                    Log.warning("set Current Activity to User success")
-                    }, failureHandler: { (error: NSError?) in
-                        Log.error(error?.localizedDescription)
-                        
-                })
-            }
+            User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
+                Log.warning("set Current Activity to User success")
+                }, failureHandler: { (error: NSError?) in
+                    Log.error(error?.localizedDescription)
+                    
+            })
         }
     }
     //The activity that the current_user has joined
