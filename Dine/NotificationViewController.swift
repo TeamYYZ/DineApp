@@ -155,9 +155,13 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         // Pass the selected object to the new view controller.
         if segue.identifier == "toUserProfile"{
             let indexPath = sender as! NSIndexPath
-            let id = self.notifications[indexPath.row].senderId
+            let notification = self.notifications[indexPath.row]
+            let id = notification.senderId
             let vc = segue.destinationViewController as! UserProfileViewController
             vc.uid = id
+            if notification.type == .FriendRequest{
+                vc.isAcceptButton = true
+            }
         }
         
     }

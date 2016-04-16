@@ -52,11 +52,7 @@ class ChatViewController: UITableViewController {
                     print(error)
                 }
             })
-           
-            
         }
-        
-    
     }
     
     func fetchData(){
@@ -70,7 +66,6 @@ class ChatViewController: UITableViewController {
                         let content = object["content"] as! String
                         let screenName = object["screenName"] as! String
                         let createdAt = object.createdAt! as NSDate
-                        //let file = object["file"] as! PFFile
                         let message = Message(senderId: senderId, screenName: screenName, content: content, createdAt: createdAt)
                         if let file = object["file"] as? PFFile{
                            file.getDataInBackgroundWithBlock({
@@ -81,19 +76,14 @@ class ChatViewController: UITableViewController {
 
                                     self.tableView.reloadData()
                                 }else{
-                                   
                                     print(error)
                                 }
                             })
                         }else{
                             self.messages.append(message)
                             self.tableView.reloadData()
-                        
                         }
-                        
-                        
                     }
-                    //self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                     self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
 
@@ -137,7 +127,6 @@ class ChatViewController: UITableViewController {
                     //self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                     self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
-
                 }else{
                     print(error)
                 }
@@ -217,38 +206,29 @@ class ChatViewController: UITableViewController {
                 cell.timeLabelHeight.constant = 21.0
                 
             }
-
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("MemberMessageCell") as! MemberMessageCell
             cell.screenNameLabel.text = message.screenName
-
             cell.contentLabel.text = message.content
-            
             if let image = message.senderAvatarImage{
-                
                 cell.avatarImageView.image = image
-                
             }else{
-            
                 cell.avatarImageView.image = UIImage(named: "User")
             }
-            
             if cell.avatarImageView.userInteractionEnabled == false {
                 cell.avatarImageView.userInteractionEnabled = true
                 let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
                 cell.avatarImageView.addGestureRecognizer(tapGesture)
                 cell.avatarImageView.layer.cornerRadius = 10.0
             }
-            
-            //cell.avatarImageView.image = UIImage(named: "User")
             let previousIndex = indexPath.row - 1
             let date = message.createdAt
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "hh:mm"
             let dateString = dateFormatter.stringFromDate(date!)
-            
             if 0 <= previousIndex {
                 let previousDate = self.messages[previousIndex].createdAt
                 if date?.minutesFrom(previousDate!) < 2 {
@@ -257,14 +237,11 @@ class ChatViewController: UITableViewController {
                 } else {
                     cell.timeLabel.text = dateString
                     cell.timeLabelHeight.constant = 21.0
-
                 }
             } else {
                 cell.timeLabel.text = dateString
                 cell.timeLabelHeight.constant = 21.0
-
             }
-            
             cell.selectionStyle = UITableViewCellSelectionStyle.None
 
             return cell

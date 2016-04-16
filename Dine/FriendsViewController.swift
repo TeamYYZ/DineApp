@@ -31,6 +31,7 @@ class FriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(friendsIdList)
         if inviteNotAdd{
             inviteButton.enabled = false
             inviteButton.image = nil
@@ -211,6 +212,9 @@ class FriendsViewController: UITableViewController {
                 }
     
         }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
         return cell
     }
     

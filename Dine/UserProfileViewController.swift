@@ -10,6 +10,11 @@ import UIKit
 
 class UserProfileViewController: UITableViewController {
     
+    @IBOutlet weak var headerCell: UITableViewCell!
+    
+    @IBOutlet weak var descriptionCell: UITableViewCell!
+    
+    @IBOutlet weak var addButtonCell: UITableViewCell!
 
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -29,23 +34,39 @@ class UserProfileViewController: UITableViewController {
     
     var isFriend = true
     
+    var isAcceptButton = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        addButtonCell.selectionStyle = UITableViewCellSelectionStyle.None
+        headerCell.selectionStyle = UITableViewCellSelectionStyle.None
+        descriptionCell.selectionStyle = UITableViewCellSelectionStyle.None
+        addButtonCell.backgroundColor = self.view.backgroundColor
+        self.tableView.separatorColor = UIColor.clearColor()
+        
+        let line: UIImageView = UIImageView(frame: CGRectMake(20, 115, 280, 1))
+        //line.layer.borderWidth = 0.1
+        line.backgroundColor = self.view.backgroundColor
+        self.view.addSubview(line)
+        
+        if isAcceptButton == true{
+            self.addButton.setTitle("Accept", forState: .Normal)
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
+     
        let query = PFUser.query()
         query?.getObjectInBackgroundWithId(self.uid!, block: { (object: PFObject?, error: NSError?) in
             if object != nil && error == nil{
                 let pfUser = object as! PFUser
                 self.user = User(pfUser: pfUser)
-               
                 let id = self.user?.userId
-                
+                print(User.currentUser?.username)
+                print(User.currentUser?.friendList)
                 if  let list = User.currentUser?.friendList{
                     var count = 0
                     for fid in list{
@@ -57,8 +78,11 @@ class UserProfileViewController: UITableViewController {
                     if count == list.capacity{
                         self.isFriend = false
                     }
+                    self.loadData()
+                }else{
+                    self.isFriend = false
+                    self.loadData()
                 }
-                self.loadData()
             }else{
                 print(error)
             }
@@ -117,6 +141,10 @@ class UserProfileViewController: UITableViewController {
             return 1
         }
     }
+    
+   
+    
+    
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

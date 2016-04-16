@@ -17,7 +17,7 @@ class YYZAcceptButton: UIButton {
         // Drawing code
     }
     */
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupButton()
