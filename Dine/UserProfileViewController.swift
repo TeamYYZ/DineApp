@@ -43,17 +43,20 @@ class UserProfileViewController: UITableViewController {
             if object != nil && error == nil{
                 let pfUser = object as! PFUser
                 self.user = User(pfUser: pfUser)
-                let list = User.currentUser?.friendList
+               
                 let id = self.user?.userId
-                var count = 0
-                for fid in list!{
-                    if fid == id{
-                        break
+                
+                if  let list = User.currentUser?.friendList{
+                    var count = 0
+                    for fid in list{
+                        if fid == id{
+                            break
+                        }
+                        count += 1
                     }
-                    count += 1
-                }
-                if count == list?.capacity{
-                    self.isFriend = false
+                    if count == list.capacity{
+                        self.isFriend = false
+                    }
                 }
                 self.loadData()
             }else{

@@ -25,7 +25,7 @@ class UserNotification {
     var receiverId: String
     var senderName: String
     var senderAvatarPFFile: PFFile?
-    
+    var senderAvatarImage: UIImage?
     // create from send notifications
     init(type: NotificationType, content: String, senderId: String, receiverId: String, associatedId: String?, senderName: String, senderAvatarPFFile: PFFile?) {
         self.type = type

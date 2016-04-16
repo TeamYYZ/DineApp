@@ -33,11 +33,22 @@
                     <navigationItem key="navigationItem" title="Notifications" id="wVD-4Q-e8m"/>
                     <connections>
                         <outlet property="tableView" destination="ack-EJ-6VU" id="Rd3-sw-Roo"/>
+                        <segue destination="RcV-zk-GUW" kind="push" identifier="toUserProfile" id="saj-av-nCt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qTC-MC-CAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="617" y="342"/>
+        </scene>
+        <!--UserProfile-->
+        <scene sceneID="Lyf-fN-gzx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="UserProfile" id="RcV-zk-GUW" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="CYL-4Z-VSl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MDf-ed-UgF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1006.5" y="189"/>
         </scene>
     </scenes>
 </document>

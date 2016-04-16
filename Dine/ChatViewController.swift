@@ -131,12 +131,8 @@ class ChatViewController: UITableViewController {
                             })
                         }else{
                             self.messages.append(message)
-                            
                             self.tableView.reloadData()
-                        
                         }
-                        
-                        
                     }
                     //self.tableView.reloadData()
                     let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
