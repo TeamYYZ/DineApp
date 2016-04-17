@@ -175,10 +175,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             }
         }
     }
+    @IBAction func togglePolyLines(sender: AnyObject) {
+        showPath = !showPath
+        mapView.clear()
+        if showPath {
+            self.drawPolyLines()
+        }
+        addMapMarker(Activity.current_activity!)
+    }
     
     @IBAction func onRedoSearch(sender: AnyObject) {
         //update activities
         updateMapMarkers()
+    }
+    @IBAction func onExternalNavigate(sender: AnyObject) {
+        let place = Activity.current_activity?.location
+
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
+            UIApplication.sharedApplication().openURL(NSURL(string:
+                "comgooglemaps://?saddr=&daddr=\(place!.latitude),\(place!.longitude)&directionsmode=driving")!)
+            
+        } else {
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place!.latitude),\(place!.longitude)&dirflg=d&t=m")!)
+        }
+
     }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -208,7 +228,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                 mapView.moveCamera(update)
                 searchUserLocation = false
-                updateMapMarkers()
                 
             }
             
@@ -301,8 +320,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         self.mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds.includingCoordinate(Activity.current_activity!.location), withPadding: 50.0))
         addMapMarker(Activity.current_activity!)
         self.drawPolyLines()
-        
+        showPath = true
+
     }
+    
+    
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         Log.info("unwindToMapView invoked")
