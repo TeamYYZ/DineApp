@@ -158,7 +158,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
 
         if segue.identifier == "FirendListViewControllerSegue"{
             let vc = segue.destinationViewController as! FriendsViewController
-            vc.inviteNotAdd = false
+            vc.isInvitationVC = false
         }
     }
     

@@ -122,7 +122,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     func getMapBoundingBox() -> GMSCoordinateBounds {
         let visibleRegion = mapView.projection.visibleRegion()
         return GMSCoordinateBounds(region:visibleRegion)
-        
     }
     
     func updateMapMarkers() {
@@ -221,7 +220,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         Log.info("user joined activity")
         UIView.animateWithDuration(1, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
-
+            
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
             }, completion: nil)
@@ -254,7 +253,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         if activityPanelBottomPos.constant == 0 {
             UIView.animateWithDuration(0.2) {
                 self.mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
-
+                
                 self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
                 self.view.layoutIfNeeded()
             }
@@ -284,7 +283,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         } else {
             Log.warning("No current activity. Shoud not reach here")
         }
-
+        
         UIView.animateWithDuration(0.3) {
             self.pathBtn.alpha = 0
             self.navigationBtn.alpha = 0
@@ -309,9 +308,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         Log.info("unwindToMapView invoked")
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
-        
+        // MARK: check if it is unwinded from FriendsViewController
+        // if so, it means this is gonna create a brand new activity
         if let vc = sender.sourceViewController as? FriendsViewController {
             let activity = vc.activityInProgress
+            Log.info("From FriendsViewController")
             
             activity?.saveToBackend({ (activityId: String) -> () in
                 Log.info("saved successfully")
