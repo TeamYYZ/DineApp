@@ -103,7 +103,8 @@ class UserProfileViewController: UITableViewController {
     func addButtonOnTap(sender: AnyObject){
 
         self.delegate?.UserProfile!(self, didAcceptRequest: self.notificationIndex)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        //self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
 
     }
     

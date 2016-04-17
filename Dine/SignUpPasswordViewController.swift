@@ -46,8 +46,6 @@ class SignUpPasswordViewController: SignUpViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
             }
         }
-        
-        
         if segue.identifier == "signUpFinishPasswordSegue" {
             if PFUser.currentUser() == nil{
                 SignUpViewController.password = passwordField.text
@@ -61,8 +59,6 @@ class SignUpPasswordViewController: SignUpViewController {
                         print(error)
                     }
                 })
-
-                
             }
         }
         
