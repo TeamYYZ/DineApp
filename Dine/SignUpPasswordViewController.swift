@@ -41,9 +41,10 @@ class SignUpPasswordViewController: SignUpViewController {
 
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let myUser = PFUser.currentUser()
-        if myUser!["screenName"] != nil{
-            NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+        if let myUser = PFUser.currentUser(){
+            if myUser["screenName"] != nil{
+                NSNotificationCenter.defaultCenter().postNotificationName("userDidLoginNotification", object: nil)
+            }
         }
         
         

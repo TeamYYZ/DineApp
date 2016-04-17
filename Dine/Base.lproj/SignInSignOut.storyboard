@@ -264,7 +264,7 @@
                     <connections>
                         <outlet property="emailField" destination="ODj-of-Ulp" id="wGb-rd-RlE"/>
                         <outlet property="nextButton" destination="WbZ-uX-dla" id="ogR-Oc-B8h"/>
-                        <segue destination="bZv-A3-zyW" kind="push" identifier="signUpFinishEmailSegue" id="zbc-aK-yXE"/>
+                        <segue destination="p18-OE-F4U" kind="push" identifier="signUpFinishEmailSegue" id="MS9-9s-nnb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCs-hk-9dI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -425,6 +425,6 @@
         <image name="facebook" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="L3Q-iN-dVA"/>
+        <segue reference="MS9-9s-nnb"/>
     </inferredMetricsTieBreakers>
 </document>
