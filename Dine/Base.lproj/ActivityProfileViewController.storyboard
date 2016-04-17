@@ -10,13 +10,13 @@
         <scene sceneID="NYq-7W-OXI">
             <objects>
                 <tableViewController id="c19-J4-Paj" customClass="ActivityProfileViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zNp-dS-yLr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="zNp-dS-yLr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="115" id="6rR-xD-n7e" customClass="ActivityProfileCell" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="115"/>
+                                <rect key="frame" x="0.0" y="93.5" width="320" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6rR-xD-n7e" id="XZ2-WZ-kYm">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="114.5"/>
@@ -86,7 +86,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc" customClass="ActivityMemberCell" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="187" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="208.5" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7C-sr-bYc" id="XTM-bw-Pem">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>

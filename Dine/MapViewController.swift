@@ -136,11 +136,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.activities = acts
             print(acts)
             for act in self.activities {
-                act.fetchGroupMember({ (groupMembers: [GroupMember]) in
-                    self.addMapMarker(act)
-                    }, failureHandler: { (error: NSError?) -> () in
-                        Log.info(error?.localizedDescription)
-                })
+                self.addMapMarker(act)
             }
         }
         self.view.layoutIfNeeded()
@@ -149,19 +145,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     
     func addMapMarker(act: Activity) {
-        let marker = GMSMarker()
-        marker.position = act.location
-        marker.title = act.title
-        marker.snippet = act.overview
-        marker.map = mapView
-        
-        //set image when adding marker
-        let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
-        let annotation = MapAnnotation(activity: act)
-        mapDetailView.annotation = annotation
-        
-        marker.userData = mapDetailView
-    }
+        act.fetchGroupMember({ (groupMembers: [GroupMember]) in
+            let marker = GMSMarker()
+            marker.position = act.location
+            marker.title = act.title
+            marker.snippet = act.overview
+            marker.map = self.mapView
+            
+            //set image when adding marker
+            let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
+            let annotation = MapAnnotation(activity: act)
+            mapDetailView.annotation = annotation
+            
+            marker.userData = mapDetailView
+
+            }, failureHandler: { (error: NSError?) -> () in
+                Log.info(error?.localizedDescription)
+        })
+
+}
     
     func drawPolyLines() {
         //add polylines

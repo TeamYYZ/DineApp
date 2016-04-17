@@ -76,7 +76,7 @@ class ActivityProfileViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
                 cell.activity = self.activity
@@ -95,7 +95,7 @@ class ActivityProfileViewController: UITableViewController {
             
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
-            let member = groupMembers[indexPath.row - 1]
+            let member = groupMembers[indexPath.row]
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
@@ -129,7 +129,7 @@ class ActivityProfileViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return 115
         }
         return 45
@@ -137,13 +137,29 @@ class ActivityProfileViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
-    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0) {
+            return 0
+        }else {
+            return 21.0
+        }
+    }
+
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 1) {
+            return "Group Members"
+        }
+        return ""
+    }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
-        return 1 + groupMembers.count // 1 + number of members
+        if (section == 1) {
+            return groupMembers.count
+        }else {
+        return 1
+        }
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {

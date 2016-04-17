@@ -62,17 +62,39 @@ class RestaurantDetailViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 3
     }
 
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 1) {
+            return "Directions"
+        }
+        if (section == 2) {
+            return "Reviews"
+        }
+        return ""
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0) {
+            return 0
+        }else {
+        return 21.0
+        }
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (business.reviews?.count)!+2
+        if (section == 2) {
+            return (business.reviews?.count)!
+        } else {
+            return 1
+        }
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             //profile
         let cell = tableView.dequeueReusableCellWithIdentifier("profileCell", forIndexPath: indexPath) as! RestaurantProfileCell
             cell.business = business
@@ -81,7 +103,7 @@ class RestaurantDetailViewController: UITableViewController {
 
         return cell
         }
-        else if indexPath.row == 1 {
+        else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("mapCell", forIndexPath: indexPath) as! MapCell
             cell.business = business
             // Configure the cell...
@@ -91,7 +113,7 @@ class RestaurantDetailViewController: UITableViewController {
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! RestaurantReviewCell
             if business.reviews != nil {
-                cell.review = business.reviews![indexPath.row - 2]
+                cell.review = business.reviews![indexPath.row]
             }
             // Configure the cell...
             
