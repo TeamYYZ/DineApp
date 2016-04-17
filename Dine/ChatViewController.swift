@@ -84,7 +84,7 @@ class ChatViewController: UITableViewController {
                             self.tableView.reloadData()
                         }
                     }
-                    let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                    let indexPath = NSIndexPath(forRow: self.messages.count, inSection: 0)
                     self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
 
                 }else{
