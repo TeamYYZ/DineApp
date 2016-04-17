@@ -8,9 +8,10 @@
 
 import UIKit
 
-class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UserProfileViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
     let refreshControl = UIRefreshControl()
     var notifications = [UserNotification]()
     
@@ -61,6 +62,9 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
+    func UserProfile(userprofile: UserProfileViewController, didAcceptRequest withNotificationIndex: Int) {
+        self.acceptRequestWithNotificationIndex(withNotificationIndex)
+    }
     
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -68,6 +72,22 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         notification.delete()
         notifications.removeAtIndex(indexPath.row)
         
+        tableView.reloadData()
+    }
+    
+    
+    func acceptRequestWithNotificationIndex(sender: AnyObject){
+        let index = sender as! Int
+        let notification = notifications[index]
+        notification.acceptRequest({ (type: NotificationType) in
+            if type == .Invitation {
+                Log.info("join activity successfully")
+                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+            }
+        }) { (error: NSError?) in
+            Log.info(error?.localizedDescription)
+        }
+        notifications.removeAtIndex(index)
         tableView.reloadData()
     }
     
@@ -122,6 +142,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         self.edgesForExtendedLayout = UIRectEdge.None
@@ -159,6 +180,8 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
             let id = notification.senderId
             let vc = segue.destinationViewController as! UserProfileViewController
             vc.uid = id
+            vc.delegate = self
+            vc.notificationIndex = indexPath.row
             if notification.type == .FriendRequest{
                 vc.isAcceptButton = true
             }

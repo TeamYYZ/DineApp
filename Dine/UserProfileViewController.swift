@@ -8,6 +8,13 @@
 
 import UIKit
 
+@objc protocol UserProfileViewControllerDelegate{
+
+    optional func UserProfile(userprofile: UserProfileViewController, didAcceptRequest withNotificationIndex: Int)
+            
+    
+}
+
 class UserProfileViewController: UITableViewController {
     
     @IBOutlet weak var headerCell: UITableViewCell!
@@ -36,9 +43,12 @@ class UserProfileViewController: UITableViewController {
     
     var isAcceptButton = false
     
+    var notificationIndex = Int()
+    
+    weak var delegate: UserProfileViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addButtonCell.selectionStyle = UITableViewCellSelectionStyle.None
         headerCell.selectionStyle = UITableViewCellSelectionStyle.None
         descriptionCell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -53,12 +63,13 @@ class UserProfileViewController: UITableViewController {
         if isAcceptButton == true{
             self.addButton.setTitle("Accept", forState: .Normal)
         }
+        
+        addButton.addTarget(self, action: Selector("addButtonOnTap:"), forControlEvents: .TouchDown)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-     
        let query = PFUser.query()
         query?.getObjectInBackgroundWithId(self.uid!, block: { (object: PFObject?, error: NSError?) in
             if object != nil && error == nil{
@@ -88,6 +99,15 @@ class UserProfileViewController: UITableViewController {
             }
         })
     }
+    
+    func addButtonOnTap(sender: AnyObject){
+
+        self.delegate?.UserProfile!(self, didAcceptRequest: self.notificationIndex)
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

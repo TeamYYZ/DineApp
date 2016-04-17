@@ -49,7 +49,9 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
         
         self.profileImageView.layer.cornerRadius = 8.0
         
-        self.screenNameLabel.text = user.screenName!
+        if let screenName = user.screenName{
+            self.screenNameLabel.text = screenName
+        }
         
         self.emailAddressLabel.text = user.username!
         
