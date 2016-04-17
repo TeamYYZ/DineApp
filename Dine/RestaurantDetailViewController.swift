@@ -20,7 +20,7 @@ class RestaurantDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = business.name
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         profileView = UIImageView(image: UIImage(named: "map"))
         smallProfileView = UIImageView(image: UIImage(named: "map"))

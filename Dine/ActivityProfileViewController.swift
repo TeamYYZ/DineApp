@@ -20,6 +20,8 @@ class ActivityProfileViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = activity.title
+
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         
@@ -31,6 +33,11 @@ class ActivityProfileViewController: UITableViewController {
         if let url = activity.profileURL {
             profileView.setImageWithURL(url)
             smallProfileView.setImageWithURL(url)
+        }
+        let owner = activity.owner
+        print(owner)
+        if let ownerAvatar = User(pfUser: owner).avatarImage {
+            smallProfileView.image = ownerAvatar
         }
         
         //blur image
@@ -93,6 +100,10 @@ class ActivityProfileViewController: UITableViewController {
             cell.checkButton.adjustsImageWhenHighlighted = false
             return cell
             
+        }else if (indexPath.section == 1){
+            let cell = tableView.dequeueReusableCellWithIdentifier("DesCell", forIndexPath: indexPath) as! ActivityDesCell
+            cell.desLabel.text = self.activity.overview
+            return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             let member = groupMembers[indexPath.row]
@@ -130,14 +141,14 @@ class ActivityProfileViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 115
+            return 95
         }
         return 45
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == 0) {
@@ -148,17 +159,20 @@ class ActivityProfileViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (section == 1) {
+        if (section == 2) {
             return "Group Members"
+        }
+        if (section == 1) {
+            return "About"
         }
         return ""
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if (section == 1) {
+        if (section == 2) {
             return groupMembers.count
         }else {
-        return 1
+            return 1
         }
     }
     
