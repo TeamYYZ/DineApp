@@ -125,14 +125,12 @@ class ChatViewController: UITableViewController {
                     
 
                     self.tableView.beginUpdates()
-                    self.tableView.insertRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Left)
+                    self.tableView.insertRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Bottom)
                     self.tableView.endUpdates()
                     
-                    UIView.animateWithDuration(0.8, animations: {
-                        let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
-                        // MARK: must be .Middle. Otherwise, the scrollView behaves weird
-                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
-                    })
+                    let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
+                    // MARK: must be .Middle. Otherwise, the scrollView behaves weird
+                    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
 
                     
                 } else {
@@ -201,11 +199,12 @@ class ChatViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         Log.info("indexPath.row \(indexPath.row)")
-        let message = self.messages[indexPath.row]
+        let index = indexPath.row
+        let message = self.messages[index]
         if message.senderId == User.currentUser?.userId {
             let cell = tableView.dequeueReusableCellWithIdentifier("SelfMessageCell") as! SelfMessageCell
             cell.screenNameLabel.text = message.screenName
-
+            cell.indexInTable = index
             if let content = message.content {
                 cell.contentLabel.text = content
             } else {
@@ -216,7 +215,11 @@ class ChatViewController: UITableViewController {
                 avatarPFFile.getDataInBackgroundWithBlock({
                     (result, error) in
                     if error == nil{
-                        cell.avatarImageView.image = UIImage(data: result!)
+                        if index == cell.indexInTable {
+                            cell.avatarImageView.image = UIImage(data: result!)
+                        } else {
+                            Log.info("image comes too late, do not set it to avatar")
+                        }
                     }else{
                         print(error)
                     }
@@ -244,7 +247,7 @@ class ChatViewController: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("MemberMessageCell") as! MemberMessageCell
             cell.screenNameLabel.text = message.screenName
-            
+            cell.indexInTable = index
             if let content = message.content {
                 cell.contentLabel.text = content
             } else {
@@ -256,7 +259,11 @@ class ChatViewController: UITableViewController {
                 avatarPFFile.getDataInBackgroundWithBlock({
                     (result, error) in
                     if error == nil{
-                        cell.avatarImageView.image = UIImage(data: result!)
+                        if index == cell.indexInTable {
+                            cell.avatarImageView.image = UIImage(data: result!)
+                        } else {
+                            Log.info("image comes too late, do not set it to avatar")
+                        }
                     }else{
                         print(error)
                     }

@@ -23,6 +23,8 @@ class MemberMessageCell: UITableViewCell {
     
     @IBOutlet weak var textView: UIView!
     
+    var indexInTable = -1
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

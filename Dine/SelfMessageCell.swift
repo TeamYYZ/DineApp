@@ -23,6 +23,8 @@ class SelfMessageCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var textView: UIView!
+    
+    var indexInTable = -1
         
     var maxSize: CGSize {
         get {
