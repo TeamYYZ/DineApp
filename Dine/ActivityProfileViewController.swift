@@ -10,11 +10,12 @@
 import UIKit
 import MBProgressHUD
 
-class ActivityProfileViewController: UITableViewController {
+class ActivityProfileViewController: UITableViewController{
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var smallProfileView: UIImageView!
     var blurView: UIVisualEffectView!
+    
     var activity: Activity!
     var groupMembers = [GroupMember]()
 
@@ -34,11 +35,6 @@ class ActivityProfileViewController: UITableViewController {
             profileView.setImageWithURL(url)
             smallProfileView.setImageWithURL(url)
         }
-        let owner = activity.owner
-        print(owner)
-        if let ownerAvatar = User(pfUser: owner).avatarImage {
-            smallProfileView.image = ownerAvatar
-        }
         
         //blur image
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
@@ -46,25 +42,46 @@ class ActivityProfileViewController: UITableViewController {
         blurView.frame = profileView.frame
         blurView.alpha = 0.8
         
-        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 40, 80, 80)
+        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 60, 80, 80)
         smallProfileView.clipsToBounds = true
-        smallProfileView.layer.cornerRadius = 5
+        smallProfileView.layer.cornerRadius = 10
         smallProfileView.contentMode = .ScaleAspectFill
-        
+
         tableHeaderView.addSubview(profileView)
         tableHeaderView.addSubview(blurView)
         tableHeaderView.addSubview(smallProfileView)
-
+        
         self.tableView.tableHeaderView = tableHeaderView
         fetchGroupMembers()
 
     }
-
+    
     func fetchGroupMembers() {
         if let activity = activity {
             print("Try fetchGroupMembers")
             activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
+                
+                //add member avatars
+                var index = 0
+                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0)-CGFloat(groupMembers.count)*45.0/2.0
+                    print(startX)
+                for member in groupMembers {
+                    if let avatarFile = member.avatar{
+                        avatarFile.getDataInBackgroundWithBlock({
+                            (result, error) in
+                            let memberProfileView = UIImageView(image: UIImage(data: result!))
+                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0)+30, 40, 40)
+                            memberProfileView.clipsToBounds = true
+                            memberProfileView.layer.cornerRadius = 20
+                            memberProfileView.contentMode = .ScaleAspectFill
+                            self.tableView.tableHeaderView?.addSubview(memberProfileView)
+                            index += 1
+
+                        })
+                        
+                    }
+                }
                 self.tableView.reloadData()
                 print("fetchGroupMembers success \(self.groupMembers.count)")
                 }, failureHandler: { (error: NSError?) -> () in
