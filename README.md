@@ -52,3 +52,12 @@ CodePath Final project
 | GroupMember |	UID	| current location |
 | Invitation | IID | sender |	receivers(UID) | AID |			
 | GroupChat | UID | time | message |
+
+## Walkthrough
+<img src='http://i.imgur.com/6VUvNaX.gif' title='Video Walkthrough' width='310' alt='Video Walkthrough' />
+
+## Improvement
+### High-performance UITableView
+
+Our Chat view achieves around 60 FPS when populated more than 400 cells
+https://www.youtube.com/watch?v=6e5v3LYwCFs&feature=youtu.be
