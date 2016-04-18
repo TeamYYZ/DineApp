@@ -45,7 +45,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         
         if cell.typeImageView.userInteractionEnabled == false {
             cell.typeImageView.userInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NotificationViewController.profileTap(_:)))
             cell.typeImageView.addGestureRecognizer(tapGesture)
             cell.typeImageView.layer.cornerRadius = 10.0
         }
@@ -108,6 +108,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func fetchNotifications() {
+        notifications = [UserNotification]()
         if let user = User.currentUser {
             user.getNotifications({ (fetchedNotifications: [UserNotification]?) -> () in
                 if let notifications = fetchedNotifications {

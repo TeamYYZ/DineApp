@@ -23,6 +23,15 @@ class SelfMessageCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var textView: UIView!
+        
+    var maxSize: CGSize {
+        get {
+            // MARK: 116 = width of all views ocuppied except UILabel
+            let maxWidth = CGRectGetWidth(self.bounds) - 116
+            let maxHeight = CGFloat.max
+            return CGSize(width: maxWidth, height: maxHeight)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

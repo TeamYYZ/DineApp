@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="395" height="98"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="395" height="98"/>
+                <rect key="frame" x="0.0" y="0.0" width="395" height="97.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Michael" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2E2-hn-yf0">
@@ -24,7 +24,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:38" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fx-5S-EL9">
-                        <rect key="frame" x="177" y="8" width="41" height="21"/>
+                        <rect key="frame" x="181" y="8" width="32" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="W0e-E3-fPI"/>
                             <constraint firstAttribute="width" constant="41" id="vnc-wW-7s3"/>
@@ -32,6 +32,11 @@
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.71666393979057585" green="0.71666393979057585" blue="0.71666393979057585" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vnc-wW-7s3"/>
+                            </mask>
+                        </variation>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2fi-qo-8Rv">
                         <rect key="frame" x="330" y="30" width="56" height="56"/>
@@ -43,7 +48,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIg-fS-XX6">
                         <rect key="frame" x="169" y="54" width="148" height="35"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes, I am coming" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-nX-RT7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="240" verticalHuggingPriority="240" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" text="Yes, I am coming" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvs-nX-RT7">
                                 <rect key="frame" x="9" y="7" width="130" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,6 +69,7 @@
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="leading" secondItem="2E2-hn-yf0" secondAttribute="trailing" constant="13" id="4B4-bd-HgK"/>
                     <constraint firstItem="kIg-fS-XX6" firstAttribute="top" secondItem="2E2-hn-yf0" secondAttribute="bottom" constant="8" id="7ub-uY-kKt"/>
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="leading" secondItem="kIg-fS-XX6" secondAttribute="trailing" constant="13" id="B8S-I4-MdJ"/>
+                    <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="9Fx-5S-EL9" secondAttribute="bottom" constant="1" id="BZP-dq-Wyk"/>
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="2E2-hn-yf0" secondAttribute="top" id="Cwl-3r-pZT"/>
                     <constraint firstAttribute="trailing" secondItem="2fi-qo-8Rv" secondAttribute="trailing" constant="9" id="DXx-Ld-ujk"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kIg-fS-XX6" secondAttribute="bottom" constant="8" id="HJ3-DZ-IyL"/>
@@ -72,10 +78,13 @@
                     <constraint firstItem="2E2-hn-yf0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TOm-Qy-AkW"/>
                     <constraint firstItem="2E2-hn-yf0" firstAttribute="top" secondItem="9Fx-5S-EL9" secondAttribute="bottom" constant="1" id="auz-Cn-dvt"/>
                     <constraint firstItem="kIg-fS-XX6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fWm-n6-lMy"/>
+                    <constraint firstItem="2E2-hn-yf0" firstAttribute="top" secondItem="9Fx-5S-EL9" secondAttribute="bottom" constant="1" id="wKl-eJ-jfj"/>
                     <constraint firstItem="9Fx-5S-EL9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="yBV-oG-ZeG"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="auz-Cn-dvt"/>
+                        <exclude reference="3nk-aC-d0W"/>
                         <exclude reference="Cwl-3r-pZT"/>
                     </mask>
                 </variation>
