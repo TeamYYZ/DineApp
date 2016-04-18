@@ -60,5 +60,5 @@ CodePath Final project
 ### High-performance UITableView
 
 Our Chat view achieves around 60 FPS when populated more than 400 cells by using cached cell height and pre-computing cell height.
+[![UITableView Video Demo](http://img.youtube.com/vi/6e5v3LYwCFs/0.jpg)](http://www.youtube.com/watch?v=6e5v3LYwCFs "Demo")
 
-https://www.youtube.com/watch?v=6e5v3LYwCFs&feature=youtu.be
