@@ -34,10 +34,9 @@
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="centerY" secondItem="Ytb-pC-xcP" secondAttribute="centerY" id="4TA-Iq-7KA"/>
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="4zM-3s-irT"/>
                     <constraint firstItem="Ytb-pC-xcP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="6GX-O4-VrT"/>
-                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="SNi-yV-8Mf"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="2fP-1L-hrf" secondAttribute="trailing" constant="8" id="WMa-aq-trb"/>
                     <constraint firstItem="2fP-1L-hrf" firstAttribute="leading" secondItem="Ytb-pC-xcP" secondAttribute="trailing" constant="13" id="cEN-5g-z2H"/>
-                    <constraint firstAttribute="bottom" secondItem="Ytb-pC-xcP" secondAttribute="bottom" constant="11" id="rm4-0N-rZp"/>
+                    <constraint firstItem="Ytb-pC-xcP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="xTu-cn-fF4"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

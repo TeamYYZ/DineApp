@@ -63,6 +63,7 @@
 		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
 		C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */; };
 		C66890441CB1776300812FE5 /* ActivityMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66890431CB1776300812FE5 /* ActivityMemberCell.swift */; };
+		C668906D1CC437BE00812FE5 /* ActivityDesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668906C1CC437BE00812FE5 /* ActivityDesCell.swift */; };
 		C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */; };
 		C67FF47A1CAC2E9500EB256A /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67FF4791CAC2E9500EB256A /* Route.swift */; };
 		C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6913BC41CA306FC00115AF2 /* FriendCell.swift */; };
@@ -149,6 +150,7 @@
 		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCreatorViewController.swift; sourceTree = "<group>"; };
 		C66890431CB1776300812FE5 /* ActivityMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMemberCell.swift; sourceTree = "<group>"; };
+		C668906C1CC437BE00812FE5 /* ActivityDesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDesCell.swift; sourceTree = "<group>"; };
 		C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsAPI.swift; sourceTree = "<group>"; };
 		C67FF4791CAC2E9500EB256A /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		C6913BC41CA306FC00115AF2 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				C6EE093F1C972A4200345357 /* SidebarMenuHeaderView.swift */,
 				C6EE09411C972A5700345357 /* SidebarMenuHeaderView.xib */,
 				C6EE09471C975F1200345357 /* ActivityProfileCell.swift */,
+				C668906C1CC437BE00812FE5 /* ActivityDesCell.swift */,
 				C66890431CB1776300812FE5 /* ActivityMemberCell.swift */,
 				C17AABE31C984EA100CC83CF /* YYZTextField.swift */,
 				C17AABE51C9851E200CC83CF /* YYZButton.swift */,
@@ -570,6 +573,7 @@
 				3BAB2BA91CC0939400E201A2 /* UserProfileViewController.swift in Sources */,
 				C127F5701CA3885700D40088 /* Message.swift in Sources */,
 				3B26AACA1CB5F8F0007A7F43 /* DescriptionEditViewController.swift in Sources */,
+				C668906D1CC437BE00812FE5 /* ActivityDesCell.swift in Sources */,
 				3B26AAC21CB5B652007A7F43 /* ProfileSettingsViewController.swift in Sources */,
 				C6EE09461C974EF100345357 /* ActivityProfileViewController.swift in Sources */,
 				C6913BC51CA306FC00115AF2 /* FriendCell.swift in Sources */,

@@ -10,16 +10,20 @@
 import UIKit
 import MBProgressHUD
 
-class ActivityProfileViewController: UITableViewController {
+class ActivityProfileViewController: UITableViewController{
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var smallProfileView: UIImageView!
     var blurView: UIVisualEffectView!
+    
     var activity: Activity!
     var groupMembers = [GroupMember]()
+    var memberAvatars = [UIImage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = activity.title
+
         //check if user joined activity, if true set chatButton enable = true, else set enable = false
         let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
         
@@ -39,26 +43,51 @@ class ActivityProfileViewController: UITableViewController {
         blurView.frame = profileView.frame
         blurView.alpha = 0.8
         
-        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 40, 80, 80)
+        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 60, 80, 80)
         smallProfileView.clipsToBounds = true
-        smallProfileView.layer.cornerRadius = 5
+        smallProfileView.layer.cornerRadius = 10
         smallProfileView.contentMode = .ScaleAspectFill
-        
+
         tableHeaderView.addSubview(profileView)
         tableHeaderView.addSubview(blurView)
         tableHeaderView.addSubview(smallProfileView)
-
+        
         self.tableView.tableHeaderView = tableHeaderView
         fetchGroupMembers()
 
     }
-
+    
     func fetchGroupMembers() {
         if let activity = activity {
             print("Try fetchGroupMembers")
             activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
-                self.tableView.reloadData()
+
+                //add member avatars
+                var index = 0
+                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0)-CGFloat(groupMembers.count)*45.0/2.0
+                for member in groupMembers {
+                    if let avatarFile = member.avatar{
+                        avatarFile.getDataInBackgroundWithBlock({
+                            (result, error) in
+                            self.memberAvatars.insert(UIImage(data: result!)!, atIndex: index)
+                            
+                            let memberProfileView = UIImageView(image: UIImage(data: result!))
+                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0)+30, 40, 40)
+                            memberProfileView.clipsToBounds = true
+                            memberProfileView.layer.cornerRadius = 20
+                            memberProfileView.layer.borderWidth = 2.0
+                            memberProfileView.layer.borderColor = UIColor(white: 0.9, alpha: 1).CGColor
+                            memberProfileView.contentMode = .ScaleAspectFill
+                            self.tableView.tableHeaderView?.addSubview(memberProfileView)
+                            index += 1
+                            if (index == groupMembers.count) {
+                                self.tableView.reloadData()
+                            }
+                        })
+                        
+                    }
+                }
                 print("fetchGroupMembers success \(self.groupMembers.count)")
                 }, failureHandler: { (error: NSError?) -> () in
                 print(error?.localizedDescription)
@@ -93,15 +122,22 @@ class ActivityProfileViewController: UITableViewController {
             cell.checkButton.adjustsImageWhenHighlighted = false
             return cell
             
+        }else if (indexPath.section == 1){
+            let cell = tableView.dequeueReusableCellWithIdentifier("DesCell", forIndexPath: indexPath) as! ActivityDesCell
+            cell.desLabel.text = self.activity.overview
+            return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             let member = groupMembers[indexPath.row]
+            cell.profile = memberAvatars[indexPath.row]
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
                 cell.statusLabel.text = "Accepted"
+                cell.profileView.alpha = 0.9
             } else {
                 cell.statusLabel.text = "Waiting for Acceptance"
+                cell.profileView.alpha = 0.5
             }
             return cell
         }
@@ -130,14 +166,14 @@ class ActivityProfileViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 115
+            return 95
         }
         return 45
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == 0) {
@@ -148,17 +184,20 @@ class ActivityProfileViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (section == 1) {
+        if (section == 2) {
             return "Group Members"
+        }
+        if (section == 1) {
+            return "About"
         }
         return ""
     }
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if (section == 1) {
+        if (section == 2) {
             return groupMembers.count
         }else {
-        return 1
+            return 1
         }
     }
     
