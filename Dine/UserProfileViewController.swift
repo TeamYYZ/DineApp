@@ -64,12 +64,8 @@ class UserProfileViewController: UITableViewController {
             self.addButton.setTitle("Accept", forState: .Normal)
         }
         
-        addButton.addTarget(self, action: Selector("addButtonOnTap:"), forControlEvents: .TouchDown)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        addButton.addTarget(self, action: #selector(UserProfileViewController.addButtonOnTap(_:)), forControlEvents: .TouchDown)
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
        let query = PFUser.query()
         query?.getObjectInBackgroundWithId(self.uid!, block: { (object: PFObject?, error: NSError?) in
             if object != nil && error == nil{

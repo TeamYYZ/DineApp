@@ -72,7 +72,6 @@
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="9Fx-5S-EL9" secondAttribute="bottom" constant="1" id="BZP-dq-Wyk"/>
                     <constraint firstItem="2fi-qo-8Rv" firstAttribute="top" secondItem="2E2-hn-yf0" secondAttribute="top" id="Cwl-3r-pZT"/>
                     <constraint firstAttribute="trailing" secondItem="2fi-qo-8Rv" secondAttribute="trailing" constant="9" id="DXx-Ld-ujk"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kIg-fS-XX6" secondAttribute="bottom" constant="8" id="HJ3-DZ-IyL"/>
                     <constraint firstItem="9Fx-5S-EL9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="JvR-Lx-QVQ"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2fi-qo-8Rv" secondAttribute="bottom" constant="10" id="LWg-Rw-oi2"/>
                     <constraint firstItem="2E2-hn-yf0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="TOm-Qy-AkW"/>
@@ -86,6 +85,7 @@
                         <exclude reference="auz-Cn-dvt"/>
                         <exclude reference="3nk-aC-d0W"/>
                         <exclude reference="Cwl-3r-pZT"/>
+                        <exclude reference="LWg-Rw-oi2"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

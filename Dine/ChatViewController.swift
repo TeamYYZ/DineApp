@@ -16,6 +16,8 @@ class ChatViewController: UITableViewController {
     var messages = [Message]()
     var heightCache = [CGFloat]()
     var groupChatId = "myChat"
+    let dateFormatter = NSDateFormatter()
+    
     private lazy var sizingCell: SelfMessageCell = {
         return self.tableView.dequeueReusableCellWithIdentifier("SelfMessageCell") as! SelfMessageCell
     }()
@@ -68,6 +70,18 @@ class ChatViewController: UITableViewController {
                 if error == nil && objects!.count > 0 {
                     for object in objects!{
                         let message = Message(pfObject: object)
+                        let date = message.createdAt
+                        let previousIndex = self.messages.count - 1
+                        self.dateFormatter.dateFormat = "hh:mm"
+                        let dateString = self.dateFormatter.stringFromDate(date!)
+                        message.createdAtString = dateString
+                        if 0 <= previousIndex {
+                            let previousDate = self.messages[previousIndex].createdAt
+                            if date?.minutesFrom(previousDate!) < 1 {
+                                message.isRecentMessage = true
+                                
+                            }
+                        }
                         self.messages.append(message)
                     }
                     self.heightCache = [CGFloat](count: self.messages.count, repeatedValue: -1.0)
@@ -91,6 +105,18 @@ class ChatViewController: UITableViewController {
                     var updatedIndexPaths = [NSIndexPath]()
                     for object in objects! {
                         let message = Message(pfObject: object)
+                        let date = message.createdAt
+                        let previousIndex = self.messages.count - 1
+                        self.dateFormatter.dateFormat = "hh:mm"
+                        let dateString = self.dateFormatter.stringFromDate(date!)
+                        message.createdAtString = dateString
+                        if 0 <= previousIndex {
+                            let previousDate = self.messages[previousIndex].createdAt
+                            if date?.minutesFrom(previousDate!) < 1 {
+                                message.isRecentMessage = true
+                                
+                            }
+                        }
                         self.messages.append(message)
                         let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                         updatedIndexPaths.append(indexPath)
@@ -137,12 +163,17 @@ class ChatViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let index = indexPath.row
         if heightCache[index] == -1.0 {
+
             // MARK: margin and height of all views except UILabel
-            let padding: CGFloat = 76.0
+            var padding: CGFloat = 76.0
+            if messages[index].isRecentMessage {
+                padding -= 21.0
+            }
             let message = messages[index]
             if message.content == "" {
                 message.content = " "
             }
+            
             sizingCell.contentLabel.text = message.content
             sizingCell.contentLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             sizingCell.bounds = CGRectMake(0.0, 0.0, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(sizingCell.bounds))
@@ -198,30 +229,16 @@ class ChatViewController: UITableViewController {
                 cell.avatarImageView.addGestureRecognizer(tapGesture)
                 cell.avatarImageView.layer.cornerRadius = 10.0
             }
-            
-            let previousIndex = indexPath.row - 1
-            let date = message.createdAt
-//            let dateFormatter = NSDateFormatter()
-//            dateFormatter.dateFormat = "hh:mm"
-//            let dateString = dateFormatter.stringFromDate(date!)
-            
-//            if 0 <= previousIndex {
-//                let previousDate = self.messages[previousIndex].createdAt
-//                if date?.minutesFrom(previousDate!) < 1 {
-//                    //print(date?.minutesFrom(previousDate!))
-//                    cell.timeLabel.text = ""
-//                    cell.timeLabelHeight.constant = 0.0
-//                } else {
-//                    cell.timeLabel.text = dateString
-//                    cell.timeLabelHeight.constant = 21.0
-//                    
-//                }
-//            } else {
-//                cell.timeLabel.text = dateString
-//                cell.timeLabelHeight.constant = 21.0
-//                
-//            }
-//            cell.selectionStyle = UITableViewCellSelectionStyle.None
+
+            cell.timeLabel.text = message.createdAtString
+
+            if message.isRecentMessage {
+                cell.timeLabelHeight.constant = 0.0
+            } else {
+                cell.timeLabelHeight.constant = 21.0
+            }
+            cell.updateConstraints()
+            cell.layoutIfNeeded()
             return cell
             
         } else {
@@ -251,25 +268,16 @@ class ChatViewController: UITableViewController {
                 cell.avatarImageView.addGestureRecognizer(tapGesture)
                 cell.avatarImageView.layer.cornerRadius = 10.0
             }
-            let previousIndex = indexPath.row - 1
-            let date = message.createdAt
-//            let dateFormatter = NSDateFormatter()
-//            dateFormatter.dateFormat = "hh:mm"
-//            let dateString = dateFormatter.stringFromDate(date!)
-//            if 0 <= previousIndex {
-//                let previousDate = self.messages[previousIndex].createdAt
-//                if date?.minutesFrom(previousDate!) < 2 {
-//                    cell.timeLabel.text = ""
-//                    cell.timeLabelHeight.constant = 0.0
-//                } else {
-//                    cell.timeLabel.text = dateString
-//                    cell.timeLabelHeight.constant = 21.0
-//                }
-//            } else {
-//                cell.timeLabel.text = dateString
-//                cell.timeLabelHeight.constant = 21.0
-//            }
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
+
+            cell.timeLabel.text = message.createdAtString
+
+            if message.isRecentMessage {
+                cell.timeLabelHeight.constant = 0.0
+            } else {
+                cell.timeLabelHeight.constant = 21.0
+            }
+            cell.updateConstraints()
+            cell.layoutIfNeeded()
             return cell
         }
     }

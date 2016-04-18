@@ -16,6 +16,8 @@ class Message {
     var senderAvatarPFFile: PFFile?
     var content: String?
     var createdAt: NSDate?
+    var isRecentMessage = false
+    var createdAtString: String?
     
     init(dictionary: NSDictionary) {
         self.messageId = dictionary["messageId"] as? String
