@@ -23,21 +23,10 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <segue destination="A06-KE-RLt" kind="modal" identifier="toUserProfileSegue" id="hLm-D9-5hI"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s2J-NW-VhO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1321" y="176"/>
-        </scene>
-        <!--UserProfileViewController-->
-        <scene sceneID="gJg-bw-Icq">
-            <objects>
-                <viewControllerPlaceholder storyboardName="UserProfile" referencedIdentifier="UserProfileViewController" id="A06-KE-RLt" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NaD-95-bwL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1680" y="-35"/>
         </scene>
     </scenes>
 </document>
