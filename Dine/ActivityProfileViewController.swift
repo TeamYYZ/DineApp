@@ -218,10 +218,6 @@ class ActivityProfileViewController: UITableViewController{
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "toGroupChatSegue" {
             let vc = segue.destinationViewController as! ChatViewController
-            if let groupChatId = activity?.groupChatId {
-                vc.groupChatId = groupChatId
-
-            }
         }
     }
 
