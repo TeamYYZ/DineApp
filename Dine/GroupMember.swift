@@ -56,4 +56,42 @@ class GroupMember {
         self.owner = pfObject["owner"] as? Bool
     }
     
+    class func updateLocation(activityId: String, userId: String, location: PFGeoPoint, successHandler: (()->()), failureHandler: ((NSError?)->())?) {
+        let query = PFQuery(className:"GroupMember")
+        query.whereKey("userId", equalTo: userId)
+        query.whereKey("activityId", equalTo: activityId)
+        query.getFirstObjectInBackgroundWithBlock({ (member:PFObject?, error:NSError?) in
+            if error != nil {
+                failureHandler?(error)
+            } else if let member = member {
+                member["location"] = location
+                member.saveInBackgroundWithBlock({ (succeed: Bool, error: NSError?) in
+                    if (succeed) {
+                        successHandler()
+                    }else {
+                        failureHandler?(error)
+                    }
+                })
+            }
+            
+        })
+    }
+    
+    func getLocation(activityId: String, successHandler: ((PFGeoPoint)->()), failureHandler: ((NSError?)->())?) {
+        let query = PFQuery(className:"GroupMember")
+        query.whereKey("userId", equalTo: self.userId)
+        query.whereKey("activityId", equalTo: activityId)
+        query.getFirstObjectInBackgroundWithBlock({ (member:PFObject?, error:NSError?) in
+            if error != nil {
+                failureHandler?(error)
+            } else if let member = member {
+                if let loc = member["location"] as? PFGeoPoint {
+                    successHandler(loc)
+                }else {
+                    failureHandler?(error)
+                }
+            }
+        })
+    }
+    
 }
