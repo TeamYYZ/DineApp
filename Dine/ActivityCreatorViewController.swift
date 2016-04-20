@@ -28,9 +28,8 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
         timeLabel.text = strDate
         titleField.delegate = self
         descriptionField.delegate = self
-        
         activityInProgress = Activity()
-
+        tableView.keyboardDismissMode = .OnDrag
     }
 
     

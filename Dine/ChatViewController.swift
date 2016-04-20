@@ -9,7 +9,7 @@
 import UIKit
 import ALTextInputBar
 
-class ChatViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ChatViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     var messages = [Message]()
     var heightCache = [CGFloat]()
     let dateFormatter = NSDateFormatter()
@@ -28,11 +28,12 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         leftButton.addTarget(self, action: #selector(ChatViewController.plusButtonOnClick), forControlEvents: .TouchDown)
         rightButton.setTitle("Send", forState: .Normal)
         rightButton.setTitle("Send", forState: .Disabled)
-        rightButton.setTitleColor(UIColor.flatBlueColorDark(), forState: .Normal)
+        rightButton.setTitleColor(UIColor.flatBlueColor(), forState: .Normal)
         rightButton.setTitleColor(UIColor.flatGrayColor(), forState: .Disabled)
 
         rightButton.addTarget(self, action: #selector(ChatViewController.sendButtonOnClick), forControlEvents: .TouchDown)
-        
+        tableView.keyboardDismissMode = .Interactive
+        textInputBar.textView.placeholder = ""
         textInputBar.horizontalPadding = 5
         textInputBar.showTextViewBorder = true
         textInputBar.leftView = leftButton
@@ -40,6 +41,19 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         textInputBar.frame = CGRectMake(0, view.frame.size.height - textInputBar.defaultHeight, view.frame.size.width, textInputBar.defaultHeight)
         textInputBar.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
+    }
+    
+    
+    func handleTap(gestureRecognizer: UIGestureRecognizer) {
+        textInputBar.textView.resignFirstResponder()
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if textInputBar.textView.isFirstResponder() {
+            return true
+        } else {
+            return false
+        }
     }
     
     override func viewDidLoad() {
@@ -50,6 +64,9 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         tableView.registerNib(UINib(nibName: "SelfMessageCell", bundle: nil), forCellReuseIdentifier: "SelfMessageCell")
         tableView.estimatedRowHeight = 98
         tableView.rowHeight = UITableViewAutomaticDimension
+        let onTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.handleTap(_:)))
+        onTapGesture.delegate = self
+        self.view.addGestureRecognizer(onTapGesture)
         setupTextInput()
         fetchData()
     }
