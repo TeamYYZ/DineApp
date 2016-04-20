@@ -16,6 +16,8 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var publicSwitch: UISwitch!
+    
     var activityInProgress: Activity?
 
     override func viewDidLoad() {
