@@ -204,7 +204,7 @@ class User {
         if let image = image {
             if let user = pfUser {
                 // Add relevant fields to the object
-               user["avatar"] = self.getPFFileFromImage(image) // PFFile column type
+               user["avatar"] = getPFFileFromImage(image) // PFFile column type
                 user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                     if success == true && error == nil{
                         User.currentUser?.avatarImage = image
@@ -218,21 +218,7 @@ class User {
         }
         
     }
-    
-
-    func getPFFileFromImage(image: UIImage?) -> PFFile? {
-        // check if image is not nil
-        if let image = image {
-            // get image data and check if that is not nil
-            if let imageData = UIImagePNGRepresentation(image) {
-                return PFFile(name: "image.png", data: imageData)
-            }
-        }
-        return nil
-    }
-
-    
-    
+       
     
     func save(){
         let userQuery = PFUser.query()

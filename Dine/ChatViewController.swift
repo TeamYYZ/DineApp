@@ -7,19 +7,40 @@
 //
 
 import UIKit
+import ALTextInputBar
 
-class ChatViewController: UITableViewController {
-    @IBOutlet weak var replyItem: UIBarButtonItem!
-    @IBOutlet weak var replyButton: UIBarButtonItem!
-    @IBOutlet var replyBar: UIToolbar!
-    @IBOutlet weak var replyField: UITextField!
+class ChatViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var messages = [Message]()
     var heightCache = [CGFloat]()
     let dateFormatter = NSDateFormatter()
     let groupChatClassName = "GroupChat"
+    let textInputBar = ALTextInputBar()
+    
     private lazy var sizingCell: SelfMessageCell = {
         return self.tableView.dequeueReusableCellWithIdentifier("SelfMessageCell") as! SelfMessageCell
     }()
+    
+    func setupTextInput() {
+        let leftButton = UIButton(frame: CGRectMake(0, 0, 44, 44))
+        let rightButton = UIButton(frame: CGRectMake(0, 0, 44, 44))
+        
+        leftButton.setImage(UIImage(named: "plus"), forState: UIControlState.Normal)
+        leftButton.addTarget(self, action: #selector(ChatViewController.plusButtonOnClick), forControlEvents: .TouchDown)
+        rightButton.setTitle("Send", forState: .Normal)
+        rightButton.setTitle("Send", forState: .Disabled)
+        rightButton.setTitleColor(UIColor.flatBlueColorDark(), forState: .Normal)
+        rightButton.setTitleColor(UIColor.flatGrayColor(), forState: .Disabled)
+
+        rightButton.addTarget(self, action: #selector(ChatViewController.sendButtonOnClick), forControlEvents: .TouchDown)
+        
+        textInputBar.horizontalPadding = 5
+        textInputBar.showTextViewBorder = true
+        textInputBar.leftView = leftButton
+        textInputBar.rightView = rightButton
+        textInputBar.frame = CGRectMake(0, view.frame.size.height - textInputBar.defaultHeight, view.frame.size.width, textInputBar.defaultHeight)
+        textInputBar.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,41 +50,85 @@ class ChatViewController: UITableViewController {
         tableView.registerNib(UINib(nibName: "SelfMessageCell", bundle: nil), forCellReuseIdentifier: "SelfMessageCell")
         tableView.estimatedRowHeight = 98
         tableView.rowHeight = UITableViewAutomaticDimension
-        replyItem.width = self.view.bounds.width - 80
-        self.replyButton.action = #selector(ChatViewController.sendButtonOnClick)
+        setupTextInput()
         fetchData()
     }
     
-    func sendButtonOnClick(){
+    func plusButtonOnClick() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
+            (action) in
+        }
+        
+        let cameraAction = UIAlertAction(title: "Take Picture", style: .Default) {
+            (action)in
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.allowsEditing = true
+            vc.sourceType = UIImagePickerControllerSourceType.Camera
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
+        
+        let libraryAction = UIAlertAction(title: "Photo Library", style: .Default) {
+            (action) in
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.allowsEditing = true
+            vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            self.presentViewController(vc, animated: true, completion: nil)
+            
+        }
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(libraryAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    
+    }
+    
+    
+    
+    func sendButtonOnClick() {
         if let currentActivity = Activity.current_activity {
-            if let content = self.replyField.text{
+            if let content = textInputBar.text {
                 let senderId = User.currentUser?.userId
-                //let file = User.currentUser?.avatarImagePFFile
                 let screenName = User.currentUser?.screenName
+                let avatarPFFile = User.currentUser?.avatarImagePFFile
                 
-                let message = Message(senderId: senderId!, screenName: screenName!, content: content)
-                let chat = PFObject(className:  groupChatClassName)
-                chat["activityId"] = currentActivity.activityId!
-                chat["content"] = message.content
-                chat["senderId"] = message.senderId
-                chat["screenName"] = message.screenName
-                if let file = User.currentUser?.avatarImagePFFile {
-                    chat["avatarFile"] = file
-                }
-                self.replyField.text = nil
-                chat.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
-                    if success == true && error == nil{
-                        self.fetchData()
-                    }else{
-                        print(error)
-                    }
+                let message = Message(activityId: currentActivity.activityId, senderId: senderId, screenName: screenName, content: content, avatarPFFile: avatarPFFile, mediaPFFile: nil, mediaType: nil)
+                message.saveToBackend({
+                    self.fetchData()
+                    }, failureHandler: { (error: NSError?) in
+                        Log.error(error?.localizedDescription)
                 })
+                
             }
         
         
         }
         
     }
+    
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let resizedImage = resize(editedImage, newSize: CGSize(width: 100, height: 100))
+        dismissViewControllerAnimated(true, completion: {
+            // MARK: send picture
+            let senderId = User.currentUser?.userId
+            let screenName = User.currentUser?.screenName
+            let avatarPFFile = User.currentUser?.avatarImagePFFile
+            let media = getPFFileFromImage(resizedImage)
+            let message = Message(activityId: Activity.current_activity?.activityId, senderId: senderId, screenName: screenName, content: "MediaRes", avatarPFFile: avatarPFFile, mediaPFFile: media, mediaType: "Photo")
+            message.saveToBackend({ 
+                self.fetchData()
+                }, failureHandler: { (error: NSError?) in
+                    Log.error(error?.localizedDescription)
+            })
+        })
+    }
+    
     
     func fetchData(){
         if let currentActivity = Activity.current_activity {
@@ -154,15 +219,18 @@ class ChatViewController: UITableViewController {
     
     
     
+    // This is how we observe the keyboard position
+    override var inputAccessoryView: UIView? {
+        get {
+            return textInputBar
+        }
+    }
+    
+    // This is also required
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
     
-    override var inputAccessoryView: UIView{
-        get{
-            return self.replyBar
-        }
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -179,7 +247,14 @@ class ChatViewController: UITableViewController {
             if messages[index].isRecentMessage {
                 padding -= 21.0
             }
+            
             let message = messages[index]
+            
+            if message.mediaType == "Photo" {
+                heightCache[index] = 160 + padding - 14
+                return heightCache[index]
+            }
+            
             if message.content == "" {
                 message.content = " "
             }
@@ -191,7 +266,7 @@ class ChatViewController: UITableViewController {
             sizingCell.layoutIfNeeded()
             let textHeight = sizingCell.contentLabel.sizeThatFits(sizingCell.maxSize).height
             heightCache[index] = textHeight + padding
-            return textHeight + padding
+            return heightCache[index]
         } else {
             return heightCache[index]
         }
@@ -222,7 +297,56 @@ class ChatViewController: UITableViewController {
             } else {
                 cell.contentLabel.text = " "
             }
-            cell.avatarImageView.image = UIImage(named: "User")
+            
+            if let media = message.media {
+                if message.mediaType == "Photo" {
+                    cell.photoView.hidden = false
+                    media.getDataInBackgroundWithBlock({
+                        (result, error) in
+                        if error == nil{
+                            if index == cell.indexInTable {
+                                cell.photoView.image = UIImage(data: result!)
+                            } else {
+                                Log.info("image comes too late, do not set it to avatar")
+                            }
+                        } else {
+                            print(error)
+                        }
+                    })
+                }
+                
+                cell.contentLabel.hidden = true
+            
+            } else {
+                cell.contentLabel.hidden = false
+                cell.photoView.hidden = false
+            }
+            
+            if let media = message.media {
+                if message.mediaType == "Photo" {
+                    cell.photoView.hidden = false
+                    media.getDataInBackgroundWithBlock({
+                        (result, error) in
+                        if error == nil{
+                            if index == cell.indexInTable {
+                                cell.photoView.image = UIImage(data: result!)
+                            } else {
+                                Log.info("image comes too late, do not set it to avatar")
+                            }
+                        } else {
+                            print(error)
+                        }
+                    })
+                }
+                
+                cell.contentLabel.hidden = true
+                
+            } else {
+                cell.contentLabel.hidden = false
+                cell.photoView.hidden = false
+            }
+            
+            
             if let avatarPFFile = message.senderAvatarPFFile {
                 avatarPFFile.getDataInBackgroundWithBlock({
                     (result, error) in
@@ -232,7 +356,7 @@ class ChatViewController: UITableViewController {
                         } else {
                             Log.info("image comes too late, do not set it to avatar")
                         }
-                    }else{
+                    } else {
                         print(error)
                     }
                 })
@@ -242,8 +366,8 @@ class ChatViewController: UITableViewController {
                 cell.avatarImageView.userInteractionEnabled = true
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.profileTap(_:)))
                 cell.avatarImageView.addGestureRecognizer(tapGesture)
-                cell.avatarImageView.layer.cornerRadius = 10.0
             }
+
 
             cell.timeLabel.text = message.createdAtString
 
@@ -265,8 +389,9 @@ class ChatViewController: UITableViewController {
             } else {
                 cell.contentLabel.text = " "
             }
+
             
-            cell.avatarImageView.image = UIImage(named: "User")
+            
             if let avatarPFFile = message.senderAvatarPFFile {
                 avatarPFFile.getDataInBackgroundWithBlock({
                     (result, error) in
@@ -276,7 +401,7 @@ class ChatViewController: UITableViewController {
                         } else {
                             Log.info("image comes too late, do not set it to avatar")
                         }
-                    }else{
+                    } else {
                         print(error)
                     }
                 })
@@ -285,8 +410,9 @@ class ChatViewController: UITableViewController {
                 cell.avatarImageView.userInteractionEnabled = true
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.profileTap(_:)))
                 cell.avatarImageView.addGestureRecognizer(tapGesture)
-                cell.avatarImageView.layer.cornerRadius = 10.0
             }
+            
+
 
             cell.timeLabel.text = message.createdAtString
 

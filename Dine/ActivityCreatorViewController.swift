@@ -34,6 +34,24 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
     }
 
     
+    @IBAction func nextOnClick(sender: AnyObject) {
+        let now = NSDate()
+        let chosenDate = datePicker.date
+        
+        let compareResult = now.compare(chosenDate)
+        
+        if compareResult == NSComparisonResult.OrderedDescending {
+            let alertController = UIAlertController(title: "Please choose date again...", message: "Chosen date cannot later than current time!", preferredStyle: .Alert)
+            let tryAgainAlert = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil)
+            alertController.addAction(tryAgainAlert)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            performSegueWithIdentifier("FVCSegue", sender: nil)
+        }
+        
+    }
+    
+    
     @IBAction func cancelAction(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -72,7 +90,7 @@ class ActivityCreatorViewController: UITableViewController, UITextFieldDelegate 
         if let friendVC = segue.destinationViewController as? FriendsViewController {
             friendVC.activityInProgress = self.activityInProgress
             friendVC.isInvitationVC = true
-            self.activityInProgress?.setupDetail(self.titleField.text, time: datePicker.date, overview: descriptionField.text)
+            self.activityInProgress?.setupDetail(self.titleField.text, time: datePicker.date, overview: descriptionField.text, isPublic: publicSwitch.on)
         }
     }
 

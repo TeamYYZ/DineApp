@@ -55,7 +55,9 @@ class UserProfileViewController: UITableViewController {
         addButtonCell.backgroundColor = self.view.backgroundColor
         self.tableView.separatorColor = UIColor.clearColor()
         
+        // FIXME: Senyang's bad move
         let line: UIImageView = UIImageView(frame: CGRectMake(20, 115, 280, 1))
+        
         //line.layer.borderWidth = 0.1
         line.backgroundColor = self.view.backgroundColor
         self.view.addSubview(line)

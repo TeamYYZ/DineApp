@@ -8,6 +8,29 @@
 
 import Foundation
 
+func resize(image: UIImage, newSize: CGSize) -> UIImage {
+    let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
+    resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill
+    resizeImageView.image = image
+    
+    UIGraphicsBeginImageContext(resizeImageView.frame.size)
+    resizeImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage
+}
+
+func getPFFileFromImage(image: UIImage?) -> PFFile? {
+    // check if image is not nil
+    if let image = image {
+        // get image data and check if that is not nil
+        if let imageData = UIImagePNGRepresentation(image) {
+            return PFFile(name: "image.png", data: imageData)
+        }
+    }
+    return nil
+}
+
 class Log {
     
     class func info(content: String?) {

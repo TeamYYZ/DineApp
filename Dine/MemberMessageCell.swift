@@ -23,16 +23,19 @@ class MemberMessageCell: UITableViewCell {
     
     @IBOutlet weak var textView: UIView!
     
+    @IBOutlet weak var photoView: UIImageView!
+    
     var indexInTable = -1
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.textView.layer.cornerRadius = 8.0
-        self.textView.backgroundColor = ColorTheme.sharedInstance.chatRecipientBackgroudColor
+        textView.layer.cornerRadius = 8.0
+        textView.backgroundColor = ColorTheme.sharedInstance.chatRecipientBackgroudColor
         contentLabel.textColor = ColorTheme.sharedInstance.chatRecipientMessageColor
-        
-        // Initialization code
+        avatarImageView.layer.cornerRadius = 10.0
+        avatarImageView.clipsToBounds = true
+        photoView.layer.cornerRadius = 10.0
+        photoView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

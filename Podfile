@@ -15,5 +15,6 @@ target 'Dine' do
     pod 'MBProgressHUD'
     pod 'GoogleMaps'
     pod 'SlideMenuControllerSwift'
+    pod 'ALTextInputBar'
 end
 

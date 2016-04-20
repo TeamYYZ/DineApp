@@ -24,6 +24,9 @@ class SelfMessageCell: UITableViewCell {
     
     @IBOutlet weak var textView: UIView!
     
+    @IBOutlet weak var photoView: UIImageView!
+    
+    
     var indexInTable = -1
         
     var maxSize: CGSize {
@@ -37,10 +40,13 @@ class SelfMessageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        self.textView.layer.cornerRadius = 8.0
-        self.contentLabel.textColor = ColorTheme.sharedInstance.chatMyMessageColor
-        self.textView.backgroundColor = ColorTheme.sharedInstance.chatMyBackgroudColor
+        textView.layer.cornerRadius = 8.0
+        contentLabel.textColor = ColorTheme.sharedInstance.chatMyMessageColor
+        textView.backgroundColor = ColorTheme.sharedInstance.chatMyBackgroudColor
+        avatarImageView.layer.cornerRadius = 10.0
+        avatarImageView.clipsToBounds = true
+        photoView.layer.cornerRadius = 10.0
+        photoView.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

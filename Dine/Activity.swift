@@ -23,7 +23,9 @@ class Activity: NSObject {
     var location: CLLocationCoordinate2D!
     var restaurant: String?
     var uniqueId: String?
+    var isPublic: Bool?
     
+    // MARK: The activity that the current_user has joined
     static var current_activity: Activity? {
         didSet {
             User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
@@ -34,7 +36,6 @@ class Activity: NSObject {
             })
         }
     }
-    //The activity that the current_user has joined
     
     override init() {
         super.init()
@@ -58,14 +59,11 @@ class Activity: NSObject {
         self.group = group
     }
     
-    func setupDetail(title: String?, time: NSDate, overview: String?) {
+    func setupDetail(title: String?, time: NSDate, overview: String?, isPublic: Bool) {
         self.title = title
         self.requestTime = time
         self.overview = overview
-        print("set up detail: " + self.title!)
-        print(time)
-        print(overview)
-
+        self.isPublic = isPublic
     }
     
     func saveToBackend(successHandler: (String)->(), failureHandler: ((NSError?)->())?) {
@@ -88,7 +86,11 @@ class Activity: NSObject {
         PFActivity["pfLocation"] = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
-
+        
+        if let isPublic = self.isPublic {
+            PFActivity["isPublic"] = isPublic
+        }
+        
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
                 print("Step 1 success")

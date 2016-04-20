@@ -23,29 +23,10 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="replyBar" destination="yGQ-cX-cwQ" id="kbN-Lq-stl"/>
-                        <outlet property="replyButton" destination="5aX-Iy-S1u" id="eOt-cP-Sa1"/>
-                        <outlet property="replyField" destination="vTD-wx-49z" id="ncR-vr-iJK"/>
-                        <outlet property="replyItem" destination="Omt-sh-0R5" id="b6z-b7-WYN"/>
                         <segue destination="AYT-Td-CaA" kind="push" identifier="toUserProfile" id="h3l-hN-bb7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bDi-8n-0JO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="yGQ-cX-cwQ">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <items>
-                        <barButtonItem style="plain" id="Omt-sh-0R5">
-                            <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="vTD-wx-49z">
-                                <rect key="frame" x="16" y="7" width="249" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </barButtonItem>
-                        <barButtonItem title="Send" id="5aX-Iy-S1u"/>
-                    </items>
-                </toolbar>
             </objects>
             <point key="canvasLocation" x="2550" y="1229"/>
         </scene>
@@ -57,7 +38,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Yc-gW-MZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2859.5" y="1019"/>
+            <point key="canvasLocation" x="2940.5" y="1229"/>
         </scene>
     </scenes>
 </document>
