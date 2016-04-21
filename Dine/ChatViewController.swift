@@ -268,7 +268,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
             let message = messages[index]
             
             if message.mediaType == "Photo" {
-                heightCache[index] = 160 + padding - 14
+                heightCache[index] = 160 /* height of picture */ + padding - 14 /* padding of UIView that contains text*/
                 return heightCache[index]
             }
             
@@ -336,7 +336,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
             
             } else {
                 cell.contentLabel.hidden = false
-                cell.photoView.hidden = false
+                cell.photoView.hidden = true
             }
             
             if let media = message.media {
@@ -360,7 +360,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
                 
             } else {
                 cell.contentLabel.hidden = false
-                cell.photoView.hidden = false
+                cell.photoView.hidden = true
             }
             
             

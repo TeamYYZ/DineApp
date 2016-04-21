@@ -136,7 +136,7 @@ class ActivityProfileViewController: UITableViewController{
                 cell.statusLabel.text = "Accepted"
                 cell.profileView.alpha = 0.9
             } else {
-                cell.statusLabel.text = "Waiting for Acceptance"
+                cell.statusLabel.text = "Invited"
                 cell.profileView.alpha = 0.5
             }
             return cell
@@ -207,7 +207,7 @@ class ActivityProfileViewController: UITableViewController{
         if (yPos > 0) {
             var imgRect: CGRect = profileView.frame
             imgRect.origin.y = scrollView.contentOffset.y
-            imgRect.size.height = kHeaderHeight+yPos
+            imgRect.size.height = kHeaderHeight + yPos
             profileView.frame = imgRect
             blurView.frame = imgRect
 
