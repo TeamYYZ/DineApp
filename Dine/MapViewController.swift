@@ -204,9 +204,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                                         (result, error) in
                                         let iconView = UIImageView(image: UIImage(data: result!)!)
                                         iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                                        iconView.layer.cornerRadius = 20
+                                        iconView.layer.cornerRadius = 15
                                         iconView.layer.borderWidth = 2
                                         iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
+                                        iconView.clipsToBounds = true
                                         marker.iconView = iconView
                                         marker.map = self.mapView
                                     })
