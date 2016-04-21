@@ -133,7 +133,14 @@ class ActivityProfileViewController: UITableViewController{
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
-                cell.statusLabel.text = "Accepted"
+                //update member location info
+                member.getLocation(self.activity.activityId!, successHandler: { (loc:PFGeoPoint) in
+                    let dest = PFGeoPoint(latitude: self.activity.location.latitude, longitude: self.activity.location.longitude)
+                    cell.statusLabel.text = String(format: "%.1f", loc.distanceInMilesTo(dest))+" Miles Away"
+                    }, failureHandler: { (error:NSError?) in
+                        cell.statusLabel.text = "Accepted"
+                        Log.error("Cannot get member location info")
+                })
                 cell.profileView.alpha = 0.9
             } else {
                 cell.statusLabel.text = "Invited"

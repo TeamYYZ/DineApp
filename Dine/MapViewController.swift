@@ -31,6 +31,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var currentStep = 0
     var searchUserLocation = true
     var showPath = false
+    var locationTimer: NSTimer!
+    var userlocationTimer: NSTimer!
+    var memberLocations = [GMSMarker]()
+    var directionPolyLines = [GMSPolyline]()
     
     var mapView: GMSMapView!
     
@@ -45,7 +49,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationManager.requestWhenInUseAuthorization()
         
         setupGoogleMap()
-        
         // get User's undergoing activity
         if let currentActivityId = User.currentUser?.currentActivityId {
             Log.info(currentActivityId)
@@ -76,6 +79,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     override func viewWillDisappear(animated: Bool) {
         mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
+        if self.locationTimer != nil {
+            Log.info("removing member location tracking")
+            self.locationTimer.invalidate()
+        }
+        if self.userlocationTimer != nil {
+            Log.info("removing user location tracking")
+            self.userlocationTimer.invalidate()
+        }
+        self.memberLocations.removeAll()
         Log.info("observer removed")
     }
     
@@ -125,6 +137,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func updateMapMarkers() {
+        Log.info("updating map search")
         mapView.clear()
         //pass in current map sw and ne point location
         let bounds = getMapBoundingBox()
@@ -133,10 +146,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //only get activites within certain range
         
         ParseAPI.getActivites(SW, locNE: NE) { (acts, error) in
-            self.activities = acts
-            print(acts)
-            for act in self.activities {
-                self.addMapMarker(act)
+            if error == nil {
+                self.activities = acts
+                for act in self.activities {
+                    self.addMapMarker(act)
+                }
+            }else {
+                Log.error("Unable to get activites")
             }
         }
         self.view.layoutIfNeeded()
@@ -146,6 +162,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     func addMapMarker(act: Activity) {
         act.fetchGroupMember({ (groupMembers: [GroupMember]) in
+            if Activity.current_activity != nil {
+                self.updateMemberLocations()
+            }
             let marker = GMSMarker()
             marker.position = act.location
             marker.title = act.title
@@ -158,32 +177,108 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             mapDetailView.annotation = annotation
             
             marker.userData = mapDetailView
-
+            
             }, failureHandler: { (error: NSError?) -> () in
                 Log.info(error?.localizedDescription)
         })
-
-}
+        
+    }
+    
+    func updateMemberLocations() {
+        
+        if let members = Activity.current_activity!.group?.groupMembers{
+            
+            if members.isEmpty == false {
+                var index = 0
+                for member in members {
+                    if member.userId != PFUser.currentUser()?.objectId && member.joined {
+                        member.getLocation((Activity.current_activity?.activityId)!, successHandler: { (loc:PFGeoPoint) in
+                            //add loc marker
+                            let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+                            if self.memberLocations.isEmpty {
+                                //store circles
+                                let marker = GMSMarker(position: circleCenter)
+                                self.memberLocations.append(marker)
+                                if let avatarFile = member.avatar {
+                                    avatarFile.getDataInBackgroundWithBlock({
+                                        (result, error) in
+                                        let iconView = UIImageView(image: UIImage(data: result!)!)
+                                        iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                                        iconView.layer.cornerRadius = 15
+                                        iconView.layer.borderWidth = 2
+                                        iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
+                                        iconView.clipsToBounds = true
+                                        marker.iconView = iconView
+                                        marker.map = self.mapView
+                                    })
+                                }
+                                
+                            }else {
+                                //update circle locations
+                                let marker = self.memberLocations[index]
+                                marker.position = circleCenter
+                            }
+                            index += 1
+                            }, failureHandler: { (error:NSError?) in
+                                Log.error("Updating member user location failure")
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateUserLocation() {
+        GroupMember.updateLocation((Activity.current_activity?.activityId)!, userId: (PFUser.currentUser()?.objectId)!, location: PFGeoPoint(location: self.mapView.myLocation), successHandler: {
+            Log.info("Updating current user location succeed")
+        }) { (error: NSError?) in
+            Log.error("Updating current user location failure")
+        }
+        // start navigation
+        if let destination = Activity.current_activity?.location {
+            if let myLocation  = self.mapView.myLocation {
+                GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
+                    self.startNavigation(routes[0].steps)
+                    
+                }
+            }
+        }
+    }
     
     func drawPolyLines() {
+        if directionPolyLines.isEmpty == false {
+            for line in directionPolyLines {
+                line.map = nil
+            }
+            directionPolyLines.removeAll()
+        }
         //add polylines
         for step in steps {
             if let polyLine = step.polyLine {
                 let path = GMSPath(fromEncodedPath: polyLine)
                 let line = GMSPolyline(path: path)
+                directionPolyLines.append(line)
                 line.strokeWidth = 5
                 line.strokeColor = UIColor(red: 0.0, green: 0.5, blue: 0.5, alpha: 0.5)
                 line.map = mapView
+                
             }
         }
     }
+    
     @IBAction func togglePolyLines(sender: AnyObject) {
         showPath = !showPath
-        mapView.clear()
         if showPath {
             self.drawPolyLines()
+        }else {
+            //clear all polyline
+            if directionPolyLines.isEmpty == false {
+                for line in directionPolyLines {
+                    line.map = nil
+                }
+                directionPolyLines.removeAll()
+            }
         }
-        addMapMarker(Activity.current_activity!)
     }
     
     @IBAction func onRedoSearch(sender: AnyObject) {
@@ -192,7 +287,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     @IBAction func onExternalNavigate(sender: AnyObject) {
         let place = Activity.current_activity?.location
-
+        
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
             UIApplication.sharedApplication().openURL(NSURL(string:
                 "comgooglemaps://?saddr=&daddr=\(place!.latitude),\(place!.longitude)&directionsmode=driving")!)
@@ -200,7 +295,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         } else {
             UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place!.latitude),\(place!.longitude)&dirflg=d&t=m")!)
         }
-
+        
+    }
+    
+    func startNavigation(steps: [Route.Step]) {
+        self.steps = steps
+        //adjust map bounds
+        let bounds = getMapBoundingBox()
+        
+        self.mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds.includingCoordinate(Activity.current_activity!.location), withPadding: 50.0))
+        self.drawPolyLines()
+        
     }
     
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -230,9 +335,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                 mapView.moveCamera(update)
                 searchUserLocation = false
+                updateMapMarkers()
+            }
+            if Activity.current_activity != nil {
+                //uploading user current location
+                userlocationTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(MapViewController.updateUserLocation), userInfo: nil, repeats: false)
                 
             }
-            
         }
     }
     
@@ -245,16 +354,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
             }, completion: nil)
-        
-        // start navigation
-        if let destination = Activity.current_activity?.location {
-            if let myLocation  = self.mapView.myLocation {
-                GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
-                    self.startNavigation(routes[0].steps)
-                    
-                }
-            }
-        }
+        mapView.clear()
+        self.addMapMarker(Activity.current_activity!)
+        showPath = true
+        self.updateUserLocation()
+        //start tracking user location
+        locationTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
         
         activityNameLabel.text = Activity.current_activity?.title
         if activityPanelBottomPos.constant == -ActivityPanelViewHeight.constant {
@@ -284,6 +389,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("found current activity")
             activity.exitActivity({
                 Log.info("clear User's current Activity successfully")
+                if self.locationTimer != nil {
+                    self.locationTimer.invalidate()
+                }
+                if self.userlocationTimer != nil {
+                    self.userlocationTimer.invalidate()
+                }
+                self.memberLocations.removeAll()
+                
                 //animate map view camera
                 let update = GMSCameraUpdate.setTarget(self.mapView.myLocation!.coordinate, zoom: 14.0)
                 self.mapView.animateWithCameraUpdate(update)
@@ -310,20 +423,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.navigationBtn.alpha = 0
             self.redoBtn.alpha = 1
         }
-    }
-    
-    
-    func startNavigation(steps: [Route.Step]) {
-        self.steps = steps
-        mapView.clear()
-        //adjust map bounds
-        let bounds = getMapBoundingBox()
-        
-        self.mapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds.includingCoordinate(Activity.current_activity!.location), withPadding: 50.0))
-        addMapMarker(Activity.current_activity!)
-        self.drawPolyLines()
-        showPath = true
-
     }
     
     
