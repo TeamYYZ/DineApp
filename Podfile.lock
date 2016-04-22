@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - ALTextInputBar (1.0.10)
   - BDBOAuth1Manager (1.6.0):
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
@@ -53,6 +54,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - ALTextInputBar
   - BDBOAuth1Manager
   - ChameleonFramework/Swift (~> 2.1.0)
   - FBSDKCoreKit
@@ -66,6 +68,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  ALTextInputBar: 8c65c9ad4e26d872baf51194314d0937034af376
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64

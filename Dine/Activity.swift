@@ -11,12 +11,7 @@ import Parse
 
 class Activity: NSObject {
     var pfActivity: PFObject?
-    var activityId: String? {
-        didSet {
-            groupChatId = "ActivityChat_" + activityId!
-            groupMemberId = "GroupMember_" + activityId!
-        }
-    }
+    var activityId: String?
     var title: String?
     var isPrivate: Bool?
     var owner: PFUser!
@@ -28,9 +23,9 @@ class Activity: NSObject {
     var location: CLLocationCoordinate2D!
     var restaurant: String?
     var uniqueId: String?
-    var groupChatId : String?
-    var groupMemberId: String?
+    var isPublic: Bool?
     
+    // MARK: The activity that the current_user has joined
     static var current_activity: Activity? {
         didSet {
             User.currentUser?.setCurrentActivity(current_activity?.activityId, successHandler: {
@@ -41,7 +36,6 @@ class Activity: NSObject {
             })
         }
     }
-    //The activity that the current_user has joined
     
     override init() {
         super.init()
@@ -65,14 +59,11 @@ class Activity: NSObject {
         self.group = group
     }
     
-    func setupDetail(title: String?, time: NSDate, overview: String?) {
+    func setupDetail(title: String?, time: NSDate, overview: String?, isPublic: Bool) {
         self.title = title
         self.requestTime = time
         self.overview = overview
-        print("set up detail: " + self.title!)
-        print(time)
-        print(overview)
-
+        self.isPublic = isPublic
     }
     
     func saveToBackend(successHandler: (String)->(), failureHandler: ((NSError?)->())?) {
@@ -95,7 +86,11 @@ class Activity: NSObject {
         PFActivity["pfLocation"] = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
         PFActivity["restaurant"] = restaurant!
         PFActivity["profileURL"] = profileURL?.absoluteString
-
+        
+        if let isPublic = self.isPublic {
+            PFActivity["isPublic"] = isPublic
+        }
+        
         PFActivity.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success {
                 print("Step 1 success")
@@ -105,7 +100,7 @@ class Activity: NSObject {
                 if let groupMemberList = self.group?.getUserList() {
                     print("list exists")
                     for groupMember in groupMemberList {
-                        let PFGroupMember = PFObject(className: self.groupMemberId!)
+                        let PFGroupMember = PFObject(className: "GroupMember")
                         PFGroupMember["userId"] = groupMember.userId
                         PFGroupMember["screenName"] = groupMember.screenName
                         if let avatar = groupMember.avatar {
@@ -115,6 +110,8 @@ class Activity: NSObject {
                         if let owner = groupMember.owner {
                             PFGroupMember["owner"] = owner
                         }
+                        PFGroupMember["activityId"] = self.activityId
+                        
                         PFGroupMemberArray.append(PFGroupMember)
                     }
                     print("Generate Member Array")
@@ -173,14 +170,15 @@ class Activity: NSObject {
     
     class func joinActivityById(activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
         
-        let query = PFQuery(className: "GroupMember_" + activityId)
+        let query = PFQuery(className: "GroupMember")
         query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+        query.whereKey("activityId", equalTo: activityId)
         query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
             if error == nil && groupMember != nil{
                 groupMember!["joined"] = true
                 groupMember?.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                     if success {
-                        print("accept SUCCESS")
+                        Log.info("accept (joinActivityById) SUCCESS")
                         if let userQuery = PFUser.currentUser() {
                             userQuery["currentActivity"] = activityId
                             userQuery.saveInBackground()
@@ -210,8 +208,9 @@ class Activity: NSObject {
     
     func joinActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
         if let activityId = self.activityId {
-            let query = PFQuery(className: "GroupMember_" + activityId)
+            let query = PFQuery(className: "GroupMember")
             query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
+            query.whereKey("activityId", equalTo: activityId)
             query.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
                 if error == nil && groupMember != nil {
                     groupMember!["joined"] = true
@@ -225,7 +224,7 @@ class Activity: NSObject {
                     if let error = error {
                         // MARK: 101 = found nothing in DB
                         if error.code == 101 {
-                            let PFGroupMember = PFObject(className: self.groupMemberId!)
+                            let PFGroupMember = PFObject(className: "GroupMember")
                             if let userId = User.currentUser?.userId {
                                 PFGroupMember["userId"] = userId
                             } else {
@@ -243,6 +242,7 @@ class Activity: NSObject {
                             }
                             PFGroupMember["joined"] = true
                             PFGroupMember["owner"] = false
+                            PFGroupMember["activityId"] = activityId
                             PFGroupMember.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                                 if success {
                                     successHandler?()
@@ -269,9 +269,10 @@ class Activity: NSObject {
     
     
     func exitActivity(successHandler: (()->())?, failureHandler: ((NSError?)->())?) {
-        if let currentActivity = Activity.current_activity, groupMemberId = currentActivity.groupMemberId {
-            let groupMemberQuery = PFQuery(className:  groupMemberId)
+        if let currentActivity = Activity.current_activity {
+            let groupMemberQuery = PFQuery(className:  "GroupMember")
             groupMemberQuery.whereKey("userId", equalTo: User.currentUser!.userId!)
+            groupMemberQuery.whereKey("activityId", equalTo: currentActivity.activityId!)
             groupMemberQuery.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
                 groupMember?.deleteEventually()
                 successHandler?()
@@ -294,8 +295,9 @@ class Activity: NSObject {
     }
     
     func fetchGroupMember (successHandler: ([GroupMember])->(), failureHandler: ((NSError?)->())?) {
-        if let groupMemberId = self.groupMemberId {
-            let groupMemberQuery = PFQuery(className: groupMemberId)
+        if let activityId = self.activityId {
+            let groupMemberQuery = PFQuery(className: "GroupMember")
+            groupMemberQuery.whereKey("activityId", equalTo: activityId)
             groupMemberQuery.findObjectsInBackgroundWithBlock { (groupMembersList: [PFObject]?, error: NSError?) in
                 if error == nil && groupMembersList != nil {
                     var ret = [GroupMember]()
@@ -311,10 +313,26 @@ class Activity: NSObject {
                 
             }
         } else {
-            failureHandler?(NSError(domain: "groupMemberId not set", code: 1, userInfo: nil))
-            print(self.groupMemberId)
+            failureHandler?(NSError(domain: "activityId not found", code: 03, userInfo: nil))
+        
         }
 
+
+    }
+    
+    class func getActivityById(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
+        let activityQuery = PFQuery(className: "Activity")
+        activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
+            if pfObject != nil && error == nil {
+                let activity = Activity(PFActivity: pfObject!)
+                Activity.current_activity = activity
+                successHandler?(activity)
+            } else {
+                failureHandler?(error)
+                Log.error("failed to getActivityById \(error?.localizedDescription)")
+            }
+            
+        })
     }
     
     class func getCurrentActivity(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {

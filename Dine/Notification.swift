@@ -121,6 +121,7 @@ class UserNotification {
                 Activity.joinActivityById(activityId, successHandler: {
                     (activity: Activity) in
                     Activity.current_activity = activity
+                    successHandler?(type: .Invitation)
                     self.delete()
                     }, failureHandler: { (error: NSError?) in
                         Log.error(error?.localizedDescription)

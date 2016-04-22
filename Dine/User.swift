@@ -35,40 +35,42 @@ class User {
     }
     
     init (pfUser: PFUser) {
-        self.pfUser = pfUser
-        self.userId = pfUser.objectId
-        self.username = pfUser.username
-        self.password = pfUser.password
-        self.currentActivityId = pfUser["currentActivity"] as? String
-        self.avatarImagePFFile = pfUser["avatar"] as? PFFile
         
-        if let file = self.avatarImagePFFile{
-           
-            file.getDataInBackgroundWithBlock({
-                (result, error) in
-                self.avatarImage = UIImage(data: result!)
-            })
-        }else{
-            self.avatarImage = UIImage(named: "User")
-        }
-        
-        if let screenName = pfUser["screenName"] as? String {
-            self.screenName = screenName
-        }
-        
-        
-        if let description = pfUser["description"] as? String{
-            self.profileDescription = description
-        
-        }
-        
-        self.friendList = pfUser["friendList"] as? [String]
-        notificationsRecv = [UserNotification]()
-        if let notificationDictArray = pfUser["notificationsRecv"] as? [NSDictionary] {
-            for notification in notificationDictArray {
-                notificationsRecv?.append(UserNotification(dict: notification))
+            self.pfUser = pfUser
+            self.userId = pfUser.objectId
+            self.username = pfUser.username
+            self.password = pfUser.password
+            self.currentActivityId = pfUser["currentActivity"] as? String
+            self.avatarImagePFFile = pfUser["avatar"] as? PFFile
+            
+            if let file = self.avatarImagePFFile{
+                
+                file.getDataInBackgroundWithBlock({
+                    (result, error) in
+                    self.avatarImage = UIImage(data: result!)
+                })
+            }else{
+                self.avatarImage = UIImage(named: "User")
             }
-        }
+            
+            if let screenName = pfUser["screenName"] as? String {
+                self.screenName = screenName
+            }
+            
+            
+            if let description = pfUser["description"] as? String{
+                self.profileDescription = description
+                
+            }
+            
+            self.friendList = pfUser["friendList"] as? [String]
+            self.notificationsRecv = [UserNotification]()
+            if let notificationDictArray = pfUser["notificationsRecv"] as? [NSDictionary] {
+                for notification in notificationDictArray {
+                    self.notificationsRecv?.append(UserNotification(dict: notification))
+                }
+            }
+        
 
     }
     
@@ -202,7 +204,7 @@ class User {
         if let image = image {
             if let user = pfUser {
                 // Add relevant fields to the object
-               user["avatar"] = self.getPFFileFromImage(image) // PFFile column type
+               user["avatar"] = getPFFileFromImage(image) // PFFile column type
                 user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                     if success == true && error == nil{
                         User.currentUser?.avatarImage = image
@@ -216,21 +218,7 @@ class User {
         }
         
     }
-    
-
-    func getPFFileFromImage(image: UIImage?) -> PFFile? {
-        // check if image is not nil
-        if let image = image {
-            // get image data and check if that is not nil
-            if let imageData = UIImagePNGRepresentation(image) {
-                return PFFile(name: "image.png", data: imageData)
-            }
-        }
-        return nil
-    }
-
-    
-    
+       
     
     func save(){
         let userQuery = PFUser.query()

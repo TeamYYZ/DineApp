@@ -14,7 +14,8 @@ class FriendsViewController: UITableViewController {
     
     var isInvitationVC = false
     
-    var checked: [Bool]!
+    var checked = [String: User]()
+    
     @IBOutlet weak var inviteButton: UIBarButtonItem!
     
     
@@ -22,9 +23,9 @@ class FriendsViewController: UITableViewController {
     //var friendsIdList = User.currentUser?.friendList
     var friendsIdList = [String]()
     var friendsUserList = [User]()
-    var friendsUserDic = [String : [User]]()
-    var friendUsernameTitles = [String]()
-    let friendUsernameIndexTitles =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    var friendsUserDict = [String : [User]]()
+    var friendScreenNameInitial = [String]()
+    let friendScreenNameInitialTable =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
     override func viewDidLoad() {
@@ -62,7 +63,7 @@ class FriendsViewController: UITableViewController {
             if let fetchedfriendList = friendList {
                 self.friendsIdList = fetchedfriendList
                 self.generateFriendDic()
-                self.checked = [Bool](count: self.friendsIdList.count, repeatedValue: false)
+                self.checked = [String: User]()
             }
         })
     }
@@ -75,18 +76,18 @@ class FriendsViewController: UITableViewController {
                 self.friendsUserList = [User]()
                 for friendObject in friendObjects! {
                     let friend = User(pfUser: friendObject as! PFUser)
-                    
+                    Log.info(friend.username)
                     self.friendsUserList.append(friend)
                     let username = friend.screenName
                     let usernameKey = username!.substringToIndex(username!.startIndex.advancedBy(1)).uppercaseString
                     
-                    if var usernameValues = self.friendsUserDic[usernameKey] {
+                    if var usernameValues = self.friendsUserDict[usernameKey] {
                         usernameValues.append(friend)
-                        self.friendsUserDic[usernameKey] = usernameValues
+                        self.friendsUserDict[usernameKey] = usernameValues
                     } else {
-                        self.friendsUserDic[usernameKey] = [friend]
-                        self.friendUsernameTitles.append(usernameKey)
-                        self.friendUsernameTitles.sortInPlace()
+                        self.friendsUserDict[usernameKey] = [friend]
+                        self.friendScreenNameInitial.append(usernameKey)
+                        self.friendScreenNameInitial.sortInPlace()
                     }
                     
                     
@@ -104,11 +105,11 @@ class FriendsViewController: UITableViewController {
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return self.friendUsernameIndexTitles
+        return self.friendScreenNameInitialTable
     }
     
     override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        guard let index = self.friendUsernameTitles.indexOf(title) else {
+        guard let index = self.friendScreenNameInitial.indexOf(title) else {
             return -1
         }
         return index
@@ -125,21 +126,25 @@ class FriendsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if isInvitationVC == true{
-            checked[indexPath.row] = !checked[indexPath.row]
-            var enableInviteButton = false
-            for checkbox in checked {
-                if checkbox {
-                    enableInviteButton = true
-                    break
-                }
+        let screenNameInitial = self.friendScreenNameInitial[indexPath.section]
+        let userListUnderGivenInitial = self.friendsUserDict[screenNameInitial]
+        let user = userListUnderGivenInitial![indexPath.row]
+        
+        if isInvitationVC == true {
+            if let _ = checked[user.userId!] {
+                self.checked[user.userId!] = nil
+            } else {
+                self.checked[user.userId!] = user
             }
-            if enableInviteButton {
+            
+            if checked.count > 0 {
                 inviteButton.enabled = true
-            }else {
+            } else {
                 inviteButton.enabled = false
             }
+            
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            
         } else {
             performSegueWithIdentifier("toUserProfile", sender: indexPath)
         }
@@ -147,18 +152,18 @@ class FriendsViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return friendsUserDic.count
+        return friendsUserDict.count
     }
     
     override func  tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return friendUsernameTitles[section]
+        return friendScreenNameInitial[section]
     }
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let usernameKey = self.friendUsernameTitles[section]
-        if let usernameValues = self.friendsUserDic[usernameKey] {
+        let usernameKey = self.friendScreenNameInitial[section]
+        if let usernameValues = self.friendsUserDict[usernameKey] {
             return usernameValues.count
         }
         return 0
@@ -167,11 +172,13 @@ class FriendsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! FriendCell
-        let usernameKey = self.friendUsernameTitles[indexPath.section]
-        if let usernameValues = self.friendsUserDic[usernameKey] {
-            
+        let usernameKey = self.friendScreenNameInitial[indexPath.section]
+        if let usernameValues = self.friendsUserDict[usernameKey] {
+            let index = indexPath.row
+            let user = usernameValues[index]
+
             if isInvitationVC == true {
-                if checked[indexPath.row] {
+                if let _ = checked[user.userId!] {
                     
                     cell.accessoryType = .Checkmark
                     cell.inviteLabel.text = "Invited"
@@ -183,12 +190,10 @@ class FriendsViewController: UITableViewController {
                     cell.inviteLabel.textColor = UIColor.flatSkyBlueColor()
                 }
                 
-            }else{
+            } else {
                 cell.inviteLabel.hidden = true
             }
             
-            let index = indexPath.row
-            let user = usernameValues[index]
             
             
             if let file = user.avatarImagePFFile {
@@ -239,18 +244,19 @@ class FriendsViewController: UITableViewController {
             let vc = segue.destinationViewController as! UserProfileViewController
             let section = indexPath.section
             let row = indexPath.row
-            let title = self.friendUsernameTitles[section]
-            vc.uid = self.friendsUserDic[title]![row].userId
+            let title = self.friendScreenNameInitial[section]
+            vc.uid = self.friendsUserDict[title]![row].userId
         }
-        else{
+        else {
             if let button = sender as? UIBarButtonItem {
-                if button.tag == 0{
+                if button.tag == 0 {
                     var invitedIdList = [GroupMember]()
-                    for (index, value) in checked.enumerate() {
-                        if value {
-                            invitedIdList.append(GroupMember(user: friendsUserList[index]))
-                        }
+                    
+                    for (_, user) in checked {
+                        invitedIdList.append(GroupMember(user: user))
+                        Log.info(user.username)
                     }
+                    
                     activityInProgress?.setupGroup(invitedIdList)
                     self.performSegueWithIdentifier("toMapViewSegue", sender: self)
                 }

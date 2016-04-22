@@ -45,7 +45,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         
         if cell.typeImageView.userInteractionEnabled == false {
             cell.typeImageView.userInteractionEnabled = true
-            let tapGesture = UITapGestureRecognizer(target: self, action: "profileTap:")
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NotificationViewController.profileTap(_:)))
             cell.typeImageView.addGestureRecognizer(tapGesture)
             cell.typeImageView.layer.cornerRadius = 10.0
         }
@@ -66,6 +66,17 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         self.acceptRequestWithNotificationIndex(withNotificationIndex)
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let notification = notifications[indexPath.row]
+        if notification.type == .Invitation {
+            let storyBoard = UIStoryboard(name: "ActivityProfileViewController", bundle: NSBundle.mainBundle())
+            let activityVC = storyBoard.instantiateViewControllerWithIdentifier("ActivityProfileVC") as! ActivityProfileViewController
+            activityVC.previewIndicator.isPreview = true
+            activityVC.previewIndicator.activityId = notification.associatedId
+            self.navigationController?.pushViewController(activityVC, animated: true)
+        }
+
+    }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let notification = notifications[indexPath.row]
@@ -108,6 +119,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     
     
     func fetchNotifications() {
+        notifications = [UserNotification]()
         if let user = User.currentUser {
             user.getNotifications({ (fetchedNotifications: [UserNotification]?) -> () in
                 if let notifications = fetchedNotifications {

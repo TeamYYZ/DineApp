@@ -81,6 +81,9 @@
                                         </constraints>
                                         <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                         <state key="normal" image="UpRight"/>
+                                        <connections>
+                                            <action selector="onExternalNavigate:" destination="6PW-HG-hpO" eventType="touchUpInside" id="FEm-Ll-qPY"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLj-UI-Mvg" userLabel="path">
                                         <rect key="frame" x="17" y="60" width="40" height="40"/>
@@ -91,6 +94,9 @@
                                         </constraints>
                                         <size key="titleShadowOffset" width="2" height="0.0"/>
                                         <state key="normal" image="Polyline"/>
+                                        <connections>
+                                            <action selector="togglePolyLines:" destination="6PW-HG-hpO" eventType="touchUpInside" id="2Nd-jK-yhp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34r-bE-k9k" userLabel="refresh">
                                         <rect key="frame" x="17" y="60" width="40" height="40"/>

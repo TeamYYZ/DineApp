@@ -18,14 +18,14 @@ class ActivityProfileCell: UITableViewCell {
     var isChecked = false
     var activity: Activity! {
         didSet{
-            nameLabel.text = activity.restaurant
-            if let time = activity.requestTime {
+            nameLabel.text = activity?.restaurant
+            if let time = activity?.requestTime {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
                 let dateString = dateFormatter.stringFromDate(time)
                 timeLabel.text = dateString
             }
-            activity.owner.fetchIfNeededInBackgroundWithBlock({ (owner: PFObject?, error:NSError?) in
+            activity?.owner.fetchIfNeededInBackgroundWithBlock({ (owner: PFObject?, error:NSError?) in
                 if let screenName = owner!["screenName"] as? String{
                     self.ownerLabel.text = "created by "+screenName
                 }

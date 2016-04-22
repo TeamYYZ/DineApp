@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="c19-J4-Paj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="c19-J4-Paj">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -9,14 +9,14 @@
         <!--Activity Profile View Controller-->
         <scene sceneID="NYq-7W-OXI">
             <objects>
-                <tableViewController id="c19-J4-Paj" customClass="ActivityProfileViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zNp-dS-yLr">
+                <tableViewController storyboardIdentifier="ActivityProfileVC" id="c19-J4-Paj" customClass="ActivityProfileViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="zNp-dS-yLr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="115" id="6rR-xD-n7e" customClass="ActivityProfileCell" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="115"/>
+                                <rect key="frame" x="0.0" y="93.5" width="320" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6rR-xD-n7e" id="XZ2-WZ-kYm">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="114.5"/>
@@ -85,29 +85,62 @@
                                     <outlet property="timeLabel" destination="BGg-Uk-fvV" id="YpI-5s-AT5"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DesCell" id="GVv-fv-PZQ" customClass="ActivityDesCell" customModule="Dine" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="208.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GVv-fv-PZQ" id="56Z-rs-aJk">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfz-Nj-N9n">
+                                            <rect key="frame" x="21" y="13" width="36" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Mfz-Nj-N9n" secondAttribute="bottom" constant="12" id="jJt-A0-4GH"/>
+                                        <constraint firstItem="Mfz-Nj-N9n" firstAttribute="top" secondItem="56Z-rs-aJk" secondAttribute="top" constant="13" id="jRq-O6-Gpv"/>
+                                        <constraint firstItem="Mfz-Nj-N9n" firstAttribute="leading" secondItem="56Z-rs-aJk" secondAttribute="leadingMargin" constant="13" id="sRg-9d-nIR"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="desLabel" destination="Mfz-Nj-N9n" id="IFt-OP-0d2"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberCell" rowHeight="45" id="G7C-sr-bYc" customClass="ActivityMemberCell" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="187" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="252.5" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7C-sr-bYc" id="XTM-bw-Pem">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sxm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELE-fK-GUS">
-                                            <rect key="frame" x="19" y="12" width="34" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="on his way..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkV-o6-PMG">
                                             <rect key="frame" x="219" y="12" width="93" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7TI-JT-BbQ">
+                                            <rect key="frame" x="16" y="5" width="35" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="lSF-js-fMJ"/>
+                                                <constraint firstAttribute="width" constant="35" id="sMq-Ib-o5I"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sxm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELE-fK-GUS">
+                                            <rect key="frame" x="59" y="12" width="34" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="7TI-JT-BbQ" firstAttribute="centerY" secondItem="XTM-bw-Pem" secondAttribute="centerY" id="0VD-B9-qTG"/>
                                         <constraint firstItem="ELE-fK-GUS" firstAttribute="centerY" secondItem="XTM-bw-Pem" secondAttribute="centerY" id="9h6-Fp-Kcr"/>
-                                        <constraint firstItem="ELE-fK-GUS" firstAttribute="leading" secondItem="XTM-bw-Pem" secondAttribute="leading" constant="19" id="kIl-JH-kCc"/>
+                                        <constraint firstItem="ELE-fK-GUS" firstAttribute="leading" secondItem="7TI-JT-BbQ" secondAttribute="trailing" constant="8" id="DQD-5e-Ck8"/>
+                                        <constraint firstItem="7TI-JT-BbQ" firstAttribute="leading" secondItem="XTM-bw-Pem" secondAttribute="leadingMargin" constant="8" id="eAf-7k-KCR"/>
                                         <constraint firstItem="KkV-o6-PMG" firstAttribute="baseline" secondItem="ELE-fK-GUS" secondAttribute="baseline" id="pBt-bb-Mw4"/>
                                         <constraint firstItem="KkV-o6-PMG" firstAttribute="trailing" secondItem="XTM-bw-Pem" secondAttribute="trailingMargin" id="rsf-g9-78r"/>
                                         <constraint firstItem="KkV-o6-PMG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ELE-fK-GUS" secondAttribute="trailing" constant="12" id="rvc-oz-EEX"/>
@@ -115,6 +148,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="ELE-fK-GUS" id="znN-7x-0ud"/>
+                                    <outlet property="profileView" destination="7TI-JT-BbQ" id="vcw-uG-Iyi"/>
                                     <outlet property="statusLabel" destination="KkV-o6-PMG" id="YVp-ZF-CYL"/>
                                 </connections>
                             </tableViewCell>
