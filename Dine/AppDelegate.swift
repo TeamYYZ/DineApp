@@ -40,14 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
+        installation.channels = ["chat", "notification"]
         installation.saveInBackground()
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
-            print("Push notifications are not supported in the iOS Simulator.")
+            Log.error("Push notifications are not supported in the iOS Simulator.")
         } else {
-            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+            Log.error("application:didFailToRegisterForRemoteNotificationsWithError: \(error.localizedDescription)")
         }
     }
     
@@ -93,19 +94,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         if let currentUser = PFUser.currentUser() {
-            print("current user detected: \(currentUser.username)")
-            currentUser.fetchIfNeededInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
-                if updatedUser != nil && error == nil {
-                    User.currentUser = User(pfUser: currentUser)
-                    self.userDidLogin()
-                } else {
-                    print(error?.localizedDescription)
-                
-                }
-            })
+            self.userDidLogin()
         } else {
             userDidLogout()
-        
         }
         
         return true
@@ -116,12 +107,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func userDidLogin() {
+        let installation = PFInstallation.currentInstallation()
+        guard let userId = PFUser.currentUser()?.objectId, currentUser = PFUser.currentUser() else {
+            Log.error("objectId not exists or currentUser not exists")
+            return
+        }
+        
+        installation["userId"] = userId
+        installation.saveInBackground()
+        
+        print("current user detected: \(currentUser.username)")
+        currentUser.fetchIfNeededInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
+            if updatedUser != nil && error == nil {
+                User.currentUser = User(pfUser: currentUser)
+                
+                
+            } else {
+                Log.error(error?.localizedDescription)
+                
+            }
+        })
+        
         self.createMenu()
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
     }
     
     func userDidLogout() {
+        let installation = PFInstallation.currentInstallation()
+        installation.removeObjectForKey("userId")
+        installation.saveInBackground()
+
+        
         let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
         let vc = signSB.instantiateViewControllerWithIdentifier("LoginViewController")
         window?.rootViewController = vc

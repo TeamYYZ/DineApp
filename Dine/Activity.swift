@@ -320,6 +320,21 @@ class Activity: NSObject {
 
     }
     
+    class func getActivityById(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
+        let activityQuery = PFQuery(className: "Activity")
+        activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
+            if pfObject != nil && error == nil {
+                let activity = Activity(PFActivity: pfObject!)
+                Activity.current_activity = activity
+                successHandler?(activity)
+            } else {
+                failureHandler?(error)
+                Log.error("failed to getActivityById \(error?.localizedDescription)")
+            }
+            
+        })
+    }
+    
     class func getCurrentActivity(_activityId: String, successHandler: ((Activity)->())?, failureHandler: ((NSError?)->())?) {
         let activityQuery = PFQuery(className: "Activity")
         activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in

@@ -10,51 +10,83 @@
 import UIKit
 import MBProgressHUD
 
+struct preview {
+    var isPreview = false
+    var activityId: String?
+}
+
 class ActivityProfileViewController: UITableViewController{
+    lazy var previewIndicator = preview()
+    
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var smallProfileView: UIImageView!
     var blurView: UIVisualEffectView!
     
-    var activity: Activity!
+    var activity: Activity?
     var groupMembers = [GroupMember]()
     var memberAvatars = [UIImage]()
 
+    
+    
+    func setupActivityForVC() {
+        if let activityForSetup = activity {
+            self.title = activityForSetup.title
+            
+            //check if user joined activity, if true set chatButton enable = true, else set enable = false
+            let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
+            
+            profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
+            smallProfileView = UIImageView(image: UIImage(named: "map"))
+            
+            profileView.clipsToBounds = true
+            profileView.contentMode = .ScaleAspectFill
+            if let url = activityForSetup.profileURL {
+                profileView.setImageWithURL(url)
+                smallProfileView.setImageWithURL(url)
+            }
+            
+            //blur image
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+            blurView = UIVisualEffectView(effect: blurEffect)
+            blurView.frame = profileView.frame
+            blurView.alpha = 0.8
+            
+            smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 60, 80, 80)
+            smallProfileView.clipsToBounds = true
+            smallProfileView.layer.cornerRadius = 10
+            smallProfileView.contentMode = .ScaleAspectFill
+            
+            tableHeaderView.addSubview(profileView)
+            tableHeaderView.addSubview(blurView)
+            tableHeaderView.addSubview(smallProfileView)
+            
+            self.tableView.tableHeaderView = tableHeaderView
+            fetchGroupMembers()
+        
+        
+        } else {
+            Log.error("No activity found")
+        }
+
+    
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = activity.title
-
-        //check if user joined activity, if true set chatButton enable = true, else set enable = false
-        let tableHeaderView = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight))
-        
-        profileView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kHeaderHeight)
-        smallProfileView = UIImageView(image: UIImage(named: "map"))
-
-        profileView.clipsToBounds = true
-        profileView.contentMode = .ScaleAspectFill
-        if let url = activity.profileURL {
-            profileView.setImageWithURL(url)
-            smallProfileView.setImageWithURL(url)
+        setupActivityForVC()
+        if previewIndicator.isPreview == true {
+            guard let activityId = previewIndicator.activityId else {
+                Log.error("no activityId")
+                return
+            }
+            Activity.getActivityById(activityId, successHandler: { (fetchedActivity: Activity) in
+                self.activity = fetchedActivity
+                self.setupActivityForVC()
+                }, failureHandler: { (error: NSError?) in
+                   Log.error(error?.localizedDescription)
+            })
         }
-        
-        //blur image
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
-        blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.frame = profileView.frame
-        blurView.alpha = 0.8
-        
-        smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0 - 60, 80, 80)
-        smallProfileView.clipsToBounds = true
-        smallProfileView.layer.cornerRadius = 10
-        smallProfileView.contentMode = .ScaleAspectFill
-
-        tableHeaderView.addSubview(profileView)
-        tableHeaderView.addSubview(blurView)
-        tableHeaderView.addSubview(smallProfileView)
-        
-        self.tableView.tableHeaderView = tableHeaderView
-        fetchGroupMembers()
-
     }
     
     func fetchGroupMembers() {
@@ -105,14 +137,19 @@ class ActivityProfileViewController: UITableViewController{
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        guard let guardedActivity = activity, guardedActivityId =  activity?.activityId else {
+            Log.error("Activity not found")
+            return UITableViewCell()
+        }
+        
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
-                cell.activity = self.activity
+                cell.activity = guardedActivity
             if Activity.current_activity == nil {
                 cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
-            } else if Activity.current_activity!.activityId == self.activity!.activityId {
+            } else if Activity.current_activity!.activityId == guardedActivityId {
                 cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Normal)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else{
@@ -124,7 +161,7 @@ class ActivityProfileViewController: UITableViewController{
             
         }else if (indexPath.section == 1){
             let cell = tableView.dequeueReusableCellWithIdentifier("DesCell", forIndexPath: indexPath) as! ActivityDesCell
-            cell.desLabel.text = self.activity.overview
+            cell.desLabel.text = self.activity?.overview
             return cell
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
@@ -134,8 +171,9 @@ class ActivityProfileViewController: UITableViewController{
             cell.nameLabel.text = member.screenName
             if member.joined {
                 //update member location info
-                member.getLocation(self.activity.activityId!, successHandler: { (loc:PFGeoPoint) in
-                    let dest = PFGeoPoint(latitude: self.activity.location.latitude, longitude: self.activity.location.longitude)
+                
+                member.getLocation(guardedActivityId, successHandler: { (loc:PFGeoPoint) in
+                    let dest = PFGeoPoint(latitude: guardedActivity.location.latitude, longitude: guardedActivity.location.longitude)
                     cell.statusLabel.text = String(format: "%.1f", loc.distanceInMilesTo(dest))+" Miles Away"
                     }, failureHandler: { (error:NSError?) in
                         cell.statusLabel.text = "Accepted"
@@ -156,7 +194,7 @@ class ActivityProfileViewController: UITableViewController{
             sender.setImage(UIImage(named: "cancel"), forState: .Normal)
             sender.setImage(UIImage(named: "cancel"), forState: .Highlighted)
             Activity.current_activity = self.activity
-            self.activity.joinActivity({
+            self.activity?.joinActivity({
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
                 }, failureHandler: { (error: NSError?) in
                     Log.error(error?.localizedDescription)
@@ -216,7 +254,7 @@ class ActivityProfileViewController: UITableViewController{
             imgRect.origin.y = scrollView.contentOffset.y
             imgRect.size.height = kHeaderHeight + yPos
             profileView.frame = imgRect
-            blurView.frame = imgRect
+            blurView?.frame = imgRect
 
         }
         
