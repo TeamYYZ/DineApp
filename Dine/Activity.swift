@@ -34,6 +34,8 @@ class Activity: NSObject {
                     Log.error(error?.localizedDescription)
                     
             })
+            
+
         }
     }
     
@@ -274,7 +276,7 @@ class Activity: NSObject {
             groupMemberQuery.whereKey("userId", equalTo: User.currentUser!.userId!)
             groupMemberQuery.whereKey("activityId", equalTo: currentActivity.activityId!)
             groupMemberQuery.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
-                groupMember?.deleteEventually()
+                groupMember?.deleteInBackground()
                 successHandler?()
             })
             

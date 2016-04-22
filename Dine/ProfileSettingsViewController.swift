@@ -21,8 +21,6 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     
     @IBOutlet weak var signoutLabel: UILabel!
     
-    let user = User.currentUser!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +35,10 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     }
     
     func loadData(){
+        guard let user = User.currentUser else {
+            Log.error("No current user found")
+            return
+        }
         
         if let file = user.pfUser!["avatar"]{
             file.getDataInBackgroundWithBlock({
@@ -61,11 +63,6 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
         
         self.signoutLabel.textColor = ColorTheme.sharedInstance.profileSignOutLabelColor
         self.title = "My Profile"
-       
-    
-        
-    
-        
     
     }
     
@@ -133,11 +130,14 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
- 
+        guard let user = User.currentUser else {
+            Log.error("No current user found in imagePickerController")
+            return
+        }
         let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
         let resizedImage = resize(editedImage, newSize: CGSize(width: 100, height: 100))
         dismissViewControllerAnimated(true, completion: {
-            self.user.updateProfilePhoto(resizedImage, withCompletion: { (success: Bool, error: NSError?) -> Void in
+            user.updateProfilePhoto(resizedImage, withCompletion: { (success: Bool, error: NSError?) -> Void in
                 if success {
                     self.loadData()
                 } else {

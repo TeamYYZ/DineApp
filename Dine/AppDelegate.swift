@@ -116,18 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation["userId"] = userId
         installation.saveInBackground()
         
-        print("current user detected: \(currentUser.username)")
-        currentUser.fetchIfNeededInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
-            if updatedUser != nil && error == nil {
-                User.currentUser = User(pfUser: currentUser)
-                
-                
-            } else {
-                Log.error(error?.localizedDescription)
-                
-            }
-        })
-        
         self.createMenu()
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
@@ -137,7 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let installation = PFInstallation.currentInstallation()
         installation.removeObjectForKey("userId")
         installation.saveInBackground()
-
+        
+        User.currentUser = nil
+        Activity.current_activity = nil
         
         let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
         let vc = signSB.instantiateViewControllerWithIdentifier("LoginViewController")

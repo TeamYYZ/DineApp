@@ -124,6 +124,7 @@ class UserNotification {
                     successHandler?(type: .Invitation)
                     self.delete()
                     }, failureHandler: { (error: NSError?) in
+                        self.delete()
                         Log.error(error?.localizedDescription)
                 })
             }

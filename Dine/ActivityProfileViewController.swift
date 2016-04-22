@@ -80,6 +80,7 @@ class ActivityProfileViewController: UITableViewController{
                 Log.error("no activityId")
                 return
             }
+            
             Activity.getActivityById(activityId, successHandler: { (fetchedActivity: Activity) in
                 self.activity = fetchedActivity
                 self.setupActivityForVC()
@@ -90,14 +91,14 @@ class ActivityProfileViewController: UITableViewController{
     }
     
     func fetchGroupMembers() {
-        if let activity = activity {
+        if let activity = self.activity {
             print("Try fetchGroupMembers")
             activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
 
                 //add member avatars
                 var index = 0
-                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0)-CGFloat(groupMembers.count)*45.0/2.0
+                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0) - CGFloat(groupMembers.count) * 45.0 / 2.0
                 for member in groupMembers {
                     if let avatarFile = member.avatar{
                         avatarFile.getDataInBackgroundWithBlock({
@@ -105,7 +106,7 @@ class ActivityProfileViewController: UITableViewController{
                             self.memberAvatars.insert(UIImage(data: result!)!, atIndex: index)
                             
                             let memberProfileView = UIImageView(image: UIImage(data: result!))
-                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0)+30, 40, 40)
+                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0) + 30, 40, 40)
                             memberProfileView.clipsToBounds = true
                             memberProfileView.layer.cornerRadius = 20
                             memberProfileView.layer.borderWidth = 2.0
@@ -147,6 +148,7 @@ class ActivityProfileViewController: UITableViewController{
                 
                 cell.activity = guardedActivity
             if Activity.current_activity == nil {
+                Log.info("Activity.current_activity == nil")
                 cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else if Activity.current_activity!.activityId == guardedActivityId {

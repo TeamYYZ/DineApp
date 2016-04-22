@@ -36,7 +36,54 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var memberLocations = [GMSMarker]()
     var directionPolyLines = [GMSPolyline]()
     
+    
     var mapView: GMSMapView!
+    
+    func fetchCurrentUserInfo() {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.mode = .AnnularDeterminate
+        hud.color = UIColor.flatWhiteColor()
+        hud.detailsLabelColor = UIColor.flatBlackColor()
+        hud.activityIndicatorColor = UIColor.flatBlackColor()
+        hud.dimBackground = true
+        hud.detailsLabelText = "Loading..."
+        hud.margin = 12.0
+        
+        
+        // get User's undergoing activity
+        if let currentUser = PFUser.currentUser() {
+            print("current user detected: \(currentUser.username)")
+            currentUser.fetchInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
+                if updatedUser != nil && error == nil {
+                    hud.progress = 0.2
+                    User.currentUser = User(pfUser: currentUser)
+                    if let currentActivityId = User.currentUser?.currentActivityId {
+                        Log.info("Current user has an undergoing activity id = \(currentActivityId)")
+                        hud.progress = 0.5
+                        Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
+                            Activity.current_activity = activity
+                            hud.progress = 1.0
+                            NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                            }, failureHandler: { (error: NSError?) in
+                                Log.error(error?.localizedDescription)
+                        })
+                    } else {
+                        hud.progress = 1.0
+                        hud.hide(true)
+                        Log.info("Current user does not have an undergoing activity")
+                    }
+                    
+                } else {
+                    hud.progress = 1.0
+                    hud.hide(true)
+                    Log.error("failed in fetchInBackgroundWithBlock \(error?.localizedDescription)")
+                    
+                }
+            })
+        }
+        
+    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,22 +95,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        setupGoogleMap()
-        // get User's undergoing activity
-        if let currentActivityId = User.currentUser?.currentActivityId {
-            Log.info(currentActivityId)
-            Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
-                Activity.current_activity = activity
-                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
-                }, failureHandler: { (error: NSError?) in
-                    Log.error(error?.localizedDescription)
-            })
+        if Activity.current_activity != nil {
+            Log.info("Activity.current_activity != nil")
+            Log.info("\(Activity.current_activity!.activityId) \(Activity.current_activity!.title)")
         }
         
+        setupGoogleMap()
+        fetchCurrentUserInfo()
+
         activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
         activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
-        
-        
+  
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -376,6 +418,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func userExitedActivity() {
+        Log.info("userExitedActivity")
         if activityPanelBottomPos.constant == 0 {
             UIView.animateWithDuration(0.2) {
                 self.mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
