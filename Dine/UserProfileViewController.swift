@@ -116,7 +116,6 @@ class UserProfileViewController: UITableViewController {
     }
     
     func loadData(){
-        
         if let file = user?.pfUser!["avatar"]{
             file.getDataInBackgroundWithBlock({ (result, error) in
                 if result != nil && error == nil{
@@ -127,6 +126,14 @@ class UserProfileViewController: UITableViewController {
             self.profileImageView.image = UIImage(named: "User")
         }
         self.profileImageView.layer.cornerRadius = 8.0
+        
+        if self.profileImageView.userInteractionEnabled == false {
+            self.profileImageView.userInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(UserProfileViewController.profileImageOnTap))
+            self.profileImageView.addGestureRecognizer(tapGesture)
+        }
+        
+
         
         self.screenNameLabel.text = user?.screenName!
         
@@ -139,6 +146,12 @@ class UserProfileViewController: UITableViewController {
         self.title = user?.screenName!
         self.tableView.reloadData()
 
+    }
+    
+    func profileImageOnTap(){
+    
+        self.performSegueWithIdentifier("toDetailProfileImage", sender: self)
+    
     }
 
     // MARK: - Table view data source
@@ -212,13 +225,17 @@ class UserProfileViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "toDetailProfileImage"{
+            let vc = segue.destinationViewController as! DetailProfileViewController
+            vc.user = self.user
+        }
     }
-    */
+    
 }

@@ -144,11 +144,60 @@
                         <outlet property="profileImageView" destination="sye-SS-ibj" id="jvQ-B2-WmD"/>
                         <outlet property="screenNameLabel" destination="f5T-cD-Fev" id="KMu-EN-3tp"/>
                         <outlet property="usernameLabel" destination="XH6-JJ-22H" id="Xhp-Ve-H2E"/>
+                        <segue destination="2xO-yb-1W8" kind="modal" identifier="toDetailProfileImage" modalTransitionStyle="crossDissolve" id="iIR-qz-5am"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGk-tw-5x6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="745" y="-1458"/>
+        </scene>
+        <!--Detail Profile View Controller-->
+        <scene sceneID="gxW-9T-b7P">
+            <objects>
+                <viewController id="2xO-yb-1W8" customClass="DetailProfileViewController" customModule="Dine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qoM-kX-TN0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ka4-Mh-3yY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6vQ-9a-sn1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="ny8-Xm-zu8">
+                                <rect key="frame" x="0.0" y="-32" width="320" height="600"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LQw-Hv-qbF">
+                                        <rect key="frame" x="0.0" y="168.5" width="320" height="263"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="263" id="yaz-TH-S00"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="LQw-Hv-qbF" firstAttribute="centerX" secondItem="ny8-Xm-zu8" secondAttribute="centerX" id="GBI-7J-liY"/>
+                                    <constraint firstAttribute="bottom" secondItem="LQw-Hv-qbF" secondAttribute="bottom" constant="153" id="Y0h-Bz-HgP"/>
+                                    <constraint firstAttribute="trailing" secondItem="LQw-Hv-qbF" secondAttribute="trailing" id="iI9-ON-MhT"/>
+                                    <constraint firstItem="LQw-Hv-qbF" firstAttribute="leading" secondItem="ny8-Xm-zu8" secondAttribute="leading" id="kSQ-Ww-4PX"/>
+                                    <constraint firstItem="LQw-Hv-qbF" firstAttribute="centerY" secondItem="ny8-Xm-zu8" secondAttribute="centerY" id="qSH-eS-hHO"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ny8-Xm-zu8" firstAttribute="bottom" secondItem="Ka4-Mh-3yY" secondAttribute="top" id="0cL-Mg-7ae"/>
+                            <constraint firstItem="ny8-Xm-zu8" firstAttribute="leading" secondItem="6vQ-9a-sn1" secondAttribute="leading" id="IZP-Cp-Rsx"/>
+                            <constraint firstAttribute="trailing" secondItem="ny8-Xm-zu8" secondAttribute="trailing" id="fCx-H3-0ce"/>
+                            <constraint firstItem="ny8-Xm-zu8" firstAttribute="top" secondItem="qoM-kX-TN0" secondAttribute="bottom" constant="-32" id="oph-H8-Q9A"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="LQw-Hv-qbF" id="568-Ic-Aka"/>
+                        <outlet property="scrollView" destination="ny8-Xm-zu8" id="Ken-44-Rpy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Sw-HE-Nxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1176" y="-1458"/>
         </scene>
     </scenes>
     <resources>

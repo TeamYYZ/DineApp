@@ -24,6 +24,7 @@
 		3BD848AF1CA0F21F00E40A8B /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848AE1CA0F21F00E40A8B /* Group.swift */; };
 		3BD848B11CA0F8F200E40A8B /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD848B01CA0F8F200E40A8B /* Invitation.swift */; };
 		3BF4D2721CA73A1000126A91 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */; };
+		3BFC5E341CC9CA8B0021F6CE /* DetailProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFC5E331CC9CA8B0021F6CE /* DetailProfileViewController.swift */; };
 		A9F20DA4F0AE323B838DB4D6 /* Pods_Dine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420E646DC877272EF89BFF60 /* Pods_Dine.framework */; };
 		C127F5701CA3885700D40088 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F56F1CA3885700D40088 /* Message.swift */; };
 		C127F5721CA394AD00D40088 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = C127F5711CA394AD00D40088 /* GroupMember.swift */; };
@@ -109,6 +110,7 @@
 		3BD848AE1CA0F21F00E40A8B /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		3BD848B01CA0F8F200E40A8B /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		3BFC5E331CC9CA8B0021F6CE /* DetailProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProfileViewController.swift; sourceTree = "<group>"; };
 		420E646DC877272EF89BFF60 /* Pods_Dine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C127F56F1CA3885700D40088 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C127F5711CA394AD00D40088 /* GroupMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				C6EE09491C975F7F00345357 /* ChatViewController.swift */,
 				3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */,
 				3BAB2BA81CC0939400E201A2 /* UserProfileViewController.swift */,
+				3BFC5E331CC9CA8B0021F6CE /* DetailProfileViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */,
 				C6EE09131C906F6200345357 /* AppDelegate.swift in Sources */,
 				C6EE092C1C96038700345357 /* MapViewController.swift in Sources */,
+				3BFC5E341CC9CA8B0021F6CE /* DetailProfileViewController.swift in Sources */,
 				3BF4D2721CA73A1000126A91 /* AddFriendViewController.swift in Sources */,
 				3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */,
 				C17AABE01C984A7500CC83CF /* ParseAPI.swift in Sources */,
