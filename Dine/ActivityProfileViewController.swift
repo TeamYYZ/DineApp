@@ -96,14 +96,13 @@ class ActivityProfileViewController: UITableViewController{
             activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
 
-                //add member avatars
                 var index = 0
                 let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0) - CGFloat(groupMembers.count) * 45.0 / 2.0
+
                 for member in groupMembers {
                     if let avatarFile = member.avatar{
                         avatarFile.getDataInBackgroundWithBlock({
                             (result, error) in
-                            self.memberAvatars.insert(UIImage(data: result!)!, atIndex: index)
                             
                             let memberProfileView = UIImageView(image: UIImage(data: result!))
                             memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0) + 30, 40, 40)
@@ -113,14 +112,12 @@ class ActivityProfileViewController: UITableViewController{
                             memberProfileView.layer.borderColor = UIColor(white: 0.9, alpha: 1).CGColor
                             memberProfileView.contentMode = .ScaleAspectFill
                             self.tableView.tableHeaderView?.addSubview(memberProfileView)
-                            index += 1
-                            if (index == groupMembers.count) {
-                                self.tableView.reloadData()
-                            }
+                            index+=1
                         })
                         
                     }
                 }
+                self.tableView.reloadData()
                 print("fetchGroupMembers success \(self.groupMembers.count)")
                 }, failureHandler: { (error: NSError?) -> () in
                 print(error?.localizedDescription)
@@ -168,7 +165,12 @@ class ActivityProfileViewController: UITableViewController{
         }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! ActivityMemberCell
             let member = groupMembers[indexPath.row]
-            cell.profile = memberAvatars[indexPath.row]
+            if let avatarFile = member.avatar{
+                avatarFile.getDataInBackgroundWithBlock({
+                    (result, error) in
+                    cell.profile = UIImage(data: result!)!
+                    })
+            }
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
             if member.joined {
