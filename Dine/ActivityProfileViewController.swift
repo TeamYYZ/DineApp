@@ -13,11 +13,17 @@ import MBProgressHUD
 struct preview {
     var isPreview = false
     var activityId: String?
+    var notificationIndex: Int?
+    var mapVC: MapViewController?
+}
+
+@objc protocol ActivityProfileViewControllerDelegate {
+    optional func activityView(activityView: ActivityProfileViewController, associatedNotificationIndex notificationIndex: Int)
 }
 
 class ActivityProfileViewController: UITableViewController{
     lazy var previewIndicator = preview()
-    
+    weak var delegate: ActivityProfileViewControllerDelegate?
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var smallProfileView: UIImageView!
@@ -144,12 +150,15 @@ class ActivityProfileViewController: UITableViewController{
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
                 cell.activity = guardedActivity
+            print(Activity.current_activity)
             if Activity.current_activity == nil {
                 Log.info("Activity.current_activity == nil")
                 cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
+                cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else if Activity.current_activity!.activityId == guardedActivityId {
                 cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Normal)
+                cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else{
                 Log.error("should not reach here")
@@ -200,12 +209,19 @@ class ActivityProfileViewController: UITableViewController{
             Activity.current_activity = self.activity
             self.activity?.joinActivity({
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                if self.previewIndicator.isPreview {
+                    if let index = self.previewIndicator.notificationIndex {
+                        self.delegate?.activityView?(self, associatedNotificationIndex: index)
+                    }
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                
                 }, failureHandler: { (error: NSError?) in
                     Log.error(error?.localizedDescription)
                     
             })
 
-        }else {
+        } else {
             sender.setImage(UIImage(named: "checked"), forState: .Normal)
             sender.setImage(UIImage(named: "checked"), forState: .Highlighted)
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)

@@ -17,7 +17,7 @@ enum NotificationType: String {
     
 }
 
-class UserNotification {
+class UserNotification: NSObject {
     var type: NotificationType
     var associatedId: String?
     var content: String
@@ -26,6 +26,7 @@ class UserNotification {
     var senderName: String
     var senderAvatarPFFile: PFFile?
     var senderAvatarImage: UIImage?
+    var indexInTable: Int?
     // create from send notifications
     init(type: NotificationType, content: String, senderId: String, receiverId: String, associatedId: String?, senderName: String, senderAvatarPFFile: PFFile?) {
         self.type = type

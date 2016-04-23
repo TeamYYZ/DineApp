@@ -281,12 +281,9 @@ class Activity: NSObject {
             })
             
         } else {
-            failureHandler?(NSError(domain: "no current activity found", code: 3, userInfo: nil))
-            return
+            failureHandler?(NSError(domain: "no current activity found in exitActivity", code: 3, userInfo: nil))
         }
         
-
-
         if User.currentUser?.userId == owner.objectId {
             Log.info("I am the owner, so delete the activity object in cloud")
             deleteActivity(nil)
@@ -327,7 +324,6 @@ class Activity: NSObject {
         activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
             if pfObject != nil && error == nil {
                 let activity = Activity(PFActivity: pfObject!)
-                Activity.current_activity = activity
                 successHandler?(activity)
             } else {
                 failureHandler?(error)
