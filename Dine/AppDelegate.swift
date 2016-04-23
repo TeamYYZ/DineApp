@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        if let currentUser = PFUser.currentUser() {
+        if let _ = PFUser.currentUser() {
             self.userDidLogin()
         } else {
             userDidLogout()
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogin() {
         let installation = PFInstallation.currentInstallation()
-        guard let userId = PFUser.currentUser()?.objectId, currentUser = PFUser.currentUser() else {
+        guard let userId = PFUser.currentUser()?.objectId, _ = PFUser.currentUser() else {
             Log.error("objectId not exists or currentUser not exists")
             return
         }

@@ -56,7 +56,12 @@ class GroupMember {
         self.owner = pfObject["owner"] as? Bool
     }
     
-    class func updateLocation(activityId: String, userId: String, location: PFGeoPoint, successHandler: (()->()), failureHandler: ((NSError?)->())?) {
+    class func updateLocation(_activityId: String?, userId: String, location: PFGeoPoint, successHandler: (()->()), failureHandler: ((NSError?)->())?) {
+        guard let activityId = _activityId else {
+            failureHandler?(NSError(domain: "activityId is nil", code: 1, userInfo: nil))
+            return
+        }
+        
         let query = PFQuery(className:"GroupMember")
         query.whereKey("userId", equalTo: userId)
         query.whereKey("activityId", equalTo: activityId)

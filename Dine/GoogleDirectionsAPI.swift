@@ -13,7 +13,7 @@ class GoogleDirectionsAPI {
     static let baseURLString = "https://maps.googleapis.com/maps/api/directions/json"
     static let APIkey = "AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U"
     
-    class func direction(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, completion: ([Route]!, NSError!) -> Void) -> AFHTTPRequestOperation
+    class func direction(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, completion: ([Route]?, NSError?) -> Void) -> AFHTTPRequestOperation
     {
         let manager = AFHTTPRequestOperationManager()
         var params: [String: AnyObject] = ["key": APIkey]
@@ -23,16 +23,15 @@ class GoogleDirectionsAPI {
         return manager.GET(
             baseURLString,
             parameters: params,
-            success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            success: { (operation: AFHTTPRequestOperation, response: AnyObject) -> Void in
                 let responseAsDictionary = response as! NSDictionary
-                let dictionaries = responseAsDictionary["routes"] as? [NSDictionary]
-                if dictionaries != nil {
-                completion(Route.routes(array: dictionaries!), nil)
+                if let dictionaries = responseAsDictionary["routes"] as? [NSDictionary] {
+                    completion(Route.routes(array: dictionaries), nil)
                 }
             },
             failure: { (operation: AFHTTPRequestOperation?,
-                error: NSError!) in
-                print("Error: " + error.localizedDescription)
+                error: NSError) in
+                Log.error("Error: " + error.localizedDescription)
                 completion(nil, error)
             }
         )!
