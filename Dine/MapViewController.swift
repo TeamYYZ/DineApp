@@ -27,6 +27,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             pathBtn.hidden = false
         }
     }
+    var isObservingMyLocation = false
     var currentStep = 0
     var searchUserLocation = true
     var didFindUserLocation = false
@@ -97,7 +98,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         pathBtn.hidden = true
         setupGoogleMap()
         fetchCurrentUserInfo()
-
+        
         activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
         activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
   
@@ -107,15 +108,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
     
+    func setupTimers() {
+        if let locationTimer = self.locationTimer {
+            if !locationTimer.valid {
+                self.locationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
+            }
+        }
+        if let mylocationTimer = self.mylocationTimer {
+            if !mylocationTimer.valid {
+                self.mylocationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateUserLocation), userInfo: nil, repeats: true)
+            }
+        }
+    
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        Log.info("observer added")
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        setupTimers()
+        isObservingMyLocation = true
     }
     
     override func viewWillDisappear(animated: Bool) {
-        mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
         if let locationTimer = self.locationTimer {
             Log.info("removing member location tracking")
             locationTimer.invalidate()
@@ -125,8 +139,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             userlocationTimer.invalidate()
         }
         
-        self.memberLocations.removeAll()
-        Log.info("observer removed")
     }
     
     func setupMapButton(btn: UIButton) {
@@ -166,6 +178,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         setupMapButton(self.pathBtn)
         setupMapButton(self.navigationBtn)
         setupMapButton(self.redoBtn)
+        
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+
     }
     
     func getMapBoundingBox() -> GMSCoordinateBounds {
@@ -381,6 +396,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 didFindUserLocation = true
                 updateMapMarkers()
                 mapView.removeObserver(self, forKeyPath: "myLocation")
+                isObservingMyLocation = false
             }
             
         }
