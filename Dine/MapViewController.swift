@@ -33,7 +33,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var showPath = false
     var locationTimer: NSTimer?
     var mylocationTimer: NSTimer?
-    var memberLocations = [GMSMarker]()
+    var memberLocations = [String: GMSMarker]()
     var directionPolyLines = [GMSPolyline]()
     
     
@@ -222,47 +222,46 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func updateMemberLocations() {
+        guard let currentActivity = Activity.current_activity else {
+            Log.error("no current activity found")
+            return
+        }
         
-        if let members = Activity.current_activity!.group?.groupMembers {
-            
-            if members.isEmpty == false {
-                var index = 0
-                for member in members {
-                    if member.userId != PFUser.currentUser()?.objectId && member.joined {
-                        member.getLocation((Activity.current_activity?.activityId)!, successHandler: { (loc:PFGeoPoint) in
-                            //add loc marker
-                            let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                            if self.memberLocations.isEmpty {
-                                //store circles
-                                let marker = GMSMarker(position: circleCenter)
-                                self.memberLocations.append(marker)
-                                if let avatarFile = member.avatar {
-                                    avatarFile.getDataInBackgroundWithBlock({
-                                        (result, error) in
-                                        let iconView = UIImageView(image: UIImage(data: result!)!)
-                                        iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                                        iconView.layer.cornerRadius = 15
-                                        iconView.layer.borderWidth = 2
-                                        iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
-                                        iconView.clipsToBounds = true
-                                        marker.iconView = iconView
-                                        marker.map = self.mapView
-                                    })
-                                }
-                                
-                            }else {
-                                //update circle locations
-                                let marker = self.memberLocations[index]
-                                marker.position = circleCenter
-                            }
-                            index += 1
-                            }, failureHandler: { (error:NSError?) in
-                                Log.error("Updating member user location failure")
+        // MARK: may lead to memory leak
+        currentActivity.fetchGroupMember({ (members: [GroupMember]) in
+            for member in members {
+                if member.userId == PFUser.currentUser()?.objectId {break}
+                guard let loc = member.location else {break}
+                let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+                
+                if let marker = self.memberLocations[member.userId] {
+                    marker.position = circleCenter
+                } else {
+                    let marker = GMSMarker(position: circleCenter)
+                    if let avatar = member.avatar {
+                        avatar.getDataInBackgroundWithBlock({
+                            (result: NSData?, error: NSError?) in
+                            guard let imageData = result else {return}
+                            let iconView = UIImageView()
+                            iconView.image = UIImage(data: imageData)
+                            iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                            iconView.layer.cornerRadius = 15
+                            iconView.layer.borderWidth = 2
+                            iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
+                            iconView.clipsToBounds = true
+                            marker.iconView = iconView
+                            marker.map = self.mapView
                         })
                     }
+                    self.memberLocations[member.userId] = marker
                 }
+            
             }
+            
+        }) { (error: NSError?) in
+            Log.error(error?.localizedDescription)
         }
+        
     }
     
     func updateUserLocation() {

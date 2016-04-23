@@ -315,7 +315,7 @@ class Activity: NSObject {
                 
             }
         } else {
-            failureHandler?(NSError(domain: "activityId not found", code: 03, userInfo: nil))
+            failureHandler?(NSError(domain: "activityId not found", code: 3, userInfo: nil))
         
         }
 

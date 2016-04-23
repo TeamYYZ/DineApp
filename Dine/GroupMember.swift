@@ -15,6 +15,7 @@ class GroupMember {
     var owner: Bool?
     var screenName: String?
     var avatar: PFFile?
+    var location: PFGeoPoint?
     
     init(userId: String, joined: Bool) {
         self.userId = userId
@@ -54,6 +55,7 @@ class GroupMember {
         self.avatar = pfObject["avatar"] as? PFFile
         self.joined = pfObject["joined"] as! Bool
         self.owner = pfObject["owner"] as? Bool
+        self.location = pfObject["location"] as? PFGeoPoint
     }
     
     class func updateLocation(_activityId: String?, userId: String, location: PFGeoPoint, successHandler: (()->()), failureHandler: ((NSError?)->())?) {
@@ -82,7 +84,41 @@ class GroupMember {
         })
     }
     
-    func getLocation(activityId: String, successHandler: ((PFGeoPoint)->()), failureHandler: ((NSError?)->())?) {
+    class func getMembersLocation(_activityId: String?, successHandler: (([String: PFGeoPoint])->()), failureHandler: ((NSError?)->())?) {
+        guard let activityId = _activityId else {
+            failureHandler?(NSError(domain: "activityId not found", code: 1, userInfo: nil))
+            Log.error("activityId not found")
+            return
+        }
+        
+        let query = PFQuery(className:"GroupMember")
+        query.whereKey("activityId", equalTo: activityId)
+        query.findObjectsInBackgroundWithBlock { (members: [PFObject]?, error: NSError?) in
+            if members != nil && error == nil {
+                var dictionary = [String: PFGeoPoint]()
+                for member in members! {
+                    guard let userId = member["userId"] as? String, location = member["location"] as? PFGeoPoint else {
+                        failureHandler?(NSError(domain: "stored info. is broken", code: 2, userInfo: nil))
+                        return
+                    }
+                    
+                    dictionary[userId] = location
+                }
+                successHandler(dictionary)
+                
+            } else {
+                failureHandler?(error)
+            }
+        }
+    }
+    
+    func getLocation(_activityId: String?, successHandler: ((PFGeoPoint)->()), failureHandler: ((NSError?)->())?) {
+        guard let activityId = _activityId else {
+            failureHandler?(NSError(domain: "activityId not found", code: 1, userInfo: nil))
+            Log.error("activityId not found")
+            return
+        }
+        
         let query = PFQuery(className:"GroupMember")
         query.whereKey("userId", equalTo: self.userId)
         query.whereKey("activityId", equalTo: activityId)
