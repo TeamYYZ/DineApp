@@ -38,6 +38,7 @@
 		C17AABE61C9851E200CC83CF /* YYZButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17AABE51C9851E200CC83CF /* YYZButton.swift */; };
 		C18320B91CBF80F30088600F /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18320B71CBF80F20088600F /* MenuCell.swift */; };
 		C18320BA1CBF80F30088600F /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C18320B81CBF80F20088600F /* MenuCell.xib */; };
+		C19537101CCC5DAD00983F92 /* deftone-stylus.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C195370F1CCC5DAD00983F92 /* deftone-stylus.ttf */; };
 		C1A474BA1CA71C3500141692 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1A474B91CA71C3500141692 /* Notifications.storyboard */; };
 		C1A474C11CA723D800141692 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A474BF1CA723D800141692 /* NotificationCell.swift */; };
 		C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1A474C01CA723D800141692 /* NotificationCell.xib */; };
@@ -126,6 +127,7 @@
 		C18320B61CBF3B230088600F /* Dine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Dine.entitlements; sourceTree = "<group>"; };
 		C18320B71CBF80F20088600F /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		C18320B81CBF80F20088600F /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		C195370F1CCC5DAD00983F92 /* deftone-stylus.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "deftone-stylus.ttf"; sourceTree = "<group>"; };
 		C1A474B91CA71C3500141692 /* Notifications.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
 		C1A474BF1CA723D800141692 /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C1A474C01CA723D800141692 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
@@ -243,6 +245,14 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		C195370E1CCC5D8F00983F92 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C195370F1CCC5DAD00983F92 /* deftone-stylus.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		C1D04F621C9E3161003EB3C9 /* LoginSignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +321,7 @@
 		C6EE09061C906F6200345357 = {
 			isa = PBXGroup;
 			children = (
+				C195370E1CCC5D8F00983F92 /* Resources */,
 				C6EE09111C906F6200345357 /* Dine */,
 				C6EE09101C906F6200345357 /* Products */,
 				9A2698932E8848FD28CBC6FC /* Pods */,
@@ -501,6 +512,7 @@
 				C1A474C21CA723D800141692 /* NotificationCell.xib in Resources */,
 				3BA597131CAC835F00D0E6C7 /* SelfMessageCell.xib in Resources */,
 				C6EE091D1C906F6200345357 /* LaunchScreen.storyboard in Resources */,
+				C19537101CCC5DAD00983F92 /* deftone-stylus.ttf in Resources */,
 				C6EE091A1C906F6200345357 /* Assets.xcassets in Resources */,
 				3BA597191CACA32600D0E6C7 /* ActivityProfileViewController.storyboard in Resources */,
 				C6EE09321C960EDA00345357 /* MapDetailView.xib in Resources */,

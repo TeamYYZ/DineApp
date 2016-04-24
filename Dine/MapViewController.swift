@@ -95,6 +95,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("\(Activity.current_activity!.activityId) \(Activity.current_activity!.title)")
         }
         
+        let navLabel = UILabel()
+        navLabel.font = UIFont(name: "Deftone Stylus", size: 22.0)
+        navLabel.text = " Dine "
+        navLabel.shadowOffset = CGSize(width: 1.2, height: 1.2)
+        navLabel.shadowColor = UIColor.flatBlackColor()
+        
+        navLabel.textColor = UIColor.flatWhiteColor()
+        navLabel.sizeToFit()
+        self.navigationItem.titleView = navLabel
+        
+        
         pathBtn.hidden = true
         setupGoogleMap()
         fetchCurrentUserInfo()

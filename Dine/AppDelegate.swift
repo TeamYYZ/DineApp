@@ -24,12 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainfuncSB = UIStoryboard(name: "Main", bundle: nil)
         
         let mainViewController = mainfuncSB.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        
         let leftViewController =
             sidebarSB.instantiateViewControllerWithIdentifier("SidebarMenuViewController") as! SidebarMenuViewController
         
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         leftViewController.mainViewController = nvc
         let nvcl: UINavigationController = UINavigationController(rootViewController: leftViewController)
+        
+        SlideMenuOptions.animationDuration = 0.2
+        SlideMenuOptions.leftViewWidth = 200
+        SlideMenuOptions.shadowOffset = CGSize(width: 2, height: 0)
+        SlideMenuOptions.shadowOpacity = 0.4
+        SlideMenuOptions.shadowRadius = 2
+        SlideMenuOptions.simultaneousGestureRecognizers = false
         
         slideMenuController = ContainerViewController(mainViewController: nvc, leftMenuViewController: nvcl)
         
@@ -63,9 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        
         self.createMenu()
         
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.flatWhiteColor()]
         UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
         UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
         
