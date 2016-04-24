@@ -136,22 +136,29 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         if let user = User.currentUser {
             user.getNotifications({ (fetchedNotifications: [UserNotification]?) -> () in
                 if let notifications = fetchedNotifications {
+                    self.notifications = notifications
                     for notification in notifications{
-                        if let file = notification.senderAvatarPFFile{
+                        
+                        if let file = notification.senderAvatarPFFile {
                             file.getDataInBackgroundWithBlock({
                                 (result, error) in
                                 if error == nil{
                                     notification.senderAvatarImage = UIImage(data: result!)
-                                    self.notifications.append(notification)
-                                }else{
+                                } else {
                                     print(error)
                                 }
                             })
-                        }else{
+                        } else {
                             notification.senderAvatarImage = UIImage(named: "User")
                         }
                     }
+                    
+                    Log.info("time to end refresshing here")
+                    self.refreshControl.endRefreshing()
+                    self.tableView.reloadData()
+                    return
                 }
+                
                 Log.info("time to end refresshing here")
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()

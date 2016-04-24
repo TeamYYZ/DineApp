@@ -99,14 +99,18 @@ class User {
     func getNotifications(successHandler: ([UserNotification]?)->()) {
         let userQuery = PFUser.query()
         userQuery?.getObjectInBackgroundWithId(userId!, block: { (user: PFObject?, error: NSError?) -> Void in
-            if error == nil && user != nil{
+            if error == nil && user != nil {
                 self.notificationsRecv = [UserNotification]()
                 let notificationDictArray = user!["notificationsRecv"] as? [NSDictionary]
+                print(notificationDictArray)
                 if let dictArray = notificationDictArray {
                     for notification in dictArray {
                         self.notificationsRecv?.append(UserNotification(dict: notification))
                     }
+                    
                     successHandler(self.notificationsRecv)
+                } else {
+                    successHandler(nil)
                 }
 
                 
