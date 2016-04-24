@@ -20,6 +20,8 @@ class SearchFriendCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        avatarImage.layer.cornerRadius = 10
+        avatarImage.layer.masksToBounds = true
         // Initialization code
     }
 

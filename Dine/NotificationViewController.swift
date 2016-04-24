@@ -32,18 +32,29 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         switch notification.type {
         case .FriendRequest:
             cell.typeLabel.text = "Friend Request"
-            cell.typeImageView.image = UIImage(named: "addFriend")
         case .Invitation:
             cell.typeLabel.text = "Activity Invitation"
-            cell.typeImageView.image = UIImage(named: "dine")
         default:
             cell.typeLabel.text = "Unknown"
         }
+
+        if let file = notification.senderAvatarPFFile {
+            file.getDataInBackgroundWithBlock({
+                (result, error) in
+                if let data = result where error == nil {
+                    cell.typeImageView.image = UIImage(data: data)
+                } else {
+                    Log.error(error?.localizedDescription)
+                }
+            })
+        } else {
+            cell.typeImageView.image = UIImage(named: "User")
+        }
+        
         cell.senderLabel.text = notification.senderName
         cell.acceptButton.removeTarget(self, action: #selector(NotificationViewController.acceptRequest(_:)), forControlEvents: .TouchDown)
         cell.acceptButton.addTarget(self, action: #selector(NotificationViewController.acceptRequest(_:)), forControlEvents: .TouchDown)
         cell.acceptButton.tag = indexPath.row
-        cell.typeImageView.image = notification.senderAvatarImage
         
         if cell.typeImageView.userInteractionEnabled == false {
             cell.typeImageView.userInteractionEnabled = true
@@ -137,22 +148,6 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
             user.getNotifications({ (fetchedNotifications: [UserNotification]?) -> () in
                 if let notifications = fetchedNotifications {
                     self.notifications = notifications
-                    for notification in notifications{
-                        
-                        if let file = notification.senderAvatarPFFile {
-                            file.getDataInBackgroundWithBlock({
-                                (result, error) in
-                                if error == nil{
-                                    notification.senderAvatarImage = UIImage(data: result!)
-                                } else {
-                                    print(error)
-                                }
-                            })
-                        } else {
-                            notification.senderAvatarImage = UIImage(named: "User")
-                        }
-                    }
-                    
                     Log.info("time to end refresshing here")
                     self.refreshControl.endRefreshing()
                     self.tableView.reloadData()

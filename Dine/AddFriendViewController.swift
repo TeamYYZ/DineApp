@@ -40,7 +40,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         self.edgesForExtendedLayout = UIRectEdge.None
         
         // Customize the appearance of the search bar
-        searchController.searchBar.placeholder = "Search new friends by Username"
+        searchController.searchBar.placeholder = "Search new friends by username"
         searchController.searchBar.autocapitalizationType = .None
         searchController.searchBar.autocorrectionType = .No
         searchController.searchBar.tintColor = UIColor(red: 100.0/255.0, green: 100.0/255.0, blue: 100.0/255.0, alpha: 1.0)
@@ -70,7 +70,7 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
                 if let objects = objects {
                     for object in objects {
                         let objectAsPFUser = object as! PFUser
-                        let objectAsUser = User.init(pfUser: objectAsPFUser)
+                        let objectAsUser = User(pfUser: objectAsPFUser)
                         self.friends.append(objectAsUser)
                     }
                     self.addStatus = [Bool](count: self.friends.count, repeatedValue: false)
@@ -108,13 +108,21 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("NewFriendCell") as! SearchFriendCell
         let friend = friends[indexPath.row]
         let isSent = addStatus[indexPath.row]
-        if let avatarImage = friend.avatarImage{
-            cell.avatarImage.image = avatarImage
-        }else{
+        
+        if let file = friend.avatarImagePFFile {
+            file.getDataInBackgroundWithBlock({
+                (result, error) in
+                if let data = result where error == nil {
+                    cell.avatarImage.image = UIImage(data: data)
+                } else {
+                    Log.error(error?.localizedDescription)
+                }
+            })
+        } else {
             cell.avatarImage.image = UIImage(named: "User")
         }
         
-        if let screenName = friend.screenName{
+        if let screenName = friend.screenName {
             cell.screenNameLabel.text = screenName
         } else {
             cell.screenNameLabel.text = "Unknown"
@@ -142,18 +150,24 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         let button = sender as! YYZAcceptButton
         let index = button.tag
         let destinationUser = self.friends[index]
-        let notification = UserNotification(type: .FriendRequest, content: "Wants to be your friend", senderId: User.currentUser!.userId!, receiverId: destinationUser.userId!, associatedId: nil, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
         
+        guard let currentUser = User.currentUser, screenName = currentUser.screenName, senderId = currentUser.userId else {
+            return
+        }
         
-        notification.saveToBackend({ () -> () in
+
+        let notification = UserNotification(type: .FriendRequest, content: "\(screenName) sent a friend request to you", senderId: senderId, receiverId: destinationUser.userId!, associatedId: nil, senderName: screenName, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
+        
+        UserNotification.broadcastInBackend([notification.getDict()], successHandler: {
+            Log.info("notificationSuccess")
             self.addStatus[index] = true
             button.disable()
             button.setTitle("Sent", forState: UIControlState.Disabled)
-            print("success")
-            }, failureHandler: { (error: NSError?) -> () in
-                print("failure")
+            Log.info("Friend request sent successfully")
+            }, failureHandler: { (error: NSError?) in
+                Log.info(error?.localizedDescription)
         })
-        //Here should send a notification to ask for permission
+        
         
     }
     

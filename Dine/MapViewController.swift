@@ -605,7 +605,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         
                         Log.info("invitedUser \(invitedUser)")
                         Log.info(User.currentUser!.screenName!)
-                        let notification = UserNotification(type: .Invitation, content: "Invite you to a activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: User.currentUser!.screenName!, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
+                        
+                        guard let screenName = User.currentUser!.screenName else {
+                            Log.error("This is a buggy user due to no screenName")
+                            return
+                        }
+                        
+                        let notification = UserNotification(type: .Invitation, content: "\(screenName) invited you to an activity", senderId: activity!.owner.objectId!, receiverId: invitedUser, associatedId: activity!.activityId, senderName: screenName, senderAvatarPFFile: User.currentUser?.avatarImagePFFile)
                         notificationList.append(notification.getDict())
                     }
                     
