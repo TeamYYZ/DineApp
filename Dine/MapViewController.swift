@@ -13,30 +13,72 @@ import MBProgressHUD
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var navigationBtn: UIButton!
     @IBOutlet weak var pathBtn: UIButton!
-    
     @IBOutlet weak var redoBtn: UIButton!
     @IBOutlet weak var currentActivityPanelView: CurrentActivityBottomBar!
-    
     @IBOutlet weak var ActivityPanelViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
-    
     @IBOutlet weak var activityPanelTag: UIView!
-    
     @IBOutlet weak var activityNameLabel: UILabel!
     
     var locationManager = CLLocationManager()
     var activities = [Activity]()
-    var steps : [Route.Step]!
+    var steps : [Route.Step]? {
+        didSet {
+            pathBtn.hidden = false
+        }
+    }
+    var isObservingMyLocation = false
     var currentStep = 0
     var searchUserLocation = true
+    var didFindUserLocation = false
     var showPath = false
-    var locationTimer: NSTimer!
-    var userlocationTimer: NSTimer!
-    var memberLocations = [GMSMarker]()
+    var locationTimer: NSTimer?
+    var mylocationTimer: NSTimer?
+    var memberLocations = [String: GMSMarker]()
     var directionPolyLines = [GMSPolyline]()
     
+    
     var mapView: GMSMapView!
+    
+    func fetchCurrentUserInfo() {
+        let hud = MBProgressHUD.showLoadingHUDToView(self.view, animated: true)
+        
+        // get User's undergoing activity
+        if let currentUser = PFUser.currentUser() {
+            print("current user detected: \(currentUser.username)")
+            currentUser.fetchInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
+                if updatedUser != nil && error == nil {
+                    hud.progress = 0.2
+                    User.currentUser = User(pfUser: currentUser)
+                    if let currentActivityId = User.currentUser?.currentActivityId {
+                        Log.info("Current user has an undergoing activity id = \(currentActivityId)")
+                        hud.progress    = 0.5
+                        Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
+                            Activity.current_activity = activity
+                            hud.progress = 1.0
+                            NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                            }, failureHandler: { (error: NSError?) in
+                                hud.progress = 1.0
+                                hud.hide(true)
+                                Log.error(error?.localizedDescription)
+                        })
+                    } else {
+                        hud.progress = 1.0
+                        hud.hide(true)
+                        Log.info("Current user does not have an undergoing activity")
+                    }
+                    
+                } else {
+                    hud.progress = 1.0
+                    hud.hide(true)
+                    Log.error("failed in fetchInBackgroundWithBlock \(error?.localizedDescription)")
+                    
+                }
+            })
+        }
+        
+    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,47 +90,66 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        setupGoogleMap()
-        // get User's undergoing activity
-        if let currentActivityId = User.currentUser?.currentActivityId {
-            Log.info(currentActivityId)
-            Activity.getCurrentActivity(currentActivityId, successHandler: { (activity: Activity) in
-                Activity.current_activity = activity
-                NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
-                }, failureHandler: { (error: NSError?) in
-                    Log.error(error?.localizedDescription)
-            })
+        if Activity.current_activity != nil {
+            Log.info("Activity.current_activity != nil")
+            Log.info("\(Activity.current_activity!.activityId) \(Activity.current_activity!.title)")
         }
+        
+        let navLabel = UILabel()
+        navLabel.font = UIFont(name: "Deftone Stylus", size: 22.0)
+        navLabel.text = " Dine "
+        navLabel.shadowOffset = CGSize(width: 1.2, height: 1.2)
+        navLabel.shadowColor = UIColor.flatBlackColor()
+        
+        navLabel.textColor = UIColor.flatWhiteColor()
+        navLabel.sizeToFit()
+        self.navigationItem.titleView = navLabel
+        
+        
+        pathBtn.hidden = true
+        setupGoogleMap()
+        fetchCurrentUserInfo()
         
         activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
         activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
-        
-        
+  
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
     
+    func setupTimers() {
+        if let locationTimer = self.locationTimer {
+            if !locationTimer.valid {
+                self.locationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
+            }
+        }
+        if let mylocationTimer = self.mylocationTimer {
+            if !mylocationTimer.valid {
+                self.mylocationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateUserLocation), userInfo: nil, repeats: true)
+            }
+        }
+    
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        Log.info("observer added")
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
-        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        setupTimers()
+        isObservingMyLocation = true
     }
     
     override func viewWillDisappear(animated: Bool) {
-        mapView.removeObserver(self, forKeyPath: "myLocation", context: nil)
-        if self.locationTimer != nil {
+        if let locationTimer = self.locationTimer {
             Log.info("removing member location tracking")
-            self.locationTimer.invalidate()
+            locationTimer.invalidate()
         }
-        if self.userlocationTimer != nil {
+        if let userlocationTimer = self.mylocationTimer {
             Log.info("removing user location tracking")
-            self.userlocationTimer.invalidate()
+            userlocationTimer.invalidate()
         }
-        self.memberLocations.removeAll()
-        Log.info("observer removed")
+        
     }
     
     func setupMapButton(btn: UIButton) {
@@ -113,7 +174,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         mapView = GMSMapView.init(frame: bounds)
         mapView.settings.compassButton = true
-        mapView.settings.myLocationButton = true
         mapView.myLocationEnabled = true
         mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
         
@@ -129,6 +189,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         setupMapButton(self.pathBtn)
         setupMapButton(self.navigationBtn)
         setupMapButton(self.redoBtn)
+        
+        mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+
     }
     
     func getMapBoundingBox() -> GMSCoordinateBounds {
@@ -151,7 +214,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 for act in self.activities {
                     self.addMapMarker(act)
                 }
-            }else {
+            } else {
                 Log.error("Unable to get activites")
             }
         }
@@ -185,63 +248,58 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func updateMemberLocations() {
+        guard let currentActivity = Activity.current_activity else {
+            Log.error("no current activity found")
+            return
+        }
         
-        if let members = Activity.current_activity!.group?.groupMembers{
-            
-            if members.isEmpty == false {
-                var index = 0
-                for member in members {
-                    if member.userId != PFUser.currentUser()?.objectId && member.joined {
-                        member.getLocation((Activity.current_activity?.activityId)!, successHandler: { (loc:PFGeoPoint) in
-                            //add loc marker
-                            let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                            if self.memberLocations.isEmpty {
-                                //store circles
-                                let marker = GMSMarker(position: circleCenter)
-                                self.memberLocations.append(marker)
-                                if let avatarFile = member.avatar {
-                                    avatarFile.getDataInBackgroundWithBlock({
-                                        (result, error) in
-                                        let iconView = UIImageView(image: UIImage(data: result!)!)
-                                        iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                                        iconView.layer.cornerRadius = 15
-                                        iconView.layer.borderWidth = 2
-                                        iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
-                                        iconView.clipsToBounds = true
-                                        marker.iconView = iconView
-                                        marker.map = self.mapView
-                                    })
-                                }
-                                
-                            }else {
-                                //update circle locations
-                                let marker = self.memberLocations[index]
-                                marker.position = circleCenter
-                            }
-                            index += 1
-                            }, failureHandler: { (error:NSError?) in
-                                Log.error("Updating member user location failure")
+        // MARK: may lead to memory leak
+        currentActivity.fetchGroupMember({ (members: [GroupMember]) in
+            for member in members {
+                if member.userId == PFUser.currentUser()?.objectId {break}
+                guard let loc = member.location else {break}
+                let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+                
+                if let marker = self.memberLocations[member.userId] {
+                    marker.position = circleCenter
+                } else {
+                    let marker = GMSMarker(position: circleCenter)
+                    if let avatar = member.avatar {
+                        avatar.getDataInBackgroundWithBlock({
+                            (result: NSData?, error: NSError?) in
+                            guard let imageData = result else {return}
+                            let iconView = UIImageView()
+                            iconView.image = UIImage(data: imageData)
+                            iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                            iconView.layer.cornerRadius = 15
+                            iconView.layer.borderWidth = 2
+                            iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
+                            iconView.clipsToBounds = true
+                            marker.iconView = iconView
+                            marker.map = self.mapView
                         })
                     }
+                    self.memberLocations[member.userId] = marker
                 }
+            
             }
+            
+        }) { (error: NSError?) in
+            Log.error(error?.localizedDescription)
         }
+        
     }
     
     func updateUserLocation() {
-        GroupMember.updateLocation((Activity.current_activity?.activityId)!, userId: (PFUser.currentUser()?.objectId)!, location: PFGeoPoint(location: self.mapView.myLocation), successHandler: {
+        guard let currentActivity = Activity.current_activity else {
+            Log.error("Current Activity not found")
+            return
+        }
+        
+        GroupMember.updateLocation(currentActivity.activityId, userId: (PFUser.currentUser()?.objectId)!, location: PFGeoPoint(location: self.mapView.myLocation), successHandler: {
             Log.info("Updating current user location succeed")
         }) { (error: NSError?) in
             Log.error("Updating current user location failure")
-        }
-        // start navigation
-        if let destination = Activity.current_activity?.location {
-            if let myLocation  = self.mapView.myLocation {
-                GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (routes: [Route]!, error: NSError!) in
-                    self.startNavigation(routes[0].steps)
-                    
-                }
-            }
         }
     }
     
@@ -252,14 +310,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             }
             directionPolyLines.removeAll()
         }
+        
+        guard let stepsToDraw = steps else {
+            Log.error("steps are not ready")
+            return
+        }
+        
         //add polylines
-        for step in steps {
+        for step in stepsToDraw {
             if let polyLine = step.polyLine {
                 let path = GMSPath(fromEncodedPath: polyLine)
                 let line = GMSPolyline(path: path)
                 directionPolyLines.append(line)
                 line.strokeWidth = 5
-                line.strokeColor = UIColor(red: 0.0, green: 0.5, blue: 0.5, alpha: 0.5)
+                line.strokeColor = UIColor(red: 0.2302, green: 0.7771, blue: 0.3159, alpha: 1.0)
                 line.map = mapView
                 
             }
@@ -285,15 +349,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         //update activities
         updateMapMarkers()
     }
+    
     @IBAction func onExternalNavigate(sender: AnyObject) {
-        let place = Activity.current_activity?.location
+        guard let place = Activity.current_activity?.location else {
+            Log.error("unable to NAV in external NAV App due to bad location")
+            return
+        }
         
         if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
             UIApplication.sharedApplication().openURL(NSURL(string:
-                "comgooglemaps://?saddr=&daddr=\(place!.latitude),\(place!.longitude)&directionsmode=driving")!)
+                "comgooglemaps://?saddr=&daddr=\(place.latitude),\(place.longitude)&directionsmode=driving")!)
             
         } else {
-            UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place!.latitude),\(place!.longitude)&dirflg=d&t=m")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place.latitude),\(place.longitude)&dirflg=d&t=m")!)
         }
         
     }
@@ -330,23 +398,42 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     //control camera update
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        Log.info("observeValueForKeyPath called")
         if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-            if searchUserLocation {
+            if !didFindUserLocation {
+                mapView.settings.myLocationButton = true
                 let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
                 mapView.moveCamera(update)
-                searchUserLocation = false
+                didFindUserLocation = true
                 updateMapMarkers()
+                mapView.removeObserver(self, forKeyPath: "myLocation")
+                isObservingMyLocation = false
             }
-            if Activity.current_activity != nil {
-                //uploading user current location
-                userlocationTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(MapViewController.updateUserLocation), userInfo: nil, repeats: false)
-                
-            }
+            
         }
     }
     
     
     func userJoinedActivity() {
+        guard let currentActivity = Activity.current_activity else {
+            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            return
+        }
+        
+        if let destination = currentActivity.location {
+            if let myLocation  = self.mapView.myLocation {
+                GoogleDirectionsAPI.direction(myLocation.coordinate, destination: destination) { (fetchedRoutes: [Route]?, error: NSError?) in
+                    if let routes = fetchedRoutes {
+                        self.startNavigation(routes[0].steps)
+                    }
+                }
+            }
+        }
+        
+        //uploading my current location
+        mylocationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateUserLocation), userInfo: nil, repeats: true)
+        
+        
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         Log.info("user joined activity")
         UIView.animateWithDuration(1, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
@@ -355,13 +442,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
             }, completion: nil)
         mapView.clear()
-        self.addMapMarker(Activity.current_activity!)
+        self.addMapMarker(currentActivity)
         showPath = true
         self.updateUserLocation()
-        //start tracking user location
-        locationTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
         
-        activityNameLabel.text = Activity.current_activity?.title
+        //start tracking my location
+        locationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
+        
+        activityNameLabel.text = currentActivity.title
         if activityPanelBottomPos.constant == -ActivityPanelViewHeight.constant {
             UIView.animateWithDuration(0.3) {
                 self.mapView.padding = UIEdgeInsetsMake(0, 0, 48, 0);
@@ -376,6 +464,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func userExitedActivity() {
+        Log.info("userExitedActivity")
         if activityPanelBottomPos.constant == 0 {
             UIView.animateWithDuration(0.2) {
                 self.mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -389,17 +478,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("found current activity")
             activity.exitActivity({
                 Log.info("clear User's current Activity successfully")
-                if self.locationTimer != nil {
-                    self.locationTimer.invalidate()
+                if let locationTimer = self.locationTimer {
+                    locationTimer.invalidate()
                 }
-                if self.userlocationTimer != nil {
-                    self.userlocationTimer.invalidate()
+                
+                if let mylocationTimer = self.mylocationTimer {
+                    mylocationTimer.invalidate()
                 }
+                
                 self.memberLocations.removeAll()
                 
                 //animate map view camera
-                let update = GMSCameraUpdate.setTarget(self.mapView.myLocation!.coordinate, zoom: 14.0)
-                self.mapView.animateWithCameraUpdate(update)
+                if let myLocation = self.mapView.myLocation {
+                    let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
+                    self.mapView.animateWithCameraUpdate(update)
+                }
                 //remove polyline
                 self.mapView.clear()
                 //update map, show all requests in the area

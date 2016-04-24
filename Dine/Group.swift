@@ -67,8 +67,8 @@ class Group: NSObject {
             
         }
         return dictArray
-        
-    
     }
+    
+    
     
 }

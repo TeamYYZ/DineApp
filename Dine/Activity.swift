@@ -34,6 +34,8 @@ class Activity: NSObject {
                     Log.error(error?.localizedDescription)
                     
             })
+            
+
         }
     }
     
@@ -274,17 +276,14 @@ class Activity: NSObject {
             groupMemberQuery.whereKey("userId", equalTo: User.currentUser!.userId!)
             groupMemberQuery.whereKey("activityId", equalTo: currentActivity.activityId!)
             groupMemberQuery.getFirstObjectInBackgroundWithBlock({ (groupMember: PFObject?, error: NSError?) in
-                groupMember?.deleteEventually()
+                groupMember?.deleteInBackground()
                 successHandler?()
             })
             
         } else {
-            failureHandler?(NSError(domain: "no current activity found", code: 3, userInfo: nil))
-            return
+            failureHandler?(NSError(domain: "no current activity found in exitActivity", code: 3, userInfo: nil))
         }
         
-
-
         if User.currentUser?.userId == owner.objectId {
             Log.info("I am the owner, so delete the activity object in cloud")
             deleteActivity(nil)
@@ -313,7 +312,7 @@ class Activity: NSObject {
                 
             }
         } else {
-            failureHandler?(NSError(domain: "activityId not found", code: 03, userInfo: nil))
+            failureHandler?(NSError(domain: "activityId not found", code: 3, userInfo: nil))
         
         }
 
@@ -325,7 +324,6 @@ class Activity: NSObject {
         activityQuery.getObjectInBackgroundWithId(_activityId, block: { (pfObject: PFObject?, error: NSError?) in
             if pfObject != nil && error == nil {
                 let activity = Activity(PFActivity: pfObject!)
-                Activity.current_activity = activity
                 successHandler?(activity)
             } else {
                 failureHandler?(error)

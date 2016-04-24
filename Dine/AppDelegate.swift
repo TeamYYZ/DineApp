@@ -24,12 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainfuncSB = UIStoryboard(name: "Main", bundle: nil)
         
         let mainViewController = mainfuncSB.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
+        
         let leftViewController =
             sidebarSB.instantiateViewControllerWithIdentifier("SidebarMenuViewController") as! SidebarMenuViewController
         
         let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
         leftViewController.mainViewController = nvc
         let nvcl: UINavigationController = UINavigationController(rootViewController: leftViewController)
+        
+        SlideMenuOptions.animationDuration = 0.2
+        SlideMenuOptions.leftViewWidth = 200
+        SlideMenuOptions.shadowOffset = CGSize(width: 2, height: 0)
+        SlideMenuOptions.shadowOpacity = 0.4
+        SlideMenuOptions.shadowRadius = 2
+        SlideMenuOptions.simultaneousGestureRecognizers = false
         
         slideMenuController = ContainerViewController(mainViewController: nvc, leftMenuViewController: nvcl)
         
@@ -63,9 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        
         self.createMenu()
         
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.flatWhiteColor()]
         UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
         UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
         
@@ -93,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
-        if let currentUser = PFUser.currentUser() {
+        if let _ = PFUser.currentUser() {
             self.userDidLogin()
         } else {
             userDidLogout()
@@ -108,25 +116,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogin() {
         let installation = PFInstallation.currentInstallation()
-        guard let userId = PFUser.currentUser()?.objectId, currentUser = PFUser.currentUser() else {
+        guard let userId = PFUser.currentUser()?.objectId, _ = PFUser.currentUser() else {
             Log.error("objectId not exists or currentUser not exists")
             return
         }
         
         installation["userId"] = userId
         installation.saveInBackground()
-        
-        print("current user detected: \(currentUser.username)")
-        currentUser.fetchIfNeededInBackgroundWithBlock({ (updatedUser: PFObject?, error: NSError?) in
-            if updatedUser != nil && error == nil {
-                User.currentUser = User(pfUser: currentUser)
-                
-                
-            } else {
-                Log.error(error?.localizedDescription)
-                
-            }
-        })
         
         self.createMenu()
         self.window?.rootViewController = slideMenuController
@@ -137,7 +133,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let installation = PFInstallation.currentInstallation()
         installation.removeObjectForKey("userId")
         installation.saveInBackground()
-
+        
+        User.currentUser = nil
+        Activity.current_activity = nil
         
         let signSB = UIStoryboard(name: "SignInSignOut", bundle: nil)
         let vc = signSB.instantiateViewControllerWithIdentifier("LoginViewController")

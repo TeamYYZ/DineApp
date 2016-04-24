@@ -13,11 +13,17 @@ import MBProgressHUD
 struct preview {
     var isPreview = false
     var activityId: String?
+    var notificationIndex: Int?
+    var mapVC: MapViewController?
+}
+
+@objc protocol ActivityProfileViewControllerDelegate {
+    optional func activityView(activityView: ActivityProfileViewController, associatedNotificationIndex notificationIndex: Int)
 }
 
 class ActivityProfileViewController: UITableViewController{
     lazy var previewIndicator = preview()
-    
+    weak var delegate: ActivityProfileViewControllerDelegate?
     let kHeaderHeight:CGFloat = 150.0
     var profileView = UIImageView()
     var smallProfileView: UIImageView!
@@ -80,6 +86,7 @@ class ActivityProfileViewController: UITableViewController{
                 Log.error("no activityId")
                 return
             }
+            
             Activity.getActivityById(activityId, successHandler: { (fetchedActivity: Activity) in
                 self.activity = fetchedActivity
                 self.setupActivityForVC()
@@ -90,21 +97,21 @@ class ActivityProfileViewController: UITableViewController{
     }
     
     func fetchGroupMembers() {
-        if let activity = activity {
+        if let activity = self.activity {
             print("Try fetchGroupMembers")
             activity.fetchGroupMember({ (groupMembers: [GroupMember]) in
                 self.groupMembers = groupMembers
 
                 var index = 0
-                //add member avatars
-                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0)-CGFloat(groupMembers.count)*45.0/2.0
+                let startX = CGFloat(CGRectGetWidth(self.view.frame)/2.0) - CGFloat(groupMembers.count) * 45.0 / 2.0
+
                 for member in groupMembers {
                     if let avatarFile = member.avatar{
                         avatarFile.getDataInBackgroundWithBlock({
                             (result, error) in
                             
                             let memberProfileView = UIImageView(image: UIImage(data: result!))
-                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0)+30, 40, 40)
+                            memberProfileView.frame = CGRectMake(startX + 50*CGFloat(index), (self.kHeaderHeight/2.0) + 30, 40, 40)
                             memberProfileView.clipsToBounds = true
                             memberProfileView.layer.cornerRadius = 20
                             memberProfileView.layer.borderWidth = 2.0
@@ -143,11 +150,15 @@ class ActivityProfileViewController: UITableViewController{
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
                 cell.activity = guardedActivity
+            print(Activity.current_activity)
             if Activity.current_activity == nil {
+                Log.info("Activity.current_activity == nil")
                 cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
+                cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else if Activity.current_activity!.activityId == guardedActivityId {
                 cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Normal)
+                cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else{
                 Log.error("should not reach here")
@@ -198,12 +209,19 @@ class ActivityProfileViewController: UITableViewController{
             Activity.current_activity = self.activity
             self.activity?.joinActivity({
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
+                if self.previewIndicator.isPreview {
+                    if let index = self.previewIndicator.notificationIndex {
+                        self.delegate?.activityView?(self, associatedNotificationIndex: index)
+                    }
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                
                 }, failureHandler: { (error: NSError?) in
                     Log.error(error?.localizedDescription)
                     
             })
 
-        }else {
+        } else {
             sender.setImage(UIImage(named: "checked"), forState: .Normal)
             sender.setImage(UIImage(named: "checked"), forState: .Highlighted)
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)

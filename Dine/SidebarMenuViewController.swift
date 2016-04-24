@@ -59,6 +59,7 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
         
         let notificationSB = UIStoryboard(name: "Notifications", bundle: nil)
         let notificationVC = notificationSB.instantiateViewControllerWithIdentifier("NotificationViewController") as! NotificationViewController
+        notificationVC.mapVC = mainViewController as? MapViewController
         self.notificationsViewController = UINavigationController(rootViewController: notificationVC)
         
         let profileSettingsSB = UIStoryboard(name: "ProfileSettings", bundle: nil)
@@ -120,32 +121,6 @@ class SidebarMenuViewController: UITableViewController, SideMenuProtocol {
     
     }
     
-    /*
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (section == 0) {
-            let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-            let header = SidebarMenuHeaderView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 60))
-            header.view.backgroundColor = ColorTheme.sharedInstance.menuBackgroundColor
-            header.usernameLabel.text = User.currentUser?.screenName
-            header.usernameLabel.textColor = ColorTheme.sharedInstance.menuTextColor
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(SidebarMenuViewController.imageTapped(_:)))
-            header.addGestureRecognizer(tapRecognizer)
-            headerView.backgroundColor = header.backgroundColor
-            headerView.addSubview(header)
-            
-            return headerView
-        }
-        return nil
-    }
- */
-    
-//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if (section == 0) {
-//            return 60
-//        }
-//        return 0
-//    }
-//    
     func imageTapped(img: AnyObject){
         self.performSegueWithIdentifier("toUserProfileSegue", sender: self)
     }

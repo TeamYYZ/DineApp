@@ -8,9 +8,11 @@
 
 import UIKit
 
-class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UserProfileViewControllerDelegate {
+class NotificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UserProfileViewControllerDelegate, ActivityProfileViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    weak var mapVC: MapViewController?
     
     let refreshControl = UIRefreshControl()
     var notifications = [UserNotification]()
@@ -73,16 +75,27 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
             let activityVC = storyBoard.instantiateViewControllerWithIdentifier("ActivityProfileVC") as! ActivityProfileViewController
             activityVC.previewIndicator.isPreview = true
             activityVC.previewIndicator.activityId = notification.associatedId
+            activityVC.previewIndicator.mapVC = mapVC
+            activityVC.previewIndicator.notificationIndex = indexPath.row
+            activityVC.delegate = self
             self.navigationController?.pushViewController(activityVC, animated: true)
         }
 
     }
     
+
+    func activityView(activityView: ActivityProfileViewController, associatedNotificationIndex notificationIndex: Int) {
+        let notification = notifications[notificationIndex]
+        notification.delete()
+        notifications.removeAtIndex(notificationIndex)
+        tableView.reloadData()
+    }
+
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let notification = notifications[indexPath.row]
         notification.delete()
         notifications.removeAtIndex(indexPath.row)
-        
         tableView.reloadData()
     }
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MBProgressHUD
 
 func resize(image: UIImage, newSize: CGSize) -> UIImage {
     let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
@@ -80,4 +81,18 @@ extension NSDate {
         return NSCalendar.currentCalendar().components(NSCalendarUnit.Second, fromDate: date, toDate: self, options: .MatchLast).second
     }
 
+}
+
+extension MBProgressHUD {
+    class func showLoadingHUDToView(givenView: UIView, animated: Bool) -> MBProgressHUD {
+        let hud = MBProgressHUD.showHUDAddedTo(givenView, animated: true)
+        hud.mode = .AnnularDeterminate
+        hud.color = UIColor.flatWhiteColor()
+        hud.detailsLabelColor = UIColor.flatBlackColor()
+        hud.activityIndicatorColor = UIColor.flatBlackColor()
+        hud.dimBackground = true
+        hud.detailsLabelText = "Loading..."
+        hud.margin = 12.0
+        return hud
+    }
 }
