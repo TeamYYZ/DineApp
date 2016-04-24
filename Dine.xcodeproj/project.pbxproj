@@ -12,6 +12,7 @@
 		3B26AAC61CB5E463007A7F43 /* profileEditingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26AAC51CB5E463007A7F43 /* profileEditingController.swift */; };
 		3B26AACA1CB5F8F0007A7F43 /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26AAC91CB5F8F0007A7F43 /* DescriptionEditViewController.swift */; };
 		3B3901A91CC181F4004616E1 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3901A81CC181F4004616E1 /* UserProfile.storyboard */; };
+		3B3BDECC1CCC7C3B00D71936 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BDECB1CCC7C3B00D71936 /* LaunchScreenViewController.swift */; };
 		3B87EC291CA77D8D0045AF18 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */; };
 		3BA5970B1CAC7E2500D0E6C7 /* ChatView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA597091CAC7E2500D0E6C7 /* ChatView.storyboard */; };
 		3BA5970E1CAC7F1F00D0E6C7 /* MemberMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5970C1CAC7F1F00D0E6C7 /* MemberMessageCell.swift */; };
@@ -98,6 +99,7 @@
 		3B26AAC51CB5E463007A7F43 /* profileEditingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileEditingController.swift; sourceTree = "<group>"; };
 		3B26AAC91CB5F8F0007A7F43 /* DescriptionEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionEditViewController.swift; sourceTree = "<group>"; };
 		3B3901A81CC181F4004616E1 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
+		3B3BDECB1CCC7C3B00D71936 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		3B5BB70C1CA3881F003D2EB3 /* Dine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dine-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B87EC281CA77D8D0045AF18 /* SearchFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		3BA5970A1CAC7E2500D0E6C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChatView.storyboard; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				3BF4D2711CA73A1000126A91 /* AddFriendViewController.swift */,
 				3BAB2BA81CC0939400E201A2 /* UserProfileViewController.swift */,
 				3BFC5E331CC9CA8B0021F6CE /* DetailProfileViewController.swift */,
+				3B3BDECB1CCC7C3B00D71936 /* LaunchScreenViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				C12EB7DB1CA878AC004B80DF /* YYZAcceptButton.swift in Sources */,
 				C6EE094E1C97754A00345357 /* RestaurantDetailViewController.swift in Sources */,
 				C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */,
+				3B3BDECC1CCC7C3B00D71936 /* LaunchScreenViewController.swift in Sources */,
 				3BAB2BA91CC0939400E201A2 /* UserProfileViewController.swift in Sources */,
 				C127F5701CA3885700D40088 /* Message.swift in Sources */,
 				3B26AACA1CB5F8F0007A7F43 /* DescriptionEditViewController.swift in Sources */,
