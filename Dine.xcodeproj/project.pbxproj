@@ -54,6 +54,7 @@
 		C1D04F5D1C9E3056003EB3C9 /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */; };
 		C1D04F5F1C9E306E003EB3C9 /* SignUpNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */; };
 		C1D04F661C9E626C003EB3C9 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */; };
+		C1F0B74A1CCD67EA00E60CB3 /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = C1F0B7491CCD67EA00E60CB3 /* AppIcon.appiconset */; };
 		C1F9785A1C97BDBF007CE2A3 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F978591C97BDBF007CE2A3 /* ViewExt.swift */; };
 		C62937E51CAF097700E46009 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62937E41CAF097700E46009 /* ContainerViewController.swift */; };
 		C62937E91CAF183900E46009 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62937E81CAF183900E46009 /* UIViewController.swift */; };
@@ -146,6 +147,7 @@
 		C1D04F5C1C9E3056003EB3C9 /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
 		C1D04F5E1C9E306E003EB3C9 /* SignUpNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameViewController.swift; sourceTree = "<group>"; };
 		C1D04F651C9E626C003EB3C9 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C1F0B7491CCD67EA00E60CB3 /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		C1F978591C97BDBF007CE2A3 /* ViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		C62937E41CAF097700E46009 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		C62937E81CAF183900E46009 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				C1AF836C1CA3C17400E634E3 /* ActvitityCreater.storyboard */,
 				C1AF83691CA3BF6900E634E3 /* SignInSignOut.storyboard */,
 				C6EE09191C906F6200345357 /* Assets.xcassets */,
+				C1F0B7491CCD67EA00E60CB3 /* AppIcon.appiconset */,
 				C6EE091B1C906F6200345357 /* LaunchScreen.storyboard */,
 				C6EE091E1C906F6200345357 /* Info.plist */,
 			);
@@ -475,7 +478,7 @@
 						DevelopmentTeam = NL7M2J93PJ;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Keychain = {
 								enabled = 0;
@@ -514,6 +517,7 @@
 				C1AF836B1CA3BF6900E634E3 /* SignInSignOut.storyboard in Resources */,
 				C18320BA1CBF80F30088600F /* MenuCell.xib in Resources */,
 				C62937EE1CAF20BD00E46009 /* GroupChatView.storyboard in Resources */,
+				C1F0B74A1CCD67EA00E60CB3 /* AppIcon.appiconset in Resources */,
 				C1AF83721CA3C2D100E634E3 /* FriendList.storyboard in Resources */,
 				3BA5970F1CAC7F1F00D0E6C7 /* MemberMessageCell.xib in Resources */,
 				C6EE09421C972A5700345357 /* SidebarMenuHeaderView.xib in Resources */,
@@ -803,7 +807,7 @@
 				INFOPLIST_FILE = Dine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.dineapp;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.letsdine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";
@@ -823,7 +827,7 @@
 				INFOPLIST_FILE = Dine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.dineapp;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.c2fun.letsdine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Dine-Bridging-Header.h";

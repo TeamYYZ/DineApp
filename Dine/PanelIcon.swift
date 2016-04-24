@@ -34,10 +34,10 @@ class PanelIcon: UIImageView {
     override func awakeFromNib() {
         // add the shadow to the base view
         self.backgroundColor = UIColor.clearColor()
-        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowColor = UIColor.flatRedColor().CGColor
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.layer.shadowOpacity = 0.7
-        self.layer.shadowRadius = 1.0
+        self.layer.shadowOpacity = 0.8
+        self.layer.shadowRadius = 3.0
         
         // improve performance
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 24).CGPath
@@ -45,8 +45,7 @@ class PanelIcon: UIImageView {
         self.layer.rasterizationScale = UIScreen.mainScreen().scale
         
         borderView.frame = self.bounds
-        borderView.backgroundColor = UIColor.whiteColor()
-        borderView.layer.cornerRadius = 22
+        borderView.layer.cornerRadius = 24
         borderView.layer.borderColor = UIColor.flatWhiteColor().CGColor
         borderView.layer.borderWidth = 1.0
         borderView.layer.masksToBounds = true
@@ -57,6 +56,7 @@ class PanelIcon: UIImageView {
         otherSubContent.frame = borderView.bounds
         borderView.addSubview(otherSubContent)
         
+
     }
 
 }

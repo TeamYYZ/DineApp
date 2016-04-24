@@ -64,6 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFPush.handlePush(userInfo)
     }
     
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
@@ -115,11 +119,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userDidLogin() {
         let installation = PFInstallation.currentInstallation()
-        guard let userId = PFUser.currentUser()?.objectId, _ = PFUser.currentUser() else {
+        guard let _ = PFUser.currentUser(), userId = PFUser.currentUser()?.objectId  else {
             Log.error("objectId not exists or currentUser not exists")
             return
         }
         
+        Log.info("userDidLogin \(userId)")
+
         installation["userId"] = userId
         installation.saveInBackground()
         

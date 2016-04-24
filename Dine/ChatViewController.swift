@@ -72,6 +72,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
     }
     
     func plusButtonOnClick() {
+        textInputBar.textView.resignFirstResponder()
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) {
             (action) in
@@ -113,6 +114,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
                 let avatarPFFile = User.currentUser?.avatarImagePFFile
                 
                 let message = Message(activityId: currentActivity.activityId, senderId: senderId, screenName: screenName, content: content, avatarPFFile: avatarPFFile, mediaPFFile: nil, mediaType: nil)
+                textInputBar.text = ""
                 message.saveToBackend({
                     self.fetchData()
                     }, failureHandler: { (error: NSError?) in

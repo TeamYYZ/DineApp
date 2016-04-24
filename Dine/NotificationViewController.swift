@@ -143,7 +143,6 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
                                 if error == nil{
                                     notification.senderAvatarImage = UIImage(data: result!)
                                     self.notifications.append(notification)
-                                    self.tableView.reloadData()
                                 }else{
                                     print(error)
                                 }
@@ -152,13 +151,17 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
                             notification.senderAvatarImage = UIImage(named: "User")
                         }
                     }
-                    self.refreshControl.endRefreshing()
                 }
+                Log.info("time to end refresshing here")
+                self.refreshControl.endRefreshing()
+                self.tableView.reloadData()
+
             })
+
         }
     }
     
-//    
+//
 //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        tableView.deselectRowAtIndexPath(indexPath, animated: false)
 //    }

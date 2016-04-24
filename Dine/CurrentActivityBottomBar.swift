@@ -33,10 +33,10 @@ class CurrentActivityBottomBar: UIView {
     override func awakeFromNib() {
         // add the shadow to the base view
         self.backgroundColor = UIColor.clearColor()
-        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowColor = UIColor.flatMagentaColor().CGColor
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowOpacity = 0.7
-        self.layer.shadowRadius = 1.0
+        self.layer.shadowRadius = 2.0
         
         // improve performance
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).CGPath

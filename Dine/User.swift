@@ -110,6 +110,9 @@ class User {
                 }
 
                 
+            } else {
+                successHandler(nil)
+
             }
 
         })

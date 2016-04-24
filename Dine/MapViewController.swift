@@ -154,10 +154,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         super.viewWillAppear(animated)
         self.setNavigationBarItem()
         setupTimers()
-        isObservingMyLocation = true
     }
     
     override func viewWillDisappear(animated: Bool) {
+        if isObservingMyLocation {
+            mapView.removeObserver(self, forKeyPath: "myLocation")
+            isObservingMyLocation = false
+        }
         if let locationTimer = self.locationTimer {
             Log.info("removing member location tracking")
             locationTimer.invalidate()
@@ -203,7 +206,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         setupMapButton(self.navigationBtn)
         setupMapButton(self.redoBtn)
         
+        
+        
         mapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+        isObservingMyLocation = true
 
     }
     
@@ -389,6 +395,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
+   
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
         let infoWindow = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
@@ -401,6 +408,42 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
+    func controlAllViewsOnMap(hidden: Bool) {
+        UIView.animateWithDuration(0.1) {
+            self.navigationBtn.hidden = hidden
+            self.pathBtn.hidden = hidden
+            self.redoBtn.hidden = hidden
+            self.mapView.settings.myLocationButton = !hidden
+        }
+        
+        if Activity.current_activity != nil {
+            return
+        }
+        
+        if hidden {
+            UIView.animateWithDuration(0.1) {
+                self.newActivityBottomPos.constant = -60
+                self.newActivityButton.layoutIfNeeded()
+            }
+        } else {
+            UIView.animateWithDuration(0.1) {
+                self.newActivityBottomPos.constant = 12
+                self.newActivityButton.layoutIfNeeded()
+            }
+        }
+
+
+    }
+    
+    func mapView(mapView: GMSMapView, willMove gesture: Bool) {
+        Log.error("will Move")
+        controlAllViewsOnMap(true)
+    }
+    
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+        Log.error("becomes idle")
+        controlAllViewsOnMap(false)
+    }
     
     func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
         let view = marker.userData as! MapDetailView
@@ -449,9 +492,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         Log.info("user joined activity")
-        UIView.animateWithDuration(1, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
-
-            }, completion: nil)
         mapView.clear()
         self.addMapMarker(currentActivity)
         showPath = true
