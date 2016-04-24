@@ -15,10 +15,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     @IBOutlet weak var pathBtn: UIButton!
     @IBOutlet weak var redoBtn: UIButton!
     @IBOutlet weak var currentActivityPanelView: CurrentActivityBottomBar!
-    @IBOutlet weak var ActivityPanelViewHeight: NSLayoutConstraint!
     @IBOutlet weak var activityPanelBottomPos: NSLayoutConstraint!
-    @IBOutlet weak var activityPanelTag: UIView!
+    @IBOutlet weak var newActivityBottomPos: NSLayoutConstraint!
     @IBOutlet weak var activityNameLabel: UILabel!
+    @IBOutlet weak var activityRestuarantLabel: UILabel!
+    
+    @IBOutlet weak var panelIcon: PanelIcon!
+    
+    @IBOutlet weak var borderView: UIView!
+    
+    @IBOutlet weak var newActivityButton: NewActivityButton!
+    
     
     var locationManager = CLLocationManager()
     var activities = [Activity]()
@@ -36,7 +43,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var mylocationTimer: NSTimer?
     var memberLocations = [String: GMSMarker]()
     var directionPolyLines = [GMSPolyline]()
-    
     
     var mapView: GMSMapView!
     
@@ -79,6 +85,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +102,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             Log.info("\(Activity.current_activity!.activityId) \(Activity.current_activity!.title)")
         }
         
+        
         let navLabel = UILabel()
         navLabel.font = UIFont(name: "Deftone Stylus", size: 22.0)
         navLabel.text = " Dine "
@@ -105,14 +113,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         navLabel.sizeToFit()
         self.navigationItem.titleView = navLabel
         
+        self.activityPanelBottomPos.constant = -100
+        self.view.layoutIfNeeded()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MapViewController.handleCurrentActivityPanelTap(_:)))
+        self.borderView.addGestureRecognizer(tapGesture)
         
         pathBtn.hidden = true
         setupGoogleMap()
         fetchCurrentUserInfo()
         
-        activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
         activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
   
+    }
+    
+    func handleCurrentActivityPanelTap(sender: UITapGestureRecognizer) {
+        Log.info("Tapped on CAP")
+        self.performSegueWithIdentifier("toActivityProfileSegue", sender: nil)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -132,6 +148,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -175,14 +192,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         mapView = GMSMapView.init(frame: bounds)
         mapView.settings.compassButton = true
         mapView.myLocationEnabled = true
-        mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
+        mapView.padding = UIEdgeInsetsMake(64, 0, 64, 0);
         
         mapView.delegate = self
         self.view.insertSubview(mapView, atIndex: 0)
-        
-        self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
-        self.view.layoutIfNeeded()
-        
         
         self.pathBtn.alpha = 0
         self.navigationBtn.alpha = 0
@@ -437,9 +450,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         Log.info("user joined activity")
         UIView.animateWithDuration(1, delay: 0.0, options:[UIViewAnimationOptions.Repeat, UIViewAnimationOptions.Autoreverse], animations: {
-            
-            self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagColor
-            self.activityPanelTag.backgroundColor = ColorTheme.sharedInstance.activityPanelTagAnimateColor
+
             }, completion: nil)
         mapView.clear()
         self.addMapMarker(currentActivity)
@@ -450,10 +461,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationTimer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(MapViewController.updateMemberLocations), userInfo: nil, repeats: true)
         
         activityNameLabel.text = currentActivity.title
-        if activityPanelBottomPos.constant == -ActivityPanelViewHeight.constant {
+        activityRestuarantLabel.text = currentActivity.overview
+        
+        if activityPanelBottomPos.constant == -100 {
             UIView.animateWithDuration(0.3) {
-                self.mapView.padding = UIEdgeInsetsMake(0, 0, 48, 0);
-                self.activityPanelBottomPos.constant += self.ActivityPanelViewHeight.constant
+                self.activityPanelBottomPos.constant = 12
                 self.view.layoutIfNeeded()
                 self.navigationBtn.alpha = 1
                 self.pathBtn.alpha = 1
@@ -461,15 +473,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             }
         }
         
+        if newActivityBottomPos.constant == 12 {
+            UIView.animateWithDuration(0.3) {
+                self.newActivityBottomPos.constant = -12 - 48
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     func userExitedActivity() {
         Log.info("userExitedActivity")
-        if activityPanelBottomPos.constant == 0 {
+        if activityPanelBottomPos.constant == 12 {
             UIView.animateWithDuration(0.2) {
-                self.mapView.padding = UIEdgeInsetsMake(0, 0, 0, 0);
-                
-                self.activityPanelBottomPos.constant -= self.ActivityPanelViewHeight.constant
+                self.activityPanelBottomPos.constant = -100
+                self.view.layoutIfNeeded()
+            }
+        }
+        
+        if newActivityBottomPos.constant == -12 - 48 {
+            UIView.animateWithDuration(0.3) {
+                self.newActivityBottomPos.constant = 12
                 self.view.layoutIfNeeded()
             }
         }
