@@ -77,6 +77,7 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     
     
     func searchWithTerm(term: String, location: CLLocationCoordinate2D, sort: Int?, radius: Int, categories: [String]?, deals: Bool?, offset: Int?, completion: ([Business]!, NSError!) -> Void) -> AFHTTPRequestOperation {
+        
         // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
 
         // Default the location to College Station
@@ -100,11 +101,11 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         if offset != nil {
             parameters["offset"] = offset!
         }
-        
         return self.GET("search", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let responseAsDictionary = response as! NSDictionary
             let dictionaries = responseAsDictionary["businesses"] as? [NSDictionary]
             if dictionaries != nil {
+
                 completion(Business.businesses(array: dictionaries!), nil)
             }
             }, failure: { (operation: AFHTTPRequestOperation?, error: NSError!) -> Void in

@@ -47,9 +47,11 @@ class RestaurantPickerViewController: UIViewController, UITableViewDataSource, U
     }
     
     func updateSearch() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let hud = MBProgressHUD.showLoadingHUDToView(self.view, animated: true)
+
         Business.searchWithTerm(searchTerm, location: location, sort: YelpSortMode.Distance.rawValue, radius: 0, categories:[], deals: false, offset: 0) { (businesses: [Business]!, error: NSError!) -> Void in
-            MBProgressHUD.hideHUDForView(self.view, animated: true)
+            hud.progress = 1.0
+            hud.hide(true)
             self.businesses = businesses
             self.tableView.reloadData()
         }
