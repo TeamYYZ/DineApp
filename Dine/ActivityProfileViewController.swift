@@ -149,16 +149,23 @@ class ActivityProfileViewController: UITableViewController{
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("profileCell") as! ActivityProfileCell
                 
-                cell.activity = guardedActivity
-            print(Activity.current_activity)
+            cell.activity = guardedActivity
+            cell.checkButton.layer.cornerRadius = 5
+            cell.checkButton.layer.borderWidth = 1
+            cell.checkButton.layer.borderColor = UIColor.flatGrayColor().CGColor
+            
+            cell.chatButton.layer.cornerRadius = 5
+            cell.chatButton.layer.borderWidth = 1
+            cell.chatButton.layer.borderColor = UIColor.flatGrayColor().CGColor
+            
             if Activity.current_activity == nil {
                 Log.info("Activity.current_activity == nil")
-                cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Normal)
-                cell.checkButton.setImage(UIImage(named: "Checked"), forState: .Highlighted)
+                cell.checkButton.setTitle("Going", forState: .Normal)
+                cell.checkButton.setTitle("Going", forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else if Activity.current_activity!.activityId == guardedActivityId {
-                cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Normal)
-                cell.checkButton.setImage(UIImage(named: "Cancel"), forState: .Highlighted)
+                cell.checkButton.setTitle("Cancel", forState: .Normal)
+                cell.checkButton.setTitle("Cancel", forState: .Highlighted)
                 cell.checkButton.addTarget(self, action: #selector(ActivityProfileViewController.checkButtonClicked(_:)), forControlEvents: UIControlEvents.TouchDown)
             } else{
                 Log.error("should not reach here")
@@ -205,8 +212,8 @@ class ActivityProfileViewController: UITableViewController{
    
     func checkButtonClicked (sender : UIButton!) {
         if Activity.current_activity == nil {
-            sender.setImage(UIImage(named: "cancel"), forState: .Normal)
-            sender.setImage(UIImage(named: "cancel"), forState: .Highlighted)
+            sender.setTitle("Cancel", forState: .Normal)
+            sender.setTitle("Cancel", forState: .Highlighted)
             Activity.current_activity = self.activity
             self.activity?.joinActivity({
                 NSNotificationCenter.defaultCenter().postNotificationName("userJoinedNotification", object: nil)
@@ -223,8 +230,8 @@ class ActivityProfileViewController: UITableViewController{
             })
 
         } else {
-            sender.setImage(UIImage(named: "checked"), forState: .Normal)
-            sender.setImage(UIImage(named: "checked"), forState: .Highlighted)
+            sender.setTitle("Going", forState: .Normal)
+            sender.setTitle("Going", forState: .Highlighted)
             NSNotificationCenter.defaultCenter().postNotificationName("userExitedNotification", object: nil)
         }
         
@@ -232,7 +239,7 @@ class ActivityProfileViewController: UITableViewController{
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 95
+            return 130
         }
         return 45
     }

@@ -612,7 +612,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     @IBAction func unwindToMapView(sender: UIStoryboardSegue) {
         Log.info("unwindToMapView invoked")
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showLoadingHUDToView(self.view, animated: true)
         
         // MARK: check if it is unwinded from FriendsViewController
         // if so, it means this is gonna create a brand new activity

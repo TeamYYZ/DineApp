@@ -112,4 +112,16 @@ extension MBProgressHUD {
         hud.margin = 12.0
         return hud
     }
+    
+    class func showNormalHUDToView(givenView: UIView, animated: Bool) -> MBProgressHUD {
+        let hud = MBProgressHUD.showHUDAddedTo(givenView, animated: true)
+        hud.mode = .Indeterminate
+        hud.color = UIColor.flatWhiteColor()
+        hud.detailsLabelColor = UIColor.flatBlackColor()
+        hud.activityIndicatorColor = UIColor.flatBlackColor()
+        hud.dimBackground = true
+        hud.detailsLabelText = "Loading..."
+        hud.margin = 12.0
+        return hud
+    }
 }
