@@ -112,7 +112,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
     }
     
     
-    // FIXME: concurrent problem occurs. If two send or one send and one notification driven fetchData happens too close, there will be duplicated chat message. 
+    // FIXME: concurrent problem occurs. If two send or one send and one notification driven fetchData happens too close, there will be duplicated chat message.
     func sendButtonOnClick() {
         if let currentActivity = Activity.current_activity {
             if let content = textInputBar.text {
@@ -228,7 +228,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
                         
                         let indexPath = NSIndexPath(forRow: self.messages.count - 1, inSection: 0)
                         // MARK: must be .Middle. Otherwise, the scrollView behaves weird
-                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
+                        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .None, animated: true)
                         
                         
                     } else {
