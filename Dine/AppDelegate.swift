@@ -101,17 +101,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        UIApplication.sharedApplication().statusBarStyle = .Default
         
         let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
         let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.flatWhiteColor()]
-        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
+
+        self.createMenu()
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: ColorTheme.sharedInstance.menuBackgroundColor]
+        UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.menuBackgroundColor
         UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
         
-        self.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+        self.window?.backgroundColor = FlatWhite()
         
         //google map API
         

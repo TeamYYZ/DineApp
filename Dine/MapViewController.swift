@@ -131,9 +131,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         navLabel.font = UIFont(name: "Deftone Stylus", size: 22.0)
         navLabel.text = " Dine "
         navLabel.shadowOffset = CGSize(width: 1.2, height: 1.2)
-        navLabel.shadowColor = UIColor.flatBlackColor()
+        navLabel.shadowColor = UIColor.flatGrayColor()
         
-        navLabel.textColor = UIColor.flatWhiteColor()
+        navLabel.textColor = UIColor.flatRedColor()
         navLabel.sizeToFit()
         self.navigationItem.titleView = navLabel
         

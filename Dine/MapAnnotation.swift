@@ -31,7 +31,7 @@ class MapAnnotation: NSObject {
         
         if let time = activity.requestTime {
             let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "hh:mm"
+            dateFormatter.dateFormat = "hh:mm a"
             let dateString = dateFormatter.stringFromDate(time)
             self.time = dateString
         }
