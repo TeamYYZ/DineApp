@@ -9,6 +9,23 @@
 import Foundation
 import MBProgressHUD
 
+
+// MARK: There is a lot of things to do to resize image in a certain size
+extension UIImage {
+    func getResizedImage(size: CGSize) -> UIImage {
+        let resizeImageView = UIImageView(frame: CGRectMake(0, 0, size.width, size.height))
+        resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        resizeImageView.image = self
+        
+        UIGraphicsBeginImageContext(resizeImageView.frame.size)
+        resizeImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
+
+
 func resize(image: UIImage, newSize: CGSize) -> UIImage {
     let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
     resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill

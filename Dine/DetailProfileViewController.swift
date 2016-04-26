@@ -17,6 +17,7 @@ class DetailProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     
     var user: User?
+    weak var imageToShow: UIImage?
     
     
     override func viewDidLoad() {
@@ -24,6 +25,8 @@ class DetailProfileViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
         scrollView.backgroundColor = UIColor.blackColor()
 
+        
+        
         if let file = user?.pfUser!["avatar"]{
             file.getDataInBackgroundWithBlock({ (result, error) in
                 if result != nil && error == nil{

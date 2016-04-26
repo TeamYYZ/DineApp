@@ -27,8 +27,6 @@ class UserProfileViewController: UITableViewController {
     
     @IBOutlet weak var screenNameLabel: UILabel!
     
-    @IBOutlet weak var genderImageView: UIImageView!
-    
     @IBOutlet weak var usernameLabel: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabel!

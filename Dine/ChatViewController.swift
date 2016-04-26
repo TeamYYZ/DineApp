@@ -68,8 +68,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         self.view.backgroundColor = UIColor(red: 237, green: 237, blue: 237, alpha: 1)
         tableView.registerNib(UINib(nibName: "MemberMessageCell", bundle: nil), forCellReuseIdentifier: "MemberMessageCell")
         tableView.registerNib(UINib(nibName: "SelfMessageCell", bundle: nil), forCellReuseIdentifier: "SelfMessageCell")
-        tableView.estimatedRowHeight = 98
-        tableView.rowHeight = UITableViewAutomaticDimension
+
         let onTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChatViewController.handleTap(_:)))
         onTapGesture.delegate = self
         self.view.addGestureRecognizer(onTapGesture)
@@ -137,17 +136,29 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        guard let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            return
+        }
         
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        let resizedImage = resize(editedImage, newSize: CGSize(width: 100, height: 100))
+        let originalSize = editedImage.size
+        let expectedSize = CGSize(width: 640, height: 480)
+        let resizedImage: UIImage?
+        
+        if originalSize.width <= expectedSize.width && originalSize.height <= expectedSize.height {
+            resizedImage = editedImage
+        } else {
+            resizedImage = editedImage.getResizedImage(CGSize(width: 640, height: 480))
+        }
+        
         dismissViewControllerAnimated(true, completion: {
             // MARK: send picture
             let senderId = User.currentUser?.userId
             let screenName = User.currentUser?.screenName
             let avatarPFFile = User.currentUser?.avatarImagePFFile
-            let media = getPFFileFromImage(resizedImage)
+                let media = getPFFileFromImage(resizedImage)
             let message = Message(activityId: Activity.current_activity?.activityId, senderId: senderId, screenName: screenName, content: "MediaRes", avatarPFFile: avatarPFFile, mediaPFFile: media, mediaType: "Photo")
-            message.saveToBackend({ 
+            
+            message.saveToBackend({
                 self.fetchData()
                 }, failureHandler: { (error: NSError?) in
                     Log.error(error?.localizedDescription)
