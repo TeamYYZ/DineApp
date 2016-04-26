@@ -41,22 +41,24 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPS-oV-yKP">
-                                            <rect key="frame" x="225" y="36" width="30" height="30"/>
+                                            <rect key="frame" x="195" y="35" width="45" height="45"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="Cx9-xM-f1P"/>
-                                                <constraint firstAttribute="height" constant="30" id="edi-Fk-Q3V"/>
+                                                <constraint firstAttribute="width" constant="45" id="Cx9-xM-f1P"/>
+                                                <constraint firstAttribute="height" constant="45" id="edi-Fk-Q3V"/>
                                             </constraints>
+                                            <color key="tintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="Checked"/>
                                             <connections>
                                                 <segue destination="1bo-h6-Hq2" kind="unwind" unwindAction="unwindToMapView:" id="5bj-cD-rSx"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAX-Pt-hTm">
-                                            <rect key="frame" x="273" y="36" width="30" height="30"/>
+                                            <rect key="frame" x="258" y="35" width="45" height="45"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="N83-hp-eKc"/>
-                                                <constraint firstAttribute="width" constant="30" id="zpk-FB-jFD"/>
+                                                <constraint firstAttribute="height" constant="45" id="N83-hp-eKc"/>
+                                                <constraint firstAttribute="width" constant="45" id="zpk-FB-jFD"/>
                                             </constraints>
+                                            <color key="tintColor" red="0.1911550909280777" green="0.6378670334815979" blue="0.26147949695587158" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" image="Chat"/>
                                             <connections>
                                                 <segue destination="VL5-au-zmM" kind="push" identifier="toGroupChatSegue" id="Do4-Qo-wem"/>
@@ -99,7 +101,6 @@
                                         <constraint firstItem="IMq-jp-H9K" firstAttribute="leading" secondItem="BGg-Uk-fvV" secondAttribute="leading" id="81C-z9-Rsw"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IMq-jp-H9K" secondAttribute="bottom" constant="12" id="8bP-62-QHg"/>
                                         <constraint firstItem="imx-XN-cVI" firstAttribute="leading" secondItem="pvZ-Ec-QHL" secondAttribute="trailing" constant="8" id="CFC-Zr-YZs"/>
-                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="top" secondItem="BGg-Uk-fvV" secondAttribute="top" id="QYv-vU-2Qz"/>
                                         <constraint firstItem="BGg-Uk-fvV" firstAttribute="leading" secondItem="imx-XN-cVI" secondAttribute="leading" id="VpS-2h-ds9"/>
                                         <constraint firstItem="imx-XN-cVI" firstAttribute="top" secondItem="XZ2-WZ-kYm" secondAttribute="top" constant="13" id="X8a-hh-Z8b"/>
                                         <constraint firstItem="IMq-jp-H9K" firstAttribute="top" secondItem="BGg-Uk-fvV" secondAttribute="bottom" constant="8" id="c6I-Ig-do9"/>
@@ -107,6 +108,7 @@
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="leading" secondItem="qPS-oV-yKP" secondAttribute="trailing" constant="18" id="jny-qx-o0b"/>
                                         <constraint firstItem="pvZ-Ec-QHL" firstAttribute="top" secondItem="XZ2-WZ-kYm" secondAttribute="top" constant="12" id="k5t-Kq-91B"/>
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="qPS-oV-yKP" secondAttribute="centerY" id="r5p-vk-7XW"/>
+                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="XZ2-WZ-kYm" secondAttribute="centerY" id="rfZ-6F-1PX"/>
                                         <constraint firstAttribute="trailing" secondItem="tAX-Pt-hTm" secondAttribute="trailing" constant="17" id="s32-td-u8t"/>
                                     </constraints>
                                 </tableViewCellContentView>

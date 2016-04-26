@@ -342,7 +342,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 let line = GMSPolyline(path: path)
                 directionPolyLines.append(line)
                 line.strokeWidth = 5
-                line.strokeColor = UIColor(red: 0.2302, green: 0.7771, blue: 0.3159, alpha: 1.0)
+                line.strokeColor = UIColor(red: 0.2302, green: 0.7771, blue: 0.3159, alpha: 0.7)
                 line.map = mapView
                 
             }
@@ -409,10 +409,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func controlAllViewsOnMap(hidden: Bool) {
-        UIView.animateWithDuration(0.1) {
+        UIView.animateWithDuration(0.7) {
             self.navigationBtn.hidden = hidden
             self.pathBtn.hidden = hidden
             self.redoBtn.hidden = hidden
+            
+        }
+        UIView.animateWithDuration(0.2) {
             self.mapView.settings.myLocationButton = !hidden
         }
         

@@ -165,6 +165,7 @@ class ActivityProfileViewController: UITableViewController{
                 cell.checkButton.setImage(nil, forState: .Normal)
             }
             cell.checkButton.adjustsImageWhenHighlighted = false
+            
             return cell
             
         }else if (indexPath.section == 1){
