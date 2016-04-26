@@ -42,7 +42,7 @@ class ColorTheme {
     var activityPanelTextColor: UIColor
 
     init() {
-        navigationBarBackgroundColor = UIColor.flatMintColor()
+        navigationBarBackgroundColor = UIColor.flatWhiteColor()
         loginGradientFisrtColor = UIColor.flatWatermelonColor()
         loginGradientSecondColor = UIColor.flatRedColorDark()
         loginTextColor = ContrastColorOf(loginGradientFisrtColor, returnFlat: true)
@@ -61,10 +61,10 @@ class ColorTheme {
         chatRecipientMessageColor = ContrastColorOf(chatRecipientBackgroudColor, returnFlat: true)
         chatMyMessageColor = ContrastColorOf(chatMyBackgroudColor, returnFlat: true)
         
-        menuBackgroundColor = UIColor.flatMagentaColorDark()
+        menuBackgroundColor = UIColor.flatGrayColorDark()
         menuTextColor = ContrastColorOf(menuBackgroundColor, returnFlat: true)
         menuIconTintColor = menuTextColor
-        menuSelectedBackgroundColor = UIColor.flatMagentaColor()
+        menuSelectedBackgroundColor = UIColor.flatGrayColor()
         
         profileSignOutLabelColor = UIColor.flatRedColor()
         
