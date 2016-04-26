@@ -211,6 +211,6 @@
     </scenes>
     <resources>
         <image name="User" width="64" height="64"/>
-        <image name="addFriends" width="64" height="64"/>
+        <image name="addFriends" width="24" height="24"/>
     </resources>
 </document>

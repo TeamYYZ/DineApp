@@ -9,8 +9,10 @@
 import UIKit
 import GoogleMaps
 import MBProgressHUD
+import JSSAlertView
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+    
     @IBOutlet weak var navigationBtn: UIButton!
     @IBOutlet weak var pathBtn: UIButton!
     @IBOutlet weak var redoBtn: UIButton!
@@ -26,7 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     @IBOutlet weak var newActivityButton: NewActivityButton!
     
-    
+    static let NCObserverName = "MAPVIEWOBNAME"
     var locationManager = CLLocationManager()
     var activities = [Activity]()
     var steps : [Route.Step]? {
@@ -85,15 +87,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     
     }
+  
+    func pushToJoinActivity(notification: NSNotification) {
+        guard let activityId = notification.userInfo?["activityId"] as? String else {
+            return
+        }
+        
+//        let alertview = JSSAlertView().show(self, title: "Invitation", text: "You received a dinning invitation from your friend", buttonText: "Detail", cancelButtonText: "Ignore")
+//        alertview.addAction {
+//            let storyBoard = UIStoryboard(name: "ActivityProfileViewController", bundle: NSBundle.mainBundle())
+//            let activityVC = storyBoard.instantiateViewControllerWithIdentifier("ActivityProfileVC") as! ActivityProfileViewController
+//            activityVC.previewIndicator.isPreview = true
+//            activityVC.previewIndicator.activityId = activityId
+//            activityVC.previewIndicator.mapVC = self
+//            self.navigationController?.pushViewController(activityVC, animated: true)
+//        }
+//        
+//        alertview.addCancelAction{
+//            Log.info("Ignored")
+//        }
+        
 
     
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         Log.info("Map View Did Load")
         Log.info(PFUser.currentUser()?.username)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userJoinedActivity), name: "userJoinedNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.userExitedActivity), name: "userExitedNotification", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.pushToJoinActivity(_:)), name: MapViewController.NCObserverName, object: nil)
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         

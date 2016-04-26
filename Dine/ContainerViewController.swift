@@ -9,8 +9,7 @@
 import UIKit
 
 class ContainerViewController: SlideMenuController {
-    
-    
+
     override func isTagetViewController() -> Bool {
         if let vc = UIApplication.topViewController() {
             if vc is MapViewController ||

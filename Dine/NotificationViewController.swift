@@ -12,6 +12,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
 
     @IBOutlet weak var tableView: UITableView!
     
+    static let NCObserverName = "NOTIFICATIONVIEWOBNAME"
     weak var mapVC: MapViewController?
     
     let refreshControl = UIRefreshControl()
@@ -81,6 +82,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let notification = notifications[indexPath.row]
+        Log.info("notification.type \(notification.type)")
         if notification.type == .Invitation {
             let storyBoard = UIStoryboard(name: "ActivityProfileViewController", bundle: NSBundle.mainBundle())
             let activityVC = storyBoard.instantiateViewControllerWithIdentifier("ActivityProfileVC") as! ActivityProfileViewController
@@ -169,6 +171,10 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
 //    }
     
     
+    func pushToPullNewMessages() {
+        fetchNotifications()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,6 +188,8 @@ class NotificationViewController: UIViewController, UITableViewDataSource, UITab
         refreshControl.addTarget(self, action: #selector(NotificationViewController.refreshControlAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         fetchNotifications()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NotificationViewController.pushToPullNewMessages), name: NotificationViewController.NCObserverName, object: nil)
+
 
         
         // Do any additional setup after loading the view.

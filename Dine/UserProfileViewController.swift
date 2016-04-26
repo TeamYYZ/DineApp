@@ -120,10 +120,11 @@ class UserProfileViewController: UITableViewController {
                    self.profileImageView.image = UIImage(data: result!)
                 }
             })
-        }else{
+        } else {
             self.profileImageView.image = UIImage(named: "User")
         }
         self.profileImageView.layer.cornerRadius = 8.0
+        self.profileImageView.layer.masksToBounds = true
         
         if self.profileImageView.userInteractionEnabled == false {
             self.profileImageView.userInteractionEnabled = true
@@ -157,9 +158,9 @@ class UserProfileViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
 
-        if self.isFriend == true{
+        if self.isFriend == true {
             return 1
-        }else{
+        } else {
             return 2
         }
 
@@ -167,9 +168,9 @@ class UserProfileViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if section == 0{
+        if section == 0 {
             return 2
-        }else{
+        } else {
             return 1
         }
     }
