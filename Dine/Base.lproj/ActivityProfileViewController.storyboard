@@ -41,13 +41,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPS-oV-yKP">
-                                            <rect key="frame" x="195" y="35" width="45" height="45"/>
+                                            <rect key="frame" x="213" y="35" width="45" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="45" id="Cx9-xM-f1P"/>
                                                 <constraint firstAttribute="height" constant="45" id="edi-Fk-Q3V"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="tintColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="Checked"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
                                             <connections>
                                                 <segue destination="1bo-h6-Hq2" kind="unwind" unwindAction="unwindToMapView:" id="5bj-cD-rSx"/>
                                             </connections>
@@ -58,13 +61,16 @@
                                                 <constraint firstAttribute="height" constant="45" id="N83-hp-eKc"/>
                                                 <constraint firstAttribute="width" constant="45" id="zpk-FB-jFD"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="tintColor" red="0.1911550909280777" green="0.6378670334815979" blue="0.26147949695587158" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="Chat"/>
+                                            <state key="normal" title="Chat">
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
                                             <connections>
                                                 <segue destination="VL5-au-zmM" kind="push" identifier="toGroupChatSegue" id="Do4-Qo-wem"/>
                                             </connections>
                                         </button>
-                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvZ-Ec-QHL">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvZ-Ec-QHL">
                                             <rect key="frame" x="14" y="12" width="44" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-U4-Sls">
@@ -105,7 +111,7 @@
                                         <constraint firstItem="imx-XN-cVI" firstAttribute="top" secondItem="XZ2-WZ-kYm" secondAttribute="top" constant="13" id="X8a-hh-Z8b"/>
                                         <constraint firstItem="IMq-jp-H9K" firstAttribute="top" secondItem="BGg-Uk-fvV" secondAttribute="bottom" constant="8" id="c6I-Ig-do9"/>
                                         <constraint firstItem="pvZ-Ec-QHL" firstAttribute="leading" secondItem="XZ2-WZ-kYm" secondAttribute="leading" constant="14" id="iZl-Qb-XmL"/>
-                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="leading" secondItem="qPS-oV-yKP" secondAttribute="trailing" constant="18" id="jny-qx-o0b"/>
+                                        <constraint firstItem="tAX-Pt-hTm" firstAttribute="leading" secondItem="qPS-oV-yKP" secondAttribute="trailing" id="jny-qx-o0b"/>
                                         <constraint firstItem="pvZ-Ec-QHL" firstAttribute="top" secondItem="XZ2-WZ-kYm" secondAttribute="top" constant="12" id="k5t-Kq-91B"/>
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="qPS-oV-yKP" secondAttribute="centerY" id="r5p-vk-7XW"/>
                                         <constraint firstItem="tAX-Pt-hTm" firstAttribute="centerY" secondItem="XZ2-WZ-kYm" secondAttribute="centerY" id="rfZ-6F-1PX"/>
@@ -217,8 +223,4 @@
             <point key="canvasLocation" x="2018" y="1262"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Chat" width="30" height="30"/>
-        <image name="Checked" width="30" height="30"/>
-    </resources>
 </document>
