@@ -62,7 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        print(userInfo)
         if application.applicationState == .Active {
             Log.info("got notification when active")
             print(userInfo)
@@ -74,9 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         if let topVC = UIApplication.topViewController() {
                             JSSAlertView().info(topVC, title: "Invitation", text: "You received a dinning invitation from your friend.", buttonText: "Okay")
                         }
-
-
                     }
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(NotificationViewController.NCObserverName, object: nil)
+
                 } else if "3" == notificationType {
                     if let topVC = UIApplication.topViewController() {
                         if let aps = userInfo["aps"] as? NSDictionary, alertText = aps["alert"] as? String {
@@ -84,6 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
 
                     }
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(NotificationViewController.NCObserverName, object: nil)
+
                 
                 }
             }
