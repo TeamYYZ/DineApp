@@ -101,6 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let barStyle = UIBarButtonItem.appearance()
+        barStyle.setBackButtonTitlePositionAdjustment(UIOffsetMake(-100, -60), forBarMetrics:UIBarMetrics.Default)
 
         UIApplication.sharedApplication().statusBarStyle = .Default
         

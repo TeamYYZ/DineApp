@@ -80,6 +80,7 @@ class ActivityProfileViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         setupActivityForVC()
         if previewIndicator.isPreview == true {
             guard let activityId = previewIndicator.activityId else {
@@ -132,6 +133,14 @@ class ActivityProfileViewController: UITableViewController{
     
     }
     
+    
+    func profileTap (sender: AnyObject) {
+        
+        let position: CGPoint =  sender.locationInView(self.tableView)
+        let indexPath: NSIndexPath = self.tableView.indexPathForRowAtPoint(position)!
+        performSegueWithIdentifier("toUserProfileFromAPVCSegue", sender: indexPath)
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -187,6 +196,11 @@ class ActivityProfileViewController: UITableViewController{
                     (result, error) in
                     cell.profile = UIImage(data: result!)!
                     })
+            }
+            if cell.profileView.userInteractionEnabled == false {
+                cell.profileView.userInteractionEnabled = true
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ActivityProfileViewController.profileTap(_:)))
+                cell.profileView.addGestureRecognizer(tapGesture)
             }
             cell.userId = member.userId
             cell.nameLabel.text = member.screenName
@@ -288,12 +302,15 @@ class ActivityProfileViewController: UITableViewController{
         
     }
     
-    /*
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toGroupChatSegue" {
-            let vc = segue.destinationViewController as! ChatViewController
+        if segue.identifier == "toUserProfileFromAPVCSegue" {
+            let vc = segue.destinationViewController as! UserProfileViewController
+            let indexPath = sender as! NSIndexPath
+            let id = self.groupMembers[indexPath.row].userId
+            vc.uid = id
         }
     }
-    */
+    
 
 }

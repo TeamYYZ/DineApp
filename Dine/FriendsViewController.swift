@@ -30,7 +30,7 @@ class FriendsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(friendsIdList)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         if isInvitationVC {
             inviteButton.enabled = false
             inviteButton.image = nil
