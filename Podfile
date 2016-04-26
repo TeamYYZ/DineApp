@@ -16,5 +16,6 @@ target 'Dine' do
     pod 'GoogleMaps'
     pod 'SlideMenuControllerSwift'
     pod 'ALTextInputBar'
+    pod 'JSSAlertView'
 end
 

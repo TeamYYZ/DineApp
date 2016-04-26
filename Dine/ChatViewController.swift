@@ -10,6 +10,7 @@ import UIKit
 import ALTextInputBar
 
 class ChatViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+    static let NCObserverName = "CHATVIEWOBNAME"
     var messages = [Message]()
     var heightCache = [CGFloat]()
     let dateFormatter = NSDateFormatter()
@@ -56,6 +57,11 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         }
     }
     
+    
+    func pushToPullNewMessages() {
+        fetchData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorColor = UIColor.clearColor()
@@ -69,6 +75,7 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
         self.view.addGestureRecognizer(onTapGesture)
         setupTextInput()
         fetchData()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ChatViewController.pushToPullNewMessages), name: ChatViewController.NCObserverName, object: nil)
     }
     
     func plusButtonOnClick() {
@@ -317,29 +324,6 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
                 cell.contentLabel.text = " "
             }
             
-            if let media = message.media {
-                if message.mediaType == "Photo" {
-                    cell.photoView.hidden = false
-                    media.getDataInBackgroundWithBlock({
-                        (result, error) in
-                        if error == nil{
-                            if index == cell.indexInTable {
-                                cell.photoView.image = UIImage(data: result!)
-                            } else {
-                                Log.info("image comes too late, do not set it to avatar")
-                            }
-                        } else {
-                            print(error)
-                        }
-                    })
-                }
-                
-                cell.contentLabel.hidden = true
-            
-            } else {
-                cell.contentLabel.hidden = false
-                cell.photoView.hidden = true
-            }
             
             if let media = message.media {
                 if message.mediaType == "Photo" {
@@ -410,6 +394,29 @@ class ChatViewController: UITableViewController, UIImagePickerControllerDelegate
             }
 
             
+            if let media = message.media {
+                if message.mediaType == "Photo" {
+                    cell.photoView.hidden = false
+                    media.getDataInBackgroundWithBlock({
+                        (result, error) in
+                        if error == nil{
+                            if index == cell.indexInTable {
+                                cell.photoView.image = UIImage(data: result!)
+                            } else {
+                                Log.info("image comes too late, do not set it to avatar")
+                            }
+                        } else {
+                            print(error)
+                        }
+                    })
+                }
+                
+                cell.contentLabel.hidden = true
+                
+            } else {
+                cell.contentLabel.hidden = false
+                cell.photoView.hidden = true
+            }
             
             if let avatarPFFile = message.senderAvatarPFFile {
                 avatarPFFile.getDataInBackgroundWithBlock({

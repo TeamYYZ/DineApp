@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6PW-HG-hpO">
->>>>>>> 15c014e11f389a0836855f8fcfe9f02e6718e9dc
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -90,7 +89,7 @@
                                                     <constraint firstAttribute="height" constant="17" id="WL6-lR-F2r"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chef Cao" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hu6-Y7-jOX">
@@ -211,7 +210,7 @@
         <image name="Polyline" width="30" height="30"/>
         <image name="RefreshFilled" width="30" height="30"/>
         <image name="UpRight" width="30" height="30"/>
-        <image name="plate" width="512" height="512"/>
+        <image name="plate" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="dCU-G9-1Nc"/>

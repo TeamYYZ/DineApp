@@ -10,11 +10,14 @@ import UIKit
 import ChameleonFramework
 import ParseFacebookUtilsV4
 import GoogleMaps
+import JSSAlertView
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var latestPendingNotificationOfActivityId: String?
     
     let mainSB = UIStoryboard(name: "Main", bundle: nil)
     var slideMenuController: ContainerViewController!
@@ -22,9 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func createMenu() {
         let sidebarSB = UIStoryboard(name: "Sidebar", bundle: nil)
         let mainfuncSB = UIStoryboard(name: "Main", bundle: nil)
-        
         let mainViewController = mainfuncSB.instantiateViewControllerWithIdentifier("MapViewController") as! MapViewController
-        
         let leftViewController =
             sidebarSB.instantiateViewControllerWithIdentifier("SidebarMenuViewController") as! SidebarMenuViewController
         
@@ -61,11 +62,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handlePush(userInfo)
-    }
-    
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print(userInfo)
+        if application.applicationState == .Active {
+            Log.info("got notification when active")
+            print(userInfo)
+            if let notificationType = userInfo["t"] as? String {
+                if "2" == notificationType {
+                    NSNotificationCenter.defaultCenter().postNotificationName(ChatViewController.NCObserverName, object: nil)
+                } else if "1" == notificationType {
+                    if let associatedId = userInfo["a"] as? String {
+                        if let topVC = UIApplication.topViewController() {
+                            JSSAlertView().info(topVC, title: "Invitation", text: "You received a dinning invitation from your friend.", buttonText: "Okay")
+                        }
+
+
+                    }
+                } else if "3" == notificationType {
+                    if let topVC = UIApplication.topViewController() {
+                        if let aps = userInfo["aps"] as? NSDictionary, alertText = aps["alert"] as? String {
+                            JSSAlertView().info(topVC, title: "Friend Request", text: alertText, buttonText: "Got it")
+                        }
+
+                    }
+                
+                }
+            }
         
+        }
+        
+        if application.applicationState == .Inactive {
+            
+        
+        }
+
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -75,7 +104,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
         
-        self.createMenu()
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.flatWhiteColor()]
         UINavigationBar.appearance().tintColor = ColorTheme.sharedInstance.loginTextColor
         UINavigationBar.appearance().barTintColor = ColorTheme.sharedInstance.navigationBarBackgroundColor
@@ -86,11 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
 
-        
-        
-        // Initialize Parse
-        // Set applicationId and server based on the values in the Heroku settings.
-        // clientKey is not used on Parse open source unless explicitly configured
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogout), name: "userDidLogoutNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogin), name: "userDidLoginNotification", object: nil)
         
@@ -105,10 +128,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         if let _ = PFUser.currentUser() {
-            self.userDidLogin()
+            userDidLogin()
+            if let notification = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+                let aps = notification["aps"] as! [String: AnyObject]
+                let associatedId = notification["a"] as? String
+                let senderId = notification["s"] as? String
+                
+                
+                let storyBoard = UIStoryboard(name: "ActivityProfileViewController", bundle: NSBundle.mainBundle())
+                let activityVC = storyBoard.instantiateViewControllerWithIdentifier("ActivityProfileVC") as! ActivityProfileViewController
+                activityVC.previewIndicator.isPreview = true
+                activityVC.previewIndicator.activityId = associatedId
+                (self.window?.rootViewController as? ContainerViewController)?.mainViewController?.navigationController?.pushViewController(activityVC, animated: true)
+
+                //                slideMenuController.mainViewController?.navigationController?.pushViewController(activityVC, animated: true)
+                
+            }
+            
+            
         } else {
             userDidLogout()
         }
+        
         
         return true
     }
