@@ -11,7 +11,9 @@ import UIKit
 class ActivityProfileCell: UITableViewCell {
     @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var ownerLabel: UILabel!
     
     @IBOutlet weak var checkButton: UIButton!
@@ -21,9 +23,16 @@ class ActivityProfileCell: UITableViewCell {
             nameLabel.text = activity?.restaurant
             if let time = activity?.requestTime {
                 let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "hh:mm" //format style. Browse online to get a format that fits your needs.
+                dateFormatter.dateFormat = "hh:mm a" //format style. Browse online to get a format that fits your needs.
+                let timeString = dateFormatter.stringFromDate(time)
+                dateFormatter.dateFormat = "MMM"
+                let monthString = dateFormatter.stringFromDate(time)
+                dateFormatter.dateFormat = "d"
                 let dateString = dateFormatter.stringFromDate(time)
-                timeLabel.text = dateString
+                timeLabel.text = timeString
+                monthLabel.text = monthString
+                dateLabel.text = dateString
+                
             }
             activity?.owner.fetchIfNeededInBackgroundWithBlock({ (owner: PFObject?, error:NSError?) in
                 if let screenName = owner!["screenName"] as? String{
