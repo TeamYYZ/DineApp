@@ -1,5 +1,8 @@
 # Dine App
-CodePath Final project
+Dine is a location based platform aiming to help you find lunch buddy and plan meals more easily.
+Created as Codepath group project 2016 Spring iOS course at TAMU.
+Video demo here: https://youtu.be/tjud1xvSTw4
+
 
 # YYZ group Members
 - You Wu
