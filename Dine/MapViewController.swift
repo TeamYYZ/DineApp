@@ -299,7 +299,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // MARK: may lead to memory leak
         currentActivity.fetchGroupMember({ (members: [GroupMember]) in
             for member in members {
-                if member.userId == PFUser.currentUser()?.objectId {break}
+                if member.userId == PFUser.currentUser()?.objectId {continue}
+                
                 guard let loc = member.location else {break}
                 let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                 

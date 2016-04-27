@@ -58,6 +58,9 @@ class ActivityProfileViewController: UITableViewController{
             blurView.frame = profileView.frame
             blurView.alpha = 0.8
             
+            tableView.estimatedRowHeight = 135
+            tableView.rowHeight = UITableViewAutomaticDimension
+            
             smallProfileView.frame = CGRectMake(CGRectGetWidth(self.view.frame)/2.0-40.0, kHeaderHeight/2.0-30, 80, 80)
             smallProfileView.clipsToBounds = true
             smallProfileView.layer.cornerRadius = 10
@@ -251,12 +254,12 @@ class ActivityProfileViewController: UITableViewController{
         
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 130
-        }
-        return 45
-    }
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if indexPath.section == 0 {
+//            return 130
+//        }
+//        return 45
+//    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

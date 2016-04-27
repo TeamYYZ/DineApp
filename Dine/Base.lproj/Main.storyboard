@@ -104,6 +104,8 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hu6-Y7-jOX" firstAttribute="leading" secondItem="sT8-pl-Wb3" secondAttribute="leading" constant="38" id="5Sc-JK-Ena"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uh8-50-VJ3" secondAttribute="trailing" constant="8" id="JME-W8-uro"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hu6-Y7-jOX" secondAttribute="trailing" constant="8" id="RN9-7a-1KQ"/>
                                             <constraint firstItem="uh8-50-VJ3" firstAttribute="leading" secondItem="sT8-pl-Wb3" secondAttribute="leading" constant="38" id="fiq-eG-EzP"/>
                                             <constraint firstAttribute="bottom" secondItem="hu6-Y7-jOX" secondAttribute="bottom" constant="8" id="uNe-Uj-a8m"/>
                                             <constraint firstItem="uh8-50-VJ3" firstAttribute="top" secondItem="sT8-pl-Wb3" secondAttribute="top" constant="6" id="wPi-Wl-01s"/>
