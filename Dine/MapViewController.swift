@@ -322,6 +322,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             iconView.clipsToBounds = true
                             marker.iconView = iconView
                             marker.map = self.mapView
+                            marker.snippet = member.screenName
                         })
                     }
                     self.memberLocations[member.userId] = marker
@@ -441,6 +442,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             self.redoBtn.hidden = hidden
             
         }
+        
         UIView.animateWithDuration(0.2) {
             self.mapView.settings.myLocationButton = !hidden
         }

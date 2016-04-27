@@ -139,6 +139,7 @@ class ProfileSettingsViewController: UITableViewController, UIImagePickerControl
         dismissViewControllerAnimated(true, completion: {
             user.updateProfilePhoto(resizedImage, withCompletion: { (success: Bool, error: NSError?) -> Void in
                 if success {
+                    
                     self.loadData()
                 } else {
                     print(error)

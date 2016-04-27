@@ -215,6 +215,7 @@ class User {
                 user.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
                     if success == true && error == nil{
                         User.currentUser?.avatarImage = image
+                        User.currentUser?.avatarImagePFFile = user["avatar"] as? PFFile
                         completion?(success, error)
                     }else{
                         print(error)
