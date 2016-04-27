@@ -301,7 +301,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             for member in members {
                 if member.userId == PFUser.currentUser()?.objectId {continue}
                 
-                guard let loc = member.location else {break}
+                guard let loc = member.location else {continue}
+                
                 let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                 
                 if let marker = self.memberLocations[member.userId] {
@@ -422,12 +423,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
    
     func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
+        guard let mapDetailView = marker.userData as? MapDetailView else {return nil}
         let infoWindow = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
         infoWindow.backgroundColor = UIColor.flatWhiteColor()
         infoWindow.layer.cornerRadius = 5
         infoWindow.clipsToBounds = true
-        infoWindow.addSubview(marker.userData as! MapDetailView)
+        infoWindow.addSubview(mapDetailView)
         
         return infoWindow
         
