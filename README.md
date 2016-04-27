@@ -8,6 +8,8 @@ Created as Codepath group project 2016 Spring iOS course at TAMU.
 
 Video demo here: https://youtu.be/tjud1xvSTw4
 
+[![Video Demo](http://img.youtube.com/vi/tjud1xvSTw4/0.jpg)](https://youtu.be/tjud1xvSTw4 "Demo")
+
 
 # YYZ group Members
 - You Wu
