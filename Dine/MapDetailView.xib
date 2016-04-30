@@ -61,20 +61,11 @@
                         <constraint firstAttribute="width" secondItem="qEy-QU-JDD" secondAttribute="height" multiplier="1:1" id="uEj-RA-ZkL"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8NQ-2j-uGy">
-                    <rect key="frame" x="250" y="25" width="25" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="25" id="Oby-fa-G0O"/>
-                        <constraint firstAttribute="width" constant="25" id="PFx-EU-cga"/>
-                    </constraints>
-                    <state key="normal" image="Info"/>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fjh-IZ-C8p" secondAttribute="bottom" id="7pM-AX-CYf"/>
                 <constraint firstItem="fkJ-xN-poY" firstAttribute="centerY" secondItem="fjh-IZ-C8p" secondAttribute="centerY" id="AQv-D3-73T"/>
-                <constraint firstItem="8NQ-2j-uGy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B2k-sa-AzC" secondAttribute="trailing" constant="12" id="BRM-OI-Ov0"/>
                 <constraint firstItem="ikq-Rg-Ei0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="-3" id="CHB-kx-4k3"/>
                 <constraint firstItem="fkJ-xN-poY" firstAttribute="leading" secondItem="fjh-IZ-C8p" secondAttribute="trailing" constant="3" id="M2W-73-r8V"/>
                 <constraint firstItem="ikq-Rg-Ei0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="N5L-qU-x78"/>
@@ -87,9 +78,7 @@
                 <constraint firstItem="fjh-IZ-C8p" firstAttribute="top" secondItem="t90-9i-YwE" secondAttribute="bottom" constant="7" id="Zue-nD-qoM"/>
                 <constraint firstItem="TG3-kE-zMC" firstAttribute="centerY" secondItem="ikq-Rg-Ei0" secondAttribute="centerY" id="ayh-XY-8iF"/>
                 <constraint firstItem="B2k-sa-AzC" firstAttribute="centerY" secondItem="t90-9i-YwE" secondAttribute="centerY" id="azE-j1-9Jj"/>
-                <constraint firstAttribute="trailing" secondItem="8NQ-2j-uGy" secondAttribute="trailing" constant="8" id="bnF-w1-W7r"/>
                 <constraint firstItem="fjh-IZ-C8p" firstAttribute="leading" secondItem="ikq-Rg-Ei0" secondAttribute="leading" id="dQb-EY-d26"/>
-                <constraint firstItem="8NQ-2j-uGy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gk2-1I-ELF"/>
                 <constraint firstItem="t90-9i-YwE" firstAttribute="top" secondItem="ikq-Rg-Ei0" secondAttribute="bottom" constant="7" id="keV-Kg-55d"/>
                 <constraint firstItem="ikq-Rg-Ei0" firstAttribute="leading" secondItem="qEy-QU-JDD" secondAttribute="trailing" constant="8" id="loe-bC-l59"/>
                 <constraint firstItem="t90-9i-YwE" firstAttribute="leading" secondItem="ikq-Rg-Ei0" secondAttribute="leading" id="scy-rV-5lF"/>
@@ -110,7 +99,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Info" width="30" height="30"/>
         <image name="UserGroup" width="30" height="30"/>
     </resources>
 </document>

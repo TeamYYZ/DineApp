@@ -9,26 +9,22 @@
 import UIKit
 import MapKit
 
-class MapAnnotation: NSObject {
+class MapAnnotation: NSObject, MKAnnotation {
     let title: String?
     var restaurantName: String?
+    let coordinate: CLLocationCoordinate2D
     var members: String?
     var time: String?
     var profileURL: NSURL?
     var activity: Activity?
-    
-    override init() {
-        title = " "
-        restaurantName = "Whataburger"
-        members = "Sam, Ian, Jessica, Louie"
-        time = "12:30"
-    }
+
     
     init(activity: Activity) {
         self.activity = activity
         self.title = activity.title
         self.restaurantName = activity.restaurant
-        
+        self.coordinate = activity.location
+
         if let time = activity.requestTime {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "hh:mm a"
@@ -46,5 +42,6 @@ class MapAnnotation: NSObject {
 
         self.members = membersString
         self.profileURL = activity.profileURL
+        super.init()
     }
 }

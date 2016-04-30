@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6PW-HG-hpO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="6PW-HG-hpO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94D-R4-JiU">
-                                <rect key="frame" x="245" y="330" width="75" height="108"/>
+                                <rect key="frame" x="245" y="330" width="75" height="170"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-zb-cNs" userLabel="navigate">
                                         <rect key="frame" x="17" y="12" width="40" height="40"/>
@@ -61,15 +61,30 @@
                                             <action selector="onRedoSearch:" destination="6PW-HG-hpO" eventType="touchUpInside" id="pet-UG-M1J"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3i9-nC-2Qj">
+                                        <rect key="frame" x="10" y="115" width="55" height="55"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="55" id="32v-Ok-Lr0"/>
+                                            <constraint firstAttribute="height" constant="55" id="c7W-4h-UeB"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                        <state key="normal" image="CenterDirection"/>
+                                        <connections>
+                                            <action selector="onCenterLoc:" destination="6PW-HG-hpO" eventType="touchUpInside" id="zUW-Oq-j0g"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="nLj-UI-Mvg" secondAttribute="bottom" id="7Q5-OL-tHW"/>
-                                    <constraint firstAttribute="height" constant="108" id="9dP-VE-t24"/>
+                                    <constraint firstAttribute="bottom" secondItem="3i9-nC-2Qj" secondAttribute="bottom" id="1MT-bN-zRG"/>
+                                    <constraint firstItem="3i9-nC-2Qj" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="1Ts-cX-R2U"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="nLj-UI-Mvg" secondAttribute="bottom" constant="62" id="7Q5-OL-tHW"/>
+                                    <constraint firstAttribute="height" constant="170" id="9dP-VE-t24"/>
                                     <constraint firstItem="SP5-zb-cNs" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="Aw1-SL-h5z"/>
                                     <constraint firstItem="nLj-UI-Mvg" firstAttribute="top" secondItem="SP5-zb-cNs" secondAttribute="bottom" constant="8" id="Lfv-e8-8hc"/>
                                     <constraint firstItem="nLj-UI-Mvg" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="Nkq-2Q-dX5"/>
                                     <constraint firstItem="34r-bE-k9k" firstAttribute="centerX" secondItem="94D-R4-JiU" secondAttribute="centerX" id="OFm-nA-qDH"/>
-                                    <constraint firstAttribute="bottom" secondItem="34r-bE-k9k" secondAttribute="bottom" constant="8" id="vA6-ur-xNQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="34r-bE-k9k" secondAttribute="bottom" constant="70" id="vA6-ur-xNQ"/>
                                     <constraint firstAttribute="width" constant="75" id="zqX-wm-1aa"/>
                                 </constraints>
                             </view>
@@ -159,7 +174,7 @@
                             <constraint firstItem="IYf-7V-6XV" firstAttribute="leading" secondItem="QuG-ob-nRC" secondAttribute="leading" constant="12" id="8dI-E7-hbK"/>
                             <constraint firstItem="f58-0s-JIE" firstAttribute="leading" secondItem="QuG-ob-nRC" secondAttribute="leading" constant="12" id="J1q-oT-Jh8"/>
                             <constraint firstAttribute="trailing" secondItem="f58-0s-JIE" secondAttribute="trailing" constant="12" id="gbr-hM-NIb"/>
-                            <constraint firstItem="8DJ-ih-PLm" firstAttribute="top" secondItem="94D-R4-JiU" secondAttribute="bottom" constant="130" id="lkU-E7-ax0"/>
+                            <constraint firstItem="8DJ-ih-PLm" firstAttribute="top" secondItem="94D-R4-JiU" secondAttribute="bottom" constant="68" id="lkU-E7-ax0"/>
                             <constraint firstAttribute="trailing" secondItem="94D-R4-JiU" secondAttribute="trailing" id="nE3-ag-raz"/>
                             <constraint firstItem="8DJ-ih-PLm" firstAttribute="top" secondItem="f58-0s-JIE" secondAttribute="bottom" constant="12" id="sl8-Nf-ZWs"/>
                         </constraints>
@@ -173,6 +188,7 @@
                         <outlet property="activityPanelBottomPos" destination="2js-j1-6Rw" id="AyU-sh-zPK"/>
                         <outlet property="activityRestuarantLabel" destination="hu6-Y7-jOX" id="Bxi-Nm-cZX"/>
                         <outlet property="borderView" destination="sT8-pl-Wb3" id="X9Y-Ve-UbQ"/>
+                        <outlet property="centerLocBtn" destination="3i9-nC-2Qj" id="ipD-rY-TD8"/>
                         <outlet property="currentActivityPanelView" destination="kx2-m3-VWI" id="3jJ-28-OGS"/>
                         <outlet property="navigationBtn" destination="SP5-zb-cNs" id="0pj-Iw-qQg"/>
                         <outlet property="newActivityBottomPos" destination="sl8-Nf-ZWs" id="rg4-Mh-Su6"/>
@@ -209,6 +225,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CenterDirection" width="30" height="30"/>
         <image name="Polyline" width="30" height="30"/>
         <image name="RefreshFilled" width="30" height="30"/>
         <image name="UpRight" width="30" height="30"/>
