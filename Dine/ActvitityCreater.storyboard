@@ -190,9 +190,18 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2s-cn-4SK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q8P-Y2-DAR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                                                </mapView>
+                                            </subviews>
                                             <color key="backgroundColor" red="0.97670525312423706" green="0.60546392202377319" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="141.5" id="CTP-Lj-Okh"/>
+                                                <constraint firstItem="Q8P-Y2-DAR" firstAttribute="leading" secondItem="K2s-cn-4SK" secondAttribute="leading" id="akL-r1-0ce"/>
+                                                <constraint firstAttribute="bottom" secondItem="Q8P-Y2-DAR" secondAttribute="bottom" id="hyW-Af-MMb"/>
+                                                <constraint firstItem="Q8P-Y2-DAR" firstAttribute="top" secondItem="K2s-cn-4SK" secondAttribute="top" id="sjc-sY-wP5"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q8P-Y2-DAR" secondAttribute="trailing" id="tDs-8d-ytM"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -205,7 +214,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="view" destination="K2s-cn-4SK" id="GVj-Xy-s7V"/>
+                                    <outlet property="mapView" destination="Q8P-Y2-DAR" id="NTj-kM-7Il"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="84" id="QYI-Vm-rad" customClass="RestaurantReviewCell" customModule="Dine" customModuleProvider="target">

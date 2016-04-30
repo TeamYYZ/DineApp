@@ -5,61 +5,55 @@
 //  Created by you wu on 3/24/16.
 //  Copyright © 2016 YYZ. All rights reserved.
 //
-
 import UIKit
-import GoogleMaps
+import MapKit
 
-class MapCell: UITableViewCell,CLLocationManagerDelegate, GMSMapViewDelegate {
+class MapCell: UITableViewCell,CLLocationManagerDelegate, MKMapViewDelegate {
+    var locationManager : CLLocationManager!
+    @IBOutlet weak var mapView: MKMapView!
     var annotationTitle:String!
-
-    @IBOutlet weak var view: UIView!
-    var mapView: GMSMapView!
-
+    
     var business: Business! {
         didSet{
             if business.address != nil {
                 self.annotationTitle = business.address
             }
-
             if business.coordinate != nil {
-                setupMap(business.coordinate!)
+                goToLocation(business.coordinate!)
+                addAnnotationAtCoordinate(business.coordinate!)
             }
         }
     }
-
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        print("awakeFromNib")
-
         // Initialization code
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // because storyboard has intrinsic width (4s for inferred size), when this view shows on bigger screen, we need to update bounds as well (Maybe it's a bug??)
-        mapView.frame.size.width = self.frame.size.width
-    }
-
-    func setupMap(coords: CLLocationCoordinate2D) {
-        print("setupMap")
-        mapView = GMSMapView.mapWithFrame(self.view.frame, camera: GMSCameraPosition.cameraWithTarget(coords, zoom: 14.0))
-        print(self.view.frame)
-        mapView.myLocationEnabled = true
-        
         mapView.delegate = self
-        view.addSubview(mapView)
-
-        
-        let marker = GMSMarker()
-        marker.position = coords
-        marker.map = mapView
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
+    func goToLocation(location: CLLocationCoordinate2D) {
+        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let region = MKCoordinateRegionMake(location, span)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    
+    func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = annotationTitle
+        mapView.addAnnotation(annotation)
+    }
 }

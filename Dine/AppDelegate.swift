@@ -9,7 +9,6 @@
 import UIKit
 import ChameleonFramework
 import ParseFacebookUtilsV4
-import GoogleMaps
 import JSSAlertView
 
 
@@ -120,9 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.backgroundColor = FlatWhite()
         
-        //google map API
         
-        GMSServices.provideAPIKey("AIzaSyCB-uEIYAecXTiyLBVBI0EiNg941XV8j-U")
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogout), name: "userDidLogoutNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.userDidLogin), name: "userDidLoginNotification", object: nil)

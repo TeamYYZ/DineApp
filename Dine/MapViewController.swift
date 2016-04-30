@@ -75,6 +75,7 @@ class MapViewController: UIViewController {
                         hud.progress = 1.0
                         hud.hide(true)
                         Log.info("Current user does not have an undergoing activity")
+                        self.updateAnnotations()
                     }
                     
                 } else {
@@ -148,6 +149,7 @@ class MapViewController: UIViewController {
         
         //setup apple map
         setupMap()
+        
         activityNameLabel.textColor = ColorTheme.sharedInstance.activityPanelTextColor
   
     }
@@ -637,7 +639,6 @@ extension MapViewController: CLLocationManagerDelegate {
             let span = MKCoordinateSpanMake(0.1, 0.1)
             let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
             mapView.setRegion(region, animated: true)
-            //updateAnnotations()
         }
     }
 
