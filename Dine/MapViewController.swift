@@ -41,15 +41,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
     }
 
-    var isObservingMyLocation = false
-    var currentStep = 0
-    var searchUserLocation = true
-    var didFindUserLocation = false
+    //var isObservingMyLocation = false
+    //var currentStep = 0
+//    var didFindUserLocation = false
     var showPath = false
     var locationTimer: NSTimer?
     var mylocationTimer: NSTimer?
-    var memberLocations = [String: GMSMarker]()
-    var directionPolyLines = [GMSPolyline]()
+    var memberLocations = [String: MemberAnnotation]()
     
     var gmapView: GMSMapView!
     var mapView: MKMapView!
@@ -196,10 +194,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if isObservingMyLocation {
-            gmapView.removeObserver(self, forKeyPath: "myLocation")
-            isObservingMyLocation = false
-        }
+//        if isObservingMyLocation {
+//            gmapView.removeObserver(self, forKeyPath: "myLocation")
+//            isObservingMyLocation = false
+//        }
         if let locationTimer = self.locationTimer {
             Log.info("removing member location tracking")
             locationTimer.invalidate()
@@ -276,7 +274,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     func addAnnotation(act: Activity) {
         act.fetchGroupMember({ (groupMembers: [GroupMember]) in
             if Activity.current_activity != nil {
-                //self.updateMemberLocations()
+                self.updateMemberLocations()
             }
             let info = MapAnnotation(activity: act)
             self.mapView.addAnnotation(info)
@@ -312,8 +310,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         
         
         
-        gmapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
-        isObservingMyLocation = true
+//        gmapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
+//        isObservingMyLocation = true
 
     }
     
@@ -433,26 +431,24 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 let circleCenter = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                 
                 if let marker = self.memberLocations[member.userId] {
-                    marker.position = circleCenter
+                    marker.coordinate = circleCenter
                 } else {
-                    let marker = GMSMarker(position: circleCenter)
+                    let marker = MemberAnnotation(member: member)
                     if let avatar = member.avatar {
                         avatar.getDataInBackgroundWithBlock({
                             (result: NSData?, error: NSError?) in
                             guard let imageData = result else {return}
-                            let iconView = UIImageView()
-                            iconView.image = UIImage(data: imageData)
-                            iconView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                            iconView.layer.cornerRadius = 15
-                            iconView.layer.borderWidth = 2
-                            iconView.layer.borderColor = UIColor.flatWhiteColor().CGColor
-                            iconView.clipsToBounds = true
-                            marker.iconView = iconView
-                            marker.map = self.gmapView
-                            marker.snippet = member.screenName
+                            if let icon = UIImage(data: imageData) {
+                            let resizedIcon = resize(icon, newSize: CGSize(width: 45, height: 45))
+                            marker.icon = resizedIcon
+                            }
+                            self.memberLocations[member.userId] = marker
+                            self.mapView.addAnnotation(marker)
                         })
+                        
                     }
-                    self.memberLocations[member.userId] = marker
+                    
+
                 }
             
             }
@@ -469,7 +465,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             return
         }
         
-        GroupMember.updateLocation(currentActivity.activityId, userId: (PFUser.currentUser()?.objectId)!, location: PFGeoPoint(location: self.gmapView.myLocation), successHandler: {
+        GroupMember.updateLocation(currentActivity.activityId, userId: (PFUser.currentUser()?.objectId)!, location: PFGeoPoint(location: self.locationManager.location), successHandler: {
             Log.info("Updating current user location succeed")
         }) { (error: NSError?) in
             Log.error("Updating current user location failure")
@@ -527,18 +523,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             return
         }
         
-        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!)) {
-            UIApplication.sharedApplication().openURL(NSURL(string:
-                "comgooglemaps://?saddr=&daddr=\(place.latitude),\(place.longitude)&directionsmode=driving")!)
-            
-        } else {
-            UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place.latitude),\(place.longitude)&dirflg=d&t=m")!)
-        }
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/?daddr=\(place.latitude),\(place.longitude)&dirflg=d&t=m")!)
+        
         
     }
     
    
-
     
     func controlAllViewsOnMap(hidden: Bool) {
         UIView.animateWithDuration(0.7) {
@@ -568,22 +558,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     
-    //control camera update
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        Log.info("observeValueForKeyPath called")
-        if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-            if !didFindUserLocation {
-                gmapView.settings.myLocationButton = true
-                let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
-                gmapView.moveCamera(update)
-                didFindUserLocation = true
-                updateMapMarkers()
-                gmapView.removeObserver(self, forKeyPath: "myLocation")
-                isObservingMyLocation = false
-            }
-            
-        }
-    }
+//    //control camera update
+//    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+//        Log.info("observeValueForKeyPath called")
+//        if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
+//            if !didFindUserLocation {
+//                gmapView.settings.myLocationButton = true
+//                let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
+//                gmapView.moveCamera(update)
+//                didFindUserLocation = true
+//                updateMapMarkers()
+//                gmapView.removeObserver(self, forKeyPath: "myLocation")
+//                isObservingMyLocation = false
+//            }
+//            
+//        }
+//    }
     
     
     func userJoinedActivity() {
@@ -593,7 +583,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
         
         if let destination = currentActivity.location {
-            if let myLocation  = self.gmapView.myLocation {
+            if let myLocation  = self.locationManager.location {
                 calculateSegmentDirections(myLocation.coordinate, dest: destination)
             }
         }
@@ -830,6 +820,23 @@ extension MapViewController: MKMapViewDelegate {
 
             return view
         }
+        
+        if let annotation = annotation as? MemberAnnotation{
+            let reuseID = "memberView"
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseID)
+            if (annotationView == nil) {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
+            }else {
+                annotationView!.annotation = annotation
+            }
+            //annotationView?.image = UIImage(named: "User")
+            annotationView!.image = annotation.icon!
+            annotationView!.layer.cornerRadius = 20
+            annotationView!.layer.borderWidth = 3
+            annotationView!.layer.borderColor = UIColor.flatWhiteColor().CGColor
+            annotationView!.clipsToBounds = true
+            return annotationView
+        }
         return nil
 
     }
@@ -841,7 +848,6 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        print("redenrerForOverlay")
         if(overlay.isKindOfClass(MKPolyline)) {
             let renderer = MKPolylineRenderer(overlay: overlay)
             renderer.strokeColor = UIColor(red: 0.2302, green: 0.7771, blue: 0.3159, alpha: 0.7)

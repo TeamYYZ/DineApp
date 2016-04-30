@@ -67,6 +67,7 @@
 		C631135C1CA48F3D00C66952 /* RestaurantReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */; };
 		C63113601CA4A59700C66952 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C631135F1CA4A59700C66952 /* MapCell.swift */; };
 		C63113631CA4B6C400C66952 /* ActivityCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */; };
+		C63A74131CD553BC00108308 /* MemberAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63A74121CD553BC00108308 /* MemberAnnotation.swift */; };
 		C66890441CB1776300812FE5 /* ActivityMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66890431CB1776300812FE5 /* ActivityMemberCell.swift */; };
 		C668906D1CC437BE00812FE5 /* ActivityDesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C668906C1CC437BE00812FE5 /* ActivityDesCell.swift */; };
 		C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */; };
@@ -159,6 +160,7 @@
 		C631135B1CA48F3D00C66952 /* RestaurantReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantReviewCell.swift; sourceTree = "<group>"; };
 		C631135F1CA4A59700C66952 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		C63113621CA4B6C400C66952 /* ActivityCreatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCreatorViewController.swift; sourceTree = "<group>"; };
+		C63A74121CD553BC00108308 /* MemberAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberAnnotation.swift; sourceTree = "<group>"; };
 		C66890431CB1776300812FE5 /* ActivityMemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityMemberCell.swift; sourceTree = "<group>"; };
 		C668906C1CC437BE00812FE5 /* ActivityDesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDesCell.swift; sourceTree = "<group>"; };
 		C67FF4771CAC264800EB256A /* GoogleDirectionsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDirectionsAPI.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				C6EE092F1C960ECA00345357 /* MapDetailView.swift */,
 				C6EE09311C960EDA00345357 /* MapDetailView.xib */,
 				C6EE09331C960EFB00345357 /* MapAnnotation.swift */,
+				C63A74121CD553BC00108308 /* MemberAnnotation.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				C6EE093C1C96355600345357 /* FriendsViewController.swift in Sources */,
 				C6EE092A1C94B87700345357 /* EmailSignupViewController.swift in Sources */,
 				C16DFF031CB4B84E001E1962 /* Utils.swift in Sources */,
+				C63A74131CD553BC00108308 /* MemberAnnotation.swift in Sources */,
 				C67FF4781CAC264800EB256A /* GoogleDirectionsAPI.swift in Sources */,
 				C62937E51CAF097700E46009 /* ContainerViewController.swift in Sources */,
 				C17424861C9789D400125377 /* ColorTheme.swift in Sources */,
