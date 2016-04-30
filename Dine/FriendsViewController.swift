@@ -14,6 +14,7 @@ class FriendsViewController: UITableViewController {
     
     var isInvitationVC = false
     
+    
     var checked = [String: User]()
     
     @IBOutlet weak var inviteButton: UIBarButtonItem!
@@ -27,6 +28,10 @@ class FriendsViewController: UITableViewController {
     var friendScreenNameInitial = [String]()
     let friendScreenNameInitialTable =  ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        fetchFriendList()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +47,15 @@ class FriendsViewController: UITableViewController {
             inviteButton.tag = 1
         }
         
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(FriendsViewController.refreshControlAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl!, atIndex: 0)
         
         fetchFriendList()
     }
@@ -64,6 +74,7 @@ class FriendsViewController: UITableViewController {
                 self.friendsIdList = fetchedfriendList
                 self.generateFriendDic()
                 self.checked = [String: User]()
+                self.refreshControl?.endRefreshing()
             }
         })
     }
@@ -74,6 +85,7 @@ class FriendsViewController: UITableViewController {
         query?.findObjectsInBackgroundWithBlock({ (friendObjects:[PFObject]?, error: NSError?) -> Void in
             if error == nil && friendObjects != nil {
                 self.friendsUserList = [User]()
+                self.friendsUserDict = [String : [User]]()
                 for friendObject in friendObjects! {
                     let friend = User(pfUser: friendObject as! PFUser)
                     Log.info(friend.username)

@@ -1,4 +1,4 @@
-//
+
 //  AppDelegate.swift
 //  Dine
 //
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        if application.applicationState == .Active {
+        if true || application.applicationState == .Active {
             Log.info("got notification when active")
             print(userInfo)
             if let notificationType = userInfo["t"] as? String {
@@ -79,7 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else if "3" == notificationType {
                     if let topVC = UIApplication.topViewController() {
                         if let aps = userInfo["aps"] as? NSDictionary, alertText = aps["alert"] as? String {
-                            JSSAlertView().info(topVC, title: "Friend Request", text: alertText, buttonText: "Got it")
+                            JSSAlertView().info(topVC, title: "Friend Request", text: alertText + "                       ", buttonText: "Got it")
+                            
                         }
 
                     }
