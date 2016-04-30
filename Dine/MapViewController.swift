@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import GoogleMaps
 import MBProgressHUD
 import MapKit
 import CoreLocation
 
 import JSSAlertView
 
-class MapViewController: UIViewController, GMSMapViewDelegate {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var navigationBtn: UIButton!
     @IBOutlet weak var pathBtn: UIButton!
@@ -41,15 +40,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         }
     }
 
-    //var isObservingMyLocation = false
-    //var currentStep = 0
-//    var didFindUserLocation = false
     var showPath = false
     var locationTimer: NSTimer?
     var mylocationTimer: NSTimer?
     var memberLocations = [String: MemberAnnotation]()
     
-    var gmapView: GMSMapView!
     var mapView: MKMapView!
     
   
@@ -149,9 +144,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         self.borderView.addGestureRecognizer(tapGesture)
         
         pathBtn.hidden = true
-        setupGoogleMap()
         fetchCurrentUserInfo()
-        gmapView.hidden = true
         
         //setup apple map
         setupMap()
@@ -194,10 +187,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-//        if isObservingMyLocation {
-//            gmapView.removeObserver(self, forKeyPath: "myLocation")
-//            isObservingMyLocation = false
-//        }
+
         if let locationTimer = self.locationTimer {
             Log.info("removing member location tracking")
             locationTimer.invalidate()
@@ -284,87 +274,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         })
     }
     
-    func setupGoogleMap() {
-        let bound = self.view.bounds
-        var bounds: CGRect!
-        
-        if let navHeight = self.navigationController?.navigationBar.bounds.height {
-            bounds = CGRect(x: 0.0, y: navHeight, width: bound.width, height: bound.height - navHeight)
-        }else {
-            bounds = self.view.bounds
-        }
-        
-        gmapView = GMSMapView.init(frame: bounds)
-        gmapView.settings.compassButton = true
-        gmapView.myLocationEnabled = true
-        gmapView.padding = UIEdgeInsetsMake(64, 0, 64, 0);
-        
-        gmapView.delegate = self
-        self.view.insertSubview(gmapView, atIndex: 0)
-        
-        self.pathBtn.alpha = 0
-        self.navigationBtn.alpha = 0
-        setupMapButton(self.pathBtn)
-        setupMapButton(self.navigationBtn)
-        setupMapButton(self.redoBtn)
-        
-        
-        
-//        gmapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.New, context: nil)
-//        isObservingMyLocation = true
-
-    }
-    
-    func getMapBoundingBox() -> GMSCoordinateBounds {
-        let visibleRegion = gmapView.projection.visibleRegion()
-        return GMSCoordinateBounds(region:visibleRegion)
-    }
-    
-    func updateMapMarkers() {
-        Log.info("updating map search")
-        gmapView.clear()
-        //pass in current map sw and ne point location
-        let bounds = getMapBoundingBox()
-        let SW = CLLocation(latitude: bounds.southWest.latitude, longitude: bounds.southWest.longitude)
-        let NE = CLLocation(latitude: bounds.northEast.latitude, longitude: bounds.northEast.longitude)
-        //only get activites within certain range
-        
-        ParseAPI.getActivites(SW, locNE: NE) { (acts, error) in
-            if error == nil {
-                self.activities = acts
-                for act in self.activities {
-                    self.addMapMarker(act)
-                }
-            } else {
-                Log.error("Unable to get activites")
-            }
-        }
-        self.view.layoutIfNeeded()
-    }
-    
-    func addMapMarker(act: Activity) {
-        act.fetchGroupMember({ (groupMembers: [GroupMember]) in
-            if Activity.current_activity != nil {
-                self.updateMemberLocations()
-            }
-            let marker = GMSMarker()
-            marker.position = act.location
-            marker.title = act.title
-            marker.snippet = act.overview
-            marker.map = self.gmapView
-            
-            //set image when adding marker
-            let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 285, height: 75)))
-            let annotation = MapAnnotation(activity: act)
-            mapDetailView.annotation = annotation
-            
-            marker.userData = mapDetailView
-            
-            }, failureHandler: { (error: NSError?) -> () in
-                Log.info(error?.localizedDescription)
-        })
-        
-    }
     
     func calculateSegmentDirections(source: CLLocationCoordinate2D, dest: CLLocationCoordinate2D) {
         
@@ -405,15 +314,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         })
     }
     
-//    func startNavigation(steps: [Route.Step]) {
-//        self.steps = steps
-//        //adjust map bounds
-//        let bounds = getMapBoundingBox()
-//        
-//        self.gmapView.animateWithCameraUpdate(GMSCameraUpdate.fitBounds(bounds.includingCoordinate(Activity.current_activity!.location), withPadding: 50.0))
-//        self.drawPolyLines()
-//        
-//    }
     
     func updateMemberLocations() {
         guard let currentActivity = Activity.current_activity else {
@@ -471,33 +371,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             Log.error("Updating current user location failure")
         }
     }
-    
-//    func drawPolyLines() {
-//        if directionPolyLines.isEmpty == false {
-//            for line in directionPolyLines {
-//                line.map = nil
-//            }
-//            directionPolyLines.removeAll()
-//        }
-//        
-//        guard let stepsToDraw = steps else {
-//            Log.error("steps are not ready")
-//            return
-//        }
-//        
-//        //add polylines
-//        for step in stepsToDraw {
-//            if let polyLine = step.polyLine {
-//                let path = GMSPath(fromEncodedPath: polyLine)
-//                let line = GMSPolyline(path: path)
-//                directionPolyLines.append(line)
-//                line.strokeWidth = 5
-//                line.strokeColor = UIColor(red: 0.2302, green: 0.7771, blue: 0.3159, alpha: 0.7)
-//                line.map = gmapView
-//                
-//            }
-//        }
-//    }
     
     @IBAction func togglePolyLines(sender: AnyObject) {
         showPath = !showPath
@@ -557,23 +430,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 
     }
     
-    
-//    //control camera update
-//    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-//        Log.info("observeValueForKeyPath called")
-//        if let myLocation: CLLocation = change![NSKeyValueChangeNewKey] as? CLLocation {
-//            if !didFindUserLocation {
-//                gmapView.settings.myLocationButton = true
-//                let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
-//                gmapView.moveCamera(update)
-//                didFindUserLocation = true
-//                updateMapMarkers()
-//                gmapView.removeObserver(self, forKeyPath: "myLocation")
-//                isObservingMyLocation = false
-//            }
-//            
-//        }
-//    }
     
     
     func userJoinedActivity() {
@@ -658,11 +514,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                 let region = MKCoordinateRegionMake(self.locationManager.location!.coordinate, span)
                 self.mapView.setRegion(region, animated: true)
 
-//                if let myLocation = self.gmapView.myLocation {
-//                    let update = GMSCameraUpdate.setTarget(myLocation.coordinate, zoom: 14.0)
-//                    self.gmapView.animateWithCameraUpdate(update)
-//                }
-                
                 //remove direction polyline
                 self.mapView.removeOverlays(self.mapView.overlays)
                 //update map, show all requests in the area
