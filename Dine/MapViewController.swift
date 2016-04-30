@@ -39,7 +39,7 @@ class MapViewController: UIViewController {
             pathBtn.hidden = false
         }
     }
-
+    var FoundUserLocation = false
     var showPath = false
     var locationTimer: NSTimer?
     var mylocationTimer: NSTimer?
@@ -608,21 +608,16 @@ class MapViewController: UIViewController {
                     activityProfileViewController.activity = act
                 }
             }
-            
-            if let navVC = segue.destinationViewController as? UINavigationController {
-                if let _ = navVC.topViewController as? ActivityCreatorViewController {
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(locationManager.location?.coordinate.latitude, forKey: "user_current_location_lat")
-                    defaults.setObject(locationManager.location?.coordinate.longitude, forKey: "user_current_location_lon")
-                    
-                    defaults.synchronize()
-                    
-                }
-            }
-            
         }
         
-        
+        if segue.identifier == "toActivityCreatorSegue" {
+            print("here???")
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(locationManager.location?.coordinate.latitude, forKey: "user_current_location_lat")
+            defaults.setObject(locationManager.location?.coordinate.longitude, forKey: "user_current_location_lon")
+            
+            defaults.synchronize()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -635,14 +630,19 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.AuthorizedWhenInUse {
             Log.info("::::start Update Location")
-            locationManager.startUpdatingLocation()
-            let span = MKCoordinateSpanMake(0.1, 0.1)
-            let region = MKCoordinateRegionMake(locationManager.location!.coordinate, span)
-            mapView.setRegion(region, animated: true)
+            manager.startUpdatingLocation()
         }
     }
-
-    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (!FoundUserLocation){
+        if let location = locations.first {
+            let span = MKCoordinateSpanMake(0.1, 0.1)
+            let region = MKCoordinateRegionMake(location.coordinate, span)
+            mapView.setRegion(region, animated: false)
+        }
+            FoundUserLocation = true
+        }
+    }
 
 }
 extension MapViewController: MKMapViewDelegate {

@@ -160,7 +160,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="TYl-as-utm" kind="modal" id="dCU-G9-1Nc">
+                                    <segue destination="TYl-as-utm" kind="modal" identifier="toActivityCreatorSegue" id="dCU-G9-1Nc">
                                         <segue key="commit" inheritsFrom="parent" id="KL4-3I-pb8"/>
                                         <segue key="preview" inheritsFrom="commit" id="L93-3C-FUw"/>
                                     </segue>
