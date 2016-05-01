@@ -666,8 +666,9 @@ extension MapViewController: MKMapViewDelegate {
             
             view!.canShowCallout = true
             view!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-            let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 245, height: 75)))
+            let mapDetailView = MapDetailView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 200, height: 75)))
             mapDetailView.annotation = annotation
+            print(mapDetailView.frame)
             view!.detailCalloutAccessoryView = mapDetailView
 
             return view
