@@ -11,10 +11,20 @@ import UIKit
 class EmailSignupViewController: SignUpViewController {
 
     
+    @IBOutlet weak var mobileField: YYZTextField!
 
     @IBOutlet weak var emailField: YYZTextField!
     
+    
+    @IBOutlet weak var vericodeField: YYZTextField!
+    
     @IBOutlet weak var nextButton: YYZButton!
+    
+    @IBOutlet weak var vericodeSendButton: YYZButton!
+    
+    var canSendVericode = true
+    var canSendVericodeCount = 60
+    var vericodeLimitTimer: NSTimer?
     
     @IBAction func cancelOnTap(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -39,12 +49,56 @@ class EmailSignupViewController: SignUpViewController {
         }
     }
     
+    func validateMobile(success: Bool) {
+        if success && canSendVericode {
+            vericodeSendButton.enabled = true
+        } else {
+            vericodeSendButton.enabled = false
+        }
+    }
+    
+    @IBAction func sendVericodeTap(sender: AnyObject) {
+        guard var mobileNumber = mobileField.text else {return}
+        let stringArray = mobileNumber.componentsSeparatedByCharactersInSet(
+            NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+        mobileNumber = "1" + stringArray.joinWithSeparator("")
+        
+        ParseAPI.sendVericode(mobileNumber, successHandler: { (vericode) in
+            Log.info("Got vericode: \(vericode)")
+            self.vericodeField.vericode = vericode
+        }) { (error: NSError?) in
+                Log.error(error.debugDescription)
+        }
+        vericodeSendButton.enabled = false
+        canSendVericode = false
+        canSendVericodeCount = 60
+        vericodeSendButton.titleLabel?.text = "60s"
+        vericodeLimitTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.vericodeLimitTimerFire), userInfo: nil, repeats: true)
+        
+    }
+    
+    func vericodeLimitTimerFire() {
+        canSendVericodeCount -= 1
+        vericodeSendButton.titleLabel?.text = "\(canSendVericodeCount)s"
+        if canSendVericodeCount == 0 {
+            canSendVericode = true
+            vericodeSendButton.enabled = true
+            if let timer = self.vericodeLimitTimer where timer.valid {
+                self.vericodeLimitTimer?.invalidate()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nextButton.enabled = false
+        vericodeSendButton.enabled = false
+        mobileField.fieldType = .Mobile
+        mobileField.delegate = mobileField
+        mobileField.textChangedCB = validateMobile
+        vericodeField.fieldType = .Vericode
+        vericodeField.textChangedCB = validatedValue
         emailField.fieldType = .Email
-        emailField.textChangedCB = validatedValue
         
         
         

@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
                 configuration.applicationId = "DineApp"
                 configuration.clientKey = "thisIsYYZsMasterKey"
-                configuration.server = "https://still-plains-53736.herokuapp.com/parse"
+                configuration.server = "https://z.proximac.org:1337/parse"
             })
         )
         

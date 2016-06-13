@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -65,8 +65,8 @@
                                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1zF-TH-1UV"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Onr-1s-g3w" userLabel="rightSeperator">
-                                                <rect key="frame" x="174" y="336" width="108" height="1"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Onr-1s-g3w" userLabel="rightSeperator">
+                                                <rect key="frame" x="175" y="336" width="107" height="1"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="TbV-fs-zVN"/>
                                                 </constraints>
@@ -219,23 +219,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ODj-of-Ulp" customClass="YYZTextField" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="45" y="84" width="230" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DX4-De-Ayq" customClass="YYZTextField" customModule="Dine" customModuleProvider="target">
+                                <rect key="frame" x="12" y="137" width="296" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="7Q0-At-6YZ"/>
-                                    <constraint firstAttribute="height" constant="40" id="V1O-Ps-ZWX"/>
+                                    <constraint firstAttribute="height" constant="40" id="L25-Gh-OZy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbZ-uX-dla" customClass="YYZButton" customModule="Dine" customModuleProvider="target">
-                                <rect key="frame" x="45" y="132" width="230" height="40"/>
+                                <rect key="frame" x="45" y="264" width="230" height="40"/>
                                 <color key="backgroundColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="0K9-dE-9mv"/>
                                     <constraint firstAttribute="height" constant="40" id="kag-DX-D3X"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="2.2250738585072014e-308"/>
                                 <state key="normal" title="Next">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -244,13 +243,55 @@
                                     <action selector="nextOnTap:" destination="uRF-tB-hk2" eventType="touchUpInside" id="7mg-cp-tkJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbl-b1-rnd" customClass="YYZButton" customModule="Dine" customModuleProvider="target">
+                                <rect key="frame" x="226" y="192" width="82" height="40"/>
+                                <color key="backgroundColor" red="0.89126098155975342" green="0.3545563817024231" blue="0.39968371391296387" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="82" id="J3N-hP-xsd"/>
+                                    <constraint firstAttribute="height" constant="40" id="XsP-MX-qvb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="2.2250738585072014e-308"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendVericodeTap:" destination="uRF-tB-hk2" eventType="touchUpInside" id="jOb-Ak-XuE"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verification code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fn-og-zqj" customClass="YYZTextField" customModule="Dine" customModuleProvider="target">
+                                <rect key="frame" x="12" y="192" width="206" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="oUb-ew-Gfh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ODj-of-Ulp" customClass="YYZTextField" customModule="Dine" customModuleProvider="target">
+                                <rect key="frame" x="12" y="84" width="296" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="V1O-Ps-ZWX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lbl-b1-rnd" firstAttribute="leading" secondItem="4fn-og-zqj" secondAttribute="trailing" constant="8" id="0qy-x2-Uy3"/>
+                            <constraint firstItem="DX4-De-Ayq" firstAttribute="width" secondItem="ODj-of-Ulp" secondAttribute="width" id="3fL-ib-5gz"/>
+                            <constraint firstItem="lbl-b1-rnd" firstAttribute="top" secondItem="DX4-De-Ayq" secondAttribute="bottom" constant="15" id="4h6-By-72x"/>
+                            <constraint firstItem="ODj-of-Ulp" firstAttribute="leading" secondItem="ebh-Iq-iJZ" secondAttribute="leading" constant="12" id="EMD-7J-G1L"/>
+                            <constraint firstItem="DX4-De-Ayq" firstAttribute="centerX" secondItem="ODj-of-Ulp" secondAttribute="centerX" id="K0f-km-cf9"/>
                             <constraint firstItem="ODj-of-Ulp" firstAttribute="top" secondItem="53I-NF-cdJ" secondAttribute="bottom" constant="20" id="KYZ-EI-dWw"/>
-                            <constraint firstItem="WbZ-uX-dla" firstAttribute="top" secondItem="ODj-of-Ulp" secondAttribute="bottom" constant="8" id="L0u-YN-xHi"/>
                             <constraint firstItem="ODj-of-Ulp" firstAttribute="centerX" secondItem="ebh-Iq-iJZ" secondAttribute="centerX" id="Myd-Rs-78U"/>
+                            <constraint firstAttribute="trailing" secondItem="lbl-b1-rnd" secondAttribute="trailing" constant="12" id="ar8-tW-b5M"/>
                             <constraint firstItem="WbZ-uX-dla" firstAttribute="centerX" secondItem="ebh-Iq-iJZ" secondAttribute="centerX" id="ftE-IY-5sM"/>
+                            <constraint firstAttribute="trailing" secondItem="ODj-of-Ulp" secondAttribute="trailing" constant="12" id="gLK-y1-71J"/>
+                            <constraint firstItem="4fn-og-zqj" firstAttribute="leading" secondItem="ebh-Iq-iJZ" secondAttribute="leading" constant="12" id="gpU-cq-ycB"/>
+                            <constraint firstItem="4fn-og-zqj" firstAttribute="top" secondItem="DX4-De-Ayq" secondAttribute="bottom" constant="15" id="mVm-kU-lu1"/>
+                            <constraint firstItem="WbZ-uX-dla" firstAttribute="top" secondItem="4fn-og-zqj" secondAttribute="bottom" constant="32" id="pws-3R-gVz"/>
+                            <constraint firstItem="DX4-De-Ayq" firstAttribute="top" secondItem="ODj-of-Ulp" secondAttribute="bottom" constant="13" id="u39-JG-ZT9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PDK-um-ZqX">
@@ -263,13 +304,16 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="emailField" destination="ODj-of-Ulp" id="wGb-rd-RlE"/>
+                        <outlet property="mobileField" destination="DX4-De-Ayq" id="Qib-FP-N5G"/>
                         <outlet property="nextButton" destination="WbZ-uX-dla" id="ogR-Oc-B8h"/>
+                        <outlet property="vericodeField" destination="4fn-og-zqj" id="48g-FN-CwN"/>
+                        <outlet property="vericodeSendButton" destination="lbl-b1-rnd" id="lKf-36-KGf"/>
                         <segue destination="p18-OE-F4U" kind="push" identifier="signUpFinishEmailSegue" id="MS9-9s-nnb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCs-hk-9dI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-902" y="860"/>
+            <point key="canvasLocation" x="-1066" y="1082"/>
         </scene>
         <!--Sign Up Password View Controller-->
         <scene sceneID="UZq-YM-phA">
@@ -325,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heb-SS-BKc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-448" y="-16"/>
+            <point key="canvasLocation" x="-637" y="-30"/>
         </scene>
         <!--Sign Up Name View Controller-->
         <scene sceneID="UEt-uY-cvi">
@@ -381,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXr-hn-Rkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="433" y="-71"/>
+            <point key="canvasLocation" x="-219" y="-30"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yJ1-fw-n34">
@@ -399,7 +443,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x3x-WQ-tUi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1414" y="1082"/>
+            <point key="canvasLocation" x="-1552" y="1082"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ehh-fm-4cE">
@@ -418,7 +462,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ase-t4-9Vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-980" y="-16"/>
+            <point key="canvasLocation" x="-1162" y="-30"/>
         </scene>
     </scenes>
     <resources>

@@ -12,6 +12,22 @@ import Parse
 class ParseAPI {
     static var sharedInstance = ParseAPI()
     
+    class func sendVericode(mobileNumber: String, successHandler: (vericode: String)->(), failureHandler: ((NSError?)->())?) {
+        PFCloud.callFunctionInBackground("verifyCellPhoneNumber", withParameters: ["cellNumber": mobileNumber]) {
+            (response: AnyObject?, error: NSError?) -> Void in
+            if error == nil {
+                Log.info("vericode sent")
+                if let vericode = response as? String {
+                    successHandler(vericode: vericode)
+                }
+            } else {
+                failureHandler?(error!)
+            }
+            
+        }
+    
+    }
+    
     class func signUp(username: String, password: String, screenName: String, successCallback: ()->(), failureCallback: (NSError?)->()) {
         let user = PFUser()
         user.username = username
